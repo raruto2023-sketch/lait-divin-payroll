@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#292321">
+<title>Lait Divin Payroll Portal</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./config.js"></script>
+<style>
+:root{--bg:#f4f1ed;--surface:#fff;--surface2:#faf8f5;--ink:#2f2926;--muted:#8d827b;--line:#e7e0d9;--accent:#655248;--accent2:#9b806d;--soft:#eee7df;--danger:#a85f58;--success:#647a68;--shadow:0 18px 55px rgba(47,41,38,.10)}
+*{box-sizing:border-box} body{margin:0;font-family:"Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;background:linear-gradient(135deg,#f8f6f3,#ece6df);color:var(--ink)}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.login-screen{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#fff,transparent 35%),linear-gradient(135deg,#f8f5f1,#e9e1d9)}
+.login-card{width:min(460px,100%);background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:0 28px 85px rgba(47,41,38,.16)}
+.login-brand{text-align:center;margin-bottom:24px}.login-mark{width:72px;height:72px;margin:0 auto 12px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(145deg,#746054,#292321);font-size:36px;color:#fff;box-shadow:0 14px 35px rgba(47,41,38,.22)}.login-brand h1{font-family:Georgia,serif;margin:0;font-size:29px}.login-brand p{margin:6px 0 0;color:var(--muted);font-size:12px}
+.login-tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:6px;background:var(--soft);border-radius:16px;margin-bottom:18px}.login-tabs button{border:0;background:transparent;padding:11px;border-radius:12px;font-weight:900;color:var(--muted)}.login-tabs button.active{background:#fff;color:var(--ink);box-shadow:0 5px 16px rgba(47,41,38,.08)}
+.field{margin-bottom:11px}label{display:block;font-size:11px;color:var(--muted);font-weight:800;margin-bottom:5px}input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:12px;background:#fdfcfb;outline:none;color:var(--ink)}input:focus,select:focus,textarea:focus{border-color:var(--accent2);box-shadow:0 0 0 4px rgba(155,128,109,.11)}textarea{min-height:78px;resize:vertical}
+.btn{border:1px solid var(--line);border-radius:13px;padding:10px 13px;background:#fff;color:var(--ink);font-size:12px;font-weight:900}.btn.primary{border:0;color:#fff;background:linear-gradient(135deg,var(--accent),#292321)}.btn.soft{background:var(--soft);border-color:transparent}.btn.danger{background:#f6e5e3;color:var(--danger);border-color:transparent}.btn.full{width:100%;padding:13px}
+.error{display:none;margin-top:11px;padding:10px 12px;border-radius:12px;background:#f7e6e4;color:var(--danger);font-size:12px}.error.show{display:block}
+.header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:rgba(250,248,245,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.brand{display:flex;gap:12px;align-items:center}.brandmark{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#746054,#292321);color:#fff;font-size:23px}.brandtitle{font-family:Georgia,serif;font-size:21px;font-weight:700}.brandsub{font-size:10px;color:var(--muted);letter-spacing:.14em}.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.shell{max-width:1500px;margin:0 auto;padding:20px}.nav{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:rgba(255,255,255,.75);border:1px solid var(--line);padding:7px;border-radius:18px;margin-bottom:18px}.nav button{border:0;background:transparent;border-radius:13px;padding:12px 10px;color:var(--muted);font-weight:900}.nav button.active{background:var(--ink);color:#fff}.page{display:none}.page.active{display:block}
+.grid{display:grid;grid-template-columns:430px minmax(0,1fr);gap:20px}.panel{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.editor{padding:18px;align-self:start;position:sticky;top:94px;max-height:calc(100vh - 116px);overflow:auto}
+.hero{padding:23px;border-radius:20px;background:linear-gradient(135deg,#5a4940,#292321);color:#fff;margin-bottom:14px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:180px;height:180px;border:26px solid rgba(255,255,255,.055);border-radius:50%;right:-55px;top:-75px}.hero h1{font-size:22px;margin:0 0 7px}.hero p{font-size:12px;line-height:1.75;margin:0;opacity:.82;max-width:315px}
+.section{padding:16px;background:#fff;border:1px solid var(--line);border-radius:18px;margin-bottom:11px}.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.section-title{font-size:14px;font-weight:900}.badge{font-size:10px;padding:5px 8px;border-radius:999px;background:var(--soft);color:var(--accent)}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quick{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px}.chip{border:1px solid var(--line);background:var(--surface2);color:var(--accent);border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800}
+.info{background:#f8f4ef;border:1px solid var(--line);border-radius:16px;padding:13px;color:var(--muted);font-size:11px;line-height:1.7;margin-bottom:10px}
+.percent-box{background:linear-gradient(135deg,#f6f1eb,#eee5dc);border:1px solid #dfd2c5;border-radius:17px;padding:14px;margin-bottom:11px}.percent-result{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:11px 12px;background:#fff;border-radius:12px;font-size:12px;font-weight:800}.percent-result strong{font-size:18px;color:var(--accent)}
+.rowlist{display:flex;flex-direction:column;gap:8px}.money-row{display:grid;grid-template-columns:minmax(0,1fr) 125px 38px;gap:8px}.remove{border:0;border-radius:11px;background:#f5e6e3;color:var(--danger);font-size:18px}.add{width:100%;margin-top:8px;border:1px dashed #bda997;background:#faf7f3;color:var(--accent);border-radius:12px;padding:10px;font-weight:900}.inline-total{display:flex;justify-content:space-between;align-items:center;padding:12px 13px;margin-top:9px;border-radius:13px;background:var(--soft);font-size:12px;font-weight:800}.inline-total strong{font-size:17px}.sticky-actions{position:sticky;bottom:-18px;padding-top:15px;background:linear-gradient(transparent,#fff 28%);display:grid;grid-template-columns:1.25fr .75fr;gap:9px}.sticky-actions button{padding:14px;border-radius:15px}
+.preview-bar{display:flex;justify-content:space-between;align-items:center;padding:2px 4px 11px}.preview-bar h2{font-size:15px;margin:0}.preview-bar span{font-size:11px;color:var(--muted)}.sheet-scroll{overflow:auto;padding-bottom:28px;display:flex;justify-content:center}.sheet{width:790px;min-height:1040px;background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 24px 70px rgba(47,41,38,.16);flex:0 0 auto}.sheet-head{padding:38px 43px 31px;color:#fff;background:linear-gradient(135deg,#5a4940,#292321);position:relative;overflow:hidden}.sheet-head:after{content:"";position:absolute;width:255px;height:255px;border:35px solid rgba(255,255,255,.055);border-radius:50%;right:-65px;top:-95px}.sheet-brand{display:flex;justify-content:space-between;position:relative;z-index:1}.sheet-name{font-family:Georgia,serif;font-size:36px}.sheet-city{font-size:11px;opacity:.72;margin-top:5px}.sheet-logo{font-size:47px}.sheet-title{display:flex;justify-content:space-between;align-items:end;margin-top:33px;position:relative;z-index:1}.sheet-title strong{font-size:28px;letter-spacing:.2em}.issue{font-size:10px;text-align:right;opacity:.85}.sheet-body{padding:34px 43px 42px}.person{display:grid;grid-template-columns:1.45fr .9fr .9fr;gap:14px;padding:18px;background:#faf7f3;border:1px solid #e9dfd5;border-radius:18px}.meta-k{font-size:10px;color:var(--muted);font-weight:800;margin-bottom:5px}.meta-v{font-size:16px;color:var(--accent);font-weight:900}.all{grid-column:1/-1}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}.sum{padding:16px;border:1px solid #e8ddd3;background:#faf6f1;border-radius:16px}.sum.net{background:linear-gradient(135deg,#5a4940,#292321);color:#fff;border:0}.sum .k{font-size:10px;color:var(--muted);font-weight:800}.sum.net .k{color:#e7ddd6}.sum .v{font-size:22px;font-weight:900;margin-top:5px}.table-title{font-size:14px;color:var(--accent);font-weight:900;border-bottom:2px solid #e8ddd3;padding-bottom:8px;margin-top:28px}table{width:100%;border-collapse:collapse;margin-top:6px}th,td{padding:11px 8px;border-bottom:1px solid #eee7e1;font-size:13px}th{text-align:left;font-size:10px;color:var(--muted)}th:last-child,td:last-child{text-align:right}.note{margin-top:24px;padding:16px 18px;border-radius:14px;background:#faf8f5;border-left:4px solid var(--accent2);font-size:12px;line-height:1.85;white-space:pre-wrap}.sheet-foot{display:flex;justify-content:space-between;align-items:end;margin-top:30px;font-size:10px;color:var(--muted)}.stamp{width:78px;height:78px;border:3px double #9b665f;color:#9b665f;border-radius:50%;display:grid;place-items:center;text-align:center;font-weight:900;line-height:1.1;transform:rotate(-8deg)}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 10px 30px rgba(47,41,38,.05)}.card h3{margin:0 0 6px;font-size:15px}.card p{margin:0;color:var(--muted);font-size:11px;line-height:1.6}.card-actions{display:flex;gap:7px;margin-top:13px}.card-actions button{flex:1}.empty{padding:40px;text-align:center;color:var(--muted);background:#fff;border:1px dashed var(--line);border-radius:18px}.list{display:flex;flex-direction:column;gap:9px}.list-item{display:grid;grid-template-columns:1.2fr .8fr .8fr auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.list-main strong{display:block;font-size:14px}.list-main span,.list-item>div{font-size:11px;color:var(--muted)}.list-actions{display:flex;gap:6px}
+.employee-portal{max-width:1040px;margin:0 auto;padding:20px}.employee-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.employee-head h1{margin:0;font-size:22px}.employee-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.employee-slip-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.modal-back{position:fixed;inset:0;z-index:100;background:rgba(28,23,20,.46);backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px}.modal{width:min(520px,100%);background:#fff;border-radius:24px;padding:20px;box-shadow:0 30px 90px rgba(0,0,0,.25)}.modal h2{font-size:18px;margin:0 0 15px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}.toast{position:fixed;z-index:200;left:50%;bottom:24px;transform:translateX(-50%) translateY(18px);opacity:0;pointer-events:none;transition:.25s;background:#292321;color:#fff;padding:12px 18px;border-radius:999px;font-size:12px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:1050px){.grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
+@media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
+</style>
+</head>
+<body>
+<div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <div class="login-brand"><div class="login-mark">🐄</div><h1>Lait Divin</h1><p>Payroll Portal</p></div>
+    <div class="login-tabs"><button id="tabEmployee" class="active" onclick="switchLogin('employee')">従業員</button><button id="tabAdmin" onclick="switchLogin('admin')">管理者</button></div>
+    <div id="employeeLogin">
+      <div class="field"><label>従業員番号</label><input id="loginEmployeeId" placeholder="例：LD-001"></div>
+      <div class="field"><label>パスワード</label><input id="loginEmployeePassword" type="password" placeholder="登録されたパスワード"></div>
+      <button class="btn primary full" onclick="employeeLogin()">自分の給料明細を見る</button>
+    </div>
+    <div id="adminLogin" class="hidden">
+      <div class="field"><label>管理者パスワード</label><input id="loginAdminPassword" type="password" placeholder="管理者パスワード"></div>
+      <button class="btn primary full" onclick="adminLogin()">管理画面を開く</button>
+    </div>
+    <div id="loginError" class="error"></div>
+  </div>
+</div>
+
+<div id="adminApp" class="hidden">
+<header class="header"><div class="brand"><div class="brandmark">🐄</div><div><div class="brandtitle">Lait Divin</div><div class="brandsub">ADMIN PAYROLL</div></div></div><div class="header-actions"><button class="btn hide-mobile" onclick="exportBackup()">バックアップ</button><button class="btn hide-mobile" onclick="$('importFile').click()">復元</button><input id="importFile" type="file" accept=".json" class="hidden" onchange="importBackup(event)"><button class="btn" onclick="logout()">ログアウト</button></div></header>
+<div class="shell">
+<nav class="nav"><button data-page="create" class="active" onclick="goPage('create')">明細作成</button><button data-page="employees" onclick="goPage('employees')">従業員</button><button data-page="history" onclick="goPage('history')">履歴</button><button data-page="settings" onclick="goPage('settings')">設定</button></nav>
+
+<section id="page-create" class="page active"><div class="grid">
+<aside class="panel editor">
+<div class="hero"><h1>給料明細を作成</h1><p>売上金と割合から支給額を自動計算できます。保存後は、対象の従業員だけが自分の明細を確認できます。</p></div>
+<div class="section"><div class="section-head"><div class="section-title">基本情報</div><span class="badge">STEP 1</span></div>
+<div class="field"><label>登録済み従業員</label><select id="employeeSelect" onchange="applyEmployee()"><option value="">直接入力する</option></select></div>
+<div class="field"><label>従業員名</label><input id="employee" placeholder="例：神崎 結城"></div>
+<div class="grid2"><div class="field"><label>役職</label><select id="role"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option selected>Cast</option><option>Trainee</option></select></div><div class="field"><label>従業員番号</label><input id="employeeId" placeholder="例：LD-001"></div></div>
+<div class="field"><label>発行日</label><input id="issueDate" type="date"></div></div>
+
+<div class="section"><div class="section-head"><div class="section-title">支給対象期間</div><span class="badge">STEP 2</span></div><div class="quick"><button class="chip" onclick="setThisMonth()">今月</button><button class="chip" onclick="setLastMonth()">先月</button></div><div class="grid2"><div class="field"><label>開始日</label><input id="periodStart" type="date"></div><div class="field"><label>終了日</label><input id="periodEnd" type="date"></div></div></div>
+
+<div class="section"><div class="section-head"><div class="section-title">売上歩合</div><span class="badge">自動計算</span></div>
+<div class="percent-box"><div class="grid2"><div class="field"><label>売上金</label><input id="salesAmount" type="number" min="0" inputmode="numeric" placeholder="例：500000"></div><div class="field"><label>支給割合</label><select id="salesRate"><option value="0">使用しない</option><option value="5">5%</option><option value="10">10%</option><option value="15">15%</option><option value="20">20%</option><option value="25">25%</option><option value="30">30%</option><option value="40">40%</option><option value="50">50%</option></select></div></div><div class="percent-result"><span>売上歩合の支給額</span><strong id="salesCommissionPreview">¥0</strong></div></div>
+<div class="info">売上金 × 選択した割合で計算し、「売上歩合」として支給内訳へ自動追加されます。</div></div>
+
+<div class="section"><div class="section-head"><div class="section-title">その他の支給内容</div><span class="badge">STEP 3</span></div><div class="quick"><button class="chip" onclick="quickAdd('earnings','役職手当')">＋役職手当</button><button class="chip" onclick="quickAdd('earnings','ボーナス')">＋ボーナス</button><button class="chip" onclick="quickAdd('earnings','その他支給')">＋その他</button></div><div id="earnings" class="rowlist"></div><button class="add" onclick="addMoneyRow('earnings','',0)">＋ 支給項目を追加</button><div class="inline-total"><span>支給合計</span><strong id="miniGross">¥0</strong></div></div>
+<div class="section"><div class="section-head"><div class="section-title">控除内容</div><span class="badge">STEP 4</span></div><div class="quick"><button class="chip" onclick="quickAdd('deductions','欠勤控除')">＋欠勤</button><button class="chip" onclick="quickAdd('deductions','遅刻控除')">＋遅刻</button><button class="chip" onclick="quickAdd('deductions','その他控除')">＋その他</button></div><div id="deductions" class="rowlist"></div><button class="add" onclick="addMoneyRow('deductions','',0)">＋ 控除項目を追加</button><div class="inline-total"><span>差引支給額</span><strong id="miniNet">¥0</strong></div></div>
+<div class="section"><div class="section-head"><div class="section-title">備考</div><span class="badge">STEP 5</span></div><textarea id="note">今月もお疲れさまでした。
+ご不明な点は店舗管理者までお問い合わせください。</textarea></div>
+<div class="sticky-actions"><button class="btn primary" onclick="savePayslip()">従業員用に保存</button><button class="btn" onclick="saveImage()">PNG保存</button><button class="btn soft" onclick="window.print()">印刷 / PDF</button><button class="btn danger" onclick="clearForm()">入力リセット</button></div>
+</aside>
+
+<main><div class="preview-bar"><h2>明細プレビュー</h2><span>入力内容はリアルタイム反映</span></div><div class="sheet-scroll"><section class="sheet" id="sheet">
+<div class="sheet-head"><div class="sheet-brand"><div><div class="sheet-name" id="sheetShop">Lait Divin</div><div class="sheet-city" id="sheetCity">Luz City ・ Divine Milk Café</div></div><div class="sheet-logo" id="sheetLogo">🐄</div></div><div class="sheet-title"><strong>給料明細書</strong><div class="issue">明細番号<br><span id="vSlipNo">LD-0001</span><br><br>発行日<br><span id="vIssue">-</span></div></div></div>
+<div class="sheet-body"><div class="person"><div><div class="meta-k">従業員名</div><div class="meta-v" id="vEmployee">未入力</div></div><div><div class="meta-k">役職</div><div class="meta-v" id="vRole">Cast</div></div><div><div class="meta-k">従業員番号</div><div class="meta-v" id="vEmployeeId">-</div></div><div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v" id="vPeriod">-</div></div></div><div class="summary"><div class="sum"><div class="k">支給合計</div><div class="v" id="vGross">¥0</div></div><div class="sum"><div class="k">控除合計</div><div class="v" id="vDeduction">¥0</div></div><div class="sum net"><div class="k">差引支給額</div><div class="v" id="vNet">¥0</div></div></div><div class="table-title">支給内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vEarnings"></tbody></table><div class="table-title">控除内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vDeductions"></tbody></table><div class="note" id="vNote"></div><div class="sheet-foot"><div id="sheetFooter">Lait Divin<br>Luz City<br>この明細書は店舗発行の記録です。</div><div class="stamp" id="sheetStamp">Lait<br>Divin</div></div></div>
+</section></div></main></div></section>
+
+<section id="page-employees" class="page"><div class="toolbar"><button class="btn primary" onclick="openEmployeeModal()">＋ 従業員を登録</button></div><div id="employeeCards" class="cards"></div></section>
+<section id="page-history" class="page"><div class="toolbar"><input id="historySearch" placeholder="名前・役職・期間で検索" oninput="renderHistory()" style="max-width:330px"><button class="btn danger" onclick="clearHistory()">履歴をすべて削除</button></div><div id="historyList" class="list"></div></section>
+<section id="page-settings" class="page"><div class="panel" style="padding:20px;max-width:760px"><div class="section-title" style="font-size:18px;margin-bottom:15px">店舗設定</div><div class="grid2"><div class="field"><label>店舗名</label><input id="settingShop"></div><div class="field"><label>街・サブタイトル</label><input id="settingCity"></div></div><div class="grid2"><div class="field"><label>ロゴ文字 / 絵文字</label><input id="settingLogo"></div><div class="field"><label>明細番号の接頭辞</label><input id="settingPrefix"></div></div><div class="field"><label>フッター文章</label><textarea id="settingFooter"></textarea></div><div class="toolbar"><button class="btn primary" onclick="saveSettings()">設定を保存</button><button class="btn" onclick="exportBackup()">バックアップ</button></div><div class="info">設定・従業員・給料明細はSupabaseへ保存され、ログインすればどの端末からでも同じデータを確認できます。</div></div></section>
+</div></div>
+
+<div id="employeeApp" class="hidden">
+<header class="header"><div class="brand"><div class="brandmark">🐄</div><div><div class="brandtitle">Lait Divin</div><div class="brandsub">EMPLOYEE PORTAL</div></div></div><button class="btn" onclick="logout()">ログアウト</button></header>
+<div class="employee-portal"><div class="employee-head"><div><h1 id="portalEmployeeName">給料明細</h1><p id="portalEmployeeMeta"></p></div></div><div id="employeeSlipGrid" class="employee-slip-grid"></div></div>
+</div>
+
+<div id="employeeModal" class="modal-back hidden"><div class="modal"><h2 id="employeeModalTitle">従業員を登録</h2><input id="editEmployeeIndex" type="hidden"><div class="field"><label>名前</label><input id="modalName"></div><div class="grid2"><div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option></select></div><div class="field"><label>従業員番号</label><input id="modalId"></div></div><div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" type="password" placeholder="本人に伝えるパスワード"></div><div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div><div class="modal-actions"><button class="btn" onclick="closeEmployeeModal()">キャンセル</button><button class="btn primary" onclick="saveEmployee()">保存</button></div></div></div>
+
+<div id="slipModal" class="modal-back hidden"><div class="modal" style="width:min(850px,100%);max-height:92vh;overflow:auto"><div class="modal-actions" style="margin:0 0 12px"><button class="btn" onclick="closeSlipModal()">閉じる</button><button class="btn primary" onclick="downloadViewedSlip()">PNG保存</button></div><div id="viewedSlipContainer"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const cfg = window.LAIT_DIVIN_CONFIG || {};
+if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const e = document.getElementById('loginError');
+    if (e) { e.textContent = 'config.js にSupabaseのURLと公開キーを設定してください。'; e.classList.add('show'); }
+  });
+}
+const sb = window.supabase.createClient(cfg.SUPABASE_URL || '', cfg.SUPABASE_ANON_KEY || '', {
+  auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+});
+const $=id=>document.getElementById(id),yen=new Intl.NumberFormat('ja-JP',{style:'currency',currency:'JPY',maximumFractionDigits:0});
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const DRAFT_KEY='ld_server_draft_v1';
+let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄',prefix:'LD',footer:'Lait Divin\nLuz City\nこの明細書は店舗発行の記録です.'};
+let employees=[],historyData=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
+let realtimeChannel=null;
+
+function internalEmail(employeeId){
+  const safe=String(employeeId||'').trim().toLowerCase().replace(/[^a-z0-9._-]/g,'-');
+  return `${safe}@${cfg.LOGIN_DOMAIN || 'lait-divin.local'}`;
+}
+function newSlipNo(){
+  const d=new Date(), p=n=>String(n).padStart(2,'0');
+  return `${settings.prefix||'LD'}-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}-${Math.random().toString(36).slice(2,5).toUpperCase()}`;
+}
+function switchLogin(type){$('tabEmployee').classList.toggle('active',type==='employee');$('tabAdmin').classList.toggle('active',type==='admin');$('employeeLogin').classList.toggle('hidden',type!=='employee');$('adminLogin').classList.toggle('hidden',type!=='admin');showError('')}
+function showError(t){$('loginError').textContent=t;$('loginError').classList.toggle('show',!!t)}
+function toast(t){const x=$('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1900)}
+function iso(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
+function jp(v){return v?new Date(v+'T00:00:00').toLocaleDateString('ja-JP'):'-'}
+
+async function getProfile(uid){
+  const {data,error}=await sb.from('profiles').select('*').eq('id',uid).single();
+  if(error) throw error;
+  return data;
+}
+async function adminLogin(){
+  showError('');
+  const password=$('loginAdminPassword').value;
+  const {data,error}=await sb.auth.signInWithPassword({email:cfg.ADMIN_EMAIL,password});
+  if(error){showError('管理者パスワードが違うか、管理者アカウントが未設定です。');return}
+  try{
+    const profile=await getProfile(data.user.id);
+    if(profile.account_type!=='admin') throw new Error('管理者権限がありません');
+    currentProfile=profile;
+    await openAdmin();
+  }catch(e){await sb.auth.signOut();showError(e.message||'管理者権限を確認できませんでした。')}
+}
+async function employeeLogin(){
+  showError('');
+  const employeeId=$('loginEmployeeId').value.trim();
+  const password=$('loginEmployeePassword').value;
+  const {data,error}=await sb.auth.signInWithPassword({email:internalEmail(employeeId),password});
+  if(error){showError('従業員番号またはパスワードが違います。');return}
+  try{
+    const profile=await getProfile(data.user.id);
+    if(profile.employee_id.toLowerCase()!==employeeId.toLowerCase()) throw new Error('従業員情報が一致しません。');
+    currentProfile=profile; currentEmployee=mapProfile(profile);
+    await openEmployee();
+  }catch(e){await sb.auth.signOut();showError(e.message||'従業員情報を確認できませんでした。')}
+}
+async function restoreSession(){
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session) return;
+  try{
+    currentProfile=await getProfile(session.user.id);
+    if(currentProfile.account_type==='admin') await openAdmin();
+    else {currentEmployee=mapProfile(currentProfile);await openEmployee()}
+  }catch(e){console.error(e);await sb.auth.signOut()}
+}
+async function logout(){
+  if(realtimeChannel){await sb.removeChannel(realtimeChannel);realtimeChannel=null}
+  await sb.auth.signOut(); currentEmployee=null;currentProfile=null;
+  $('adminApp').classList.add('hidden');$('employeeApp').classList.add('hidden');$('loginScreen').classList.remove('hidden');
+  $('loginAdminPassword').value='';$('loginEmployeePassword').value='';showError('')
+}
+async function openAdmin(){
+  $('loginScreen').classList.add('hidden');$('employeeApp').classList.add('hidden');$('adminApp').classList.remove('hidden');
+  await Promise.all([loadSettings(),loadEmployees(),loadHistoryData()]);
+  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();subscribeRealtime('admin');
+}
+async function openEmployee(){
+  $('loginScreen').classList.add('hidden');$('adminApp').classList.add('hidden');$('employeeApp').classList.remove('hidden');
+  await Promise.all([loadSettings(),loadMyHistory()]);renderEmployeePortal();subscribeRealtime('employee');
+}
+function mapProfile(p){return {uid:p.id,name:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type}}
+function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
+async function loadEmployees(){const {data,error}=await sb.from('profiles').select('*').eq('account_type','employee').order('employee_name');if(error) throw error;employees=(data||[]).map(mapProfile)}
+async function loadHistoryData(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
+async function loadMyHistory(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
+async function loadSettings(){const {data,error}=await sb.from('app_settings').select('*').eq('id',1).maybeSingle();if(error) throw error;if(data) settings={shop:data.shop_name,city:data.city_subtitle,logo:data.logo_text,prefix:data.slip_prefix,footer:data.footer_text}}
+function subscribeRealtime(mode){
+  if(realtimeChannel) sb.removeChannel(realtimeChannel);
+  realtimeChannel=sb.channel(`ld-${mode}-${Date.now()}`)
+   .on('postgres_changes',{event:'*',schema:'public',table:'payslips'},async()=>{mode==='admin'?await loadHistoryData():await loadMyHistory();mode==='admin'?renderHistory():renderEmployeePortal()})
+   .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},async()=>{if(mode==='admin'){await loadEmployees();refreshEmployeeSelect();renderEmployees()}})
+   .on('postgres_changes',{event:'*',schema:'public',table:'app_settings'},async()=>{await loadSettings();applySettings();if(mode==='employee')renderEmployeePortal()})
+   .subscribe();
+}
+
+function goPage(n){document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));$('page-'+n).classList.add('active');if(n==='employees')renderEmployees();if(n==='history')renderHistory()}
+function setThisMonth(){const d=new Date();$('periodStart').value=iso(new Date(d.getFullYear(),d.getMonth(),1));$('periodEnd').value=iso(new Date(d.getFullYear(),d.getMonth()+1,0));update()}
+function setLastMonth(){const d=new Date();$('periodStart').value=iso(new Date(d.getFullYear(),d.getMonth()-1,1));$('periodEnd').value=iso(new Date(d.getFullYear(),d.getMonth(),0));update()}
+function addMoneyRow(c,n='',a=0){const r=document.createElement('div');r.className='money-row';r.innerHTML=`<input class="item-name" placeholder="項目名" value="${esc(n)}"><input class="item-amount" type="number" min="0" value="${Number(a)||0}" placeholder="金額"><button class="remove">×</button>`;r.querySelectorAll('input').forEach(x=>x.addEventListener('input',update));r.querySelector('button').onclick=()=>{r.remove();update()};$(c).appendChild(r);update()}
+function quickAdd(c,n){addMoneyRow(c,n,0)}
+function rows(id){return [...$(id).querySelectorAll('.money-row')].map(r=>({name:r.querySelector('.item-name').value.trim()||'未設定',amount:Number(r.querySelector('.item-amount').value)||0}))}
+function commission(){return Math.round((Number($('salesAmount').value)||0)*(Number($('salesRate').value)||0)/100)}
+function allEarnings(){const a=rows('earnings');const c=commission();if(c>0)a.unshift({name:`売上歩合（${$('salesRate').value}%）`,amount:c});return a}
+function renderRows(t,d){$(t).innerHTML='';const v=d.filter(x=>x.name!=='未設定'||x.amount);if(!v.length){$(t).innerHTML='<tr><td colspan="2" style="text-align:center;color:#aaa;font-size:11px">項目はありません</td></tr>';return}v.forEach(x=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${esc(x.name)}</td><td>${yen.format(x.amount)}</td>`;$(t).appendChild(tr)})}
+function slipNo(){if(!currentSlipNo) currentSlipNo=newSlipNo();return currentSlipNo}
+function update(){if(!$('vEmployee'))return;$('vEmployee').textContent=$('employee').value.trim()||'未入力';$('vRole').textContent=$('role').value;$('vEmployeeId').textContent=$('employeeId').value.trim()||'-';$('vIssue').textContent=jp($('issueDate').value);$('vPeriod').textContent=$('periodStart').value&&$('periodEnd').value?`${jp($('periodStart').value)} ～ ${jp($('periodEnd').value)}`:'-';$('vSlipNo').textContent=slipNo();const e=allEarnings(),d=rows('deductions'),g=e.reduce((s,x)=>s+x.amount,0),dd=d.reduce((s,x)=>s+x.amount,0);$('salesCommissionPreview').textContent=yen.format(commission());$('vGross').textContent=yen.format(g);$('vDeduction').textContent=yen.format(dd);$('vNet').textContent=yen.format(g-dd);$('miniGross').textContent=yen.format(g);$('miniNet').textContent=yen.format(g-dd);renderRows('vEarnings',e);renderRows('vDeductions',d);$('vNote').textContent=$('note').value.trim()||'備考なし';applySettings();saveDraft()}
+function applySettings(){if(!$('sheetShop'))return;$('sheetShop').textContent=settings.shop;$('sheetCity').textContent=settings.city;$('sheetLogo').textContent=settings.logo;$('sheetFooter').textContent=settings.footer;$('sheetStamp').innerHTML=esc(settings.shop).replace(/\s+/g,'<br>')}
+function formData(){const e=allEarnings(),d=rows('deductions'),g=e.reduce((s,x)=>s+x.amount,0),dd=d.reduce((s,x)=>s+x.amount,0);return {slipNo:slipNo(),employee:$('employee').value.trim(),role:$('role').value,employeeId:$('employeeId').value.trim(),issueDate:$('issueDate').value,periodStart:$('periodStart').value,periodEnd:$('periodEnd').value,salesAmount:Number($('salesAmount').value)||0,salesRate:Number($('salesRate').value)||0,earnings:e,deductions:d,note:$('note').value,gross:g,deduction:dd,net:g-dd}}
+function saveDraft(){if($('employee'))localStorage.setItem(DRAFT_KEY,JSON.stringify(formData()))}
+function loadDraft(){try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY));if(!d)return false;$('employee').value=d.employee||'';$('role').value=d.role||'Cast';$('employeeId').value=d.employeeId||'';$('issueDate').value=d.issueDate||iso(new Date());$('periodStart').value=d.periodStart||'';$('periodEnd').value=d.periodEnd||'';$('salesAmount').value=d.salesAmount||0;$('salesRate').value=String(d.salesRate||0);$('note').value=d.note||'';$('earnings').innerHTML='';$('deductions').innerHTML='';(d.earnings||[]).filter(x=>!x.name.startsWith('売上歩合')).forEach(x=>addMoneyRow('earnings',x.name,x.amount));(d.deductions||[]).forEach(x=>addMoneyRow('deductions',x.name,x.amount));return true}catch{return false}}
+function clearForm(){if(!confirm('入力内容をリセットしますか？'))return;localStorage.removeItem(DRAFT_KEY);$('employeeSelect').value='';$('employee').value='';$('employeeId').value='';$('role').value='Cast';$('issueDate').value=iso(new Date());setThisMonth();$('salesAmount').value=0;$('salesRate').value='0';$('earnings').innerHTML='';$('deductions').innerHTML='';addMoneyRow('deductions','その他控除',0);$('note').value='今月もお疲れさまでした。\nご不明な点は店舗管理者までお問い合わせください。';currentSlipNo=newSlipNo();update()}
+async function savePayslip(){
+  const d=formData();
+  if(!d.employee||!d.employeeId){alert('登録済み従業員を選択してください。');return}
+  const emp=employees.find(x=>x.id===d.employeeId);if(!emp){alert('従業員管理に登録されていません。');return}
+  if(!d.periodStart||!d.periodEnd){alert('支給対象期間を選択してください。');return}
+  const payload={employee_uid:emp.uid,employee_id:d.employeeId,employee_name:d.employee,employee_role:d.role,slip_number:d.slipNo,issue_date:d.issueDate,period_start:d.periodStart,period_end:d.periodEnd,sales_amount:d.salesAmount,sales_rate:d.salesRate,commission_amount:commission(),earnings:d.earnings,deductions:d.deductions,gross_amount:d.gross,deduction_amount:d.deduction,net_amount:d.net,note:d.note};
+  const {error}=await sb.from('payslips').insert(payload);if(error){console.error(error);alert('サーバー保存に失敗しました：'+error.message);return}
+  currentSlipNo=newSlipNo();localStorage.removeItem(DRAFT_KEY);await loadHistoryData();update();toast('サーバーへ保存しました')
+}
+async function saveImage(){const c=await html2canvas($('sheet'),{scale:2.2,backgroundColor:'#fff',useCORS:true});const a=document.createElement('a');a.download=`${settings.shop}_${slipNo()}_${($('employee').value||'従業員').replace(/[\\/:*?"<>|]/g,'_')}.png`;a.href=c.toDataURL('image/png');a.click()}
+function refreshEmployeeSelect(){const s=$('employeeSelect');s.innerHTML='<option value="">直接入力する</option>';employees.forEach((e,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${e.name}（${e.role}）`;s.appendChild(o)})}
+function applyEmployee(){const i=$('employeeSelect').value;if(i==='')return;const e=employees[Number(i)];$('employee').value=e.name;$('role').value=e.role;$('employeeId').value=e.id;update()}
+function openEmployeeModal(i=''){$('employeeModal').classList.remove('hidden');$('editEmployeeIndex').value=i;if(i===''){$('employeeModalTitle').textContent='従業員を登録';$('modalName').value='';$('modalRole').value='Cast';$('modalId').value='';$('modalPassword').value=''}else{const e=employees[Number(i)];$('employeeModalTitle').textContent='従業員を編集';$('modalName').value=e.name;$('modalRole').value=e.role;$('modalId').value=e.id;$('modalPassword').value=''}}
+function closeEmployeeModal(){$('employeeModal').classList.add('hidden')}
+async function callEmployeeFunction(body){
+  const {data:{session}}=await sb.auth.getSession();if(!session)throw new Error('ログインが切れています。');
+  const res=await fetch(`${cfg.SUPABASE_URL}/functions/v1/manage-employee`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`,'apikey':cfg.SUPABASE_ANON_KEY},body:JSON.stringify(body)});
+  const result=await res.json().catch(()=>({}));if(!res.ok)throw new Error(result.error||'従業員処理に失敗しました。');return result;
+}
+async function saveEmployee(){
+  const name=$('modalName').value.trim(),id=$('modalId').value.trim(),role=$('modalRole').value,password=$('modalPassword').value,i=$('editEmployeeIndex').value;
+  if(!name||!id){alert('名前と従業員番号を入力してください。');return}
+  try{
+    if(i===''){if(!password){alert('新規登録時はパスワードを入力してください。');return}await callEmployeeFunction({action:'create',name:name,employeeId:id,role,password})}
+    else {const old=employees[Number(i)];await callEmployeeFunction({action:'update',userId:old.uid,name:name,employeeId:id,role,password:password||null})}
+    await loadEmployees();closeEmployeeModal();refreshEmployeeSelect();renderEmployees();toast('従業員情報を保存しました')
+  }catch(e){alert(e.message)}
+}
+function renderEmployees(){const c=$('employeeCards');c.innerHTML='';if(!employees.length){c.innerHTML='<div class="empty">まだ従業員が登録されていません。</div>';return}employees.forEach((e,i)=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<h3>${esc(e.name)}</h3><p>${esc(e.role)}<br>${esc(e.id)}<br>オンラインログイン：有効</p><div class="card-actions"><button class="btn primary" onclick="useEmployee(${i})">明細作成</button><button class="btn" onclick="openEmployeeModal(${i})">編集</button><button class="btn danger" onclick="deleteEmployee(${i})">削除</button></div>`;c.appendChild(d)})}
+function useEmployee(i){goPage('create');$('employeeSelect').value=i;applyEmployee()}
+async function deleteEmployee(i){if(!confirm(`${employees[i].name} を削除しますか？`))return;try{await callEmployeeFunction({action:'delete',userId:employees[i].uid});await loadEmployees();refreshEmployeeSelect();renderEmployees()}catch(e){alert(e.message)}}
+function renderHistory(){const q=($('historySearch').value||'').toLowerCase(),b=$('historyList');b.innerHTML='';const list=historyData.filter(x=>`${x.employee} ${x.role} ${x.employeeId} ${x.periodStart} ${x.periodEnd}`.toLowerCase().includes(q));if(!list.length){b.innerHTML='<div class="empty">該当する履歴はありません。</div>';return}list.forEach(x=>{const i=historyData.indexOf(x),d=document.createElement('div');d.className='list-item';d.innerHTML=`<div class="list-main"><strong>${esc(x.employee)}</strong><span>${esc(x.slipNo)} ・ ${esc(x.employeeId)}</span></div><div>${jp(x.periodStart)}<br>〜 ${jp(x.periodEnd)}</div><div><strong style="font-size:14px;color:var(--ink)">${yen.format(x.net)}</strong><br>差引支給額</div><div class="list-actions"><button class="btn primary" onclick="loadHistory(${i})">開く</button><button class="btn danger" onclick="deleteHistory(${i})">削除</button></div>`;b.appendChild(d)})}
+function loadHistory(i){const d=historyData[i];goPage('create');$('employee').value=d.employee;$('role').value=d.role;$('employeeId').value=d.employeeId;$('issueDate').value=d.issueDate;$('periodStart').value=d.periodStart;$('periodEnd').value=d.periodEnd;$('salesAmount').value=d.salesAmount||0;$('salesRate').value=String(d.salesRate||0);$('note').value=d.note;$('earnings').innerHTML='';$('deductions').innerHTML='';(d.earnings||[]).filter(x=>!x.name.startsWith('売上歩合')).forEach(x=>addMoneyRow('earnings',x.name,x.amount));(d.deductions||[]).forEach(x=>addMoneyRow('deductions',x.name,x.amount));currentSlipNo=d.slipNo;update()}
+async function deleteHistory(i){if(!confirm('この履歴を削除しますか？'))return;const {error}=await sb.from('payslips').delete().eq('id',historyData[i].dbId);if(error){alert(error.message);return}await loadHistoryData();renderHistory()}
+async function clearHistory(){if(!confirm('履歴をすべて削除しますか？'))return;const {error}=await sb.from('payslips').delete().neq('id',0);if(error){alert(error.message);return}await loadHistoryData();renderHistory()}
+function loadSettingsUI(){$('settingShop').value=settings.shop;$('settingCity').value=settings.city;$('settingLogo').value=settings.logo;$('settingPrefix').value=settings.prefix;$('settingFooter').value=settings.footer}
+async function saveSettings(){const payload={id:1,shop_name:$('settingShop').value.trim()||'Lait Divin',city_subtitle:$('settingCity').value.trim(),logo_text:$('settingLogo').value.trim()||'🐄',slip_prefix:$('settingPrefix').value.trim()||'LD',footer_text:$('settingFooter').value};const {error}=await sb.from('app_settings').upsert(payload);if(error){alert(error.message);return}await loadSettings();applySettings();currentSlipNo=newSlipNo();update();toast('サーバーへ設定を保存しました')}
+function exportBackup(){const data={version:3,employees,history:historyData,settings};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`LaitDivin_Backup_${iso(new Date())}.json`;a.click()}
+function importBackup(){alert('オンライン版では誤上書きを防ぐため、復元はSupabase管理画面またはSQLで行います。')}
+function renderEmployeePortal(){$('portalEmployeeName').textContent=`${currentEmployee.name}さんの給料明細`;$('portalEmployeeMeta').textContent=`${currentEmployee.role} ・ ${currentEmployee.id}`;const g=$('employeeSlipGrid');g.innerHTML='';if(!historyData.length){g.innerHTML='<div class="empty">まだ給料明細はありません。</div>';return}historyData.forEach(x=>{const i=historyData.indexOf(x),c=document.createElement('div');c.className='card';c.innerHTML=`<h3>${jp(x.periodStart)}〜${jp(x.periodEnd)}</h3><p>${esc(x.slipNo)}<br>差引支給額：${yen.format(x.net)}</p><div class="card-actions"><button class="btn primary" onclick="openEmployeeSlip(${i})">明細を見る</button></div>`;g.appendChild(c)})}
+function slipHTML(x){const er=(x.earnings||[]).map(a=>`<tr><td>${esc(a.name)}</td><td>${yen.format(a.amount)}</td></tr>`).join('')||'<tr><td colspan="2">項目なし</td></tr>';const dr=(x.deductions||[]).map(a=>`<tr><td>${esc(a.name)}</td><td>${yen.format(a.amount)}</td></tr>`).join('')||'<tr><td colspan="2">項目なし</td></tr>';return `<section class="sheet" id="viewedSheet" style="width:100%;min-height:auto"><div class="sheet-head"><div class="sheet-brand"><div><div class="sheet-name">${esc(settings.shop)}</div><div class="sheet-city">${esc(settings.city)}</div></div><div class="sheet-logo">${esc(settings.logo)}</div></div><div class="sheet-title"><strong>給料明細書</strong><div class="issue">明細番号<br>${esc(x.slipNo)}<br><br>発行日<br>${jp(x.issueDate)}</div></div></div><div class="sheet-body"><div class="person"><div><div class="meta-k">従業員名</div><div class="meta-v">${esc(x.employee)}</div></div><div><div class="meta-k">役職</div><div class="meta-v">${esc(x.role)}</div></div><div><div class="meta-k">従業員番号</div><div class="meta-v">${esc(x.employeeId)}</div></div><div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v">${jp(x.periodStart)} ～ ${jp(x.periodEnd)}</div></div></div><div class="summary"><div class="sum"><div class="k">支給合計</div><div class="v">${yen.format(x.gross)}</div></div><div class="sum"><div class="k">控除合計</div><div class="v">${yen.format(x.deduction)}</div></div><div class="sum net"><div class="k">差引支給額</div><div class="v">${yen.format(x.net)}</div></div></div><div class="table-title">支給内訳</div><table><tbody>${er}</tbody></table><div class="table-title">控除内訳</div><table><tbody>${dr}</tbody></table><div class="note">${esc(x.note)}</div></div></section>`}
+function openEmployeeSlip(i){const x=historyData[i];if(!currentEmployee||x.employeeId.toLowerCase()!==currentEmployee.id.toLowerCase())return;currentViewedSlip=x;$('viewedSlipContainer').innerHTML=slipHTML(x);$('slipModal').classList.remove('hidden')}
+function closeSlipModal(){$('slipModal').classList.add('hidden')}
+async function downloadViewedSlip(){const c=await html2canvas($('viewedSheet'),{scale:2,backgroundColor:'#fff'}),a=document.createElement('a');a.download=`${settings.shop}_${currentViewedSlip.slipNo}.png`;a.href=c.toDataURL('image/png');a.click()}
+
+['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note'].forEach(id=>$(id).addEventListener('input',update));
+$('issueDate').value=iso(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();restoreSession();
+</script>
+</body></html>
