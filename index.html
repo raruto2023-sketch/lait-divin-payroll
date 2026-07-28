@@ -885,6 +885,28 @@ let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
 
+
+function showLoginScreen(){
+  document.body.classList.add('login-active');
+  document.getElementById('loginScreen')?.classList.remove('hidden');
+  document.getElementById('adminApp')?.classList.add('hidden');
+  document.getElementById('employeeApp')?.classList.add('hidden');
+}
+
+function showAdminApp(){
+  document.body.classList.remove('login-active');
+  document.getElementById('loginScreen')?.classList.add('hidden');
+  document.getElementById('employeeApp')?.classList.add('hidden');
+  document.getElementById('adminApp')?.classList.remove('hidden');
+}
+
+function showEmployeeApp(){
+  document.body.classList.remove('login-active');
+  document.getElementById('loginScreen')?.classList.add('hidden');
+  document.getElementById('adminApp')?.classList.add('hidden');
+  document.getElementById('employeeApp')?.classList.remove('hidden');
+}
+
 function internalEmail(employeeId){
   const safe=String(employeeId||'').trim().toLowerCase().replace(/[^a-z0-9._-]/g,'-');
   return `${safe}@${cfg.LOGIN_DOMAIN || 'lait-divin.local'}`;
@@ -1346,6 +1368,7 @@ async function loadInventorySnapshot(){
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
-initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);restoreSession();
+initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
+restoreSession();
 </script>
 </body></html>
