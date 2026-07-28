@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
-<title>Lait Divin Management Portal Ver.4.3.1.1</title>
+<title>Lait Divin Management Portal Ver.4.4.1.1</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -35,7 +35,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.4.3 ===== */
+/* ===== Lait Divin Portal Ver.4.4 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -69,7 +69,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.4.3 UI ===== */
+/* ===== Ver.4.4 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -99,7 +99,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.4.3.1
+   Lait Divin Management Portal Ver.4.4.1
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -464,7 +464,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.4.3 Login ================== */
+/* ================== Ver.4.4 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -496,7 +496,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.4.3 Login visibility hotfix ===== */
+/* ===== Ver.4.4 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -515,7 +515,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.4.3 Attendance Management ================== */
+/* ================== Ver.4.4 Attendance Management ================== */
 .attendance-admin-toolbar{align-items:center}
 .danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
 .danger-outline:hover{background:var(--danger-soft)!important}
@@ -556,7 +556,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.4.3 Sales Management ================== */
+/* ================== Ver.4.4 Sales Management ================== */
 .ranking-mode-tabs{display:flex;gap:8px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:15px;width:max-content;margin-bottom:14px;box-shadow:var(--shadow)}
 .ranking-mode-tabs button{border:0;background:transparent;color:var(--ink-soft);font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer}
 .ranking-mode-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff;box-shadow:0 7px 17px rgba(80,55,40,.18)}
@@ -580,6 +580,23 @@ body:not(.login-active) #loginScreen{
  .sales-filter-tools .btn{width:100%}
 }
 @media(max-width:480px){.sales-filter-tools{grid-template-columns:1fr}}
+
+
+/* Ver.4.4 realtime/mobile */
+.v4-live-indicator{font-size:9px;font-weight:900;white-space:nowrap}.sync-ok{color:#238642!important}.sync-warn{color:#c47b22!important}
+.v44-mobile-bottom{display:none}
+@media(max-width:760px){
+ body{padding-bottom:84px!important}.v4-content{padding:10px 9px 98px!important}
+ .v44-mobile-bottom{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:8px;right:8px;bottom:8px;z-index:9995;min-height:68px;padding:6px;border:1px solid var(--line);border-radius:20px;background:var(--glass);box-shadow:0 14px 45px rgba(0,0,0,.24);backdrop-filter:blur(20px)}
+ .v44-mobile-bottom button{border:0;border-radius:14px;background:transparent;color:var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:9px;font-weight:800}
+ .v44-mobile-bottom button span{font-size:19px}.v44-mobile-bottom button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff}
+ .v4-kpi-grid{grid-template-columns:1fr 1fr!important;gap:8px!important}.v4-kpi{min-height:104px;padding:13px!important;align-items:flex-start!important}.v4-kpi-icon{width:36px!important;height:36px!important}.v4-kpi strong{font-size:17px!important}
+ .v4-dashboard-main{display:block!important}.v4-panel{padding:14px!important;margin-bottom:10px!important}
+ .attendance-admin-toolbar{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}.attendance-admin-toolbar>*{width:100%!important;max-width:none!important}
+ .attendance-table{overflow-x:auto!important;-webkit-overflow-scrolling:touch}.attendance-table table{min-width:820px}
+ .ranking-layout{display:block!important}.inventory-grid{grid-template-columns:1fr 1fr!important}.sales-filter-tools{grid-template-columns:1fr!important}.sheet-frame{height:500px!important}
+}
+@media(max-width:430px){.v4-kpi-grid,.inventory-grid,.ranking-summary,.inventory-overview{grid-template-columns:1fr!important}.v41-employee-welcome{flex-direction:column;gap:12px}}
 
 </style>
 </head>
@@ -632,7 +649,7 @@ body:not(.login-active) #loginScreen{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.4.3</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.4.4</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -662,7 +679,7 @@ body:not(.login-active) #loginScreen{
       </div>
       <div class="v4-top-status">
         <div id="v4OpenStatus" class="v4-open-pill">● OPEN</div>
-        <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="v4TopWorking">0名</strong></div>
+        <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="v4TopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 接続中</div>
         <button class="v4-icon-btn" onclick="manualDiscordSync()" title="Discord同期">↻</button>
         <div class="v4-profile">
           <div class="v4-profile-avatar">管</div>
@@ -898,7 +915,7 @@ body:not(.login-active) #loginScreen{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.4.3</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.4.4</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -920,7 +937,7 @@ body:not(.login-active) #loginScreen{
         <div class="v4-greeting"><strong id="employeeGreeting">おはようございます</strong><span>今日も素敵な一日を始めましょう。</span></div>
         <div class="v4-top-status">
           <div id="employeeOpenStatus" class="v4-open-pill">● CLOSED</div>
-          <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="employeeTopWorking">0名</strong></div>
+          <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="employeeTopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 接続中</div>
           <div class="v4-profile">
             <div class="v4-profile-avatar" id="employeeProfileAvatar">従</div>
             <div><strong id="employeeTopName">スタッフ</strong><span id="employeeTopRole">Cast</span></div>
@@ -1078,25 +1095,75 @@ let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmploye
 let realtimeChannel=null;
 
 
+
+function markRealtimeStatus(ok){
+  realtimeHealthy=ok;
+  document.querySelectorAll('[data-realtime-status]').forEach(el=>{
+    el.textContent=ok?'● リアルタイム同期中':'● 再接続中';
+    el.classList.toggle('sync-ok',ok);
+    el.classList.toggle('sync-warn',!ok);
+  });
+}
+function startSyncTimer(){
+  if(syncTimer)clearInterval(syncTimer);
+  syncTimer=setInterval(()=>refreshAllData(true),10000);
+}
+async function refreshAllData(silent=false){
+  if(refreshInProgress||appMode==='login'||!sb)return;
+  refreshInProgress=true;
+  try{
+    if(appMode==='admin'){
+      await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData()]);
+      refreshEmployeeSelect();refreshSalesEmployeeSelect();
+      renderDashboard();renderAttendance();renderEmployees();renderRanking();renderSalesPage();
+    }else{
+      await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData()]);
+      renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();
+    }
+    if(!silent)toast('最新データに更新しました');
+  }catch(error){console.error('全データ更新エラー:',error)}
+  finally{refreshInProgress=false}
+}
+function ensureMobileNavs(){
+  if(!$('adminMobileNav')){
+    const nav=document.createElement('nav');
+    nav.id='adminMobileNav';nav.className='v44-mobile-bottom';
+    nav.innerHTML=`<button data-mobile-admin="dashboard" onclick="goPage('dashboard')"><span>⌂</span><b>ホーム</b></button><button data-mobile-admin="attendance" onclick="goPage('attendance')"><span>◷</span><b>出退勤</b></button><button data-mobile-admin="sales" onclick="goPage('sales')"><span>¥</span><b>売上</b></button><button data-mobile-admin="ranking" onclick="goPage('ranking')"><span>♛</span><b>順位</b></button><button onclick="toggleV4Sidebar()"><span>☰</span><b>メニュー</b></button>`;
+    $('adminApp')?.appendChild(nav);
+  }
+  if(!$('employeeMobileNav')){
+    const nav=document.createElement('nav');
+    nav.id='employeeMobileNav';nav.className='v44-mobile-bottom';
+    nav.innerHTML=`<button data-mobile-employee="home" onclick="employeeGoPage('home')"><span>⌂</span><b>ホーム</b></button><button data-mobile-employee="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button><button data-mobile-employee="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>順位</b></button><button data-mobile-employee="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫</b></button><button onclick="toggleEmployeeSidebar()"><span>☰</span><b>メニュー</b></button>`;
+    $('employeeApp')?.appendChild(nav);
+  }
+}
+
 function showLoginScreen(){
+  appMode='login';
+  if(syncTimer){clearInterval(syncTimer);syncTimer=null}
   document.body.classList.add('login-active');
-  document.getElementById('loginScreen')?.classList.remove('hidden');
-  document.getElementById('adminApp')?.classList.add('hidden');
-  document.getElementById('employeeApp')?.classList.add('hidden');
+  $('loginScreen')?.classList.remove('hidden');
+  $('adminApp')?.classList.add('hidden');
+  $('employeeApp')?.classList.add('hidden');
 }
 
 function showAdminApp(){
+  appMode='admin';
   document.body.classList.remove('login-active');
-  document.getElementById('loginScreen')?.classList.add('hidden');
-  document.getElementById('employeeApp')?.classList.add('hidden');
-  document.getElementById('adminApp')?.classList.remove('hidden');
+  $('loginScreen')?.classList.add('hidden');
+  $('employeeApp')?.classList.add('hidden');
+  $('adminApp')?.classList.remove('hidden');
+  startSyncTimer();ensureMobileNavs();
 }
 
 function showEmployeeApp(){
+  appMode='employee';
   document.body.classList.remove('login-active');
-  document.getElementById('loginScreen')?.classList.add('hidden');
-  document.getElementById('adminApp')?.classList.add('hidden');
-  document.getElementById('employeeApp')?.classList.remove('hidden');
+  $('loginScreen')?.classList.add('hidden');
+  $('adminApp')?.classList.add('hidden');
+  $('employeeApp')?.classList.remove('hidden');
+  startSyncTimer();ensureMobileNavs();
 }
 
 function internalEmail(employeeId){
@@ -1154,44 +1221,23 @@ async function restoreSession(){
 }
 async function logout(){
   stopRealtime();
-
-  // 先に画面を切り替えるため、通信が遅くても確実にログアウトできます。
-  currentEmployee=null;
-  currentProfile=null;
-  myHistory=[];
-  myAttendance=[];
-  attendanceData=[];
+  if(syncTimer){clearInterval(syncTimer);syncTimer=null}
+  currentEmployee=null;currentProfile=null;employees=[];historyData=[];attendanceData=[];salesData=[];myHistory=[];myAttendance=[];
   selectedAttendanceIds.clear();
-
-  showLoginScreen();
-  switchLogin('employee');
-  showError('');
-
-  if($('loginAdminPassword'))$('loginAdminPassword').value='';
-  if($('loginEmployeeId'))$('loginEmployeeId').value='';
-  if($('loginEmployeePassword'))$('loginEmployeePassword').value='';
-
+  showLoginScreen();switchLogin('employee');showError('');
+  ['loginAdminPassword','loginEmployeeId','loginEmployeePassword'].forEach(id=>{if($(id))$(id).value=''});
   try{
-    if(sb) await sb.auth.signOut({scope:'local'});
-  }catch(error){
-    console.warn('Supabase sign out failed:',error);
-  }
-
-  // Supabaseの古いセッションが残った場合にも再ログインされないようにします。
+    await Promise.race([sb?.auth?.signOut({scope:'local'})||Promise.resolve(),new Promise(r=>setTimeout(r,1500))]);
+  }catch(error){console.warn('ログアウト通信エラー:',error)}
   try{
-    Object.keys(localStorage).forEach(key=>{
-      if(key.startsWith('sb-')||key==='ld_session')localStorage.removeItem(key);
-    });
-    Object.keys(sessionStorage).forEach(key=>{
-      if(key.startsWith('sb-')||key==='ld_session')sessionStorage.removeItem(key);
-    });
-  }catch(error){
-    console.warn('Local session cleanup failed:',error);
-  }
+    [localStorage,sessionStorage].forEach(storage=>Object.keys(storage).forEach(key=>{
+      if(key.startsWith('sb-')||key.includes('supabase')||key==='ld_session')storage.removeItem(key);
+    }));
+  }catch(error){console.warn('セッション削除エラー:',error)}
 }
 async function openAdmin(){
   showAdminApp();
-  await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData()]);
+  await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData()]);
   refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();subscribeRealtime('admin');
 }
 async function openEmployee(){
@@ -1222,27 +1268,53 @@ async function loadSalesData(){
   }));
 }
 
-async function loadAttendanceData(){const {data,error}=await sb.from('attendance_records').select('*').order('clock_in',{ascending:false}).limit(1000);if(error) throw error;attendanceData=(data||[]).map(mapAttendance)}
+async function loadAttendanceData(){
+  const {data,error}=await sb.from('attendance_records').select('id,employee_uid,employee_id,employee_name,clock_in,clock_out,note,created_at').order('clock_in',{ascending:false}).limit(5000);
+  if(error){console.error('勤務取得エラー:',error);throw error}
+  attendanceData=(data||[]).map(mapAttendance);
+}
 async function loadMyAttendance(){const {data,error}=await sb.from('attendance_records').select('*').order('clock_in',{ascending:false}).limit(100);if(error) throw error;myAttendance=(data||[]).map(mapAttendance)}
 async function loadEmployees(){const {data,error}=await sb.from('profiles').select('*').eq('account_type','employee').order('employee_name');if(error) throw error;employees=(data||[]).map(mapProfile)}
 async function loadHistoryData(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadMyHistory(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadSettings(){const {data,error}=await sb.from('app_settings').select('*').eq('id',1).maybeSingle();if(error) throw error;if(data) settings={shop:data.shop_name,city:data.city_subtitle,logo:data.logo_text,prefix:data.slip_prefix,footer:data.footer_text}}
-function subscribeRealtime(mode){
-  if(realtimeChannel) sb.removeChannel(realtimeChannel);
-  realtimeChannel=sb.channel(`ld-${mode}-${Date.now()}`)
-   .on('postgres_changes',{event:'*',schema:'public',table:'payslips'},async()=>{mode==='admin'?await loadHistoryData():await loadMyHistory();mode==='admin'?(renderHistory(),renderDashboard()):renderEmployeePortal()})
-   .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},async()=>{if(mode==='admin'){await loadEmployees();refreshEmployeeSelect();renderEmployees()}})
-   .on('postgres_changes',{event:'*',schema:'public',table:'app_settings'},async()=>{await loadSettings();applySettings();if(mode==='employee')renderEmployeePortal()})
-   .on('postgres_changes',{event:'*',schema:'public',table:'attendance_records'},async()=>{if(mode==='admin'){await loadAttendanceData();renderAttendance();renderDashboard();renderRanking()}else{await Promise.all([loadMyAttendance(),loadAttendanceData()]);renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking()}})
-   .subscribe();
+function stopRealtime(){
+  if(realtimeChannel&&sb){try{sb.removeChannel(realtimeChannel)}catch{}}
+  realtimeChannel=null;markRealtimeStatus(false);
 }
-
+function subscribeRealtime(mode){
+  stopRealtime();if(!sb)return;
+  const refreshTable=async table=>{
+    try{
+      if(table==='attendance_records'){
+        if(mode==='admin'){await loadAttendanceData();renderAttendance();renderDashboard();renderRanking();renderEmployees()}
+        else{await Promise.all([loadMyAttendance(),loadAttendanceData()]);renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking()}
+      }else if(table==='sales_records'){
+        await loadSalesData();
+        if(mode==='admin'){renderSalesPage();renderRanking();renderDashboard()}else{renderEmployeeRanking();renderEmployeeDashboard()}
+      }else if(table==='payslips'){
+        if(mode==='admin'){await loadHistoryData();renderHistory();renderDashboard()}else{await loadMyHistory();renderEmployeePortal();renderEmployeeDashboard()}
+      }else if(table==='profiles'&&mode==='admin'){
+        await loadEmployees();refreshEmployeeSelect();refreshSalesEmployeeSelect();renderEmployees();
+      }else if(table==='app_settings'){await loadSettings();applySettings()}
+    }catch(error){console.error('Realtime更新エラー:',error)}
+  };
+  realtimeChannel=sb.channel(`ld-live-${mode}-${Date.now()}`)
+    .on('postgres_changes',{event:'*',schema:'public',table:'attendance_records'},()=>refreshTable('attendance_records'))
+    .on('postgres_changes',{event:'*',schema:'public',table:'sales_records'},()=>refreshTable('sales_records'))
+    .on('postgres_changes',{event:'*',schema:'public',table:'payslips'},()=>refreshTable('payslips'))
+    .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},()=>refreshTable('profiles'))
+    .on('postgres_changes',{event:'*',schema:'public',table:'app_settings'},()=>refreshTable('app_settings'))
+    .subscribe(status=>{
+      markRealtimeStatus(status==='SUBSCRIBED');
+      if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(status))setTimeout(()=>{if(appMode===mode)subscribeRealtime(mode)},2500);
+    });
+}
 
 function toggleEmployeeSidebar(){document.getElementById('employeeSidebar')?.classList.toggle('open')}
 function employeeGoPage(page){
   document.querySelectorAll('#employeeApp .employee-page').forEach(x=>x.classList.remove('active'));
-  document.querySelectorAll('#employeeApp [data-employee-page]').forEach(x=>x.classList.toggle('active',x.dataset.employeePage===page));
+  document.querySelectorAll('#employeeApp [data-employee-page]').forEach(x=>x.classList.toggle('active',x.dataset.employeePage===page));document.querySelectorAll('[data-mobile-employee]').forEach(x=>x.classList.toggle('active',x.dataset.mobileEmployee===page));
   document.getElementById(`employee-page-${page}`)?.classList.add('active');
   document.getElementById('employeeSidebar')?.classList.remove('open');
   if(page==='home')renderEmployeeDashboard();
@@ -1325,7 +1397,7 @@ async function loadEmployeeInventory(){
   try{const res=await fetch(INVENTORY_CSV_URL,{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);const rows=parseCsv(await res.text()),items=rows.slice(1).filter(r=>r[0]&&Number(r[1])>=0).map(r=>({name:r[0],min:Number(String(r[1]).replace(/,/g,''))||0,stock:Number(String(r[8]||r[2]).replace(/,/g,''))||0,status:r[9]||r[3]||''}));if(items.length){renderEmployeeInventory(items);renderEmployeeDashboard()}}catch(e){console.info('在庫表は確認済みスナップショットを表示しています。',e)}
 }
 
-function goPage(n){document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot();if(n==='employees')renderEmployees();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot();if(n==='employees')renderEmployees();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -1440,7 +1512,10 @@ function attendanceDuration(a,endDate=new Date()){
   return Math.max(0,end-start);
 }
 function formatDuration(ms){const mins=Math.floor(ms/60000),h=Math.floor(mins/60),m=mins%60;return `${h}時間${String(m).padStart(2,'0')}分`}
-function dateKey(v){const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function dateKey(v){
+  if(!v)return'';
+  return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(v));
+}
 function fmtDateTime(v){return v?new Date(v).toLocaleString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'-'}
 function setAttendanceToday(){$('attendanceDate').value=iso(new Date());renderAttendance()}
 
@@ -1882,6 +1957,9 @@ function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
 initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
+window.addEventListener('focus',()=>refreshAllData(true));
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAllData(true)});
+window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('admin');if(appMode==='employee')subscribeRealtime('employee');refreshAllData(true)});
 restoreSession();
 </script>
 </body></html>
