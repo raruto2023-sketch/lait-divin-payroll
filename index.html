@@ -940,27 +940,33 @@ async function restoreSession(){
 }
 async function logout(){
   stopRealtime();
-  currentEmployee=null;
-  myHistory=[];
-  myAttendance=[];
+  try {
+    if (sb) await sb.auth.signOut();
+  } catch (error) {
+    console.warn('Sign out failed:', error);
+  }
+
+  currentEmployee = null;
+  currentProfile = null;
+  myHistory = [];
+  myAttendance = [];
   localStorage.removeItem('ld_session');
-  showLoginScreen();
+
+  if ($('loginAdminPassword')) $('loginAdminPassword').value = '';
+  if ($('loginEmployeeId')) $('loginEmployeeId').value = '';
+  if ($('loginEmployeePassword')) $('loginEmployeePassword').value = '';
+
+  showError('');
   switchLogin('employee');
-  if($('loginEmployeeId'))$('loginEmployeeId').value='';
-  if($('loginEmployeePassword'))$('loginEmployeePassword').value='';
-  if($('loginAdminPassword'))$('loginAdminPassword').value='';
-}
-  await sb.auth.signOut(); currentEmployee=null;currentProfile=null;
-  $('adminApp').classList.add('hidden');$('employeeApp').classList.add('hidden');$('loginScreen').classList.remove('hidden');
-  $('loginAdminPassword').value='';$('loginEmployeePassword').value='';showError('')
+  showLoginScreen();
 }
 async function openAdmin(){
-  $('loginScreen').classList.add('hidden');$('employeeApp').classList.add('hidden');$('adminApp').classList.remove('hidden');
+  showAdminApp();
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData()]);
   refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();subscribeRealtime('admin');
 }
 async function openEmployee(){
-  $('loginScreen').classList.add('hidden');$('adminApp').classList.add('hidden');$('employeeApp').classList.remove('hidden');
+  showEmployeeApp();
   await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData()]);renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type}}
@@ -1340,7 +1346,6 @@ async function loadInventorySnapshot(){
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
-showLoginScreen();
 initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);restoreSession();
 </script>
 </body></html>
