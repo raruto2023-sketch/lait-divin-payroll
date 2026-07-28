@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
-<title>Lait Divin Management Portal Ver.4.2.1.1</title>
+<title>Lait Divin Management Portal Ver.4.3.1.1</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -35,7 +35,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.4.2 ===== */
+/* ===== Lait Divin Portal Ver.4.3 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -69,7 +69,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.4.2 UI ===== */
+/* ===== Ver.4.3 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -99,7 +99,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.4.2.1
+   Lait Divin Management Portal Ver.4.3.1
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -464,7 +464,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.4.2 Login ================== */
+/* ================== Ver.4.3 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -496,7 +496,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.4.2 Login visibility hotfix ===== */
+/* ===== Ver.4.3 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -515,7 +515,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.4.2 Attendance Management ================== */
+/* ================== Ver.4.3 Attendance Management ================== */
 .attendance-admin-toolbar{align-items:center}
 .danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
 .danger-outline:hover{background:var(--danger-soft)!important}
@@ -554,6 +554,32 @@ body:not(.login-active) #loginScreen{
  .attendance-day-shift .btn{grid-column:1/-1}
  .attendance-admin-toolbar .btn{width:100%}
 }
+
+
+/* ================== Ver.4.3 Sales Management ================== */
+.ranking-mode-tabs{display:flex;gap:8px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:15px;width:max-content;margin-bottom:14px;box-shadow:var(--shadow)}
+.ranking-mode-tabs button{border:0;background:transparent;color:var(--ink-soft);font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer}
+.ranking-mode-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff;box-shadow:0 7px 17px rgba(80,55,40,.18)}
+.sales-toolbar-title{align-items:flex-end!important}
+.sales-toolbar-title p{margin:4px 0 0;color:var(--muted);font-size:10px}
+.sales-filter-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sales-filter-tools input{max-width:230px}
+.sales-entry-modal{width:min(620px,100%);padding:0!important;overflow:hidden}
+.sales-entry-form{padding:22px 24px 26px;display:grid;gap:4px}
+.sales-entry-form .field{margin-bottom:10px}
+.sales-amount{font-weight:900;color:var(--brand-strong);font-size:14px}
+.sales-note-cell{max-width:280px;white-space:normal;color:var(--muted);font-size:10px}
+.sales-actions{display:flex;gap:6px;flex-wrap:wrap}
+.sales-rank-highlight{background:var(--gold-soft)!important;border-color:var(--gold)!important}
+.my-ranking-row{outline:2px solid color-mix(in srgb,var(--brand) 48%, transparent)}
+@media(max-width:760px){
+ .ranking-mode-tabs{width:100%}.ranking-mode-tabs button{flex:1;padding:10px 8px}
+ .sales-toolbar-title{align-items:stretch!important;flex-direction:column}
+ .sales-filter-tools{display:grid;grid-template-columns:1fr 1fr}
+ .sales-filter-tools input{max-width:none}
+ .sales-filter-tools .btn{width:100%}
+}
+@media(max-width:480px){.sales-filter-tools{grid-template-columns:1fr}}
 
 </style>
 </head>
@@ -606,7 +632,7 @@ body:not(.login-active) #loginScreen{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.4.2</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.4.3</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -615,6 +641,7 @@ body:not(.login-active) #loginScreen{
       <button data-page="create" onclick="goPage('create')"><span>¥</span><b>給与・ボーナス</b></button>
       <button data-page="history" onclick="goPage('history')"><span>▤</span><b>明細履歴</b></button>
       <button data-page="inventory" onclick="goPage('inventory')"><span>◇</span><b>在庫管理</b></button>
+      <button data-page="sales" onclick="goPage('sales')"><span>▥</span><b>売上入力</b></button>
       <button data-page="ranking" onclick="goPage('ranking')"><span>♛</span><b>ランキング</b></button>
       <button data-page="settings" onclick="goPage('settings')"><span>⚙</span><b>設定</b></button>
     </nav>
@@ -675,6 +702,11 @@ body:not(.login-active) #loginScreen{
             </section>
 
             <section class="v4-panel">
+              <div class="v4-panel-head"><div><span>MONTHLY SALES</span><h2>今月の売上ランキング</h2></div><button onclick="setRankingMode('sales');goPage('ranking')">すべて見る ›</button></div>
+              <div id="v43SalesPreview" class="v4-working-board"></div>
+            </section>
+
+            <section class="v4-panel">
               <div class="v4-panel-head"><div><span>INVENTORY</span><h2>在庫状況</h2></div><button onclick="goPage('inventory')">すべて見る ›</button></div>
               <div id="v4InventoryPreview" class="v4-inventory-preview"></div>
             </section>
@@ -704,12 +736,63 @@ body:not(.login-active) #loginScreen{
 
 
 
+
+<section id="page-sales" class="page">
+  <div class="page-hero compact">
+    <div>
+      <span class="eyebrow">SALES ENTRY</span>
+      <h1>売上入力・履歴</h1>
+      <p>スタッフごとの売上を毎回登録し、月間ランキングへ自動反映します。</p>
+    </div>
+    <button class="btn primary" onclick="openSalesModal()">＋ 売上を入力</button>
+  </div>
+
+  <div class="ranking-summary">
+    <div class="metric-card">
+      <div class="metric-label">MONTHLY SALES</div>
+      <div class="metric-value" id="salesMonthTotal">¥0</div>
+      <div class="metric-sub">選択月の売上合計</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">ENTRIES</div>
+      <div class="metric-value" id="salesMonthEntries">0件</div>
+      <div class="metric-sub">売上入力件数</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">TOP STAFF</div>
+      <div class="metric-value small" id="salesTopStaff">-</div>
+      <div class="metric-sub">売上ランキング1位</div>
+    </div>
+  </div>
+
+  <div class="dashboard-panel">
+    <div class="dashboard-title sales-toolbar-title">
+      <div>
+        <h2>売上履歴</h2>
+        <p>入力した売上を確認・編集・削除できます。</p>
+      </div>
+      <div class="sales-filter-tools">
+        <input id="salesFilterMonth" type="month" onchange="renderSalesPage()">
+        <input id="salesSearch" placeholder="スタッフ名・従業員番号・メモ" oninput="renderSalesPage()">
+        <button class="btn" onclick="exportSalesCsv()">CSV保存</button>
+        <button class="btn primary" onclick="openSalesModal()">売上を追加</button>
+      </div>
+    </div>
+    <div id="salesHistoryTable" class="attendance-table"></div>
+  </div>
+</section>
+
 <section id="page-ranking" class="page">
   <div class="page-hero compact">
-    <div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1>勤務時間ランキング</h1><p>月ごとの勤務時間と出勤回数を自動集計します。</p></div>
+    <div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1 id="rankingPageTitle">勤務時間ランキング</h1><p id="rankingPageDescription">月ごとの勤務時間と出勤回数を自動集計します。</p></div>
     <div class="month-picker"><label>対象月</label><input id="rankingMonth" type="month" onchange="renderRanking()"></div>
   </div>
-  <div class="ranking-summary">
+  
+  <div class="ranking-mode-tabs">
+    <button id="rankingModeHours" class="active" onclick="setRankingMode('hours')">◷ 勤務時間</button>
+    <button id="rankingModeSales" onclick="setRankingMode('sales')">¥ 売上</button>
+  </div>
+<div class="ranking-summary">
     <div class="metric-card"><div class="metric-label">TOTAL HOURS</div><div class="metric-value" id="rankTotalHours">0時間</div><div class="metric-sub">全スタッフ合計</div></div>
     <div class="metric-card"><div class="metric-label">TOTAL SHIFTS</div><div class="metric-value" id="rankTotalShifts">0回</div><div class="metric-sub">出勤回数</div></div>
     <div class="metric-card"><div class="metric-label">TOP STAFF</div><div class="metric-value small" id="rankTopStaff">-</div><div class="metric-sub">今月の1位</div></div>
@@ -815,7 +898,7 @@ body:not(.login-active) #loginScreen{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.4.2</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.4.3</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -888,7 +971,12 @@ body:not(.login-active) #loginScreen{
 
         <section id="employee-page-ranking" class="employee-page">
           <div class="page-hero compact"><div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1>勤務時間ランキング</h1><p>スタッフ全体の月間勤務時間と出勤回数です。</p></div><div class="month-picker"><label>対象月</label><input id="employeeRankingMonth" type="month" onchange="renderEmployeeRanking()"></div></div>
-          <div class="ranking-summary">
+          
+          <div class="ranking-mode-tabs employee-ranking-tabs">
+            <button id="employeeRankingModeHours" class="active" onclick="setEmployeeRankingMode('hours')">◷ 勤務時間</button>
+            <button id="employeeRankingModeSales" onclick="setEmployeeRankingMode('sales')">¥ 売上</button>
+          </div>
+<div class="ranking-summary">
             <div class="metric-card"><div class="metric-label">TOTAL HOURS</div><div class="metric-value" id="employeeRankTotalHours">0時間</div><div class="metric-sub">全スタッフ合計</div></div>
             <div class="metric-card"><div class="metric-label">MY RANK</div><div class="metric-value" id="employeeMyRank">-</div><div class="metric-sub">あなたの順位</div></div>
             <div class="metric-card"><div class="metric-label">MY HOURS</div><div class="metric-value" id="employeeMyHours">0時間</div><div class="metric-sub">あなたの勤務時間</div></div>
@@ -908,6 +996,40 @@ body:not(.login-active) #loginScreen{
           <div id="employeeSlipGrid" class="employee-slip-grid"></div>
         </section>
       </main>
+    </div>
+  </div>
+</div>
+
+
+<div id="salesModal" class="modal-back hidden">
+  <div class="modal sales-entry-modal">
+    <div class="attendance-detail-head">
+      <div>
+        <span>SALES ENTRY</span>
+        <h2 id="salesModalTitle">売上を入力</h2>
+        <p>スタッフと金額を選択して登録してください。</p>
+      </div>
+      <button class="btn" onclick="closeSalesModal()">閉じる</button>
+    </div>
+    <div class="sales-entry-form">
+      <input id="salesEditId" type="hidden">
+      <div class="field">
+        <label>スタッフ</label>
+        <select id="salesEmployee"></select>
+      </div>
+      <div class="field">
+        <label>売上日</label>
+        <input id="salesDate" type="date">
+      </div>
+      <div class="field">
+        <label>売上金額</label>
+        <input id="salesAmountInput" type="number" min="0" step="1" placeholder="例：500000">
+      </div>
+      <div class="field">
+        <label>メモ</label>
+        <textarea id="salesNote" rows="3" placeholder="販売内容や補足など"></textarea>
+      </div>
+      <button class="btn primary full" onclick="saveSalesEntry()">売上を保存</button>
     </div>
   </div>
 </div>
@@ -1074,11 +1196,32 @@ async function openAdmin(){
 }
 async function openEmployee(){
   showEmployeeApp();
-  await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData()]);renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();loadEmployeeInventory();subscribeRealtime('employee');
+  await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData()]);renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
 function mapAttendance(x){return {dbId:x.id,employeeUid:x.employee_uid,employeeId:x.employee_id,employeeName:x.employee_name,clockIn:x.clock_in,clockOut:x.clock_out,note:x.note||'',createdAt:x.created_at}}
+
+async function loadSalesData(){
+  if(!sb){salesData=[];return}
+  const {data,error}=await sb.from('sales_records').select('*').order('sales_date',{ascending:false}).order('created_at',{ascending:false});
+  if(error){
+    console.warn('売上データを取得できませんでした:',error);
+    salesData=[];
+    return;
+  }
+  salesData=(data||[]).map(x=>({
+    dbId:x.id,
+    employeeUid:x.employee_uid,
+    employeeId:x.employee_id,
+    employeeName:x.employee_name,
+    salesDate:x.sales_date,
+    amount:Number(x.amount)||0,
+    note:x.note||'',
+    createdAt:x.created_at
+  }));
+}
+
 async function loadAttendanceData(){const {data,error}=await sb.from('attendance_records').select('*').order('clock_in',{ascending:false}).limit(1000);if(error) throw error;attendanceData=(data||[]).map(mapAttendance)}
 async function loadMyAttendance(){const {data,error}=await sb.from('attendance_records').select('*').order('clock_in',{ascending:false}).limit(100);if(error) throw error;myAttendance=(data||[]).map(mapAttendance)}
 async function loadEmployees(){const {data,error}=await sb.from('profiles').select('*').eq('account_type','employee').order('employee_name');if(error) throw error;employees=(data||[]).map(mapProfile)}
@@ -1141,16 +1284,35 @@ function renderEmployeeDashboard(){
   const mine=myAttendance.find(a=>!a.clockOut),state=$('employeeStatusPillHome');
   state.textContent=mine?'● 勤務中':'退勤中';state.classList.toggle('working',!!mine);
 }
+
+function setEmployeeRankingMode(mode){
+  employeeRankingMode=mode;
+  $('employeeRankingModeHours').classList.toggle('active',mode==='hours');
+  $('employeeRankingModeSales').classList.toggle('active',mode==='sales');
+  renderEmployeeRanking();
+}
+
 function renderEmployeeRanking(){
   if(!$('employeeRankingList')||!currentEmployee)return;
   if(!$('employeeRankingMonth').value)$('employeeRankingMonth').value=monthKeyLocal(new Date());
-  const rows=employeeRankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentEmployee.uid)||String(r.id).toLowerCase()===String(currentEmployee.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
-  $('employeeRankTotalHours').textContent=formatDuration(total);
-  $('employeeMyRank').textContent=mineIndex>=0?`${mineIndex+1}位`:'-';
-  $('employeeMyHours').textContent=mine?formatDuration(mine.ms):'0時間00分';
-  const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
-  $('employeeRankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${formatDuration(r.ms)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の勤務記録はありません。</div>';
-  $('employeeRankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row ${mineIndex===i?'my-ranking-row':''}"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}${mineIndex===i?'（あなた）':''}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${formatDuration(r.ms)}</div><div class="ranking-shifts">${r.shifts}回</div></div>`).join(''):'<div class="empty">勤務記録はありません。</div>';
+  const month=$('employeeRankingMonth').value;
+  if(employeeRankingMode==='sales'){
+    const rows=salesRankingRows(month),total=rows.reduce((s,r)=>s+r.amount,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentEmployee.uid)||String(r.id).toLowerCase()===String(currentEmployee.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
+    $('employeeRankTotalHours').textContent=yen.format(total);
+    $('employeeMyRank').textContent=mineIndex>=0?`${mineIndex+1}位`:'-';
+    $('employeeMyHours').textContent=mine?yen.format(mine.amount):'¥0';
+    const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
+    $('employeeRankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${yen.format(r.amount)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の売上記録はありません。</div>';
+    $('employeeRankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row ${mineIndex===i?'my-ranking-row':''}"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}${mineIndex===i?'（あなた）':''}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${yen.format(r.amount)}</div><div class="ranking-shifts">${r.entries}件</div></div>`).join(''):'<div class="empty">売上記録はありません。</div>';
+  }else{
+    const rows=employeeRankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentEmployee.uid)||String(r.id).toLowerCase()===String(currentEmployee.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
+    $('employeeRankTotalHours').textContent=formatDuration(total);
+    $('employeeMyRank').textContent=mineIndex>=0?`${mineIndex+1}位`:'-';
+    $('employeeMyHours').textContent=mine?formatDuration(mine.ms):'0時間00分';
+    const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
+    $('employeeRankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${formatDuration(r.ms)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の勤務記録はありません。</div>';
+    $('employeeRankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row ${mineIndex===i?'my-ranking-row':''}"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}${mineIndex===i?'（あなた）':''}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${formatDuration(r.ms)}</div><div class="ranking-shifts">${r.shifts}回</div></div>`).join(''):'<div class="empty">勤務記録はありません。</div>';
+  }
 }
 function renderEmployeeInventory(items){
   const low=items.filter(x=>x.stock<x.min||x.status).length;
@@ -1163,7 +1325,7 @@ async function loadEmployeeInventory(){
   try{const res=await fetch(INVENTORY_CSV_URL,{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);const rows=parseCsv(await res.text()),items=rows.slice(1).filter(r=>r[0]&&Number(r[1])>=0).map(r=>({name:r[0],min:Number(String(r[1]).replace(/,/g,''))||0,stock:Number(String(r[8]||r[2]).replace(/,/g,''))||0,status:r[9]||r[3]||''}));if(items.length){renderEmployeeInventory(items);renderEmployeeDashboard()}}catch(e){console.info('在庫表は確認済みスナップショットを表示しています。',e)}
 }
 
-function goPage(n){document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot();if(n==='employees')renderEmployees();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot();if(n==='employees')renderEmployees();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -1281,6 +1443,114 @@ function formatDuration(ms){const mins=Math.floor(ms/60000),h=Math.floor(mins/60
 function dateKey(v){const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function fmtDateTime(v){return v?new Date(v).toLocaleString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'-'}
 function setAttendanceToday(){$('attendanceDate').value=iso(new Date());renderAttendance()}
+
+function salesMonthKey(value){return String(value||'').slice(0,7)}
+function salesRowsForMonth(month){
+  return salesData.filter(x=>salesMonthKey(x.salesDate)===month)
+}
+function salesRankingRows(month){
+  const grouped=new Map();
+  salesRowsForMonth(month).forEach(x=>{
+    const key=x.employeeUid||x.employeeId;
+    const current=grouped.get(key)||{uid:x.employeeUid,id:x.employeeId,name:x.employeeName,amount:0,entries:0};
+    current.amount+=Number(x.amount)||0;
+    current.entries++;
+    grouped.set(key,current);
+  });
+  employees.forEach(e=>{
+    if(!grouped.has(e.uid))grouped.set(e.uid,{uid:e.uid,id:e.id,name:e.name,amount:0,entries:0})
+  });
+  return [...grouped.values()].sort((a,b)=>b.amount-a.amount||b.entries-a.entries||a.name.localeCompare(b.name,'ja'));
+}
+function refreshSalesEmployeeSelect(){
+  const select=$('salesEmployee');
+  if(!select)return;
+  select.innerHTML=employees.map(e=>`<option value="${esc(e.uid)}">${esc(e.name)}（${esc(e.id)}）</option>`).join('');
+}
+function openSalesModal(id=''){
+  refreshSalesEmployeeSelect();
+  $('salesEditId').value=id||'';
+  $('salesModalTitle').textContent=id?'売上を編集':'売上を入力';
+  if(id){
+    const entry=salesData.find(x=>String(x.dbId)===String(id));
+    if(!entry)return;
+    $('salesEmployee').value=entry.employeeUid;
+    $('salesDate').value=entry.salesDate;
+    $('salesAmountInput').value=entry.amount;
+    $('salesNote').value=entry.note||'';
+  }else{
+    $('salesDate').value=iso(new Date());
+    $('salesAmountInput').value='';
+    $('salesNote').value='';
+    if(employees[0])$('salesEmployee').value=employees[0].uid;
+  }
+  $('salesModal').classList.remove('hidden');
+}
+function closeSalesModal(){$('salesModal').classList.add('hidden')}
+async function saveSalesEntry(){
+  const employee=employees.find(e=>e.uid===$('salesEmployee').value);
+  const salesDate=$('salesDate').value;
+  const amount=Number($('salesAmountInput').value);
+  const note=$('salesNote').value.trim();
+  const id=$('salesEditId').value;
+  if(!employee){alert('スタッフを選択してください。');return}
+  if(!salesDate){alert('売上日を入力してください。');return}
+  if(!Number.isFinite(amount)||amount<0){alert('正しい売上金額を入力してください。');return}
+  const payload={
+    employee_uid:employee.uid,
+    employee_id:employee.id,
+    employee_name:employee.name,
+    sales_date:salesDate,
+    amount:Math.round(amount),
+    note,
+    updated_at:new Date().toISOString()
+  };
+  const result=id
+    ?await sb.from('sales_records').update(payload).eq('id',id)
+    :await sb.from('sales_records').insert(payload);
+  if(result.error){alert('売上を保存できませんでした：'+result.error.message);return}
+  closeSalesModal();
+  await loadSalesData();
+  renderSalesPage();renderRanking();renderDashboard();
+  toast(id?'売上を更新しました':'売上を登録しました');
+}
+async function deleteSalesEntry(id){
+  if(!confirm('この売上記録を削除しますか？'))return;
+  const {error}=await sb.from('sales_records').delete().eq('id',id);
+  if(error){alert('削除できませんでした：'+error.message);return}
+  await loadSalesData();
+  renderSalesPage();renderRanking();renderDashboard();
+  toast('売上記録を削除しました');
+}
+function filteredSalesRows(){
+  const month=$('salesFilterMonth')?.value||monthKeyLocal(new Date());
+  const q=($('salesSearch')?.value||'').toLowerCase();
+  return salesRowsForMonth(month).filter(x=>`${x.employeeName} ${x.employeeId} ${x.note}`.toLowerCase().includes(q));
+}
+function renderSalesPage(){
+  if(!$('salesHistoryTable'))return;
+  if(!$('salesFilterMonth').value)$('salesFilterMonth').value=monthKeyLocal(new Date());
+  const month=$('salesFilterMonth').value,list=filteredSalesRows(),ranking=salesRankingRows(month);
+  const total=salesRowsForMonth(month).reduce((s,x)=>s+x.amount,0);
+  $('salesMonthTotal').textContent=yen.format(total);
+  $('salesMonthEntries').textContent=`${salesRowsForMonth(month).length}件`;
+  $('salesTopStaff').textContent=ranking[0]?.amount?ranking[0].name:'-';
+  $('salesHistoryTable').innerHTML=list.length?`<table><thead><tr><th>売上日</th><th>スタッフ</th><th>売上金額</th><th>メモ</th><th>操作</th></tr></thead><tbody>${list.map(x=>`<tr><td>${new Date(x.salesDate+'T00:00:00').toLocaleDateString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit'})}</td><td><strong>${esc(x.employeeName)}</strong><br><span style="font-size:9px;color:var(--muted)">${esc(x.employeeId)}</span></td><td class="sales-amount">${yen.format(x.amount)}</td><td class="sales-note-cell">${esc(x.note||'-')}</td><td><div class="sales-actions"><button class="btn" onclick="openSalesModal('${esc(x.dbId)}')">編集</button><button class="btn danger" onclick="deleteSalesEntry('${esc(x.dbId)}')">削除</button></div></td></tr>`).join('')}</tbody></table>`:'<div class="empty">この月の売上記録はありません。</div>';
+}
+function exportSalesCsv(){
+  const rows=filteredSalesRows();
+  const table=[['売上日','従業員名','従業員番号','売上金額','メモ'],...rows.map(x=>[x.salesDate,x.employeeName,x.employeeId,x.amount,x.note])];
+  const csv='\ufeff'+table.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=`売上履歴_${$('salesFilterMonth').value}.csv`;a.click();URL.revokeObjectURL(a.href);
+}
+function setRankingMode(mode){
+  rankingMode=mode;
+  $('rankingModeHours').classList.toggle('active',mode==='hours');
+  $('rankingModeSales').classList.toggle('active',mode==='sales');
+  renderRanking();
+}
+
 function attendanceFilteredList(){
   const selected=$('attendanceDate').value||iso(new Date());
   const q=($('attendanceSearch').value||'').toLowerCase();
@@ -1507,6 +1777,12 @@ function renderV4Extras(){
     const ordered=[ranking[1],ranking[0],ranking[2]],cls=['second','first','third'],place=[2,1,3];
     $('v4RankingPreview').innerHTML=ordered.map((r,i)=>r?`<div class="v4-rank-card ${cls[i]}"><div class="v4-rank-avatar">${esc(r.name.slice(0,1))}</div><strong>${esc(r.name)}</strong><span>${place[i]}位</span><span class="v4-rank-hours">${formatDuration(r.ms)}</span></div>`:'<div></div>').join('')||'<div class="empty">勤務記録はありません。</div>'
   }
+  
+  if($('v43SalesPreview')){
+    const month=monthKeyLocal(new Date()),rows=salesRankingRows(month).filter(r=>r.amount>0).slice(0,5);
+    $('v43SalesPreview').innerHTML=rows.length?rows.map((r,i)=>`<div class="working-person"><div class="person-avatar">${i+1}</div><div><strong>${esc(r.name)}</strong><span>${r.entries}件の売上入力</span></div><div class="duration">${yen.format(r.amount)}</div></div>`).join(''):'<div class="empty">今月の売上記録はありません。</div>';
+  }
+
   if($('v4InventoryPreview')){
     const data=typeof inventoryFallback!=='undefined'?inventoryFallback.slice(0,6):[];
     $('v4InventoryPreview').innerHTML=data.map(x=>`<div class="v4-stock ${x.stock<x.min?'low':''}"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min).toLocaleString()}</span><b>${Number(x.stock).toLocaleString()}</b></div>`).join('')
@@ -1554,11 +1830,30 @@ function rankingRows(){
 function renderRanking(){
   if(!$('rankingList'))return;
   if(!$('rankingMonth').value)$('rankingMonth').value=monthKeyLocal(new Date());
-  const rows=rankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),shifts=rows.reduce((s,r)=>s+r.shifts,0);
-  $('rankTotalHours').textContent=formatDuration(total);$('rankTotalShifts').textContent=`${shifts}回`;$('rankTopStaff').textContent=rows[0]?.ms?rows[0].name:'-';
-  const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
-  $('rankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${formatDuration(r.ms)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の勤務記録はありません。</div>';
-  $('rankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${formatDuration(r.ms)}</div><div class="ranking-shifts">${r.shifts}回</div></div>`).join(''):'<div class="empty">勤務記録はありません。</div>';
+  const month=$('rankingMonth').value;
+  if(rankingMode==='sales'){
+    const rows=salesRankingRows(month),total=rows.reduce((s,r)=>s+r.amount,0),entries=rows.reduce((s,r)=>s+r.entries,0);
+    $('rankingPageTitle').textContent='売上ランキング';
+    $('rankingPageDescription').textContent='月ごとのスタッフ別売上を自動集計します。';
+    $('rankTotalHours').textContent=yen.format(total);
+    $('rankTotalShifts').textContent=`${entries}件`;
+    $('rankTopStaff').textContent=rows[0]?.amount?rows[0].name:'-';
+    document.querySelector('#rankTotalHours')?.previousElementSibling&&(document.querySelector('#rankTotalHours').previousElementSibling.textContent='TOTAL SALES');
+    document.querySelector('#rankTotalShifts')?.previousElementSibling&&(document.querySelector('#rankTotalShifts').previousElementSibling.textContent='SALES ENTRIES');
+    const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
+    $('rankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${yen.format(r.amount)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の売上記録はありません。</div>';
+    $('rankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${yen.format(r.amount)}</div><div class="ranking-shifts">${r.entries}件</div></div>`).join(''):'<div class="empty">売上記録はありません。</div>';
+  }else{
+    const rows=rankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),shifts=rows.reduce((s,r)=>s+r.shifts,0);
+    $('rankingPageTitle').textContent='勤務時間ランキング';
+    $('rankingPageDescription').textContent='月ごとの勤務時間と出勤回数を自動集計します。';
+    $('rankTotalHours').textContent=formatDuration(total);$('rankTotalShifts').textContent=`${shifts}回`;$('rankTopStaff').textContent=rows[0]?.ms?rows[0].name:'-';
+    document.querySelector('#rankTotalHours')?.previousElementSibling&&(document.querySelector('#rankTotalHours').previousElementSibling.textContent='TOTAL HOURS');
+    document.querySelector('#rankTotalShifts')?.previousElementSibling&&(document.querySelector('#rankTotalShifts').previousElementSibling.textContent='TOTAL SHIFTS');
+    const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
+    $('rankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${formatDuration(r.ms)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の勤務記録はありません。</div>';
+    $('rankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${formatDuration(r.ms)}</div><div class="ranking-shifts">${r.shifts}回</div></div>`).join(''):'<div class="empty">勤務記録はありません。</div>';
+  }
 }
 function exportRankingCsv(){
   const rows=rankingRows(),month=$('rankingMonth').value,table=[['順位','従業員名','従業員番号','勤務時間(分)','出勤回数'],...rows.map((r,i)=>[i+1,r.name,r.id,Math.floor(r.ms/60000),r.shifts])];
@@ -1586,7 +1881,7 @@ async function loadInventorySnapshot(){
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
-initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
+initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
 restoreSession();
 </script>
 </body></html>
