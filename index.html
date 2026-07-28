@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
-<title>Lait Divin Management Portal Ver.4.1.1.1</title>
+<title>Lait Divin Management Portal Ver.4.2.1.1</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -35,7 +35,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.4.1 ===== */
+/* ===== Lait Divin Portal Ver.4.2 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -69,7 +69,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.4.1 UI ===== */
+/* ===== Ver.4.2 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -99,7 +99,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.4.1.1
+   Lait Divin Management Portal Ver.4.2.1
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -464,7 +464,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.4.1 Login ================== */
+/* ================== Ver.4.2 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -496,7 +496,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.4.1 Login visibility hotfix ===== */
+/* ===== Ver.4.2 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -512,6 +512,47 @@ body.login-active #employeeApp{
 }
 body:not(.login-active) #loginScreen{
   display:none!important;
+}
+
+
+/* ================== Ver.4.2 Attendance Management ================== */
+.attendance-admin-toolbar{align-items:center}
+.danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
+.danger-outline:hover{background:var(--danger-soft)!important}
+.attendance-check{width:18px;height:18px;accent-color:var(--brand);cursor:pointer}
+.attendance-row-selected td{background:var(--brand-soft)!important}
+.employee-attendance-button{width:100%;margin-top:8px}
+.attendance-detail-modal{width:min(920px,100%);max-height:90vh;overflow:auto;padding:0!important}
+.attendance-detail-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:flex-start;gap:15px;padding:22px 24px;background:var(--surface);border-bottom:1px solid var(--line)}
+.attendance-detail-head span{font-size:9px;letter-spacing:.18em;color:var(--brand);font-weight:900}
+.attendance-detail-head h2{margin:5px 0;color:var(--ink)}
+.attendance-detail-head p{margin:0;color:var(--muted);font-size:11px}
+.attendance-detail-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:18px 24px 4px}
+.attendance-detail-summary>div{background:var(--surface2);border:1px solid var(--line);border-radius:14px;padding:15px}
+.attendance-detail-summary span{display:block;color:var(--muted);font-size:9px;font-weight:800}
+.attendance-detail-summary strong{display:block;color:var(--ink);font-size:21px;margin-top:5px}
+.attendance-detail-filter{display:flex;align-items:end;gap:9px;padding:15px 24px}
+.attendance-detail-filter label{display:flex;flex-direction:column;gap:5px;font-size:10px}
+.attendance-detail-filter input{max-width:190px}
+.attendance-detail-list{padding:0 24px 24px;display:grid;gap:9px}
+.attendance-day-card{border:1px solid var(--line);border-radius:14px;background:var(--surface2);overflow:hidden}
+.attendance-day-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--surface3);border-bottom:1px solid var(--line)}
+.attendance-day-head strong{font-size:13px;color:var(--ink)}
+.attendance-day-head span{font-size:10px;color:var(--muted)}
+.attendance-day-shift{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line)}
+.attendance-day-shift:last-child{border-bottom:0}
+.attendance-day-shift div span{display:block;font-size:8px;color:var(--muted);font-weight:800}
+.attendance-day-shift div strong{font-size:11px;color:var(--ink)}
+.attendance-day-shift .btn{padding:7px 10px;font-size:10px}
+@media(max-width:700px){
+ .attendance-detail-summary{grid-template-columns:1fr 1fr;padding:14px}
+ .attendance-detail-summary>div:last-child{grid-column:1/-1}
+ .attendance-detail-filter{padding:12px 14px;align-items:stretch;flex-direction:column}
+ .attendance-detail-filter input{max-width:none}
+ .attendance-detail-list{padding:0 14px 14px}
+ .attendance-day-shift{grid-template-columns:1fr 1fr}
+ .attendance-day-shift .btn{grid-column:1/-1}
+ .attendance-admin-toolbar .btn{width:100%}
 }
 
 </style>
@@ -565,7 +606,7 @@ body:not(.login-active) #loginScreen{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.4.1</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.4.2</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -753,7 +794,15 @@ body:not(.login-active) #loginScreen{
   <div class="attendance-status"><h2>出退勤管理</h2><p>従業員の勤務状況をリアルタイムで確認できます。</p><div class="attendance-clock" id="adminNowClock">--:--:--</div><span id="workingCountPill" class="status-pill off">勤務中 0名</span></div>
   <div class="attendance-summary"><div class="card"><p>本日の出勤</p><strong id="todayAttendanceCount">0名</strong></div><div class="card"><p>勤務中</p><strong id="workingAttendanceCount">0名</strong></div><div class="card"><p>本日の合計</p><strong id="todayAttendanceHours">0時間</strong></div></div>
 </div>
-<div class="toolbar"><input id="attendanceDate" type="date" onchange="renderAttendance()" style="max-width:190px"><input id="attendanceSearch" placeholder="名前・従業員番号で検索" oninput="renderAttendance()" style="max-width:280px"><button class="btn" onclick="setAttendanceToday()">今日</button><button class="btn" onclick="exportAttendanceCsv()">CSV保存</button><button class="btn primary" onclick="manualDiscordSync()">Discordボード更新</button></div>
+<div class="toolbar attendance-admin-toolbar">
+  <input id="attendanceDate" type="date" onchange="clearAttendanceSelection();renderAttendance()" style="max-width:190px">
+  <input id="attendanceSearch" placeholder="名前・従業員番号で検索" oninput="clearAttendanceSelection();renderAttendance()" style="max-width:280px">
+  <button class="btn" onclick="setAttendanceToday()">今日</button>
+  <button class="btn" onclick="exportAttendanceCsv()">CSV保存</button>
+  <button class="btn primary" onclick="manualDiscordSync()">Discordボード更新</button>
+  <button class="btn danger" id="deleteSelectedAttendanceBtn" onclick="deleteSelectedAttendance()" disabled>選択した勤務を削除（0件）</button>
+  <button class="btn danger-outline" onclick="deleteFilteredAttendance()">表示中を一括削除</button>
+</div>
 <div id="attendanceTable" class="attendance-table"></div>
 </section>
 <section id="page-history" class="page"><div class="toolbar"><input id="historySearch" placeholder="名前・役職・期間で検索" oninput="renderHistory()" style="max-width:330px"><button class="btn danger" onclick="clearHistory()">履歴をすべて削除</button></div><div id="historyList" class="list"></div></section>
@@ -766,7 +815,7 @@ body:not(.login-active) #loginScreen{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.4.1</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.4.2</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -862,6 +911,27 @@ body:not(.login-active) #loginScreen{
     </div>
   </div>
 </div>
+
+<div id="attendanceDetailModal" class="modal-back hidden">
+  <div class="modal attendance-detail-modal">
+    <div class="attendance-detail-head">
+      <div><span>EMPLOYEE ATTENDANCE</span><h2 id="attendanceDetailTitle">勤務日一覧</h2><p id="attendanceDetailMeta"></p></div>
+      <button class="btn" onclick="closeAttendanceDetail()">閉じる</button>
+    </div>
+    <div class="attendance-detail-summary">
+      <div><span>出勤日数</span><strong id="attendanceDetailDays">0日</strong></div>
+      <div><span>勤務回数</span><strong id="attendanceDetailShifts">0回</strong></div>
+      <div><span>合計勤務時間</span><strong id="attendanceDetailHours">0時間</strong></div>
+    </div>
+    <div class="attendance-detail-filter">
+      <label>対象月</label>
+      <input id="attendanceDetailMonth" type="month" onchange="renderAttendanceDetail()">
+      <button class="btn danger" onclick="deleteEmployeeMonthAttendance()">この月の勤務を一括削除</button>
+    </div>
+    <div id="attendanceDetailList" class="attendance-detail-list"></div>
+  </div>
+</div>
+
 <div id="employeeModal" class="modal-back hidden"><div class="modal"><h2 id="employeeModalTitle">従業員を登録</h2><input id="editEmployeeIndex" type="hidden"><div class="field"><label>名前</label><input id="modalName"></div><div class="grid2"><div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option></select></div><div class="field"><label>従業員番号</label><input id="modalId"></div></div><div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" type="password" placeholder="本人に伝えるパスワード"></div><div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div><div class="modal-actions"><button class="btn" onclick="closeEmployeeModal()">キャンセル</button><button class="btn primary" onclick="saveEmployee()">保存</button></div></div></div>
 
 <div id="slipModal" class="modal-back hidden"><div class="modal" style="width:min(850px,100%);max-height:92vh;overflow:auto"><div class="modal-actions" style="margin:0 0 12px"><button class="btn" onclick="closeSlipModal()">閉じる</button><button class="btn primary" onclick="downloadViewedSlip()">PNG保存</button></div><div id="viewedSlipContainer"></div></div></div>
@@ -962,30 +1032,45 @@ async function restoreSession(){
 }
 async function logout(){
   stopRealtime();
-  try {
-    if (sb) await sb.auth.signOut();
-  } catch (error) {
-    console.warn('Sign out failed:', error);
+
+  // 先に画面を切り替えるため、通信が遅くても確実にログアウトできます。
+  currentEmployee=null;
+  currentProfile=null;
+  myHistory=[];
+  myAttendance=[];
+  attendanceData=[];
+  selectedAttendanceIds.clear();
+
+  showLoginScreen();
+  switchLogin('employee');
+  showError('');
+
+  if($('loginAdminPassword'))$('loginAdminPassword').value='';
+  if($('loginEmployeeId'))$('loginEmployeeId').value='';
+  if($('loginEmployeePassword'))$('loginEmployeePassword').value='';
+
+  try{
+    if(sb) await sb.auth.signOut({scope:'local'});
+  }catch(error){
+    console.warn('Supabase sign out failed:',error);
   }
 
-  currentEmployee = null;
-  currentProfile = null;
-  myHistory = [];
-  myAttendance = [];
-  localStorage.removeItem('ld_session');
-
-  if ($('loginAdminPassword')) $('loginAdminPassword').value = '';
-  if ($('loginEmployeeId')) $('loginEmployeeId').value = '';
-  if ($('loginEmployeePassword')) $('loginEmployeePassword').value = '';
-
-  showError('');
-  switchLogin('employee');
-  showLoginScreen();
+  // Supabaseの古いセッションが残った場合にも再ログインされないようにします。
+  try{
+    Object.keys(localStorage).forEach(key=>{
+      if(key.startsWith('sb-')||key==='ld_session')localStorage.removeItem(key);
+    });
+    Object.keys(sessionStorage).forEach(key=>{
+      if(key.startsWith('sb-')||key==='ld_session')sessionStorage.removeItem(key);
+    });
+  }catch(error){
+    console.warn('Local session cleanup failed:',error);
+  }
 }
 async function openAdmin(){
   showAdminApp();
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData()]);
-  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();subscribeRealtime('admin');
+  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();subscribeRealtime('admin');
 }
 async function openEmployee(){
   showEmployeeApp();
@@ -1169,7 +1254,8 @@ async function saveEmployee(){
     await loadEmployees();closeEmployeeModal();refreshEmployeeSelect();renderEmployees();toast('従業員情報を保存しました')
   }catch(e){alert(e.message)}
 }
-function renderEmployees(){const c=$('employeeCards');c.innerHTML='';const q=($('employeeSearch')?.value||'').toLowerCase(),rf=$('employeeRoleFilter')?.value||'';const filtered=employees.filter(e=>`${e.name} ${e.id}`.toLowerCase().includes(q)&&(!rf||e.role===rf));if(!filtered.length){c.innerHTML='<div class="empty">条件に一致する従業員はいません。</div>';return}filtered.forEach(e=>{const i=employees.indexOf(e);const d=document.createElement('div');d.className='card';d.innerHTML=`<h3>${esc(e.name)}</h3><p>${esc(e.role)}<br>${esc(e.id)}<br>オンラインログイン：有効</p><div class="card-actions"><button class="btn primary" onclick="useEmployee(${i})">明細作成</button><button class="btn" onclick="openEmployeeModal(${i})">編集</button><button class="btn danger" onclick="deleteEmployee(${i})">削除</button></div>`;c.appendChild(d)})}
+function renderEmployees(){const c=$('employeeCards');c.innerHTML='';const q=($('employeeSearch')?.value||'').toLowerCase(),rf=$('employeeRoleFilter')?.value||'';const filtered=employees.filter(e=>`${e.name} ${e.id}`.toLowerCase().includes(q)&&(!rf||e.role===rf));if(!filtered.length){c.innerHTML='<div class="empty">条件に一致する従業員はいません。</div>';return}filtered.forEach(e=>{const i=employees.indexOf(e);const d=document.createElement('div');d.className='card';const records=attendanceData.filter(a=>(a.employeeUid&&a.employeeUid===e.uid)||String(a.employeeId).toLowerCase()===String(e.id).toLowerCase());const days=new Set(records.map(a=>dateKey(a.clockIn))).size;
+d.innerHTML=`<h3>${esc(e.name)}</h3><p>${esc(e.role)}<br>${esc(e.id)}<br>出勤日数：${days}日<br>勤務記録：${records.length}件</p><button class="btn employee-attendance-button" onclick="openAttendanceDetail(${i})">出勤した日を確認</button><div class="card-actions"><button class="btn primary" onclick="useEmployee(${i})">明細作成</button><button class="btn" onclick="openEmployeeModal(${i})">編集</button><button class="btn danger" onclick="deleteEmployee(${i})">削除</button></div>`;c.appendChild(d)})}
 function useEmployee(i){goPage('create');$('employeeSelect').value=i;applyEmployee()}
 async function deleteEmployee(i){if(!confirm(`${employees[i].name} を削除しますか？`))return;try{await callEmployeeFunction({action:'delete',userId:employees[i].uid});await loadEmployees();refreshEmployeeSelect();renderEmployees()}catch(e){alert(e.message)}}
 function renderHistory(){const q=($('historySearch').value||'').toLowerCase(),b=$('historyList');b.innerHTML='';const list=historyData.filter(x=>`${x.employee} ${x.role} ${x.employeeId} ${x.periodStart} ${x.periodEnd}`.toLowerCase().includes(q));if(!list.length){b.innerHTML='<div class="empty">該当する履歴はありません。</div>';return}list.forEach(x=>{const i=historyData.indexOf(x),d=document.createElement('div');d.className='list-item';d.innerHTML=`<div class="list-main"><strong>${esc(x.employee)}</strong><span>${esc(x.slipNo)} ・ ${esc(x.employeeId)}</span></div><div>${jp(x.periodStart)}<br>〜 ${jp(x.periodEnd)}</div><div><strong style="font-size:14px;color:var(--ink)">${yen.format(x.net)}</strong><br>差引支給額</div><div class="list-actions"><button class="btn primary" onclick="loadHistory(${i})">開く</button><button class="btn danger" onclick="deleteHistory(${i})">削除</button></div>`;b.appendChild(d)})}
@@ -1195,15 +1281,147 @@ function formatDuration(ms){const mins=Math.floor(ms/60000),h=Math.floor(mins/60
 function dateKey(v){const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
 function fmtDateTime(v){return v?new Date(v).toLocaleString('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'-'}
 function setAttendanceToday(){$('attendanceDate').value=iso(new Date());renderAttendance()}
+function attendanceFilteredList(){
+  const selected=$('attendanceDate').value||iso(new Date());
+  const q=($('attendanceSearch').value||'').toLowerCase();
+  return attendanceData.filter(a=>dateKey(a.clockIn)===selected&&`${a.employeeName} ${a.employeeId}`.toLowerCase().includes(q));
+}
+function clearAttendanceSelection(){
+  selectedAttendanceIds.clear();
+  updateAttendanceDeleteButton();
+}
+function updateAttendanceDeleteButton(){
+  const button=$('deleteSelectedAttendanceBtn');
+  if(!button)return;
+  button.disabled=selectedAttendanceIds.size===0;
+  button.textContent=`選択した勤務を削除（${selectedAttendanceIds.size}件）`;
+}
+function toggleAttendanceSelection(id,checked){
+  if(checked)selectedAttendanceIds.add(String(id));
+  else selectedAttendanceIds.delete(String(id));
+  updateAttendanceDeleteButton();
+  document.querySelector(`[data-attendance-row="${CSS.escape(String(id))}"]`)?.classList.toggle('attendance-row-selected',checked);
+}
+function toggleAllAttendanceSelection(checked){
+  attendanceFilteredList().forEach(a=>{
+    if(checked)selectedAttendanceIds.add(String(a.dbId));
+    else selectedAttendanceIds.delete(String(a.dbId));
+  });
+  renderAttendance();
+}
 function renderAttendance(){
   if(!$('attendanceTable'))return;
-  const selected=$('attendanceDate').value||iso(new Date()),q=($('attendanceSearch').value||'').toLowerCase();
-  const list=attendanceData.filter(a=>dateKey(a.clockIn)===selected&&`${a.employeeName} ${a.employeeId}`.toLowerCase().includes(q));
-  const unique=new Set(list.map(a=>a.employeeUid)).size,working=attendanceData.filter(a=>!a.clockOut).length,total=list.reduce((s,a)=>s+attendanceDuration(a),0);
-  $('todayAttendanceCount').textContent=`${unique}名`;$('workingAttendanceCount').textContent=`${working}名`;$('todayAttendanceHours').textContent=formatDuration(total);
-  $('workingCountPill').textContent=`勤務中 ${working}名`;$('workingCountPill').className=`status-pill ${working?'working':'off'}`;
-  if(!list.length){$('attendanceTable').innerHTML='<div class="empty">この日の出退勤記録はありません。</div>';return}
-  $('attendanceTable').innerHTML=`<table><thead><tr><th>従業員</th><th>出勤</th><th>退勤</th><th>勤務時間</th><th>状態</th></tr></thead><tbody>${list.map(a=>`<tr><td><strong>${esc(a.employeeName)}</strong><br><span style="font-size:10px;color:var(--muted)">${esc(a.employeeId)}</span></td><td>${fmtDateTime(a.clockIn)}</td><td>${fmtDateTime(a.clockOut)}</td><td>${formatDuration(attendanceDuration(a))}</td><td><span class="status-pill ${a.clockOut?'off':'working'}">${a.clockOut?'退勤済み':'勤務中'}</span></td></tr>`).join('')}</tbody></table>`;
+  const list=attendanceFilteredList();
+  const unique=new Set(list.map(a=>a.employeeUid||a.employeeId)).size;
+  const working=attendanceData.filter(a=>!a.clockOut).length;
+  const total=list.reduce((s,a)=>s+attendanceDuration(a),0);
+  $('todayAttendanceCount').textContent=`${unique}名`;
+  $('workingAttendanceCount').textContent=`${working}名`;
+  $('todayAttendanceHours').textContent=formatDuration(total);
+  $('workingCountPill').textContent=`勤務中 ${working}名`;
+  $('workingCountPill').className=`status-pill ${working?'working':'off'}`;
+  updateAttendanceDeleteButton();
+
+  if(!list.length){
+    $('attendanceTable').innerHTML='<div class="empty">この日の出退勤記録はありません。</div>';
+    return;
+  }
+
+  const allChecked=list.every(a=>selectedAttendanceIds.has(String(a.dbId)));
+  $('attendanceTable').innerHTML=`<table><thead><tr>
+    <th><input class="attendance-check" type="checkbox" ${allChecked?'checked':''} onchange="toggleAllAttendanceSelection(this.checked)" aria-label="すべて選択"></th>
+    <th>従業員</th><th>出勤</th><th>退勤</th><th>勤務時間</th><th>状態</th><th>操作</th>
+  </tr></thead><tbody>${list.map(a=>{
+    const checked=selectedAttendanceIds.has(String(a.dbId));
+    return `<tr data-attendance-row="${esc(a.dbId)}" class="${checked?'attendance-row-selected':''}">
+      <td><input class="attendance-check" type="checkbox" ${checked?'checked':''} onchange="toggleAttendanceSelection('${esc(a.dbId)}',this.checked)"></td>
+      <td><strong>${esc(a.employeeName)}</strong><br><span style="font-size:10px;color:var(--muted)">${esc(a.employeeId)}</span><br><button class="btn" style="margin-top:6px;padding:5px 8px;font-size:9px" onclick="openAttendanceDetailByUid('${esc(a.employeeUid||'')}','${esc(a.employeeId)}')">勤務日一覧</button></td>
+      <td>${fmtDateTime(a.clockIn)}</td>
+      <td>${fmtDateTime(a.clockOut)}</td>
+      <td>${formatDuration(attendanceDuration(a))}</td>
+      <td><span class="status-pill ${a.clockOut?'off':'working'}">${a.clockOut?'退勤済み':'勤務中'}</span></td>
+      <td><button class="btn danger" onclick="deleteOneAttendance('${esc(a.dbId)}')">削除</button></td>
+    </tr>`}).join('')}</tbody></table>`;
+}
+async function deleteAttendanceIds(ids,message){
+  const clean=[...new Set(ids.map(String).filter(Boolean))];
+  if(!clean.length)return;
+  if(!confirm(message))return;
+  const {error}=await sb.from('attendance_records').delete().in('id',clean);
+  if(error){alert('勤務記録を削除できませんでした：'+error.message);return}
+  clean.forEach(id=>selectedAttendanceIds.delete(id));
+  await loadAttendanceData();
+  renderAttendance();renderDashboard();renderRanking();renderEmployees();
+  if(attendanceDetailEmployee)renderAttendanceDetail();
+  await refreshDiscordStatusBoard(false);
+  toast(`${clean.length}件の勤務記録を削除しました`);
+}
+async function deleteSelectedAttendance(){
+  await deleteAttendanceIds([...selectedAttendanceIds],`選択した${selectedAttendanceIds.size}件の勤務記録を削除しますか？
+この操作は元に戻せません。`);
+}
+async function deleteFilteredAttendance(){
+  const list=attendanceFilteredList();
+  await deleteAttendanceIds(list.map(a=>a.dbId),`現在表示中の${list.length}件を一括削除しますか？
+対象日：${$('attendanceDate').value}
+この操作は元に戻せません。`);
+}
+async function deleteOneAttendance(id){
+  await deleteAttendanceIds([id],'この勤務記録を削除しますか？');
+}
+function openAttendanceDetail(index){
+  attendanceDetailEmployee=employees[Number(index)]||null;
+  if(!attendanceDetailEmployee)return;
+  $('attendanceDetailMonth').value=monthKeyLocal(new Date());
+  $('attendanceDetailModal').classList.remove('hidden');
+  renderAttendanceDetail();
+}
+function openAttendanceDetailByUid(uid,employeeId){
+  attendanceDetailEmployee=employees.find(e=>(uid&&e.uid===uid)||String(e.id).toLowerCase()===String(employeeId).toLowerCase())||{
+    uid,name:attendanceData.find(a=>(uid&&a.employeeUid===uid)||String(a.employeeId).toLowerCase()===String(employeeId).toLowerCase())?.employeeName||employeeId,
+    id:employeeId,role:''
+  };
+  $('attendanceDetailMonth').value=monthKeyLocal(new Date());
+  $('attendanceDetailModal').classList.remove('hidden');
+  renderAttendanceDetail();
+}
+function closeAttendanceDetail(){
+  $('attendanceDetailModal').classList.add('hidden');
+  attendanceDetailEmployee=null;
+}
+function attendanceDetailRecords(){
+  if(!attendanceDetailEmployee)return[];
+  const month=$('attendanceDetailMonth').value;
+  return attendanceData.filter(a=>{
+    const same=(attendanceDetailEmployee.uid&&a.employeeUid===attendanceDetailEmployee.uid)||String(a.employeeId).toLowerCase()===String(attendanceDetailEmployee.id).toLowerCase();
+    return same&&(!month||monthKeyLocal(a.clockIn)===month);
+  }).sort((a,b)=>new Date(b.clockIn)-new Date(a.clockIn));
+}
+function renderAttendanceDetail(){
+  if(!attendanceDetailEmployee)return;
+  const records=attendanceDetailRecords();
+  const grouped=new Map();
+  records.forEach(a=>{
+    const key=dateKey(a.clockIn);
+    if(!grouped.has(key))grouped.set(key,[]);
+    grouped.get(key).push(a);
+  });
+  const total=records.reduce((s,a)=>s+attendanceDuration(a),0);
+  $('attendanceDetailTitle').textContent=`${attendanceDetailEmployee.name}さんの出勤日`;
+  $('attendanceDetailMeta').textContent=`${attendanceDetailEmployee.role||''} ・ ${attendanceDetailEmployee.id||'-'}`;
+  $('attendanceDetailDays').textContent=`${grouped.size}日`;
+  $('attendanceDetailShifts').textContent=`${records.length}回`;
+  $('attendanceDetailHours').textContent=formatDuration(total);
+  $('attendanceDetailList').innerHTML=grouped.size?[...grouped.entries()].map(([date,shifts])=>{
+    const dayTotal=shifts.reduce((s,a)=>s+attendanceDuration(a),0);
+    return `<div class="attendance-day-card"><div class="attendance-day-head"><strong>${new Date(date+'T00:00:00').toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'short'})}</strong><span>${shifts.length}回 ・ ${formatDuration(dayTotal)}</span></div>${shifts.map(a=>`<div class="attendance-day-shift"><div><span>出勤</span><strong>${new Date(a.clockIn).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}</strong></div><div><span>退勤</span><strong>${a.clockOut?new Date(a.clockOut).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'}):'勤務中'}</strong></div><div><span>勤務時間</span><strong>${formatDuration(attendanceDuration(a))}</strong></div><button class="btn danger" onclick="deleteOneAttendance('${esc(a.dbId)}')">削除</button></div>`).join('')}</div>`
+  }).join(''):'<div class="empty">この月の勤務記録はありません。</div>';
+}
+async function deleteEmployeeMonthAttendance(){
+  const records=attendanceDetailRecords();
+  if(!records.length){alert('削除できる勤務記録がありません。');return}
+  await deleteAttendanceIds(records.map(a=>a.dbId),`${attendanceDetailEmployee.name}さんの${$('attendanceDetailMonth').value}の勤務記録 ${records.length}件を一括削除しますか？
+この操作は元に戻せません。`);
 }
 
 async function refreshDiscordStatusBoard(showSuccess=false){
