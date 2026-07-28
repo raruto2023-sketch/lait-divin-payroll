@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
-<title>Lait Divin Management Portal Ver.4.4.1.1</title>
+<title>Lait Divin Management Portal Ver.4.4.1.2</title>
+<link rel="icon" href="data:,">
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1093,6 +1094,19 @@ const DRAFT_KEY='ld_server_draft_v1';
 let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄',prefix:'LD',footer:'Lait Divin\nLuz City\nこの明細書は店舗発行の記録です.'};
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
+
+// ===== Ver.4.4.1.2 runtime state hotfix =====
+// These variables are shared by login, realtime, attendance, sales and ranking screens.
+let syncTimer=null;
+let refreshInProgress=false;
+let realtimeHealthy=false;
+let appMode='login';
+let salesData=[];
+let myHistory=[];
+let rankingMode='hours';
+let employeeRankingMode='hours';
+let attendanceDetailEmployee=null;
+const selectedAttendanceIds=new Set();
 
 
 
