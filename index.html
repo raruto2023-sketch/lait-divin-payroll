@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Management Portal Ver.7.1</title>
+<title>Lait Divin Management Portal Ver.8.0</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -36,7 +36,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.7.1 ===== */
+/* ===== Lait Divin Portal Ver.8.0 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -70,7 +70,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.7.1 UI ===== */
+/* ===== Ver.8.0 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -100,7 +100,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.7.1
+   Lait Divin Management Portal Ver.8.0
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -465,7 +465,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.7.1 Login ================== */
+/* ================== Ver.8.0 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -497,7 +497,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.7.1 Login visibility hotfix ===== */
+/* ===== Ver.8.0 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -516,7 +516,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.7.1 Attendance Management ================== */
+/* ================== Ver.8.0 Attendance Management ================== */
 .attendance-admin-toolbar{align-items:center}
 .danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
 .danger-outline:hover{background:var(--danger-soft)!important}
@@ -557,7 +557,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.7.1 Sales Management ================== */
+/* ================== Ver.8.0 Sales Management ================== */
 .ranking-mode-tabs{display:flex;gap:8px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:15px;width:max-content;margin-bottom:14px;box-shadow:var(--shadow)}
 .ranking-mode-tabs button{border:0;background:transparent;color:var(--ink-soft);font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer}
 .ranking-mode-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff;box-shadow:0 7px 17px rgba(80,55,40,.18)}
@@ -583,7 +583,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:480px){.sales-filter-tools{grid-template-columns:1fr}}
 
 
-/* Ver.7.1 realtime/mobile */
+/* Ver.8.0 realtime/mobile */
 .v4-live-indicator{font-size:9px;font-weight:900;white-space:nowrap}.sync-ok{color:#238642!important}.sync-warn{color:#c47b22!important}
 .v44-mobile-bottom{display:none}
 @media(max-width:760px){
@@ -600,7 +600,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:430px){.v4-kpi-grid,.inventory-grid,.ranking-summary,.inventory-overview{grid-template-columns:1fr!important}.v41-employee-welcome{flex-direction:column;gap:12px}}
 
 
-/* ===== Ver.7.1 readable café palette ===== */
+/* ===== Ver.8.0 readable café palette ===== */
 :root{
   --bg:#e9e3dc;
   --bg2:#ddd5cc;
@@ -671,7 +671,7 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
 .farm-manage-money{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.farm-empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:15px}
 @media(max-width:700px){.farm-manage-grid{grid-template-columns:repeat(2,1fr)}.farm-manage-money{grid-template-columns:1fr}}
 
-/* Ver.7.1: external Google content is never embedded or auto-fetched */
+/* Ver.8.0: external Google content is never embedded or auto-fetched */
 iframe.sheet-frame{display:none!important}
 
 
@@ -683,7 +683,7 @@ iframe.sheet-frame{display:none!important}
 @media(max-width:620px){.farm-personal-summary{grid-template-columns:1fr}}
 
 
-/* ===== Ver.7.1 Google Sheets live sync ===== */
+/* ===== Ver.8.0 Google Sheets live sync ===== */
 .farm-live-status{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.78)}
 .farm-live-status i{width:9px;height:9px;border-radius:50%;background:#b6a89e;display:inline-block}
 .farm-live-status i.syncing{background:#e0b468;box-shadow:0 0 0 5px rgba(224,180,104,.14)}
@@ -699,7 +699,7 @@ iframe.sheet-frame{display:none!important}
 @media(max-width:760px){.farm-check-grid{grid-template-columns:1fr}}
 
 
-/* ===== Ver.7.1 Inventory sync + Farm period deletion ===== */
+/* ===== Ver.8.0 Inventory sync + Farm period deletion ===== */
 .inventory-live-status{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.78)}
 .inventory-live-status i{width:9px;height:9px;border-radius:50%;background:#b6a89e;display:inline-block}
 .inventory-live-status i.syncing{background:#e0b468;box-shadow:0 0 0 5px rgba(224,180,104,.14)}
@@ -708,7 +708,7 @@ iframe.sheet-frame{display:none!important}
 #inventorySyncButton:disabled,#deleteFarmPeriodButton:disabled{opacity:.6;cursor:wait}
 
 
-/* ===== Ver.7.1 Employee Farm sync ===== */
+/* ===== Ver.8.0 Employee Farm sync ===== */
 #employeeFarmSyncButton:disabled{opacity:.6;cursor:wait}
 
 
@@ -716,7 +716,7 @@ iframe.sheet-frame{display:none!important}
 
 
 /* ============================================================
-   Ver.7.1 Mobile UX
+   Ver.8.0 Mobile UX
    ============================================================ */
 .mobile-bottom-nav,
 .mobile-menu-toggle,
@@ -1078,6 +1078,131 @@ iframe.sheet-frame{display:none!important}
   .modal-actions{grid-template-columns:1fr!important}
 }
 
+
+/* ============================================================
+   Ver.8 Admin Attendance Control
+   ============================================================ */
+.attendance-control-panel{
+  margin:16px 0;
+  padding:18px;
+  border:1px solid var(--line);
+  border-radius:20px;
+  background:var(--surface);
+  box-shadow:var(--shadow);
+}
+.attendance-control-panel .dashboard-title p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:11px;
+}
+.attendance-control-tabs{
+  display:flex;
+  gap:8px;
+  margin:15px 0 12px;
+  padding:5px;
+  border-radius:14px;
+  background:var(--surface2);
+}
+.attendance-control-tabs button{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:11px;
+  background:transparent;
+  color:var(--ink-soft);
+  font-weight:900;
+  cursor:pointer;
+}
+.attendance-control-tabs button.active{
+  background:var(--surface);
+  color:var(--brand);
+  box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+.attendance-control-tabs span{
+  display:inline-grid;
+  place-items:center;
+  min-width:23px;
+  height:23px;
+  margin-left:5px;
+  padding:0 6px;
+  border-radius:999px;
+  background:var(--brand-soft);
+  font-size:10px;
+}
+.attendance-control-list{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+.attendance-control-card{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  gap:11px;
+  align-items:center;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--surface2);
+}
+.attendance-control-card .person-avatar{
+  width:42px;
+  height:42px;
+}
+.attendance-control-card strong{
+  display:block;
+  font-size:13px;
+}
+.attendance-control-card small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:10px;
+  line-height:1.4;
+}
+.attendance-control-actions{
+  display:flex;
+  gap:6px;
+  align-items:center;
+}
+.attendance-control-actions .btn{
+  padding:8px 10px;
+  font-size:10px;
+}
+.admin-attendance-modal textarea{min-height:90px}
+.attendance-admin-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-top:5px;
+  padding:4px 7px;
+  border-radius:999px;
+  background:var(--brand-soft);
+  color:var(--brand-strong);
+  font-size:9px;
+  font-weight:900;
+}
+@media(max-width:760px){
+  .attendance-control-panel{padding:14px}
+  .attendance-control-panel .dashboard-title{
+    display:flex!important;
+    flex-direction:column!important;
+  }
+  .attendance-control-panel .dashboard-title .btn{width:100%!important}
+  .attendance-control-list{grid-template-columns:1fr}
+  .attendance-control-card{
+    grid-template-columns:auto minmax(0,1fr);
+  }
+  .attendance-control-actions{
+    grid-column:1/-1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .attendance-control-actions .btn{
+    width:100%;
+    min-height:43px!important;
+  }
+}
+
 </style>
 </head>
 <body class="login-active">
@@ -1129,7 +1254,7 @@ iframe.sheet-frame{display:none!important}
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.7.1</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.8.0</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -1344,7 +1469,7 @@ iframe.sheet-frame{display:none!important}
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.7.1</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.8.0</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -1418,6 +1543,25 @@ iframe.sheet-frame{display:none!important}
   <div class="attendance-status"><h2>出退勤管理</h2><p>従業員の勤務状況をリアルタイムで確認できます。</p><div class="attendance-clock" id="adminNowClock">--:--:--</div><span id="workingCountPill" class="status-pill off">勤務中 0名</span></div>
   <div class="attendance-summary"><div class="card"><p>本日の出勤</p><strong id="todayAttendanceCount">0名</strong></div><div class="card"><p>勤務中</p><strong id="workingAttendanceCount">0名</strong></div><div class="card"><p>本日の合計</p><strong id="todayAttendanceHours">0時間</strong></div></div>
 </div>
+
+<div class="attendance-control-panel">
+  <div class="dashboard-title">
+    <div>
+      <span class="eyebrow">ADMIN SHIFT CONTROL</span>
+      <h2>管理者 出退勤操作</h2>
+      <p>従業員を管理者側から出勤・退勤させられます。操作は履歴に保存されます。</p>
+    </div>
+    <button class="btn primary" onclick="openAdminAttendanceModal()">時刻を指定して操作</button>
+  </div>
+
+  <div class="attendance-control-tabs">
+    <button id="attendanceControlWorkingTab" class="active" onclick="setAttendanceControlMode('working')">勤務中 <span id="attendanceControlWorkingCount">0</span></button>
+    <button id="attendanceControlOffTab" onclick="setAttendanceControlMode('off')">退勤中 <span id="attendanceControlOffCount">0</span></button>
+  </div>
+
+  <div id="attendanceControlList" class="attendance-control-list"></div>
+</div>
+
 <div class="toolbar attendance-admin-toolbar">
   <input id="attendanceDate" type="date" onchange="clearAttendanceSelection();renderAttendance()" style="max-width:190px">
   <input id="attendanceSearch" placeholder="名前・従業員番号で検索" oninput="clearAttendanceSelection();renderAttendance()" style="max-width:280px">
@@ -1439,7 +1583,7 @@ iframe.sheet-frame{display:none!important}
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.7.1</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.8.0</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -1612,6 +1756,39 @@ iframe.sheet-frame{display:none!important}
   </div>
 </div>
 
+
+<div id="adminAttendanceModal" class="modal-back hidden">
+  <div class="modal admin-attendance-modal">
+    <h2>管理者 出退勤操作</h2>
+    <div class="field">
+      <label>従業員</label>
+      <select id="adminAttendanceEmployee"></select>
+    </div>
+    <div class="grid2">
+      <div class="field">
+        <label>操作</label>
+        <select id="adminAttendanceAction" onchange="updateAdminAttendanceModalState()">
+          <option value="clock_in">出勤させる</option>
+          <option value="clock_out">退勤させる</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>操作時刻</label>
+        <input id="adminAttendanceTime" type="datetime-local">
+      </div>
+    </div>
+    <div class="field">
+      <label>理由・メモ</label>
+      <textarea id="adminAttendanceReason" placeholder="例：本人の端末不具合のため管理者が代理操作"></textarea>
+    </div>
+    <div id="adminAttendanceModalInfo" class="info"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeAdminAttendanceModal()">キャンセル</button>
+      <button class="btn primary" id="adminAttendanceExecuteBtn" onclick="executeAdminAttendanceModal()">実行</button>
+    </div>
+  </div>
+</div>
+
 <div id="attendanceDetailModal" class="modal-back hidden">
   <div class="modal attendance-detail-modal">
     <div class="attendance-detail-head">
@@ -1655,7 +1832,7 @@ let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
 
-// ===== Ver.7.1 Global State =====
+// ===== Ver.8.0 Global State =====
 let syncTimer=null;
 let employeeRankingMode='sales';
 let rankingMode='hours';
@@ -2305,6 +2482,7 @@ function toggleAllAttendanceSelection(checked){
   renderAttendance();
 }
 function renderAttendance(){
+  renderAttendanceControl();
   if(!$('attendanceTable'))return;
   const list=attendanceFilteredList();
   const unique=new Set(list.map(a=>a.employeeUid||a.employeeId)).size;
@@ -2441,6 +2619,201 @@ async function refreshDiscordStatusBoard(showSuccess=false){
 }
 async function manualDiscordSync(){
   await refreshDiscordStatusBoard(true);
+}
+
+
+let attendanceControlMode='working';
+
+function localDateTimeValue(date=new Date()){
+  const shifted=new Date(date.getTime()-date.getTimezoneOffset()*60000);
+  return shifted.toISOString().slice(0,16);
+}
+function activeAttendanceForEmployee(employee){
+  return attendanceData.find(a=>
+    !a.clockOut&&(
+      (employee.uid&&a.employeeUid===employee.uid)||
+      String(a.employeeId).toLowerCase()===String(employee.id).toLowerCase()
+    )
+  )||null;
+}
+function setAttendanceControlMode(mode){
+  attendanceControlMode=mode;
+  $('attendanceControlWorkingTab')?.classList.toggle('active',mode==='working');
+  $('attendanceControlOffTab')?.classList.toggle('active',mode==='off');
+  renderAttendanceControl();
+}
+function renderAttendanceControl(){
+  const container=$('attendanceControlList');
+  if(!container)return;
+
+  const working=employees.filter(e=>activeAttendanceForEmployee(e));
+  const off=employees.filter(e=>!activeAttendanceForEmployee(e));
+  if($('attendanceControlWorkingCount'))$('attendanceControlWorkingCount').textContent=working.length;
+  if($('attendanceControlOffCount'))$('attendanceControlOffCount').textContent=off.length;
+
+  const list=attendanceControlMode==='working'?working:off;
+  if(!list.length){
+    container.innerHTML=`<div class="empty">${attendanceControlMode==='working'?'現在勤務中の従業員はいません。':'退勤中の従業員はいません。'}</div>`;
+    return;
+  }
+
+  container.innerHTML=list.map(e=>{
+    const active=activeAttendanceForEmployee(e);
+    const stateText=active
+      ?`${new Date(active.clockIn).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}から勤務中・${formatDuration(attendanceDuration(active))}`
+      :'現在は退勤中';
+    return `<article class="attendance-control-card">
+      <div class="person-avatar">${esc((e.name||'?').slice(0,1))}</div>
+      <div>
+        <strong>${esc(e.name)}</strong>
+        <small>${esc(e.role)} ・ ${esc(e.id)}<br>${esc(stateText)}</small>
+      </div>
+      <div class="attendance-control-actions">
+        <button class="btn ${active?'danger':'primary'}" onclick="${active?`adminQuickClockOut('${esc(e.uid)}')`:`adminQuickClockIn('${esc(e.uid)}')`}">
+          ${active?'今すぐ退勤':'今すぐ出勤'}
+        </button>
+        <button class="btn" onclick="openAdminAttendanceModal('${esc(e.uid)}','${active?'clock_out':'clock_in'}')">時刻指定</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+function populateAdminAttendanceEmployees(selectedUid=''){
+  const select=$('adminAttendanceEmployee');
+  if(!select)return;
+  select.innerHTML=employees.map(e=>`<option value="${esc(e.uid)}">${esc(e.name)}（${esc(e.id)}）</option>`).join('');
+  if(selectedUid)select.value=selectedUid;
+}
+function openAdminAttendanceModal(uid='',action=''){
+  populateAdminAttendanceEmployees(uid);
+  $('adminAttendanceTime').value=localDateTimeValue();
+  $('adminAttendanceReason').value='';
+  if(action)$('adminAttendanceAction').value=action;
+  else{
+    const e=employees.find(x=>x.uid===$('adminAttendanceEmployee').value);
+    $('adminAttendanceAction').value=e&&activeAttendanceForEmployee(e)?'clock_out':'clock_in';
+  }
+  $('adminAttendanceEmployee').onchange=updateAdminAttendanceModalState;
+  updateAdminAttendanceModalState();
+  $('adminAttendanceModal').classList.remove('hidden');
+}
+function closeAdminAttendanceModal(){
+  $('adminAttendanceModal').classList.add('hidden');
+}
+function updateAdminAttendanceModalState(){
+  const employee=employees.find(e=>e.uid===$('adminAttendanceEmployee')?.value);
+  if(!employee)return;
+  const active=activeAttendanceForEmployee(employee);
+  const action=$('adminAttendanceAction').value;
+  const info=$('adminAttendanceModalInfo');
+
+  if(action==='clock_in'){
+    info.textContent=active
+      ?`${employee.name}さんはすでに出勤中です。重複出勤はできません。`
+      :`${employee.name}さんを指定時刻から出勤状態にします。`;
+    $('adminAttendanceExecuteBtn').disabled=!!active;
+  }else{
+    info.textContent=active
+      ?`${employee.name}さんの勤務記録を指定時刻で退勤処理します。`
+      :`${employee.name}さんは現在退勤中のため、退勤処理できません。`;
+    $('adminAttendanceExecuteBtn').disabled=!active;
+  }
+}
+async function callManageAttendance(payload){
+  const {data:{session},error:sessionError}=await sb.auth.getSession();
+  if(sessionError)throw new Error(sessionError.message);
+  if(!session)throw new Error('ログインが切れています。再ログインしてください。');
+
+  const res=await fetch(`${cfg.SUPABASE_URL}/functions/v1/manage-attendance`,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':`Bearer ${session.access_token}`,
+      'apikey':cfg.SUPABASE_ANON_KEY
+    },
+    body:JSON.stringify(payload)
+  });
+  const raw=await res.text();
+  let result={};
+  try{result=raw?JSON.parse(raw):{}}catch{result={error:raw||'不明な応答'}}
+  if(!res.ok||result.ok===false){
+    throw new Error(result.error||result.details||`出退勤操作に失敗しました（HTTP ${res.status}）`);
+  }
+  return result;
+}
+async function refreshAfterAdminAttendance(message){
+  await Promise.all([loadAttendanceData(),loadEmployees()]);
+  renderAttendance();
+  renderAttendanceControl();
+  renderDashboard();
+  renderRanking();
+  renderEmployees();
+  await refreshDiscordStatusBoard(false);
+  toast(message);
+}
+async function adminQuickClockIn(uid){
+  const employee=employees.find(e=>e.uid===uid);
+  if(!employee)return;
+  if(!confirm(`${employee.name}さんを今すぐ出勤させますか？`))return;
+  try{
+    await callManageAttendance({
+      action:'clock_in',
+      employee_uid:employee.uid,
+      occurred_at:new Date().toISOString(),
+      reason:'管理者によるクイック出勤'
+    });
+    await refreshAfterAdminAttendance(`${employee.name}さんを出勤させました`);
+  }catch(error){
+    alert('出勤操作に失敗しました。\n'+(error.message||error));
+  }
+}
+async function adminQuickClockOut(uid){
+  const employee=employees.find(e=>e.uid===uid);
+  if(!employee)return;
+  if(!confirm(`${employee.name}さんを今すぐ退勤させますか？`))return;
+  try{
+    await callManageAttendance({
+      action:'clock_out',
+      employee_uid:employee.uid,
+      occurred_at:new Date().toISOString(),
+      reason:'管理者によるクイック退勤'
+    });
+    await refreshAfterAdminAttendance(`${employee.name}さんを退勤させました`);
+  }catch(error){
+    alert('退勤操作に失敗しました。\n'+(error.message||error));
+  }
+}
+async function executeAdminAttendanceModal(){
+  const uid=$('adminAttendanceEmployee').value;
+  const employee=employees.find(e=>e.uid===uid);
+  const action=$('adminAttendanceAction').value;
+  const rawTime=$('adminAttendanceTime').value;
+  const reason=$('adminAttendanceReason').value.trim();
+  if(!employee)return alert('従業員を選択してください。');
+  if(!rawTime)return alert('操作時刻を入力してください。');
+
+  const occurred=new Date(rawTime);
+  if(Number.isNaN(occurred.getTime()))return alert('正しい日時を入力してください。');
+  if(occurred.getTime()>Date.now()+60000)return alert('未来の時刻では操作できません。');
+
+  const label=action==='clock_in'?'出勤':'退勤';
+  if(!confirm(`${employee.name}さんを\n${occurred.toLocaleString('ja-JP')}\nで${label}処理しますか？`))return;
+
+  const btn=$('adminAttendanceExecuteBtn');
+  btn.disabled=true;
+  try{
+    await callManageAttendance({
+      action,
+      employee_uid:employee.uid,
+      occurred_at:occurred.toISOString(),
+      reason:reason||`管理者による時刻指定${label}`
+    });
+    closeAdminAttendanceModal();
+    await refreshAfterAdminAttendance(`${employee.name}さんを${label}処理しました`);
+  }catch(error){
+    alert(`${label}操作に失敗しました。\n`+(error.message||error));
+  }finally{
+    btn.disabled=false;
+  }
 }
 
 async function clockIn(){
@@ -2698,7 +3071,7 @@ async function syncEmployeeInventoryFromGoogleSheet(show=true){
     if(show){
       alert(
         '在庫表の同期に失敗しました。\n\n'+message+
-        '\n\nEdge Function「sync-inventory-sheet」をVer.7.1へ更新してください。'
+        '\n\nEdge Function「sync-inventory-sheet」をVer.8.0へ更新してください。'
       );
     }
   }finally{
@@ -2742,7 +3115,7 @@ async function syncInventoryFromGoogleSheet(show=true){
     window.__inventorySyncEnabled=false;
     if(show)alert(
       '在庫表の同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・sync-inventory-sheetをDeploy済み\n・在庫表がリンク閲覧可\n・Ver.7.1のSQLを実行済み'
+      '\n\n確認項目：\n・sync-inventory-sheetをDeploy済み\n・在庫表がリンク閲覧可\n・Ver.8.0のSQLを実行済み'
     );
   }finally{
     window.__inventorySyncRunning=false;
@@ -2777,7 +3150,7 @@ async function loadInventorySnapshot(show=false){
     renderInventory(inventorySnapshot);
     renderEmployeeInventory(inventorySnapshot);
     renderDashboard();
-    if(show)alert('在庫を読み込めませんでした。\nVer.7.1のSQLを実行してください。\n'+(err.message||err));
+    if(show)alert('在庫を読み込めませんでした。\nVer.8.0のSQLを実行してください。\n'+(err.message||err));
   }
 }
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
@@ -2858,7 +3231,7 @@ async function syncEmployeeFarmFromGoogleSheet(show=true){
     if(show){
       alert(
         'Google Sheets同期に失敗しました。\n\n'+message+
-        '\n\nEdge FunctionをVer.7.1へ更新してください。'
+        '\n\nEdge FunctionをVer.8.0へ更新してください。'
       );
     }
   }finally{
@@ -2906,14 +3279,14 @@ async function syncFarmFromGoogleSheet(show=true){
     window.__farmSyncEnabled=false;
     if(show)alert(
       'Google Sheets同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・Google Sheetsが「リンクを知っている全員が閲覧可」\n・集計期間のシート名が正しい\n・Edge FunctionをVer.7.1へ更新済み'
+      '\n\n確認項目：\n・Google Sheetsが「リンクを知っている全員が閲覧可」\n・集計期間のシート名が正しい\n・Edge FunctionをVer.8.0へ更新済み'
     );
   }finally{
     window.__farmSyncRunning=false;
   }
 }
 
-async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.7.1完全SQLをSupabaseで実行してください。\n'+err.message)}}
+async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.8.0完全SQLをSupabaseで実行してください。\n'+err.message)}}
 function renderFarm(d){const grand=d.items.reduce((s,x)=>s+farmN(x.total),0),rank=[...d.staff].sort((a,b)=>b.total-a.total),ass=d.staff.reduce((s,x)=>s+farmN(x.assessment),0),pay=d.staff.reduce((s,x)=>s+farmN(x.payment),0);renderFarmPeriodOptions();if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');if($('farmTopStaff'))$('farmTopStaff').textContent=rank[0]?.name||'-';if($('farmTotalAssessment'))$('farmTotalAssessment').textContent=ass.toLocaleString('ja-JP',{maximumFractionDigits:1});if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(pay);if($('farmItemGrid'))$('farmItemGrid').innerHTML=d.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${farmN(x.total).toLocaleString('ja-JP')}</div><div class="farm-average">期間合計</div></article>`).join('')||'<div class="farm-empty">品目なし</div>';if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=rank.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${farmN(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>記録なし</span>'}</div><div class="sheet-note">査定 ${x.assessment.toLocaleString('ja-JP')} ／ ${yen.format(x.payment)}</div></article>`).join('')||'<div class="farm-empty">スタッフなし</div>';if($('farmRankingList'))$('farmRankingList').innerHTML=rank.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div><div><strong>${esc(x.name)}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('')||'<div class="farm-empty">ランキングなし</div>';renderFarmManage();renderEmployeeFarm(d)}
 function renderEmployeeFarm(d){
   const grand=d.items.reduce((s,x)=>s+farmN(x.total),0);
@@ -3053,5 +3426,5 @@ window.addEventListener('resize',applyMobileNavLabels);
 document.addEventListener('DOMContentLoaded',applyMobileNavLabels);
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.7.1 Build 2026-07-29</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.8.0 Build 2026-07-29</div>
 </body></html>
