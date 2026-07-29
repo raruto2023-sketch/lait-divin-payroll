@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Management Portal Ver.8.1</title>
+<title>Lait Divin Management Portal Ver.8.1 Premium</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1583,6 +1583,82 @@ body.dark .v41-employee-sidebar{
 }
 
 </style>
+
+<style id="premium-1-theme">
+/* ===== Lait Divin V8.1 Premium 1.0: presentation-only update ===== */
+:root{
+  --premium-gold:#b99563;
+  --premium-gold-soft:#e7d4b7;
+  --premium-espresso:#241a16;
+  --premium-cream:#f7f1e8;
+  --premium-glass:rgba(255,255,255,.82);
+  --premium-shadow:0 24px 70px rgba(54,39,29,.12);
+}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(circle at 12% 8%,rgba(223,199,165,.34),transparent 31%),
+    radial-gradient(circle at 88% 18%,rgba(255,255,255,.88),transparent 28%),
+    linear-gradient(145deg,#f8f4ee 0%,#eee5da 100%);
+  background-attachment:fixed;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background-image:linear-gradient(rgba(84,62,47,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(84,62,47,.035) 1px,transparent 1px);background-size:34px 34px;z-index:-1}
+.header{background:rgba(250,247,242,.78);border-bottom-color:rgba(126,100,82,.17);box-shadow:0 10px 36px rgba(55,39,29,.06)}
+.brandmark,.person-avatar,.login-mark{background:linear-gradient(145deg,#755a46 0%,#2b1f1a 72%);box-shadow:inset 0 1px rgba(255,255,255,.18),0 12px 30px rgba(42,29,23,.2)}
+.brandtitle,.login-brand h1,.sheet-name{letter-spacing:.01em}
+.shell{max-width:1540px;padding:24px}
+.nav{background:rgba(255,255,255,.66);backdrop-filter:blur(22px) saturate(1.18);border-color:rgba(126,100,82,.16);box-shadow:0 18px 48px rgba(55,39,29,.07);padding:8px}
+.nav button{transition:transform .18s ease,background .18s ease,color .18s ease,box-shadow .18s ease}
+.nav button:hover{transform:translateY(-1px);background:rgba(114,86,66,.08);color:var(--ink)}
+.nav button.active{background:linear-gradient(135deg,#604837,#251b17);box-shadow:0 10px 25px rgba(43,30,24,.2)}
+.panel,.card,.section,.dashboard-panel,.metric-card,.attendance-table{
+  background:var(--premium-glass);
+  backdrop-filter:blur(20px) saturate(1.12);
+  border-color:rgba(126,100,82,.16);
+  box-shadow:var(--premium-shadow);
+}
+.panel,.dashboard-panel,.metric-card,.card,.section{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.metric-card:hover,.card:hover,.dashboard-panel:hover{transform:translateY(-2px);box-shadow:0 28px 78px rgba(54,39,29,.15);border-color:rgba(185,149,99,.32)}
+.metric-card{position:relative;overflow:hidden}
+.metric-card:after{content:"";position:absolute;width:92px;height:92px;border-radius:50%;right:-38px;top:-43px;background:radial-gradient(circle,rgba(185,149,99,.18),transparent 68%)}
+.metric-label{letter-spacing:.12em}.metric-value{font-family:Georgia,"Times New Roman",serif;letter-spacing:.01em}
+.hero,.sheet-head{background:linear-gradient(135deg,#664d3b 0%,#35251e 52%,#1f1714 100%)}
+.hero:before{content:"PREMIUM";position:absolute;right:18px;bottom:14px;font-size:9px;letter-spacing:.28em;color:rgba(255,255,255,.38);font-weight:900}
+.btn{transition:transform .16s ease,box-shadow .16s ease,filter .16s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(52,36,28,.1)}
+.btn.primary{background:linear-gradient(135deg,#765946,#2c201a);box-shadow:0 10px 25px rgba(50,35,27,.18)}
+.btn.primary:hover{filter:brightness(1.06)}
+input,select,textarea{background:rgba(255,255,255,.76);border-color:rgba(126,100,82,.2);transition:border-color .18s,box-shadow .18s,background .18s}
+input:focus,select:focus,textarea:focus{background:#fff;border-color:var(--premium-gold);box-shadow:0 0 0 4px rgba(185,149,99,.12)}
+.badge,.chip{border:1px solid rgba(185,149,99,.2);background:linear-gradient(135deg,rgba(246,236,222,.95),rgba(255,255,255,.8));color:#735b45}
+.working-person{background:rgba(255,255,255,.61);border-color:rgba(126,100,82,.14);transition:.18s}
+.working-person:hover{background:#fff;transform:translateX(2px)}
+.quick-action{background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(244,237,228,.8));transition:.18s}
+.quick-action:hover{transform:translateY(-2px);border-color:rgba(185,149,99,.38);box-shadow:0 13px 30px rgba(58,41,31,.08)}
+.login-screen{background:radial-gradient(circle at 50% -10%,rgba(255,255,255,.95),transparent 38%),linear-gradient(145deg,#f7f1e9,#e8ddd0)}
+.login-card{border-color:rgba(126,100,82,.18);box-shadow:0 35px 110px rgba(50,35,27,.18)}
+.v41-login-shell{border-color:rgba(126,100,82,.2);box-shadow:0 40px 120px rgba(45,31,24,.2)}
+.v41-login-visual{background:linear-gradient(145deg,#5b4232 0%,#2d211c 60%,#1d1613 100%)}
+.v41-login-form{background:rgba(255,255,255,.92);backdrop-filter:blur(22px)}
+.v41-login-cow{box-shadow:inset 0 1px rgba(255,255,255,.25),0 16px 42px rgba(0,0,0,.2)}
+.sheet{box-shadow:0 34px 95px rgba(45,31,24,.18)}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:linear-gradient(#b99a79,#725744);border-radius:999px;border:3px solid transparent;background-clip:padding-box}::-webkit-scrollbar-track{background:transparent}
+body.dark{--premium-glass:rgba(29,25,22,.82);background:radial-gradient(circle at 12% 0%,rgba(114,78,54,.3),transparent 28%),linear-gradient(145deg,#0f0d0c,#1b1714)}
+body.dark .header{background:rgba(22,19,17,.78)}
+body.dark .v41-login-form{background:rgba(28,24,21,.94)}
+body.dark .working-person,body.dark .quick-action{background:rgba(41,35,31,.78)}
+body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)}
+@media(max-width:760px){
+  .shell{padding:13px 13px calc(88px + env(safe-area-inset-bottom))}
+  .header{padding:11px 13px}
+  .brandmark{width:42px;height:42px;border-radius:14px}
+  .metric-card{padding:15px;border-radius:18px}
+  .metric-value{font-size:22px}
+  .nav{border-radius:17px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
