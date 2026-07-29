@@ -2194,9 +2194,9 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
   <div id="adminCommunityGrid" class="community-grid"></div>
 </section>
 <section id="page-discord-report" class="page">
-  <div class="page-hero compact"><div><span class="eyebrow">DAILY REPORT</span><h1>Discord 売上レポート</h1><p>本日の売上レポートを確認し、管理者の操作でDiscordへ送信できます。</p></div><button class="btn" onclick="renderDiscordReportPreview()">再集計</button></div>
+  <div class="page-hero compact"><div><span class="eyebrow">SALES REPORT</span><h1>Discord 売上レポート</h1><p>送信したい日付を選び、売上レポート専用チャンネルへ投稿できます。</p></div><button class="btn" onclick="renderDiscordReportPreview()">再集計</button></div>
   <div class="discord-report-layout">
-    <div class="discord-preview"><small>LAIT DIVIN DAILY REPORT</small><h3 id="discordReportDate">本日の売上レポート</h3><div class="discord-report-values"><div><span>売上</span><strong id="discordPreviewSales">¥0</strong></div><div><span>概算利益</span><strong id="discordPreviewProfit">¥0</strong></div><div><span>出勤人数</span><strong id="discordPreviewStaff">0名</strong></div><div><span>販売登録</span><strong id="discordPreviewEntries">0件</strong></div></div><div class="discord-actions"><button id="discordSendButton" class="btn primary" onclick="sendDiscordDailyReport()">Discordへ今すぐ送信</button></div></div>
+    <div class="discord-preview"><small>LAIT DIVIN SALES REPORT</small><div class="field" style="margin:14px 0 18px"><label>レポート対象日</label><input id="discordReportDateInput" type="date" onchange="renderDiscordReportPreview()"></div><h3 id="discordReportDate">売上レポート</h3><div class="discord-report-values"><div><span>売上</span><strong id="discordPreviewSales">¥0</strong></div><div><span>概算利益</span><strong id="discordPreviewProfit">¥0</strong></div><div><span>出勤人数</span><strong id="discordPreviewStaff">0名</strong></div><div><span>販売登録</span><strong id="discordPreviewEntries">0件</strong></div></div><div class="discord-actions"><button id="discordSendButton" class="btn primary" onclick="sendDiscordDailyReport()">選択日のレポートを送信</button></div></div>
     <div class="panel" style="padding:20px"><div class="section-title">自動投稿の状態</div><div class="discord-status-box"><b>毎日の自動投稿</b><br>Supabase Edge Functionを毎日指定時刻に実行します。<br><br><b>安全な構成</b><br>Discord Webhook URLはサイト内に保存せず、Supabase Secretへ保存します。<br><br><span id="discordLastResult">まだ送信していません。</span></div></div>
   </div>
 </section>
@@ -4466,9 +4466,9 @@ function achievementsForProfile(profileId){
   return profileAchievements.filter(x=>x.profile_id===profileId).map(x=>({award:x,item:achievementCatalog.find(a=>a.id===x.achievement_id)})).filter(x=>x.item);
 }
 function profilePresence(profileId){
-  const p=(presenceRows||[]).find(x=>x.profile_id===profileId);
+  const p=(onlinePresenceData||[]).find(x=>x.user_id===profileId);
   if(!p)return {label:'オフライン',cls:'offline'};
-  return presenceComputedState(p);
+  return presenceState(p);
 }
 function communityCard(profile,isAdmin){
   const person=mapProfile(profile),awards=achievementsForProfile(profile.id),presence=profilePresence(profile.id),initial=(person.name||'?').slice(0,1);
@@ -4493,15 +4493,24 @@ async function grantAchievement(profileId){
   if(error){alert(error.code==='23505'?'この実績はすでに付与されています。':`付与できませんでした：${error.message}`);return}
   await loadCommunityProfiles(false);toast('実績を付与しました');
 }
-function todayReportData(){
-  const now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),now.getDate()),end=addDaysDate(start,1),rows=dashboardSalesRows().filter(x=>{const d=new Date((x.salesDate||'')+'T00:00:00');return d>=start&&d<end});
-  const sales=rows.reduce((s,x)=>s+(Number(x.amount)||0),0),payroll=sumPayrollRange(start,end),profit=sales-payroll;
-  const todayKey=iso(now),attendance=attendanceData.filter(a=>dateKey(a.clockIn)===todayKey),staff=new Set(attendance.map(a=>a.employeeUid||a.employeeId)).size;
-  return {date:todayKey,sales,profit,staff,entries:rows.length};
+function selectedDiscordReportDate(){
+  const input=$('discordReportDateInput');
+  if(input&&!input.value)input.value=iso(new Date());
+  return input?.value||iso(new Date());
+}
+function reportDataForDate(dateKeyValue){
+  const start=new Date(`${dateKeyValue}T00:00:00`),end=addDaysDate(start,1);
+  const rows=dashboardSalesRows().filter(x=>(x.salesDate||'')===dateKeyValue);
+  const sales=rows.reduce((sum,x)=>sum+(Number(x.amount)||0),0);
+  const payroll=sumPayrollRange(start,end),profit=sales-payroll;
+  const attendance=attendanceData.filter(a=>dateKey(a.clockIn)===dateKeyValue);
+  const staff=new Set(attendance.map(a=>a.employeeUid||a.employeeId)).size;
+  return {date:dateKeyValue,sales,profit,staff,entries:rows.length};
 }
 function renderDiscordReportPreview(){
-  const d=todayReportData();
-  if($('discordReportDate'))$('discordReportDate').textContent=`${new Date().toLocaleDateString('ja-JP')} の売上レポート`;
+  const date=selectedDiscordReportDate(),d=reportDataForDate(date);
+  const label=new Date(`${date}T00:00:00`).toLocaleDateString('ja-JP');
+  if($('discordReportDate'))$('discordReportDate').textContent=`${label} の売上レポート`;
   if($('discordPreviewSales'))$('discordPreviewSales').textContent=yen.format(d.sales);
   if($('discordPreviewProfit'))$('discordPreviewProfit').textContent=yen.format(d.profit);
   if($('discordPreviewStaff'))$('discordPreviewStaff').textContent=`${d.staff}名`;
@@ -4509,14 +4518,15 @@ function renderDiscordReportPreview(){
 }
 async function sendDiscordDailyReport(){
   if(appMode!=='admin'){alert('管理者のみ送信できます。');return}
+  const date=selectedDiscordReportDate();
   const button=$('discordSendButton'),status=$('discordLastResult');button.disabled=true;button.textContent='送信中…';
   try{
     const {data:{session}}=await sb.auth.getSession();if(!session)throw new Error('ログイン情報がありません。');
-    const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/daily-sales-report`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},body:JSON.stringify({source:'manual'})});
+    const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/daily-sales-report`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},body:JSON.stringify({source:'manual',date})});
     const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||`HTTP ${response.status}`);
-    status.textContent=`最終送信：${new Date().toLocaleString('ja-JP')}（成功）`;toast('Discordへ売上レポートを送信しました');
+    status.textContent=`最終送信：${new Date().toLocaleString('ja-JP')}（${date}分・成功）`;toast(`${date}の売上レポートをDiscordへ送信しました`);
   }catch(error){console.error(error);status.textContent=`送信失敗：${error.message}`;alert(`Discord送信に失敗しました：${error.message}`)}
-  finally{button.disabled=false;button.textContent='Discordへ今すぐ送信'}
+  finally{button.disabled=false;button.textContent='選択日のレポートを送信'}
 }
 
 </script>
