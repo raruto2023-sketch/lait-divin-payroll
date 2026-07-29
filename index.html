@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Management Portal Ver.5.2</title>
+<title>Lait Divin Management Portal Ver.5.3</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -36,7 +36,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.5.2 ===== */
+/* ===== Lait Divin Portal Ver.5.3 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -70,7 +70,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.5.2 UI ===== */
+/* ===== Ver.5.3 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -100,7 +100,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.5.2
+   Lait Divin Management Portal Ver.5.3
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -465,7 +465,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.5.2 Login ================== */
+/* ================== Ver.5.3 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -497,7 +497,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.5.2 Login visibility hotfix ===== */
+/* ===== Ver.5.3 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -516,7 +516,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.5.2 Attendance Management ================== */
+/* ================== Ver.5.3 Attendance Management ================== */
 .attendance-admin-toolbar{align-items:center}
 .danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
 .danger-outline:hover{background:var(--danger-soft)!important}
@@ -557,7 +557,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.5.2 Sales Management ================== */
+/* ================== Ver.5.3 Sales Management ================== */
 .ranking-mode-tabs{display:flex;gap:8px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:15px;width:max-content;margin-bottom:14px;box-shadow:var(--shadow)}
 .ranking-mode-tabs button{border:0;background:transparent;color:var(--ink-soft);font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer}
 .ranking-mode-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff;box-shadow:0 7px 17px rgba(80,55,40,.18)}
@@ -583,7 +583,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:480px){.sales-filter-tools{grid-template-columns:1fr}}
 
 
-/* Ver.5.2 realtime/mobile */
+/* Ver.5.3 realtime/mobile */
 .v4-live-indicator{font-size:9px;font-weight:900;white-space:nowrap}.sync-ok{color:#238642!important}.sync-warn{color:#c47b22!important}
 .v44-mobile-bottom{display:none}
 @media(max-width:760px){
@@ -600,7 +600,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:430px){.v4-kpi-grid,.inventory-grid,.ranking-summary,.inventory-overview{grid-template-columns:1fr!important}.v41-employee-welcome{flex-direction:column;gap:12px}}
 
 
-/* ===== Ver.5.2 readable café palette ===== */
+/* ===== Ver.5.3 readable café palette ===== */
 :root{
   --bg:#e9e3dc;
   --bg2:#ddd5cc;
@@ -714,7 +714,7 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.5.2</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.5.3</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -917,7 +917,7 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
 
 <section id="page-farm" class="page">
   <div class="page-hero compact inventory-hero">
-    <div><span class="eyebrow">FARM MANAGEMENT</span><h1>Farm管理</h1><p>採取量・1日平均・スタッフ別実績・ランキング・査定をまとめて確認できます。</p></div>
+    <div><span class="eyebrow">FARM MANAGEMENT</span><h1>Farm管理</h1><p>採取量・期間合計・スタッフ別実績・ランキング・査定をまとめて確認できます。</p></div>
     <div class="inventory-actions"><button class="btn primary" onclick="openFarmSheet()">Google Sheetsを開く</button><button class="btn" onclick="loadFarmData()">再読込</button></div>
   </div>
   <div class="farm-period-card">
@@ -929,10 +929,10 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
     </select>
   </div>
   <div class="farm-summary">
-    <div class="metric-card"><div class="metric-label">TOTAL FARM</div><div class="metric-value" id="farmGrandTotal">0</div><div class="metric-sub">期間中の総採取数</div></div>
-    <div class="metric-card"><div class="metric-label">DAILY AVERAGE</div><div class="metric-value" id="farmDailyAverage">0</div><div class="metric-sub">1日あたり平均</div></div>
-    <div class="metric-card"><div class="metric-label">TOP STAFF</div><div class="metric-value small" id="farmTopStaff">-</div><div class="metric-sub">採取数ランキング1位</div></div>
-    <div class="metric-card"><div class="metric-label">TOTAL PAYMENT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">Farm金額合計</div></div>
+    <div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="farmGrandTotal">0</div><div class="metric-sub">選択期間の総採取数</div></div>
+    <div class="metric-card"><div class="metric-label">TOP FARM</div><div class="metric-value small" id="farmTopStaff">-</div><div class="metric-sub">採取数ランキング1位</div></div>
+    <div class="metric-card"><div class="metric-label">TOTAL ASSESSMENT</div><div class="metric-value small" id="farmTotalAssessment">0</div><div class="metric-sub">選択期間の査定合計</div></div>
+    <div class="metric-card"><div class="metric-label">TOTAL PAYMENT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">選択期間の支給金額</div></div>
   </div>
   <div class="farm-tabs">
     <button class="active" data-farm-tab="items" onclick="setFarmTab('items')">品目別</button>
@@ -940,7 +940,7 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
     <button data-farm-tab="ranking" onclick="setFarmTab('ranking')">ランキング</button>
     <button data-farm-tab="sheet" onclick="setFarmTab('sheet')">シート</button>
   </div>
-  <div id="farmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2><span class="badge">合計・1日平均</span></div><div id="farmItemGrid" class="farm-grid"></div></div></div>
+  <div id="farmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2><span class="badge">期間合計</span></div><div id="farmItemGrid" class="farm-grid"></div></div></div>
   <div id="farmViewStaff" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別Farm実績</h2><span class="badge">誰がどれだけ取ったか</span></div><div id="farmStaffGrid" class="farm-staff-grid"></div></div></div>
   <div id="farmViewRanking" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">採取数・査定・金額</span></div><div id="farmRankingList"></div></div></div>
   <div id="farmViewSheet" class="farm-view"><div class="dashboard-panel embedded-sheet-panel"><div class="dashboard-title"><h2>Google Sheets</h2><span class="badge" id="farmEmbedBadge">7.27-8.2</span></div><iframe id="farmSheetFrame" class="sheet-frame" src="https://docs.google.com/spreadsheets/d/1CRkK7BKRXyVdcjyG_sLR3LEXnAq3y1HfG1oyGDRadH0/preview?gid=648398871" title="Lait Divin Farm表"></iframe></div></div>
@@ -1014,7 +1014,7 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.5.2</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.5.3</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -1111,12 +1111,19 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
         
         <section id="employee-page-farm" class="employee-page">
           <div class="page-hero compact inventory-hero"><div><span class="eyebrow">FARM SUMMARY</span><h1>Farm</h1><p>採取量・スタッフ別実績・ランキングをまとめて確認できます。</p></div><div class="inventory-actions"><button class="btn primary" onclick="openFarmSheet()">Google Sheetsを開く</button><button class="btn" onclick="loadFarmData()">再読込</button></div></div>
-          <div class="farm-period-card"><div><span>集計期間</span><strong id="employeeFarmPeriodLabel">7月27日〜8月2日</strong><span>最新の期間シート</span></div></div>
+          <div class="farm-period-card">
+            <div><span>集計期間</span><strong id="employeeFarmPeriodLabel">7月27日〜8月2日</strong><span id="employeeFarmSheetLabel">シート：7.27-8.2</span></div>
+            <select id="employeeFarmPeriodSelect" onchange="changeEmployeeFarmPeriod(this.value)">
+              <option value="7.27-8.2">7月27日〜8月2日</option>
+              <option value="-7.26">7月26日まで</option>
+              <option value="原本">原本</option>
+            </select>
+          </div>
           <div class="farm-summary">
-            <div class="metric-card"><div class="metric-label">TOTAL FARM</div><div class="metric-value" id="employeeFarmGrandTotal">0</div></div>
-            <div class="metric-card"><div class="metric-label">DAILY AVERAGE</div><div class="metric-value" id="employeeFarmDailyAverage">0</div></div>
-            <div class="metric-card"><div class="metric-label">MY FARM</div><div class="metric-value" id="employeeMyFarm">0</div></div>
-            <div class="metric-card"><div class="metric-label">MY RANK</div><div class="metric-value" id="employeeMyFarmRank">-</div></div>
+            <div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="employeeFarmGrandTotal">0</div><div class="metric-sub">選択期間の総採取数</div></div>
+            <div class="metric-card"><div class="metric-label">TOP FARM</div><div class="metric-value small" id="employeeFarmTopStaff">-</div><div class="metric-sub">採取数ランキング1位</div></div>
+            <div class="metric-card"><div class="metric-label">MY FARM</div><div class="metric-value" id="employeeMyFarm">0</div><div class="metric-sub">選択期間の自分の採取数</div></div>
+            <div class="metric-card"><div class="metric-label">MY RANK</div><div class="metric-value" id="employeeMyFarmRank">-</div><div class="metric-sub">選択期間の順位</div></div>
           </div>
           <div class="farm-tabs"><button class="active" data-employee-farm-tab="items" onclick="setEmployeeFarmTab('items')">品目別</button><button data-employee-farm-tab="ranking" onclick="setEmployeeFarmTab('ranking')">ランキング</button><button data-employee-farm-tab="sheet" onclick="setEmployeeFarmTab('sheet')">シート</button></div>
           <div id="employeeFarmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2></div><div id="employeeFarmItemGrid" class="farm-grid"></div></div></div>
@@ -1210,7 +1217,7 @@ let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
 
-// ===== Ver.5.2 Global State =====
+// ===== Ver.5.3 Global State =====
 let syncTimer=null;
 let employeeRankingMode='sales';
 let rankingMode='hours';
@@ -2147,7 +2154,7 @@ window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('ad
 restoreSession();
 
 
-/* ===== Ver.5.2 Farm module (kept separate from Inventory) ===== */
+/* ===== Ver.5.3 Farm module (kept separate from Inventory) ===== */
 const FARM_SHEET_URL='https://docs.google.com/spreadsheets/d/1CRkK7BKRXyVdcjyG_sLR3LEXnAq3y1HfG1oyGDRadH0/edit?gid=0#gid=0';
 const FARM_SHEET_ID='1CRkK7BKRXyVdcjyG_sLR3LEXnAq3y1HfG1oyGDRadH0';
 const FARM_GIDS={'原本':'0','7.27-8.2':'648398871','-7.26':'271117160'};
@@ -2212,12 +2219,14 @@ function renderFarm(data){
   const payment=data.staff.reduce((s,x)=>s+x.payment,0);
   const ranking=[...data.staff].sort((a,b)=>b.total-a.total);
   if($('farmPeriodLabel'))$('farmPeriodLabel').textContent=data.label;
+  if($('farmPeriodSelect'))$('farmPeriodSelect').value=data.sheet;
   if($('farmSheetLabel'))$('farmSheetLabel').textContent=`シート：${data.sheet}`;
   if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');
-  if($('farmDailyAverage'))$('farmDailyAverage').textContent=Math.round(grand/data.days).toLocaleString('ja-JP');
+  const assessment=data.staff.reduce((s,x)=>s+x.assessment,0);
   if($('farmTopStaff'))$('farmTopStaff').textContent=ranking[0]?.name||'-';
+  if($('farmTotalAssessment'))$('farmTotalAssessment').textContent=assessment.toLocaleString('ja-JP');
   if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(payment);
-  if($('farmItemGrid'))$('farmItemGrid').innerHTML=data.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${x.total.toLocaleString('ja-JP')}</div><div class="farm-average">1日平均 ${Math.round(x.total/data.days).toLocaleString('ja-JP')}個</div></article>`).join('');
+  if($('farmItemGrid'))$('farmItemGrid').innerHTML=data.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${x.total.toLocaleString('ja-JP')}</div><div class="farm-average">期間合計 ${x.total.toLocaleString('ja-JP')}個</div></article>`).join('');
   if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=ranking.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${Number(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>採取記録なし</span>'}</div><div class="sheet-note">査定 ${x.assessment.toLocaleString('ja-JP')} ／ ${yen.format(x.payment)}</div></article>`).join('');
   if($('farmRankingList'))$('farmRankingList').innerHTML=ranking.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div><div><strong>${esc(x.name)}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('');
   renderEmployeeFarm(data);
@@ -2229,11 +2238,13 @@ function renderEmployeeFarm(data){
   const me=ranking.find(x=>currentEmployee&&normalize(x.name)===normalize(currentEmployee.name));
   const rank=me?ranking.indexOf(me)+1:0;
   if($('employeeFarmPeriodLabel'))$('employeeFarmPeriodLabel').textContent=data.label;
+  if($('employeeFarmSheetLabel'))$('employeeFarmSheetLabel').textContent=`シート：${data.sheet}`;
+  if($('employeeFarmPeriodSelect'))$('employeeFarmPeriodSelect').value=data.sheet;
   if($('employeeFarmGrandTotal'))$('employeeFarmGrandTotal').textContent=grand.toLocaleString('ja-JP');
-  if($('employeeFarmDailyAverage'))$('employeeFarmDailyAverage').textContent=Math.round(grand/data.days).toLocaleString('ja-JP');
+  if($('employeeFarmTopStaff'))$('employeeFarmTopStaff').textContent=ranking[0]?.name||'-';
   if($('employeeMyFarm'))$('employeeMyFarm').textContent=(me?.total||0).toLocaleString('ja-JP');
   if($('employeeMyFarmRank'))$('employeeMyFarmRank').textContent=rank?`${rank}位`:'-';
-  if($('employeeFarmItemGrid'))$('employeeFarmItemGrid').innerHTML=data.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${x.total.toLocaleString('ja-JP')}</div><div class="farm-average">1日平均 ${Math.round(x.total/data.days).toLocaleString('ja-JP')}個</div></article>`).join('');
+  if($('employeeFarmItemGrid'))$('employeeFarmItemGrid').innerHTML=data.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${x.total.toLocaleString('ja-JP')}</div><div class="farm-average">期間合計 ${x.total.toLocaleString('ja-JP')}個</div></article>`).join('');
   if($('employeeFarmRankingList'))$('employeeFarmRankingList').innerHTML=ranking.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div><div><strong>${esc(x.name)}${me===x?'（あなた）':''}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('');
 }
 async function loadFarmData(){
@@ -2256,7 +2267,8 @@ function updateFarmFrame(sheet){
   if($('farmSheetFrame'))$('farmSheetFrame').src=`https://docs.google.com/spreadsheets/d/${FARM_SHEET_ID}/preview?gid=${gid}`;
   if($('farmEmbedBadge'))$('farmEmbedBadge').textContent=sheet;
 }
-function changeFarmPeriod(sheet){currentFarmPeriod=sheet;loadFarmData()}
+function changeFarmPeriod(sheet){currentFarmPeriod=sheet;if($('employeeFarmPeriodSelect'))$('employeeFarmPeriodSelect').value=sheet;loadFarmData()}
+function changeEmployeeFarmPeriod(sheet){currentFarmPeriod=sheet;if($('farmPeriodSelect'))$('farmPeriodSelect').value=sheet;loadFarmData()}
 function setFarmTab(tab){
   document.querySelectorAll('[data-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.farmTab===tab));
   document.querySelectorAll('#page-farm .farm-view').forEach(v=>v.classList.remove('active'));
@@ -2270,5 +2282,5 @@ function setEmployeeFarmTab(tab){
 function openFarmSheet(){window.open(FARM_SHEET_URL,'_blank','noopener')}
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.5.2 Build 2026-07-29</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.5.3 Build 2026-07-29</div>
 </body></html>
