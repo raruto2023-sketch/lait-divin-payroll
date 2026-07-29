@@ -2893,7 +2893,7 @@ function sumSalesRange(start,end){return dashboardSalesRows().filter(x=>{const d
 function sumPayrollRange(start,end){return historyData.filter(x=>{const d=new Date((x.issueDate||'')+'T00:00:00');return d>=start&&d<end}).reduce((s,x)=>s+(Number(x.net)||0),0)}
 function compareLabel(current,previous,label){if(!previous)return `${label} --`;const pct=Math.round((current-previous)/previous*100);return `${label} ${pct>=0?'+':''}${pct}%`}
 function setCompareEl(id,current,previous,label){const el=$(id);if(!el)return;el.textContent=compareLabel(current,previous,label);el.classList.remove('up','down');if(previous)el.classList.add(current>=previous?'up':'down')}
-function businessAvatar(r){const p=profileForRanking(r)||{};const name=p.display_name||r.name||'Staff';const url=p.avatar_url||'';return `<div class="mini-avatar">${url?`<img src="${esc(url)}" alt="">`:esc(name.slice(0,1))}</div>`}
+function businessAvatar(r){const employee=rankingEmployee(r);const name=employee?.name||r?.name||'Staff';const url=employee?.avatarUrl||r?.avatarUrl||'';return `<div class="mini-avatar">${url?`<img src="${esc(url)}" alt="${esc(name)}" loading="lazy">`:esc(name.slice(0,1))}</div>`}
 function renderBusinessDashboard(prefix='biz'){
   const now=new Date(),todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate()),tomorrow=addDaysDate(todayStart,1),yesterday=addDaysDate(todayStart,-1);
   const weekStart=startOfWeekDate(now),nextWeek=addDaysDate(weekStart,7),prevWeek=addDaysDate(weekStart,-7);
