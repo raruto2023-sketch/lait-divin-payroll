@@ -1,40 +1,21 @@
-# Lait Divin OS V10.3
+# Lait Divin OS V11
 
-管理者画面と従業員画面を分けた、Lait Divin専用の店舗運営ポータルです。
+本格デザインのGitHub Pages対応版です。
 
-## 入っている機能
+## 最速で公開する方法
+1. このZIPを解凍
+2. GitHubリポジトリ直下の古いファイルを削除
+3. 解凍した中身をすべてアップロード
+4. 1〜3分後に `https://raruto2023-sketch.github.io/lait-divin-payroll/?v=11` を開く
+5. 最初は「デモ画面を開く」で見た目と操作を確認
 
-- 管理者ログイン／従業員ログイン
-- 管理者ダッシュボード
-- 出勤・退勤と勤務履歴
-- 従業員管理
-- 売上・在庫・Farm管理
-- 給与明細と履歴
-- ランキング
-- ダークモード
-- スマホ最適化
-- Supabaseオンライン同期
+## Supabaseログイン
+`config.js` は設定済みです。Supabase Authenticationでユーザーを作成するとログインできます。
+管理者判定は `config.js` の `ADMIN_EMAIL` と一致するメールアドレスです。
 
-## GitHubへの入れ方
+## データについて
+現時点の画面操作データはブラウザのlocalStorageに保存されます。まずデザイン・導線・入力画面をすぐ使える状態にしています。
+Supabaseデータベースへ完全同期する場合は `sql/01_safe_setup.sql` を実行後、次の実装段階でAPI連携を追加できます。
 
-1. このZIPを解凍します。
-2. GitHubリポジトリの一番上へ、中身を直接アップロードします。
-3. `index.html` と `config.js` が同じ場所に並んでいれば正解です。
-4. 公開後に次のURLを一度開きます。
-
-   `https://raruto2023-sketch.github.io/lait-divin-payroll/?v=10.3`
-
-## Supabase設定
-
-`config.js`には現在のSupabase URLと公開キーを設定済みです。
-
-初回のみSupabaseのSQL Editorで、次の順番に実行してください。
-
-1. `sql/01_complete_setup.sql`
-2. エラーや出勤権限の問題がある場合のみ `sql/02_attendance_rls_fix.sql`
-
-## 注意
-
-- `SUPABASE_ANON_KEY`はブラウザ公開用のキーです。
-- `service_role`キーは絶対にGitHubへ置かないでください。
-- 古い画面が表示される場合は `Ctrl + Shift + R` を押してください。
+## キャッシュ更新
+表示が古い場合は `Ctrl + Shift + R` を押してください。
