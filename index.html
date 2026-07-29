@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
-<title>Lait Divin Management Portal Ver.4.4.1.4</title>
+<title>Lait Divin Management Portal Ver.4.4.1.5</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1094,6 +1094,18 @@ let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
 
+// ===== Ver.4.4.1.5 Global State =====
+let syncTimer=null;
+let employeeRankingMode='sales';
+let rankingMode='hours';
+let salesData=[];
+let myHistory=[];
+let appMode='login';
+let refreshInProgress=false;
+let realtimeHealthy=false;
+let attendanceDetailEmployee=null;
+let selectedAttendanceIds=new Set();
+
 
 
 function markRealtimeStatus(ok){
@@ -1105,7 +1117,7 @@ function markRealtimeStatus(ok){
   });
 }
 function startSyncTimer(){
-  if(syncTimer)clearInterval(syncTimer);
+  if(typeof syncTimer!=='undefined'&&syncTimer)clearInterval(syncTimer);
   syncTimer=setInterval(()=>refreshAllData(true),10000);
 }
 async function refreshAllData(silent=false){
@@ -1141,7 +1153,7 @@ function ensureMobileNavs(){
 
 function showLoginScreen(){
   appMode='login';
-  if(syncTimer){clearInterval(syncTimer);syncTimer=null}
+  if(typeof syncTimer!=='undefined'&&syncTimer){clearInterval(syncTimer);syncTimer=null}
   document.body.classList.add('login-active');
   $('loginScreen')?.classList.remove('hidden');
   $('adminApp')?.classList.add('hidden');
@@ -1221,7 +1233,7 @@ async function restoreSession(){
 }
 async function logout(){
   stopRealtime();
-  if(syncTimer){clearInterval(syncTimer);syncTimer=null}
+  if(typeof syncTimer!=='undefined'&&syncTimer){clearInterval(syncTimer);syncTimer=null}
   currentEmployee=null;currentProfile=null;employees=[];historyData=[];attendanceData=[];salesData=[];myHistory=[];myAttendance=[];
   selectedAttendanceIds.clear();
   showLoginScreen();switchLogin('employee');showError('');
@@ -1827,7 +1839,7 @@ async function clockIn(){
     toast('出勤しました');
     await refreshDiscordStatusBoard(false);
   }catch(error){
-    console.error('出勤登録エラー:',error);
+    console.error('出勤登録エラー:',error,JSON.stringify(error));
     alert('出勤登録に失敗しました：'+(error.message||error));
   }
 }
@@ -1857,7 +1869,7 @@ async function clockOut(){
     toast('退勤しました');
     await refreshDiscordStatusBoard(false);
   }catch(error){
-    console.error('退勤登録エラー:',error);
+    console.error('退勤登録エラー:',error,JSON.stringify(error));
     alert('退勤登録に失敗しました：'+(error.message||error));
   }
 }
