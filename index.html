@@ -4130,7 +4130,7 @@ async function loadOnlinePresence(showToast=false){
 function renderOnlinePresence(){
   const byId=new Map(onlinePresenceData.map(x=>[x.user_id,x]));
   const rows=(employees||[]).map(e=>({employee:e,presence:byId.get(e.uid)||null,state:presenceState(byId.get(e.uid))}));
-  rows.sort((a,b)=>({online:0,away:1,offline:2}[a.state]-({online:0,away:1,offline:2}[b.state])||String(a.employee.name).localeCompare(String(b.employee.name),'ja'));
+  rows.sort((a,b)=>({online:0,away:1,offline:2}[a.state]-({online:0,away:1,offline:2}[b.state])||String(a.employee.name).localeCompare(String(b.employee.name),'ja')));
   const counts={online:0,away:0,offline:0};rows.forEach(r=>counts[r.state]++);
   const html=rows.length?rows.map(({employee:e,presence:p,state})=>{
     const avatar=e.avatarUrl?`style="background-image:url('${esc(e.avatarUrl)}')" class="online-avatar has-image"`:`class="online-avatar"`;
