@@ -5,76 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Management Portal Ver.8.1 Premium</title>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js">
-// ===== Premium 1.1 Profile =====
-let pendingProfileAvatar='';
-function setAvatarElement(el,url,fallback){
-  if(!el)return;
-  if(url){el.classList.add('has-image');el.style.backgroundImage=`url("${String(url).replace(/"/g,'&quot;')}")`;el.textContent='';}
-  else{el.classList.remove('has-image');el.style.backgroundImage='';el.textContent=(fallback||'従').slice(0,1);}
-}
-function applyProfileEverywhere(){
-  if(!currentEmployee)return;
-  const name=currentEmployee.name||currentEmployee.legalName||'スタッフ';
-  const initial=name.slice(0,1)||'従';
-  if($('employeeTopName'))$('employeeTopName').textContent=name;
-  if($('employeeTopRole'))$('employeeTopRole').textContent=currentEmployee.role||'Cast';
-  setAvatarElement($('employeeProfileAvatar'),currentEmployee.avatarUrl,initial);
-  setAvatarElement($('profileCardAvatar'),currentEmployee.avatarUrl,initial);
-  setAvatarElement($('profileAvatarPreview'),currentEmployee.avatarUrl,initial);
-  if($('profileCardName'))$('profileCardName').textContent=name;
-  if($('profileCardRole'))$('profileCardRole').textContent=`${currentEmployee.role||'Cast'} ・ ${currentEmployee.id||'-'}`;
-  if($('profileCardBio'))$('profileCardBio').textContent=currentEmployee.bio||'自己紹介はまだ設定されていません。';
-  if($('profileCardDiscord'))$('profileCardDiscord').textContent=currentEmployee.discordName||'未設定';
-  if($('profileCardMessage'))$('profileCardMessage').textContent=currentEmployee.statusMessage||'今日もよろしくお願いします！';
-}
-function loadMyProfileForm(){
-  if(!currentEmployee)return;
-  pendingProfileAvatar=currentEmployee.avatarUrl||'';
-  if($('profileDisplayName'))$('profileDisplayName').value=currentEmployee.name||currentEmployee.legalName||'';
-  if($('profileDiscordName'))$('profileDiscordName').value=currentEmployee.discordName||'';
-  if($('profileStatusMessage'))$('profileStatusMessage').value=currentEmployee.statusMessage||'';
-  if($('profileBio'))$('profileBio').value=currentEmployee.bio||'';
-  if($('profileSaveStatus'))$('profileSaveStatus').textContent='';
-  updateProfileCharCount();previewProfileForm();
-}
-function updateProfileCharCount(){if($('profileBioCount'))$('profileBioCount').textContent=`${($('profileBio')?.value||'').length} / 300`}
-function previewProfileForm(){
-  if(!currentEmployee)return;
-  const name=$('profileDisplayName')?.value.trim()||currentEmployee.legalName||'スタッフ';
-  setAvatarElement($('profileCardAvatar'),pendingProfileAvatar,name.slice(0,1));
-  setAvatarElement($('profileAvatarPreview'),pendingProfileAvatar,name.slice(0,1));
-  if($('profileCardName'))$('profileCardName').textContent=name;
-  if($('profileCardBio'))$('profileCardBio').textContent=$('profileBio')?.value.trim()||'自己紹介はまだ設定されていません。';
-  if($('profileCardDiscord'))$('profileCardDiscord').textContent=$('profileDiscordName')?.value.trim()||'未設定';
-  if($('profileCardMessage'))$('profileCardMessage').textContent=$('profileStatusMessage')?.value.trim()||'今日もよろしくお願いします！';
-}
-async function handleProfileAvatar(event){
-  const file=event.target.files?.[0];if(!file)return;
-  if(!file.type.startsWith('image/')){alert('画像ファイルを選択してください。');return}
-  if(file.size>8*1024*1024){alert('画像は8MB以下にしてください。');return}
-  try{pendingProfileAvatar=await compressProfileImage(file);previewProfileForm()}catch(e){console.error(e);alert('画像を読み込めませんでした。')}
-  event.target.value='';
-}
-function compressProfileImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const size=360,canvas=document.createElement('canvas');canvas.width=size;canvas.height=size;const ctx=canvas.getContext('2d');const scale=Math.max(size/img.width,size/img.height),w=img.width*scale,h=img.height*scale;ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);resolve(canvas.toDataURL('image/jpeg',.82))};img.src=reader.result};reader.readAsDataURL(file)})}
-function removeProfileAvatar(){pendingProfileAvatar='';previewProfileForm()}
-async function saveMyProfile(){
-  if(!currentProfile||!currentEmployee)return;
-  const displayName=$('profileDisplayName').value.trim();
-  if(!displayName){alert('表示名を入力してください。');return}
-  const button=$('saveProfileButton'),status=$('profileSaveStatus');button.disabled=true;status.textContent='保存中…';
-  const patch={display_name:displayName,avatar_url:pendingProfileAvatar||null,bio:$('profileBio').value.trim(),discord_name:$('profileDiscordName').value.trim(),status_message:$('profileStatusMessage').value.trim(),updated_at:new Date().toISOString()};
-  try{
-    const {data,error}=await sb.from('profiles').update(patch).eq('id',currentProfile.id).select('*').single();
-    if(error)throw error;
-    currentProfile=data;currentEmployee=mapProfile(data);applyProfileEverywhere();renderEmployeePortal();renderEmployeeDashboard();status.textContent='保存しました';toast('プロフィールを保存しました');
-  }catch(error){console.error(error);status.textContent='保存できませんでした';alert(error.message?.includes('column')?'プロフィール追加SQLを先に実行してください。':`保存に失敗しました：${error.message}`)}
-  finally{button.disabled=false;setTimeout(()=>{if(status.textContent==='保存しました')status.textContent=''},2500)}
-}
-['profileDisplayName','profileDiscordName','profileStatusMessage'].forEach(id=>document.addEventListener('input',e=>{if(e.target?.id===id)previewProfileForm()}));
-
-</script>
+<title>Lait Divin Management Portal Ver.8.1 Premium 1.1.1</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
 <style>
@@ -1734,6 +1666,17 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
   .nav{border-radius:17px}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Premium 1.1.1: 管理者プロフィール表示 */
+.admin-profile-card{display:flex;flex-direction:column;gap:12px}
+.admin-profile-head{display:flex;align-items:center;gap:12px}
+.admin-profile-head h3{margin:0 0 3px}.admin-profile-head p{margin:0!important}
+.admin-profile-avatar{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;flex:0 0 auto;background:linear-gradient(135deg,#d1a98c,#6a4938);color:#fff;font-size:20px;font-weight:900;background-size:cover;background-position:center}
+.admin-profile-avatar.has-image{color:transparent}
+.admin-profile-bio{min-height:42px;padding:11px 12px;border-radius:13px;background:var(--surface2);border:1px solid var(--line);font-size:11px;line-height:1.7;color:var(--muted);white-space:pre-wrap}
+.admin-profile-meta{display:grid;grid-template-columns:auto 1fr;gap:7px 10px;padding:11px 12px;border-radius:13px;background:rgba(166,126,95,.06);font-size:10px}
+.admin-profile-meta span{color:var(--muted)}.admin-profile-meta strong{text-align:right;overflow-wrap:anywhere}
+
 </style>
 
 </head>
@@ -2993,7 +2936,9 @@ async function saveEmployee(){
   }
 }
 function renderEmployees(){const c=$('employeeCards');c.innerHTML='';const q=($('employeeSearch')?.value||'').toLowerCase(),rf=$('employeeRoleFilter')?.value||'';const filtered=employees.filter(e=>`${e.name} ${e.id}`.toLowerCase().includes(q)&&(!rf||e.role===rf));if(!filtered.length){c.innerHTML='<div class="empty">条件に一致する従業員はいません。</div>';return}filtered.forEach(e=>{const i=employees.indexOf(e);const d=document.createElement('div');d.className='card';const records=attendanceData.filter(a=>(a.employeeUid&&a.employeeUid===e.uid)||String(a.employeeId).toLowerCase()===String(e.id).toLowerCase());const days=new Set(records.map(a=>dateKey(a.clockIn))).size;
-d.innerHTML=`<h3>${esc(e.name)}</h3><p>${esc(e.role)}<br>${esc(e.id)}<br>出勤日数：${days}日<br>勤務記録：${records.length}件</p><button class="btn employee-attendance-button" onclick="openAttendanceDetail(${i})">出勤した日を確認</button><div class="card-actions"><button class="btn primary" onclick="useEmployee(${i})">明細作成</button><button class="btn" onclick="openEmployeeModal(${i})">編集</button><button class="btn danger" onclick="deleteEmployee(${i})">削除</button></div>`;c.appendChild(d)})}
+d.classList.add('admin-profile-card');
+const avatar=e.avatarUrl?`<div class="admin-profile-avatar has-image" style="background-image:url('${esc(e.avatarUrl)}')"></div>`:`<div class="admin-profile-avatar">${esc((e.name||'従').slice(0,1))}</div>`;
+d.innerHTML=`<div class="admin-profile-head">${avatar}<div><h3>${esc(e.name)}</h3><p>${esc(e.role)} ・ ${esc(e.id)}</p></div></div><div class="admin-profile-bio">${esc(e.bio||'自己紹介はまだ設定されていません。')}</div><div class="admin-profile-meta"><span>Discord</span><strong>${esc(e.discordName||'未設定')}</strong><span>ひとこと</span><strong>${esc(e.statusMessage||'未設定')}</strong><span>出勤日数</span><strong>${days}日</strong><span>勤務記録</span><strong>${records.length}件</strong></div><button class="btn employee-attendance-button" onclick="openAttendanceDetail(${i})">出勤した日を確認</button><div class="card-actions"><button class="btn primary" onclick="useEmployee(${i})">明細作成</button><button class="btn" onclick="openEmployeeModal(${i})">編集</button><button class="btn danger" onclick="deleteEmployee(${i})">削除</button></div>`;c.appendChild(d)})}
 function useEmployee(i){goPage('create');$('employeeSelect').value=i;applyEmployee()}
 async function deleteEmployee(i){if(!confirm(`${employees[i].name} を削除しますか？`))return;try{await callEmployeeFunction({action:'delete',userId:employees[i].uid});await loadEmployees();refreshEmployeeSelect();renderEmployees()}catch(e){alert(e.message)}}
 function renderHistory(){const q=($('historySearch').value||'').toLowerCase(),b=$('historyList');b.innerHTML='';const list=historyData.filter(x=>`${x.employee} ${x.role} ${x.employeeId} ${x.periodStart} ${x.periodEnd}`.toLowerCase().includes(q));if(!list.length){b.innerHTML='<div class="empty">該当する履歴はありません。</div>';return}list.forEach(x=>{const i=historyData.indexOf(x),d=document.createElement('div');d.className='list-item';d.innerHTML=`<div class="list-main"><strong>${esc(x.employee)}</strong><span>${esc(x.slipNo)} ・ ${esc(x.employeeId)}</span></div><div>${jp(x.periodStart)}<br>〜 ${jp(x.periodEnd)}</div><div><strong style="font-size:14px;color:var(--ink)">${yen.format(x.net)}</strong><br>差引支給額</div><div class="list-actions"><button class="btn primary" onclick="loadHistory(${i})">開く</button><button class="btn danger" onclick="deleteHistory(${i})">削除</button></div>`;b.appendChild(d)})}
@@ -4103,6 +4048,75 @@ function applyMobileNavLabels(){
 }
 window.addEventListener('resize',applyMobileNavLabels);
 document.addEventListener('DOMContentLoaded',applyMobileNavLabels);
+
+
+
+// ===== Premium 1.1 Profile =====
+let pendingProfileAvatar='';
+function setAvatarElement(el,url,fallback){
+  if(!el)return;
+  if(url){el.classList.add('has-image');el.style.backgroundImage=`url("${String(url).replace(/"/g,'&quot;')}")`;el.textContent='';}
+  else{el.classList.remove('has-image');el.style.backgroundImage='';el.textContent=(fallback||'従').slice(0,1);}
+}
+function applyProfileEverywhere(){
+  if(!currentEmployee)return;
+  const name=currentEmployee.name||currentEmployee.legalName||'スタッフ';
+  const initial=name.slice(0,1)||'従';
+  if($('employeeTopName'))$('employeeTopName').textContent=name;
+  if($('employeeTopRole'))$('employeeTopRole').textContent=currentEmployee.role||'Cast';
+  setAvatarElement($('employeeProfileAvatar'),currentEmployee.avatarUrl,initial);
+  setAvatarElement($('profileCardAvatar'),currentEmployee.avatarUrl,initial);
+  setAvatarElement($('profileAvatarPreview'),currentEmployee.avatarUrl,initial);
+  if($('profileCardName'))$('profileCardName').textContent=name;
+  if($('profileCardRole'))$('profileCardRole').textContent=`${currentEmployee.role||'Cast'} ・ ${currentEmployee.id||'-'}`;
+  if($('profileCardBio'))$('profileCardBio').textContent=currentEmployee.bio||'自己紹介はまだ設定されていません。';
+  if($('profileCardDiscord'))$('profileCardDiscord').textContent=currentEmployee.discordName||'未設定';
+  if($('profileCardMessage'))$('profileCardMessage').textContent=currentEmployee.statusMessage||'今日もよろしくお願いします！';
+}
+function loadMyProfileForm(){
+  if(!currentEmployee)return;
+  pendingProfileAvatar=currentEmployee.avatarUrl||'';
+  if($('profileDisplayName'))$('profileDisplayName').value=currentEmployee.name||currentEmployee.legalName||'';
+  if($('profileDiscordName'))$('profileDiscordName').value=currentEmployee.discordName||'';
+  if($('profileStatusMessage'))$('profileStatusMessage').value=currentEmployee.statusMessage||'';
+  if($('profileBio'))$('profileBio').value=currentEmployee.bio||'';
+  if($('profileSaveStatus'))$('profileSaveStatus').textContent='';
+  updateProfileCharCount();previewProfileForm();
+}
+function updateProfileCharCount(){if($('profileBioCount'))$('profileBioCount').textContent=`${($('profileBio')?.value||'').length} / 300`}
+function previewProfileForm(){
+  if(!currentEmployee)return;
+  const name=$('profileDisplayName')?.value.trim()||currentEmployee.legalName||'スタッフ';
+  setAvatarElement($('profileCardAvatar'),pendingProfileAvatar,name.slice(0,1));
+  setAvatarElement($('profileAvatarPreview'),pendingProfileAvatar,name.slice(0,1));
+  if($('profileCardName'))$('profileCardName').textContent=name;
+  if($('profileCardBio'))$('profileCardBio').textContent=$('profileBio')?.value.trim()||'自己紹介はまだ設定されていません。';
+  if($('profileCardDiscord'))$('profileCardDiscord').textContent=$('profileDiscordName')?.value.trim()||'未設定';
+  if($('profileCardMessage'))$('profileCardMessage').textContent=$('profileStatusMessage')?.value.trim()||'今日もよろしくお願いします！';
+}
+async function handleProfileAvatar(event){
+  const file=event.target.files?.[0];if(!file)return;
+  if(!file.type.startsWith('image/')){alert('画像ファイルを選択してください。');return}
+  if(file.size>8*1024*1024){alert('画像は8MB以下にしてください。');return}
+  try{pendingProfileAvatar=await compressProfileImage(file);previewProfileForm()}catch(e){console.error(e);alert('画像を読み込めませんでした。')}
+  event.target.value='';
+}
+function compressProfileImage(file){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=reject;reader.onload=()=>{const img=new Image();img.onerror=reject;img.onload=()=>{const size=360,canvas=document.createElement('canvas');canvas.width=size;canvas.height=size;const ctx=canvas.getContext('2d');const scale=Math.max(size/img.width,size/img.height),w=img.width*scale,h=img.height*scale;ctx.drawImage(img,(size-w)/2,(size-h)/2,w,h);resolve(canvas.toDataURL('image/jpeg',.82))};img.src=reader.result};reader.readAsDataURL(file)})}
+function removeProfileAvatar(){pendingProfileAvatar='';previewProfileForm()}
+async function saveMyProfile(){
+  if(!currentProfile||!currentEmployee)return;
+  const displayName=$('profileDisplayName').value.trim();
+  if(!displayName){alert('表示名を入力してください。');return}
+  const button=$('saveProfileButton'),status=$('profileSaveStatus');button.disabled=true;status.textContent='保存中…';
+  const patch={display_name:displayName,avatar_url:pendingProfileAvatar||null,bio:$('profileBio').value.trim(),discord_name:$('profileDiscordName').value.trim(),status_message:$('profileStatusMessage').value.trim(),updated_at:new Date().toISOString()};
+  try{
+    const {data,error}=await sb.from('profiles').update(patch).eq('id',currentProfile.id).select('*').single();
+    if(error)throw error;
+    currentProfile=data;currentEmployee=mapProfile(data);applyProfileEverywhere();renderEmployeePortal();renderEmployeeDashboard();status.textContent='保存しました';toast('プロフィールを保存しました');
+  }catch(error){console.error(error);status.textContent='保存できませんでした';alert(error.message?.includes('column')?'プロフィール追加SQLを先に実行してください。':`保存に失敗しました：${error.message}`)}
+  finally{button.disabled=false;setTimeout(()=>{if(status.textContent==='保存しました')status.textContent=''},2500)}
+}
+['profileDisplayName','profileDiscordName','profileStatusMessage'].forEach(id=>document.addEventListener('input',e=>{if(e.target?.id===id)previewProfileForm()}));
 
 </script>
 <div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.8.1 Build 2026-07-29</div>
