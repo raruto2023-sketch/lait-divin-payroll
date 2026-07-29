@@ -2873,7 +2873,23 @@ function employeeRankingRows(){
 
 function startOfWeekDate(d=new Date()){const x=new Date(d);const day=(x.getDay()+6)%7;x.setHours(0,0,0,0);x.setDate(x.getDate()-day);return x}
 function addDaysDate(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
-function sumSalesRange(start,end){return salesData.filter(x=>{const d=new Date((x.salesDate||'')+'T00:00:00');return d>=start&&d<end}).reduce((s,x)=>s+(Number(x.amount)||0),0)}
+function dashboardSalesRows(){
+  // 新しい売上入力データがある場合は sales_records を優先。
+  // まだ売上入力へ移行していない環境では、従来の給与明細の売上金を利用する。
+  const recorded=(salesData||[]).filter(x=>Number(x.amount)>0);
+  if(recorded.length)return recorded;
+  return (historyData||[]).filter(x=>Number(x.salesAmount)>0).map(x=>({
+    dbId:x.dbId,
+    employeeUid:x.employeeUid,
+    employeeId:x.employeeId,
+    employeeName:x.employee,
+    salesDate:x.issueDate,
+    amount:Number(x.salesAmount)||0,
+    note:'給与明細から集計',
+    createdAt:x.createdAt
+  }));
+}
+function sumSalesRange(start,end){return dashboardSalesRows().filter(x=>{const d=new Date((x.salesDate||'')+'T00:00:00');return d>=start&&d<end}).reduce((s,x)=>s+(Number(x.amount)||0),0)}
 function sumPayrollRange(start,end){return historyData.filter(x=>{const d=new Date((x.issueDate||'')+'T00:00:00');return d>=start&&d<end}).reduce((s,x)=>s+(Number(x.net)||0),0)}
 function compareLabel(current,previous,label){if(!previous)return `${label} --`;const pct=Math.round((current-previous)/previous*100);return `${label} ${pct>=0?'+':''}${pct}%`}
 function setCompareEl(id,current,previous,label){const el=$(id);if(!el)return;el.textContent=compareLabel(current,previous,label);el.classList.remove('up','down');if(previous)el.classList.add(current>=previous?'up':'down')}
@@ -3148,8 +3164,9 @@ function setAttendanceToday(){$('attendanceDate').value=iso(new Date());renderAt
 
 function salesMonthKey(value){return String(value||'').slice(0,7)}
 function salesRowsForMonth(month){
-  return salesData.filter(x=>salesMonthKey(x.salesDate)===month)
+  return dashboardSalesRows().filter(x=>salesMonthKey(x.salesDate)===month)
 }
+
 function salesRankingRows(month){
   const grouped=new Map();
   salesRowsForMonth(month).forEach(x=>{
@@ -3838,8 +3855,10 @@ async function syncEmployeeInventoryFromGoogleSheet(show=true){
   setEmployeeInventorySyncStatus('syncing','Google Sheetsから同期中…');
 
   try{
+    const {data:{session}}=await sb.auth.getSession();
     const {data,error}=await sb.functions.invoke('sync-inventory-sheet',{
-      body:{}
+      body:{},
+      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
     });
 
     if(error){
@@ -3901,7 +3920,8 @@ async function syncInventoryFromGoogleSheet(show=true){
   window.__inventorySyncRunning=true;
   setInventorySyncStatus('syncing','Google Sheetsから同期中…');
   try{
-    const {data,error}=await sb.functions.invoke('sync-inventory-sheet',{body:{}});
+    const {data:{session}}=await sb.auth.getSession();
+    const {data,error}=await sb.functions.invoke('sync-inventory-sheet',{body:{},headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{}});
     if(error){
       let detail=error.message||String(error);
       try{
@@ -4000,8 +4020,10 @@ async function syncEmployeeFarmFromGoogleSheet(show=true){
   setEmployeeFarmSyncStatus('syncing','Google Sheetsから同期中…');
 
   try{
+    const {data:{session}}=await sb.auth.getSession();
     const {data,error}=await sb.functions.invoke('sync-farm-sheet',{
-      body:{period_id:Number(currentFarmPeriod)}
+      body:{period_id:Number(currentFarmPeriod)},
+      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
     });
 
     if(error){
@@ -4062,8 +4084,10 @@ async function syncFarmFromGoogleSheet(show=true){
   window.__farmSyncRunning=true;
   setFarmSyncStatus('syncing','Google Sheetsから同期中…');
   try{
+    const {data:{session}}=await sb.auth.getSession();
     const {data,error}=await sb.functions.invoke('sync-farm-sheet',{
-      body:{period_id:Number(currentFarmPeriod)}
+      body:{period_id:Number(currentFarmPeriod)},
+      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
     });
     if(error){
       let detail=error.message||String(error);
