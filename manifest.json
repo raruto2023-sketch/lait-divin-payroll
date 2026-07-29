@@ -1,14 +1,12 @@
 {
-  "name": "Lait Divin OS V10",
+  "name": "Lait Divin OS V10.2",
   "short_name": "Lait Divin",
-  "description": "Lait Divin 専用の店舗運営・給与・出退勤・在庫管理ポータル",
-  "start_url": "./",
+  "description": "Lait Divin 専用の店舗運営ポータル",
+  "start_url": "./?v=10.2",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f4f1ed",
   "theme_color": "#292321",
   "lang": "ja",
-  "icons": [
-    {"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
-  ]
+  "icons": []
 }
