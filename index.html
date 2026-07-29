@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Management Portal Ver.8.0</title>
+<title>Lait Divin Management Portal Ver.8.1</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -36,7 +36,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.8.0 ===== */
+/* ===== Lait Divin Portal Ver.8.1 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -70,7 +70,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.8.0 UI ===== */
+/* ===== Ver.8.1 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -100,7 +100,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.8.0
+   Lait Divin Management Portal Ver.8.1
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -465,7 +465,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.8.0 Login ================== */
+/* ================== Ver.8.1 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -497,7 +497,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.8.0 Login visibility hotfix ===== */
+/* ===== Ver.8.1 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -516,7 +516,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.8.0 Attendance Management ================== */
+/* ================== Ver.8.1 Attendance Management ================== */
 .attendance-admin-toolbar{align-items:center}
 .danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
 .danger-outline:hover{background:var(--danger-soft)!important}
@@ -557,7 +557,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.8.0 Sales Management ================== */
+/* ================== Ver.8.1 Sales Management ================== */
 .ranking-mode-tabs{display:flex;gap:8px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:15px;width:max-content;margin-bottom:14px;box-shadow:var(--shadow)}
 .ranking-mode-tabs button{border:0;background:transparent;color:var(--ink-soft);font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer}
 .ranking-mode-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff;box-shadow:0 7px 17px rgba(80,55,40,.18)}
@@ -583,7 +583,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:480px){.sales-filter-tools{grid-template-columns:1fr}}
 
 
-/* Ver.8.0 realtime/mobile */
+/* Ver.8.1 realtime/mobile */
 .v4-live-indicator{font-size:9px;font-weight:900;white-space:nowrap}.sync-ok{color:#238642!important}.sync-warn{color:#c47b22!important}
 .v44-mobile-bottom{display:none}
 @media(max-width:760px){
@@ -600,7 +600,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:430px){.v4-kpi-grid,.inventory-grid,.ranking-summary,.inventory-overview{grid-template-columns:1fr!important}.v41-employee-welcome{flex-direction:column;gap:12px}}
 
 
-/* ===== Ver.8.0 readable café palette ===== */
+/* ===== Ver.8.1 readable café palette ===== */
 :root{
   --bg:#e9e3dc;
   --bg2:#ddd5cc;
@@ -671,7 +671,7 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
 .farm-manage-money{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.farm-empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:15px}
 @media(max-width:700px){.farm-manage-grid{grid-template-columns:repeat(2,1fr)}.farm-manage-money{grid-template-columns:1fr}}
 
-/* Ver.8.0: external Google content is never embedded or auto-fetched */
+/* Ver.8.1: external Google content is never embedded or auto-fetched */
 iframe.sheet-frame{display:none!important}
 
 
@@ -683,7 +683,7 @@ iframe.sheet-frame{display:none!important}
 @media(max-width:620px){.farm-personal-summary{grid-template-columns:1fr}}
 
 
-/* ===== Ver.8.0 Google Sheets live sync ===== */
+/* ===== Ver.8.1 Google Sheets live sync ===== */
 .farm-live-status{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.78)}
 .farm-live-status i{width:9px;height:9px;border-radius:50%;background:#b6a89e;display:inline-block}
 .farm-live-status i.syncing{background:#e0b468;box-shadow:0 0 0 5px rgba(224,180,104,.14)}
@@ -699,7 +699,7 @@ iframe.sheet-frame{display:none!important}
 @media(max-width:760px){.farm-check-grid{grid-template-columns:1fr}}
 
 
-/* ===== Ver.8.0 Inventory sync + Farm period deletion ===== */
+/* ===== Ver.8.1 Inventory sync + Farm period deletion ===== */
 .inventory-live-status{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.78)}
 .inventory-live-status i{width:9px;height:9px;border-radius:50%;background:#b6a89e;display:inline-block}
 .inventory-live-status i.syncing{background:#e0b468;box-shadow:0 0 0 5px rgba(224,180,104,.14)}
@@ -708,7 +708,7 @@ iframe.sheet-frame{display:none!important}
 #inventorySyncButton:disabled,#deleteFarmPeriodButton:disabled{opacity:.6;cursor:wait}
 
 
-/* ===== Ver.8.0 Employee Farm sync ===== */
+/* ===== Ver.8.1 Employee Farm sync ===== */
 #employeeFarmSyncButton:disabled{opacity:.6;cursor:wait}
 
 
@@ -716,7 +716,7 @@ iframe.sheet-frame{display:none!important}
 
 
 /* ============================================================
-   Ver.8.0 Mobile UX
+   Ver.8.1 Mobile UX
    ============================================================ */
 .mobile-bottom-nav,
 .mobile-menu-toggle,
@@ -1203,6 +1203,385 @@ iframe.sheet-frame{display:none!important}
   }
 }
 
+
+/* ============================================================
+   Ver.8.1 Premium Theme + True Mobile Navigation
+   ============================================================ */
+:root{
+  --bg:#eee7df;
+  --surface:#fffaf5;
+  --surface2:#f4ece4;
+  --surface3:#e9ddd2;
+  --ink:#302721;
+  --ink-soft:#5e5047;
+  --muted:#817269;
+  --line:#d8cbc0;
+  --line-strong:#bda99a;
+  --accent:#8b6048;
+  --accent2:#b68160;
+  --brand:#8b6048;
+  --brand-strong:#694330;
+  --brand-soft:#ead9cc;
+  --soft:#eee3d9;
+  --danger:#aa5d58;
+  --danger-soft:#f4dedb;
+  --success:#527861;
+  --success-soft:#dcebe0;
+  --shadow:0 18px 50px rgba(66,45,33,.11);
+  --glass:rgba(255,250,245,.92);
+}
+body{
+  background:
+    radial-gradient(circle at 12% 0%,rgba(255,255,255,.92),transparent 31%),
+    linear-gradient(145deg,#f4eee8,#e8ddd3)!important;
+  color:var(--ink)!important;
+}
+body.dark{
+  --bg:#171311;
+  --surface:#241e1b;
+  --surface2:#2e2723;
+  --surface3:#3a302a;
+  --ink:#f6eee7;
+  --ink-soft:#d9cbc1;
+  --muted:#aa9a8f;
+  --line:#493d36;
+  --line-strong:#68564a;
+  --accent:#d2a07d;
+  --accent2:#e4b896;
+  --brand:#d2a07d;
+  --brand-strong:#f0c5a5;
+  --brand-soft:#49362c;
+  --soft:#332a25;
+  --danger:#e28b82;
+  --danger-soft:#4a2d2b;
+  --success:#8fc5a0;
+  --success-soft:#253d2e;
+  --shadow:0 20px 55px rgba(0,0,0,.32);
+  --glass:rgba(36,30,27,.91);
+  background:
+    radial-gradient(circle at 10% -8%,rgba(176,119,83,.18),transparent 34%),
+    linear-gradient(145deg,#171311,#211a17)!important;
+}
+body.dark .panel,
+body.dark .dashboard-panel,
+body.dark .v4-panel,
+body.dark .metric-card,
+body.dark .inventory-card,
+body.dark .farm-item,
+body.dark .farm-staff-card,
+body.dark .attendance-control-panel,
+body.dark .employee-card,
+body.dark .modal{
+  background:var(--surface)!important;
+  border-color:var(--line)!important;
+  color:var(--ink)!important;
+}
+body.dark input,
+body.dark select,
+body.dark textarea{
+  background:#1d1816!important;
+  border-color:var(--line)!important;
+  color:var(--ink)!important;
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder{color:#7f7067!important}
+body.dark .v4-topbar,
+body.dark .v41-employee-topbar{
+  background:rgba(30,25,22,.94)!important;
+  border-color:var(--line)!important;
+}
+body.dark .v4-greeting strong,
+body.dark .v4-profile strong,
+body.dark .dashboard-title h2,
+body.dark h1,
+body.dark h2,
+body.dark h3{color:var(--ink)!important}
+body.dark .v4-greeting span,
+body.dark .v4-profile span,
+body.dark small,
+body.dark .metric-sub{color:var(--muted)!important}
+body.dark .btn:not(.primary):not(.danger),
+body.dark button.btn:not(.primary):not(.danger){
+  background:var(--surface2)!important;
+  color:var(--ink)!important;
+  border-color:var(--line)!important;
+}
+.v4-sidebar,
+.v41-employee-sidebar{
+  background:linear-gradient(180deg,#513827,#2a201b)!important;
+}
+body.dark .v4-sidebar,
+body.dark .v41-employee-sidebar{
+  background:linear-gradient(180deg,#2c211b,#15110f)!important;
+}
+.btn.primary{
+  background:linear-gradient(135deg,var(--brand),var(--brand-strong))!important;
+  box-shadow:0 9px 22px rgba(105,67,48,.18);
+}
+.mobile-bottom-nav,
+.mobile-menu-backdrop,
+.mobile-top-actions{display:none}
+
+@media(max-width:760px){
+  body{padding-bottom:88px!important}
+  body.mobile-menu-open{overflow:hidden!important}
+
+  /* The desktop sidebar never participates in mobile layout. */
+  #v4Sidebar,
+  #employeeSidebar,
+  .v4-sidebar,
+  .v41-employee-sidebar{
+    display:none!important;
+    visibility:hidden!important;
+    transform:none!important;
+    width:0!important;
+    height:0!important;
+    overflow:hidden!important;
+  }
+
+  .v4-admin-layout,
+  .v41-employee-layout{
+    display:block!important;
+    grid-template-columns:1fr!important;
+    min-height:100vh!important;
+  }
+  .v4-main{
+    width:100%!important;
+    margin:0!important;
+    grid-column:1!important;
+  }
+
+  .v4-topbar{
+    position:sticky!important;
+    top:0!important;
+    height:62px!important;
+    min-height:62px!important;
+    padding:8px 10px!important;
+    border-radius:0 0 18px 18px!important;
+    background:var(--glass)!important;
+    border-color:var(--line)!important;
+    backdrop-filter:blur(20px)!important;
+  }
+  .v4-menu-btn{display:none!important}
+  .v4-top-status{display:none!important}
+  .v4-greeting{min-width:0!important}
+  .v4-greeting strong{
+    font-size:15px!important;
+    color:var(--ink)!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .v4-greeting span{
+    font-size:9px!important;
+    color:var(--muted)!important;
+    white-space:nowrap!important;
+  }
+  .mobile-top-actions{
+    display:flex!important;
+    margin-left:auto!important;
+    gap:7px!important;
+  }
+  .mobile-top-actions button{
+    width:42px!important;
+    height:42px!important;
+    padding:0!important;
+    border:1px solid var(--line)!important;
+    border-radius:14px!important;
+    background:var(--surface2)!important;
+    color:var(--ink)!important;
+    font-size:19px!important;
+    display:grid!important;
+    place-items:center!important;
+  }
+
+  .v4-content,.shell{
+    width:100%!important;
+    padding:11px 10px 24px!important;
+  }
+  .v4-mobile-brand{display:none!important}
+
+  .mobile-bottom-nav{
+    display:grid!important;
+    grid-template-columns:repeat(5,1fr)!important;
+    position:fixed!important;
+    left:8px!important;
+    right:8px!important;
+    bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    height:68px!important;
+    z-index:9000!important;
+    padding:6px!important;
+    border:1px solid var(--line)!important;
+    border-radius:21px!important;
+    background:var(--glass)!important;
+    box-shadow:0 15px 38px rgba(41,27,20,.22)!important;
+    backdrop-filter:blur(24px)!important;
+  }
+  .mobile-bottom-nav button{
+    min-width:0!important;
+    padding:4px 2px!important;
+    border:0!important;
+    border-radius:15px!important;
+    background:transparent!important;
+    color:var(--muted)!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:3px!important;
+  }
+  .mobile-bottom-nav button span{font-size:19px!important;line-height:1!important}
+  .mobile-bottom-nav button b{font-size:9px!important;white-space:nowrap!important}
+  .mobile-bottom-nav button.active{
+    background:var(--brand-soft)!important;
+    color:var(--brand-strong)!important;
+  }
+
+  .mobile-menu-backdrop{
+    display:flex;
+    position:fixed!important;
+    inset:0!important;
+    z-index:12000!important;
+    align-items:flex-end!important;
+    padding:0!important;
+    background:rgba(22,16,13,.48)!important;
+    backdrop-filter:blur(8px)!important;
+  }
+  .mobile-menu-backdrop.hidden{display:none!important}
+  .mobile-menu-sheet{
+    width:100%!important;
+    max-height:88vh!important;
+    overflow:auto!important;
+    padding:9px 14px calc(18px + env(safe-area-inset-bottom))!important;
+    border:1px solid var(--line)!important;
+    border-bottom:0!important;
+    border-radius:27px 27px 0 0!important;
+    background:var(--surface)!important;
+    box-shadow:0 -22px 60px rgba(0,0,0,.24)!important;
+  }
+  .mobile-menu-handle{
+    width:42px!important;
+    height:5px!important;
+    margin:0 auto 12px!important;
+    border-radius:999px!important;
+    background:var(--line-strong)!important;
+  }
+  .mobile-menu-sheet header{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    gap:15px!important;
+    padding:0 3px 14px!important;
+  }
+  .mobile-menu-sheet header span{
+    display:block!important;
+    color:var(--brand)!important;
+    font-size:9px!important;
+    font-weight:900!important;
+    letter-spacing:.16em!important;
+  }
+  .mobile-menu-sheet header strong{
+    display:block!important;
+    margin-top:4px!important;
+    font-size:22px!important;
+    color:var(--ink)!important;
+  }
+  .mobile-menu-sheet header>button{
+    width:42px!important;
+    height:42px!important;
+    padding:0!important;
+    border:1px solid var(--line)!important;
+    border-radius:14px!important;
+    background:var(--surface2)!important;
+    color:var(--ink)!important;
+    font-size:25px!important;
+  }
+  .mobile-menu-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+  }
+  .mobile-menu-grid.hidden{display:none!important}
+  .mobile-menu-grid button{
+    min-height:74px!important;
+    padding:12px!important;
+    border:1px solid var(--line)!important;
+    border-radius:16px!important;
+    background:var(--surface2)!important;
+    color:var(--ink)!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:11px!important;
+    text-align:left!important;
+  }
+  .mobile-menu-grid button span{
+    width:38px!important;
+    height:38px!important;
+    flex:0 0 auto!important;
+    display:grid!important;
+    place-items:center!important;
+    border-radius:12px!important;
+    background:var(--brand-soft)!important;
+    color:var(--brand-strong)!important;
+    font-size:20px!important;
+  }
+  .mobile-menu-grid button b{font-size:12px!important}
+
+  .mobile-menu-actions{
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:9px!important;
+    margin-top:12px!important;
+    padding-top:12px!important;
+    border-top:1px solid var(--line)!important;
+  }
+  .mobile-menu-actions>button{
+    min-height:66px!important;
+    padding:11px!important;
+    border:1px solid var(--line)!important;
+    border-radius:16px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:10px!important;
+    text-align:left!important;
+  }
+  .mobile-menu-actions>button>span{
+    width:38px!important;
+    height:38px!important;
+    flex:0 0 auto!important;
+    display:grid!important;
+    place-items:center!important;
+    border-radius:12px!important;
+    font-size:20px!important;
+  }
+  .mobile-menu-actions b{display:block!important;font-size:12px!important}
+  .mobile-menu-actions small{display:block!important;margin-top:2px!important;font-size:9px!important}
+  .mobile-theme-button{
+    background:var(--surface2)!important;
+    color:var(--ink)!important;
+  }
+  .mobile-theme-button>span{
+    background:var(--brand-soft)!important;
+    color:var(--brand-strong)!important;
+  }
+  .mobile-logout-button{
+    background:var(--danger-soft)!important;
+    color:var(--danger)!important;
+    border-color:transparent!important;
+  }
+  .mobile-logout-button>span{
+    background:rgba(170,93,88,.13)!important;
+    color:var(--danger)!important;
+  }
+
+  .toast{bottom:94px!important}
+}
+
+@media(max-width:390px){
+  .mobile-menu-grid{grid-template-columns:1fr!important}
+  .mobile-menu-actions{grid-template-columns:1fr!important}
+}
+
 </style>
 </head>
 <body class="login-active">
@@ -1254,7 +1633,7 @@ iframe.sheet-frame{display:none!important}
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.8.0</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.8.1</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -1469,7 +1848,7 @@ iframe.sheet-frame{display:none!important}
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.8.0</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.8.1</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -1583,7 +1962,7 @@ iframe.sheet-frame{display:none!important}
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.8.0</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.8.1</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -1832,7 +2211,7 @@ let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
 
-// ===== Ver.8.0 Global State =====
+// ===== Ver.8.1 Global State =====
 let syncTimer=null;
 let employeeRankingMode='sales';
 let rankingMode='hours';
@@ -1877,19 +2256,132 @@ async function refreshAllData(silent=false){
 function ensureMobileNavs(){
   if(!$('adminMobileNav')){
     const nav=document.createElement('nav');
-    nav.id='adminMobileNav';nav.className='v44-mobile-bottom';
-    nav.innerHTML=`<button data-mobile-admin="dashboard" onclick="goPage('dashboard')"><span>⌂</span><b>ホーム</b></button><button data-mobile-admin="attendance" onclick="goPage('attendance')"><span>◷</span><b>出退勤</b></button><button data-mobile-admin="sales" onclick="goPage('sales')"><span>¥</span><b>売上</b></button><button data-mobile-admin="ranking" onclick="goPage('ranking')"><span>♛</span><b>順位</b></button><button onclick="toggleV4Sidebar()"><span>☰</span><b>メニュー</b></button>`;
+    nav.id='adminMobileNav';
+    nav.className='mobile-bottom-nav';
+    nav.innerHTML=`
+      <button data-mobile-admin="dashboard" onclick="mobileAdminPage('dashboard')"><span>⌂</span><b>ホーム</b></button>
+      <button data-mobile-admin="attendance" onclick="mobileAdminPage('attendance')"><span>◷</span><b>出退勤</b></button>
+      <button data-mobile-admin="inventory" onclick="mobileAdminPage('inventory')"><span>◇</span><b>在庫</b></button>
+      <button data-mobile-admin="farm" onclick="mobileAdminPage('farm')"><span>🌾</span><b>Farm</b></button>
+      <button onclick="openMobileMenu('admin')"><span>☰</span><b>メニュー</b></button>`;
     $('adminApp')?.appendChild(nav);
   }
+
   if(!$('employeeMobileNav')){
     const nav=document.createElement('nav');
-    nav.id='employeeMobileNav';nav.className='v44-mobile-bottom';
-    nav.innerHTML=`<button data-mobile-employee="home" onclick="employeeGoPage('home')"><span>⌂</span><b>ホーム</b></button><button data-mobile-employee="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button><button data-mobile-employee="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>順位</b></button><button data-mobile-employee="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫</b></button><button onclick="toggleEmployeeSidebar()"><span>☰</span><b>メニュー</b></button>`;
+    nav.id='employeeMobileNav';
+    nav.className='mobile-bottom-nav';
+    nav.innerHTML=`
+      <button data-mobile-employee="home" onclick="mobileEmployeePage('home')"><span>⌂</span><b>ホーム</b></button>
+      <button data-mobile-employee="attendance" onclick="mobileEmployeePage('attendance')"><span>◷</span><b>出退勤</b></button>
+      <button data-mobile-employee="inventory" onclick="mobileEmployeePage('inventory')"><span>◇</span><b>在庫</b></button>
+      <button data-mobile-employee="farm" onclick="mobileEmployeePage('farm')"><span>🌾</span><b>Farm</b></button>
+      <button onclick="openMobileMenu('employee')"><span>☰</span><b>メニュー</b></button>`;
     $('employeeApp')?.appendChild(nav);
   }
+
+  if(!$('mobileMenuBackdrop')){
+    const backdrop=document.createElement('div');
+    backdrop.id='mobileMenuBackdrop';
+    backdrop.className='mobile-menu-backdrop hidden';
+    backdrop.onclick=e=>{if(e.target===backdrop)closeMobileMenu()};
+    backdrop.innerHTML=`
+      <section class="mobile-menu-sheet">
+        <div class="mobile-menu-handle"></div>
+        <header>
+          <div>
+            <span>LAIT DIVIN PORTAL</span>
+            <strong id="mobileMenuTitle">メニュー</strong>
+          </div>
+          <button onclick="closeMobileMenu()" aria-label="閉じる">×</button>
+        </header>
+        <div id="mobileAdminMenu" class="mobile-menu-grid hidden">
+          <button onclick="mobileAdminPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
+          <button onclick="mobileAdminPage('attendance')"><span>◷</span><b>出退勤管理</b></button>
+          <button onclick="mobileAdminPage('employees')"><span>♟</span><b>従業員管理</b></button>
+          <button onclick="mobileAdminPage('create')"><span>¥</span><b>給与・ボーナス</b></button>
+          <button onclick="mobileAdminPage('history')"><span>▤</span><b>明細履歴</b></button>
+          <button onclick="mobileAdminPage('inventory')"><span>◇</span><b>在庫管理</b></button>
+          <button onclick="mobileAdminPage('farm')"><span>🌾</span><b>Farm管理</b></button>
+          <button onclick="mobileAdminPage('sales')"><span>▥</span><b>売上入力</b></button>
+          <button onclick="mobileAdminPage('ranking')"><span>♛</span><b>ランキング</b></button>
+          <button onclick="mobileAdminPage('settings')"><span>⚙</span><b>設定</b></button>
+        </div>
+        <div id="mobileEmployeeMenu" class="mobile-menu-grid hidden">
+          <button onclick="mobileEmployeePage('home')"><span>⌂</span><b>ダッシュボード</b></button>
+          <button onclick="mobileEmployeePage('attendance')"><span>◷</span><b>出退勤</b></button>
+          <button onclick="mobileEmployeePage('ranking')"><span>♛</span><b>ランキング</b></button>
+          <button onclick="mobileEmployeePage('inventory')"><span>◇</span><b>在庫表</b></button>
+          <button onclick="mobileEmployeePage('farm')"><span>🌾</span><b>Farm</b></button>
+          <button onclick="mobileEmployeePage('payslips')"><span>¥</span><b>給料明細</b></button>
+        </div>
+        <div class="mobile-menu-actions">
+          <button class="mobile-theme-button" onclick="toggleTheme();updateMobileThemeButtons()">
+            <span data-mobile-theme-icon>◐</span>
+            <div><b data-mobile-theme-label>テーマ切替</b><small>ライト／ダーク</small></div>
+          </button>
+          <button class="mobile-logout-button" onclick="mobileLogout()">
+            <span>↪</span>
+            <div><b>ログアウト</b><small>ログイン画面へ戻る</small></div>
+          </button>
+        </div>
+      </section>`;
+    document.body.appendChild(backdrop);
+  }
+
+  ensureMobileTopActions();
+  updateMobileThemeButtons();
+}
+
+
+function ensureMobileTopActions(){
+  document.querySelectorAll('.v4-topbar').forEach(topbar=>{
+    if(topbar.querySelector('.mobile-top-actions'))return;
+    const actions=document.createElement('div');
+    actions.className='mobile-top-actions';
+    actions.innerHTML=`
+      <button onclick="toggleTheme();updateMobileThemeButtons()" title="テーマ切替" aria-label="テーマ切替">
+        <span data-mobile-theme-icon>◐</span>
+      </button>
+      <button onclick="mobileLogout()" title="ログアウト" aria-label="ログアウト">↪</button>`;
+    topbar.appendChild(actions);
+  });
+}
+function openMobileMenu(mode){
+  ensureMobileNavs();
+  $('mobileMenuTitle').textContent=mode==='admin'?'管理者メニュー':'スタッフメニュー';
+  $('mobileAdminMenu').classList.toggle('hidden',mode!=='admin');
+  $('mobileEmployeeMenu').classList.toggle('hidden',mode!=='employee');
+  $('mobileMenuBackdrop').classList.remove('hidden');
+  document.body.classList.add('mobile-menu-open');
+}
+function closeMobileMenu(){
+  $('mobileMenuBackdrop')?.classList.add('hidden');
+  document.body.classList.remove('mobile-menu-open');
+}
+function mobileAdminPage(page){
+  closeMobileMenu();
+  goPage(page);
+}
+function mobileEmployeePage(page){
+  closeMobileMenu();
+  employeeGoPage(page);
+}
+async function mobileLogout(){
+  closeMobileMenu();
+  if(!confirm('ログアウトしますか？'))return;
+  await logout();
+}
+function updateMobileThemeButtons(){
+  const dark=document.body.classList.contains('dark');
+  document.querySelectorAll('[data-mobile-theme-icon]').forEach(x=>x.textContent=dark?'☀':'☾');
+  document.querySelectorAll('[data-mobile-theme-label]').forEach(x=>x.textContent=dark?'ライトモードに変更':'ダークモードに変更');
+  const themeColor=document.querySelector('meta[name="theme-color"]');
+  if(themeColor)themeColor.setAttribute('content',dark?'#171311':'#eee6de');
 }
 
 function showLoginScreen(){
+  closeMobileMenu();
   appMode='login';
   if(typeof syncTimer!=='undefined'&&syncTimer){clearInterval(syncTimer);syncTimer=null}
   document.body.classList.add('login-active');
@@ -2074,8 +2566,8 @@ function subscribeRealtime(mode){
     });
 }
 
-function toggleEmployeeSidebar(){document.getElementById('employeeSidebar')?.classList.toggle('open')}
-function employeeGoPage(page){
+function toggleEmployeeSidebar(){if(window.matchMedia('(max-width:760px)').matches){openMobileMenu('employee');return}document.getElementById('employeeSidebar')?.classList.toggle('open')}
+function employeeGoPage(page){closeMobileMenu();
   document.querySelectorAll('#employeeApp .employee-page').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('#employeeApp [data-employee-page]').forEach(x=>x.classList.toggle('active',x.dataset.employeePage===page));document.querySelectorAll('[data-mobile-employee]').forEach(x=>x.classList.toggle('active',x.dataset.mobileEmployee===page));
   document.getElementById(`employee-page-${page}`)?.classList.add('active');
@@ -2156,7 +2648,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -2896,7 +3388,7 @@ async function downloadViewedSlip(){const c=await html2canvas($('viewedSheet'),{
 
 
 
-function toggleV4Sidebar(){document.getElementById('v4Sidebar')?.classList.toggle('open')}
+function toggleV4Sidebar(){if(window.matchMedia('(max-width:760px)').matches){openMobileMenu('admin');return}document.getElementById('v4Sidebar')?.classList.toggle('open')}
 function v4MonthlyRanking(){
   const now=new Date(),key=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
   const grouped=new Map();
@@ -2948,12 +3440,14 @@ function toggleTheme(){
   document.body.classList.toggle('dark',dark);
   localStorage.setItem('ld_theme',dark?'dark':'light');
   document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️':'🌙');
+  updateMobileThemeButtons();
 }
 function initTheme(){
   const saved=localStorage.getItem('ld_theme');
   const dark=saved==='dark'||(!saved&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
   document.body.classList.toggle('dark',dark);
   document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️':'🌙');
+  updateMobileThemeButtons();
 }
 function monthKeyLocal(v){const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
 function rankingRows(){
@@ -3071,7 +3565,7 @@ async function syncEmployeeInventoryFromGoogleSheet(show=true){
     if(show){
       alert(
         '在庫表の同期に失敗しました。\n\n'+message+
-        '\n\nEdge Function「sync-inventory-sheet」をVer.8.0へ更新してください。'
+        '\n\nEdge Function「sync-inventory-sheet」をVer.8.1へ更新してください。'
       );
     }
   }finally{
@@ -3115,7 +3609,7 @@ async function syncInventoryFromGoogleSheet(show=true){
     window.__inventorySyncEnabled=false;
     if(show)alert(
       '在庫表の同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・sync-inventory-sheetをDeploy済み\n・在庫表がリンク閲覧可\n・Ver.8.0のSQLを実行済み'
+      '\n\n確認項目：\n・sync-inventory-sheetをDeploy済み\n・在庫表がリンク閲覧可\n・Ver.8.1のSQLを実行済み'
     );
   }finally{
     window.__inventorySyncRunning=false;
@@ -3150,7 +3644,7 @@ async function loadInventorySnapshot(show=false){
     renderInventory(inventorySnapshot);
     renderEmployeeInventory(inventorySnapshot);
     renderDashboard();
-    if(show)alert('在庫を読み込めませんでした。\nVer.8.0のSQLを実行してください。\n'+(err.message||err));
+    if(show)alert('在庫を読み込めませんでした。\nVer.8.1のSQLを実行してください。\n'+(err.message||err));
   }
 }
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
@@ -3231,7 +3725,7 @@ async function syncEmployeeFarmFromGoogleSheet(show=true){
     if(show){
       alert(
         'Google Sheets同期に失敗しました。\n\n'+message+
-        '\n\nEdge FunctionをVer.8.0へ更新してください。'
+        '\n\nEdge FunctionをVer.8.1へ更新してください。'
       );
     }
   }finally{
@@ -3279,14 +3773,14 @@ async function syncFarmFromGoogleSheet(show=true){
     window.__farmSyncEnabled=false;
     if(show)alert(
       'Google Sheets同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・Google Sheetsが「リンクを知っている全員が閲覧可」\n・集計期間のシート名が正しい\n・Edge FunctionをVer.8.0へ更新済み'
+      '\n\n確認項目：\n・Google Sheetsが「リンクを知っている全員が閲覧可」\n・集計期間のシート名が正しい\n・Edge FunctionをVer.8.1へ更新済み'
     );
   }finally{
     window.__farmSyncRunning=false;
   }
 }
 
-async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.8.0完全SQLをSupabaseで実行してください。\n'+err.message)}}
+async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.8.1完全SQLをSupabaseで実行してください。\n'+err.message)}}
 function renderFarm(d){const grand=d.items.reduce((s,x)=>s+farmN(x.total),0),rank=[...d.staff].sort((a,b)=>b.total-a.total),ass=d.staff.reduce((s,x)=>s+farmN(x.assessment),0),pay=d.staff.reduce((s,x)=>s+farmN(x.payment),0);renderFarmPeriodOptions();if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');if($('farmTopStaff'))$('farmTopStaff').textContent=rank[0]?.name||'-';if($('farmTotalAssessment'))$('farmTotalAssessment').textContent=ass.toLocaleString('ja-JP',{maximumFractionDigits:1});if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(pay);if($('farmItemGrid'))$('farmItemGrid').innerHTML=d.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${farmN(x.total).toLocaleString('ja-JP')}</div><div class="farm-average">期間合計</div></article>`).join('')||'<div class="farm-empty">品目なし</div>';if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=rank.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${farmN(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>記録なし</span>'}</div><div class="sheet-note">査定 ${x.assessment.toLocaleString('ja-JP')} ／ ${yen.format(x.payment)}</div></article>`).join('')||'<div class="farm-empty">スタッフなし</div>';if($('farmRankingList'))$('farmRankingList').innerHTML=rank.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div><div><strong>${esc(x.name)}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('')||'<div class="farm-empty">ランキングなし</div>';renderFarmManage();renderEmployeeFarm(d)}
 function renderEmployeeFarm(d){
   const grand=d.items.reduce((s,x)=>s+farmN(x.total),0);
@@ -3426,5 +3920,5 @@ window.addEventListener('resize',applyMobileNavLabels);
 document.addEventListener('DOMContentLoaded',applyMobileNavLabels);
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.8.0 Build 2026-07-29</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.8.1 Build 2026-07-29</div>
 </body></html>
