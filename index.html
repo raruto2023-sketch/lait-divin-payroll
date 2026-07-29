@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Management Portal Ver.6.8</title>
+<title>Lait Divin Management Portal Ver.7.0</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -36,7 +36,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.6.8 ===== */
+/* ===== Lait Divin Portal Ver.7.0 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -70,7 +70,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.6.8 UI ===== */
+/* ===== Ver.7.0 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -100,7 +100,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.6.8
+   Lait Divin Management Portal Ver.7.0
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -465,7 +465,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.6.8 Login ================== */
+/* ================== Ver.7.0 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -497,7 +497,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.6.8 Login visibility hotfix ===== */
+/* ===== Ver.7.0 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -516,7 +516,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.6.8 Attendance Management ================== */
+/* ================== Ver.7.0 Attendance Management ================== */
 .attendance-admin-toolbar{align-items:center}
 .danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
 .danger-outline:hover{background:var(--danger-soft)!important}
@@ -557,7 +557,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.6.8 Sales Management ================== */
+/* ================== Ver.7.0 Sales Management ================== */
 .ranking-mode-tabs{display:flex;gap:8px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:15px;width:max-content;margin-bottom:14px;box-shadow:var(--shadow)}
 .ranking-mode-tabs button{border:0;background:transparent;color:var(--ink-soft);font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer}
 .ranking-mode-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff;box-shadow:0 7px 17px rgba(80,55,40,.18)}
@@ -583,7 +583,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:480px){.sales-filter-tools{grid-template-columns:1fr}}
 
 
-/* Ver.6.8 realtime/mobile */
+/* Ver.7.0 realtime/mobile */
 .v4-live-indicator{font-size:9px;font-weight:900;white-space:nowrap}.sync-ok{color:#238642!important}.sync-warn{color:#c47b22!important}
 .v44-mobile-bottom{display:none}
 @media(max-width:760px){
@@ -600,7 +600,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:430px){.v4-kpi-grid,.inventory-grid,.ranking-summary,.inventory-overview{grid-template-columns:1fr!important}.v41-employee-welcome{flex-direction:column;gap:12px}}
 
 
-/* ===== Ver.6.8 readable café palette ===== */
+/* ===== Ver.7.0 readable café palette ===== */
 :root{
   --bg:#e9e3dc;
   --bg2:#ddd5cc;
@@ -671,7 +671,7 @@ input,select,textarea{background:var(--surface)!important;color:var(--ink)!impor
 .farm-manage-money{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.farm-empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:15px}
 @media(max-width:700px){.farm-manage-grid{grid-template-columns:repeat(2,1fr)}.farm-manage-money{grid-template-columns:1fr}}
 
-/* Ver.6.8: external Google content is never embedded or auto-fetched */
+/* Ver.7.0: external Google content is never embedded or auto-fetched */
 iframe.sheet-frame{display:none!important}
 
 
@@ -683,7 +683,7 @@ iframe.sheet-frame{display:none!important}
 @media(max-width:620px){.farm-personal-summary{grid-template-columns:1fr}}
 
 
-/* ===== Ver.6.8 Google Sheets live sync ===== */
+/* ===== Ver.7.0 Google Sheets live sync ===== */
 .farm-live-status{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.78)}
 .farm-live-status i{width:9px;height:9px;border-radius:50%;background:#b6a89e;display:inline-block}
 .farm-live-status i.syncing{background:#e0b468;box-shadow:0 0 0 5px rgba(224,180,104,.14)}
@@ -699,7 +699,7 @@ iframe.sheet-frame{display:none!important}
 @media(max-width:760px){.farm-check-grid{grid-template-columns:1fr}}
 
 
-/* ===== Ver.6.8 Inventory sync + Farm period deletion ===== */
+/* ===== Ver.7.0 Inventory sync + Farm period deletion ===== */
 .inventory-live-status{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:rgba(255,255,255,.78)}
 .inventory-live-status i{width:9px;height:9px;border-radius:50%;background:#b6a89e;display:inline-block}
 .inventory-live-status i.syncing{background:#e0b468;box-shadow:0 0 0 5px rgba(224,180,104,.14)}
@@ -708,7 +708,7 @@ iframe.sheet-frame{display:none!important}
 #inventorySyncButton:disabled,#deleteFarmPeriodButton:disabled{opacity:.6;cursor:wait}
 
 
-/* ===== Ver.6.8 Employee Farm sync ===== */
+/* ===== Ver.7.0 Employee Farm sync ===== */
 #employeeFarmSyncButton:disabled{opacity:.6;cursor:wait}
 
 
@@ -765,7 +765,7 @@ iframe.sheet-frame{display:none!important}
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.6.8</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.7.0</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -980,7 +980,7 @@ iframe.sheet-frame{display:none!important}
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.6.8</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.7.0</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -1002,7 +1002,7 @@ iframe.sheet-frame{display:none!important}
     <div class="dashboard-panel">
       <div class="dashboard-title"><div><h2>Farmデータ入力</h2><p>スタッフごとの採取数・査定・支給金額をSupabaseへ保存します。</p></div><button class="btn" onclick="addFarmStaffRow()">＋スタッフ追加</button></div>
       <div id="farmManageRows" class="farm-manage-rows"></div>
-      <div class="modal-actions"><button class="btn primary" onclick="saveFarmManageData()">この期間を保存</button></div>
+      <div class="sheet-note">従業員番号はログインIDとして使用されます。パスワードは6文字以上で設定してください。</div><div class="modal-actions"><button class="btn primary" onclick="saveFarmManageData()">この期間を保存</button></div>
     </div>
   </div>
 </section>
@@ -1075,7 +1075,7 @@ iframe.sheet-frame{display:none!important}
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.6.8</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.7.0</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -1291,7 +1291,7 @@ let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
 
-// ===== Ver.6.8 Global State =====
+// ===== Ver.7.0 Global State =====
 let syncTimer=null;
 let employeeRankingMode='sales';
 let rankingMode='hours';
@@ -1693,18 +1693,86 @@ function applyEmployee(){const i=$('employeeSelect').value;if(i==='')return;cons
 function openEmployeeModal(i=''){$('employeeModal').classList.remove('hidden');$('editEmployeeIndex').value=i;if(i===''){$('employeeModalTitle').textContent='従業員を登録';$('modalName').value='';$('modalRole').value='Cast';$('modalId').value='';$('modalPassword').value=''}else{const e=employees[Number(i)];$('employeeModalTitle').textContent='従業員を編集';$('modalName').value=e.name;$('modalRole').value=e.role;$('modalId').value=e.id;$('modalPassword').value=''}}
 function closeEmployeeModal(){$('employeeModal').classList.add('hidden')}
 async function callEmployeeFunction(body){
-  const {data:{session}}=await sb.auth.getSession();if(!session)throw new Error('ログインが切れています。');
-  const res=await fetch(`${cfg.SUPABASE_URL}/functions/v1/manage-employee`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`,'apikey':cfg.SUPABASE_ANON_KEY},body:JSON.stringify(body)});
-  const result=await res.json().catch(()=>({}));if(!res.ok)throw new Error(result.error||'従業員処理に失敗しました。');return result;
+  const {data:{session},error:sessionError}=await sb.auth.getSession();
+  if(sessionError)throw new Error('ログイン確認に失敗しました：'+sessionError.message);
+  if(!session)throw new Error('ログインが切れています。再ログインしてください。');
+
+  const res=await fetch(`${cfg.SUPABASE_URL}/functions/v1/manage-employee`,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Authorization':`Bearer ${session.access_token}`,
+      'apikey':cfg.SUPABASE_ANON_KEY
+    },
+    body:JSON.stringify(body)
+  });
+
+  const raw=await res.text();
+  let result={};
+  try{result=raw?JSON.parse(raw):{}}catch{result={error:raw||'不明な応答'}}
+
+  if(!res.ok||result.ok===false){
+    const message=result.error||result.details||`従業員処理に失敗しました（HTTP ${res.status}）`;
+    console.error('manage-employee error',{status:res.status,result});
+    throw new Error(message);
+  }
+  return result;
 }
 async function saveEmployee(){
-  const name=$('modalName').value.trim(),id=$('modalId').value.trim(),role=$('modalRole').value,password=$('modalPassword').value,i=$('editEmployeeIndex').value;
+  const name=$('modalName').value.trim();
+  const id=$('modalId').value.trim();
+  const role=$('modalRole').value;
+  const password=$('modalPassword').value;
+  const index=$('editEmployeeIndex').value;
+
   if(!name||!id){alert('名前と従業員番号を入力してください。');return}
+  if(!/^[A-Za-z0-9._-]+$/.test(id)){
+    alert('従業員番号は半角英数字・ドット・ハイフン・アンダーバーで入力してください。');
+    return;
+  }
+  if(index===''&&password.length<6){
+    alert('新規登録時のパスワードは6文字以上にしてください。');
+    return;
+  }
+  if(password&&password.length<6){
+    alert('パスワードを変更する場合は6文字以上にしてください。');
+    return;
+  }
+
+  const saveButton=document.querySelector('#employeeModal .btn.primary');
+  if(saveButton)saveButton.disabled=true;
+
   try{
-    if(i===''){if(!password){alert('新規登録時はパスワードを入力してください。');return}await callEmployeeFunction({action:'create',name:name,employeeId:id,role,password})}
-    else {const old=employees[Number(i)];await callEmployeeFunction({action:'update',userId:old.uid,name:name,employeeId:id,role,password:password||null})}
-    await loadEmployees();closeEmployeeModal();refreshEmployeeSelect();renderEmployees();toast('従業員情報を保存しました')
-  }catch(e){alert(e.message)}
+    if(index===''){
+      await callEmployeeFunction({
+        action:'create',
+        name,
+        employeeId:id,
+        role,
+        password
+      });
+    }else{
+      const old=employees[Number(index)];
+      await callEmployeeFunction({
+        action:'update',
+        userId:old.uid,
+        name,
+        employeeId:id,
+        role,
+        password:password||null
+      });
+    }
+
+    await loadEmployees();
+    closeEmployeeModal();
+    refreshEmployeeSelect();
+    renderEmployees();
+    toast(index===''?'新規従業員を登録しました':'従業員情報を更新しました');
+  }catch(error){
+    alert('従業員を保存できませんでした。\n\n'+(error.message||error));
+  }finally{
+    if(saveButton)saveButton.disabled=false;
+  }
 }
 function renderEmployees(){const c=$('employeeCards');c.innerHTML='';const q=($('employeeSearch')?.value||'').toLowerCase(),rf=$('employeeRoleFilter')?.value||'';const filtered=employees.filter(e=>`${e.name} ${e.id}`.toLowerCase().includes(q)&&(!rf||e.role===rf));if(!filtered.length){c.innerHTML='<div class="empty">条件に一致する従業員はいません。</div>';return}filtered.forEach(e=>{const i=employees.indexOf(e);const d=document.createElement('div');d.className='card';const records=attendanceData.filter(a=>(a.employeeUid&&a.employeeUid===e.uid)||String(a.employeeId).toLowerCase()===String(e.id).toLowerCase());const days=new Set(records.map(a=>dateKey(a.clockIn))).size;
 d.innerHTML=`<h3>${esc(e.name)}</h3><p>${esc(e.role)}<br>${esc(e.id)}<br>出勤日数：${days}日<br>勤務記録：${records.length}件</p><button class="btn employee-attendance-button" onclick="openAttendanceDetail(${i})">出勤した日を確認</button><div class="card-actions"><button class="btn primary" onclick="useEmployee(${i})">明細作成</button><button class="btn" onclick="openEmployeeModal(${i})">編集</button><button class="btn danger" onclick="deleteEmployee(${i})">削除</button></div>`;c.appendChild(d)})}
@@ -2266,7 +2334,7 @@ async function syncEmployeeInventoryFromGoogleSheet(show=true){
     if(show){
       alert(
         '在庫表の同期に失敗しました。\n\n'+message+
-        '\n\nEdge Function「sync-inventory-sheet」をVer.6.8へ更新してください。'
+        '\n\nEdge Function「sync-inventory-sheet」をVer.7.0へ更新してください。'
       );
     }
   }finally{
@@ -2310,7 +2378,7 @@ async function syncInventoryFromGoogleSheet(show=true){
     window.__inventorySyncEnabled=false;
     if(show)alert(
       '在庫表の同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・sync-inventory-sheetをDeploy済み\n・在庫表がリンク閲覧可\n・Ver.6.8のSQLを実行済み'
+      '\n\n確認項目：\n・sync-inventory-sheetをDeploy済み\n・在庫表がリンク閲覧可\n・Ver.7.0のSQLを実行済み'
     );
   }finally{
     window.__inventorySyncRunning=false;
@@ -2345,7 +2413,7 @@ async function loadInventorySnapshot(show=false){
     renderInventory(inventorySnapshot);
     renderEmployeeInventory(inventorySnapshot);
     renderDashboard();
-    if(show)alert('在庫を読み込めませんでした。\nVer.6.8のSQLを実行してください。\n'+(err.message||err));
+    if(show)alert('在庫を読み込めませんでした。\nVer.7.0のSQLを実行してください。\n'+(err.message||err));
   }
 }
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
@@ -2426,7 +2494,7 @@ async function syncEmployeeFarmFromGoogleSheet(show=true){
     if(show){
       alert(
         'Google Sheets同期に失敗しました。\n\n'+message+
-        '\n\nEdge FunctionをVer.6.8へ更新してください。'
+        '\n\nEdge FunctionをVer.7.0へ更新してください。'
       );
     }
   }finally{
@@ -2474,14 +2542,14 @@ async function syncFarmFromGoogleSheet(show=true){
     window.__farmSyncEnabled=false;
     if(show)alert(
       'Google Sheets同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・Google Sheetsが「リンクを知っている全員が閲覧可」\n・集計期間のシート名が正しい\n・Edge FunctionをVer.6.8へ更新済み'
+      '\n\n確認項目：\n・Google Sheetsが「リンクを知っている全員が閲覧可」\n・集計期間のシート名が正しい\n・Edge FunctionをVer.7.0へ更新済み'
     );
   }finally{
     window.__farmSyncRunning=false;
   }
 }
 
-async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.6.8完全SQLをSupabaseで実行してください。\n'+err.message)}}
+async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.7.0完全SQLをSupabaseで実行してください。\n'+err.message)}}
 function renderFarm(d){const grand=d.items.reduce((s,x)=>s+farmN(x.total),0),rank=[...d.staff].sort((a,b)=>b.total-a.total),ass=d.staff.reduce((s,x)=>s+farmN(x.assessment),0),pay=d.staff.reduce((s,x)=>s+farmN(x.payment),0);renderFarmPeriodOptions();if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');if($('farmTopStaff'))$('farmTopStaff').textContent=rank[0]?.name||'-';if($('farmTotalAssessment'))$('farmTotalAssessment').textContent=ass.toLocaleString('ja-JP',{maximumFractionDigits:1});if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(pay);if($('farmItemGrid'))$('farmItemGrid').innerHTML=d.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${farmN(x.total).toLocaleString('ja-JP')}</div><div class="farm-average">期間合計</div></article>`).join('')||'<div class="farm-empty">品目なし</div>';if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=rank.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${farmN(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>記録なし</span>'}</div><div class="sheet-note">査定 ${x.assessment.toLocaleString('ja-JP')} ／ ${yen.format(x.payment)}</div></article>`).join('')||'<div class="farm-empty">スタッフなし</div>';if($('farmRankingList'))$('farmRankingList').innerHTML=rank.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div><div><strong>${esc(x.name)}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('')||'<div class="farm-empty">ランキングなし</div>';renderFarmManage();renderEmployeeFarm(d)}
 function renderEmployeeFarm(d){
   const grand=d.items.reduce((s,x)=>s+farmN(x.total),0);
@@ -2601,5 +2669,5 @@ setInterval(async()=>{
 },60000);
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.6.8 Build 2026-07-29</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.7.0 Build 2026-07-29</div>
 </body></html>
