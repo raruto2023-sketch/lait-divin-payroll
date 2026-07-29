@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Management Portal Ver.5.0</title>
+<title>Lait Divin Management Portal Ver.5.1</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -36,7 +36,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.5.0 ===== */
+/* ===== Lait Divin Portal Ver.5.1 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -70,7 +70,7 @@
 @media(max-width:620px){.nav{grid-template-columns:repeat(3,1fr)}.dashboard-grid,.portal-summary{grid-template-columns:1fr 1fr}.quick-grid{grid-template-columns:1fr}.payroll-import .result{grid-template-columns:1fr}}
 
 
-/* ===== Ver.5.0 UI ===== */
+/* ===== Ver.5.1 UI ===== */
 :root{--glass:rgba(255,255,255,.78);--nav-safe:12px}
 body.dark{--bg:#11100f;--surface:#1c1917;--surface2:#24201d;--ink:#f7f1eb;--muted:#b6aaa0;--line:#3a332e;--accent:#d6b79d;--accent2:#b89172;--soft:#2a2521;--danger:#e58b82;--success:#91b99a;--shadow:0 22px 70px rgba(0,0,0,.35);--glass:rgba(27,24,22,.82);background:radial-gradient(circle at 20% 0%,#332a25 0,transparent 28%),linear-gradient(135deg,#100f0e,#1b1816);color:var(--ink)}
 body.dark .header,body.dark .nav,body.dark .panel,body.dark .card,body.dark .section,body.dark .dashboard-panel,body.dark .metric-card,body.dark .attendance-table,body.dark .employee-attendance .panel{background:var(--glass);border-color:var(--line)}
@@ -100,7 +100,7 @@ body.dark .info,body.dark .empty,body.dark .sheet-note{background:#24201d;color:
 
 
 /* =========================================================
-   Lait Divin Management Portal Ver.5.0
+   Lait Divin Management Portal Ver.5.1
    High-contrast café management UI
    ========================================================= */
 :root{
@@ -465,7 +465,7 @@ body.dark #adminApp{background:#121416}.dark .v4-topbar,.dark .v4-panel,.dark .v
 @media(max-width:430px){.v4-kpi-grid{grid-template-columns:1fr}.v4-quick-actions{grid-template-columns:1fr 1fr}.v4-ranking-preview{gap:4px}.v4-rank-avatar{width:48px;height:48px}.v4-rank-card.first .v4-rank-avatar{width:62px;height:62px}}
 
 
-/* ================== Ver.5.0 Login ================== */
+/* ================== Ver.5.1 Login ================== */
 .v41-login{padding:0!important;background:#f5f1ed!important;display:grid!important}
 .v41-login-shell{width:min(1080px,calc(100% - 40px));min-height:650px;margin:auto;display:grid;grid-template-columns:1.1fr .9fr;background:var(--surface);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 35px 100px rgba(58,39,27,.18)}
 .v41-login-visual{position:relative;overflow:hidden;padding:58px;background:linear-gradient(145deg,#4b3427,#241d19);color:#fff;display:flex;flex-direction:column;justify-content:space-between}
@@ -497,7 +497,7 @@ body.dark .v41-employee-topbar{background:rgba(28,32,37,.97)}
 @media(max-width:760px){.v41-employee-sidebar{transform:translateX(-105%);transition:.25s}.v41-employee-sidebar.open{transform:translateX(0)}.v41-employee-welcome{padding:18px;align-items:flex-start}.v41-employee-welcome h1{font-size:21px}.v41-shift-state{padding:8px 11px}.v41-login-theme{right:13px;top:13px}}
 
 
-/* ===== Ver.5.0 Login visibility hotfix ===== */
+/* ===== Ver.5.1 Login visibility hotfix ===== */
 .hidden{display:none!important}
 #loginScreen{
   position:fixed!important;
@@ -516,7 +516,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.5.0 Attendance Management ================== */
+/* ================== Ver.5.1 Attendance Management ================== */
 .attendance-admin-toolbar{align-items:center}
 .danger-outline{background:transparent!important;color:var(--danger)!important;border-color:var(--danger)!important}
 .danger-outline:hover{background:var(--danger-soft)!important}
@@ -557,7 +557,7 @@ body:not(.login-active) #loginScreen{
 }
 
 
-/* ================== Ver.5.0 Sales Management ================== */
+/* ================== Ver.5.1 Sales Management ================== */
 .ranking-mode-tabs{display:flex;gap:8px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:15px;width:max-content;margin-bottom:14px;box-shadow:var(--shadow)}
 .ranking-mode-tabs button{border:0;background:transparent;color:var(--ink-soft);font-weight:800;padding:10px 18px;border-radius:10px;cursor:pointer}
 .ranking-mode-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff;box-shadow:0 7px 17px rgba(80,55,40,.18)}
@@ -583,7 +583,7 @@ body:not(.login-active) #loginScreen{
 @media(max-width:480px){.sales-filter-tools{grid-template-columns:1fr}}
 
 
-/* Ver.5.0 realtime/mobile */
+/* Ver.5.1 realtime/mobile */
 .v4-live-indicator{font-size:9px;font-weight:900;white-space:nowrap}.sync-ok{color:#238642!important}.sync-warn{color:#c47b22!important}
 .v44-mobile-bottom{display:none}
 @media(max-width:760px){
@@ -598,6 +598,64 @@ body:not(.login-active) #loginScreen{
  .ranking-layout{display:block!important}.inventory-grid{grid-template-columns:1fr 1fr!important}.sales-filter-tools{grid-template-columns:1fr!important}.sheet-frame{height:500px!important}
 }
 @media(max-width:430px){.v4-kpi-grid,.inventory-grid,.ranking-summary,.inventory-overview{grid-template-columns:1fr!important}.v41-employee-welcome{flex-direction:column;gap:12px}}
+
+
+/* ===== Ver.5.1 Farm Hub & balanced café palette ===== */
+:root{
+  --bg:#e9e3dc;
+  --bg2:#ded6ce;
+  --surface:#f6f2ed;
+  --surface2:#eee8e2;
+  --surface3:#e5ddd5;
+  --ink:#302923;
+  --ink-soft:#5f554d;
+  --muted:#7d7168;
+  --line:#cfc4ba;
+  --line-strong:#b5a79b;
+  --brand:#86624f;
+  --brand-strong:#664737;
+  --brand-soft:#dfd0c5;
+  --gold:#b18445;
+  --gold-soft:#eee1c5;
+  --glass:rgba(246,242,237,.95);
+}
+body.dark{
+  --bg:#201d1b;
+  --bg2:#292522;
+  --surface:#302b28;
+  --surface2:#39322e;
+  --surface3:#433a35;
+  --ink:#f1e9e2;
+  --ink-soft:#d6c9bf;
+  --muted:#b7a79b;
+  --line:#564b44;
+  --line-strong:#726359;
+  --brand:#d0a383;
+  --brand-strong:#ebc0a1;
+  --brand-soft:#49382e;
+  --gold:#e2bd72;
+  --gold-soft:#4d4029;
+  --glass:rgba(48,43,40,.96);
+}
+.farm-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.farm-tabs button{border:0;background:transparent;color:var(--ink-soft);padding:10px 16px;border-radius:11px;font-weight:900}
+.farm-tabs button.active{background:linear-gradient(135deg,var(--brand),var(--brand-strong));color:#fff}
+.farm-period-card{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:15px;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+.farm-period-card strong{display:block;font-size:18px}.farm-period-card span{font-size:10px;color:var(--muted)}
+.farm-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:15px}
+.farm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.farm-item{padding:15px;border:1px solid var(--line);border-radius:16px;background:var(--surface2)}
+.farm-item h3{margin:0;font-size:14px}.farm-item .farm-total{font-size:25px;font-weight:900;margin:12px 0 4px}.farm-item .farm-average{font-size:10px;color:var(--muted)}
+.farm-staff-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.farm-staff-card{border:1px solid var(--line);border-radius:16px;padding:15px;background:var(--surface2)}
+.farm-staff-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.farm-staff-head strong{font-size:14px}.farm-staff-head b{font-size:18px;color:var(--brand)}
+.farm-breakdown{margin-top:10px;display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.farm-breakdown span{font-size:10px;padding:7px 8px;background:var(--surface);border-radius:9px;color:var(--ink-soft)}
+.farm-view{display:none}.farm-view.active{display:block}
+.farm-ranking-row{display:grid;grid-template-columns:42px minmax(0,1fr) 120px 120px;gap:10px;align-items:center;padding:12px;border-bottom:1px solid var(--line)}
+.farm-ranking-row:last-child{border-bottom:0}.farm-rank-no{width:34px;height:34px;border-radius:11px;background:var(--brand-soft);display:grid;place-items:center;font-weight:900}
+.farm-ranking-row small{display:block;color:var(--muted);margin-top:3px}.farm-number{text-align:right;font-weight:900}
+@media(max-width:900px){.farm-summary{grid-template-columns:repeat(2,1fr)}.farm-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.farm-summary,.farm-grid,.farm-staff-grid{grid-template-columns:1fr}.farm-ranking-row{grid-template-columns:38px minmax(0,1fr) 90px}.farm-ranking-row .farm-money{display:none}.farm-period-card{align-items:flex-start;flex-direction:column}}
 
 </style>
 </head>
@@ -650,7 +708,7 @@ body:not(.login-active) #loginScreen{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.5.0</small></div>
+      <div><strong>Lait Divin</strong><span>MANAGEMENT PORTAL</span><small>Ver.5.1</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -658,7 +716,7 @@ body:not(.login-active) #loginScreen{
       <button data-page="employees" onclick="goPage('employees')"><span>♟</span><b>従業員管理</b></button>
       <button data-page="create" onclick="goPage('create')"><span>¥</span><b>給与・ボーナス</b></button>
       <button data-page="history" onclick="goPage('history')"><span>▤</span><b>明細履歴</b></button>
-      <button data-page="inventory" onclick="goPage('inventory')"><span>◇</span><b>在庫管理</b></button>
+      <button data-page="inventory" onclick="goPage('inventory')"><span>🌾</span><b>Farm管理</b></button>
       <button data-page="sales" onclick="goPage('sales')"><span>▥</span><b>売上入力</b></button>
       <button data-page="ranking" onclick="goPage('ranking')"><span>♛</span><b>ランキング</b></button>
       <button data-page="settings" onclick="goPage('settings')"><span>⚙</span><b>設定</b></button>
@@ -725,7 +783,7 @@ body:not(.login-active) #loginScreen{
             </section>
 
             <section class="v4-panel">
-              <div class="v4-panel-head"><div><span>INVENTORY</span><h2>在庫状況</h2></div><button onclick="goPage('inventory')">すべて見る ›</button></div>
+              <div class="v4-panel-head"><div><span>FARM SUMMARY</span><h2>Farm集計</h2></div><button onclick="goPage('inventory')">すべて見る ›</button></div>
               <div id="v4InventoryPreview" class="v4-inventory-preview"></div>
             </section>
 
@@ -740,7 +798,7 @@ body:not(.login-active) #loginScreen{
           <button onclick="goPage('attendance')"><span>◷</span><b>出退勤を確認</b><small>勤務状況を見る</small></button>
           <button onclick="openEmployeeModal()"><span>♟</span><b>従業員を追加</b><small>スタッフ登録</small></button>
           <button onclick="goPage('create')"><span>¥</span><b>給与明細を作成</b><small>新しい明細</small></button>
-          <button onclick="goPage('inventory')"><span>◇</span><b>在庫を確認</b><small>Google Sheets</small></button>
+          <button onclick="goPage('inventory')"><span>🌾</span><b>Farmを確認</b><small>採取・在庫・ランキング</small></button>
           <button onclick="manualDiscordSync()"><span>↻</span><b>Discord同期</b><small>Status Board</small></button>
         </div>
 
@@ -827,24 +885,50 @@ body:not(.login-active) #loginScreen{
   </div>
 </section>
 
+
 <section id="page-inventory" class="page">
   <div class="page-hero compact inventory-hero">
-    <div><span class="eyebrow">GOOGLE SHEETS</span><h1>在庫ダッシュボード</h1><p>「在庫表」の材料シートを確認できます。</p></div>
-    <div class="inventory-actions"><button class="btn primary" onclick="openInventorySheet()">Google Sheetsを開く</button><button class="btn" onclick="loadInventorySnapshot()">再読込</button></div>
+    <div><span class="eyebrow">FARM MANAGEMENT HUB</span><h1>Farm管理</h1><p>採取量・1日平均・スタッフ別実績・査定をひとつにまとめて確認できます。</p></div>
+    <div class="inventory-actions"><button class="btn primary" onclick="openInventorySheet()">Google Sheetsを開く</button><button class="btn" onclick="loadFarmData()">再読込</button></div>
   </div>
-  <div class="inventory-overview">
-    <div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="inventoryItems">9</div><div class="metric-sub">管理材料数</div></div>
-    <div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="inventoryLow">5</div><div class="metric-sub">在庫注意</div></div>
-    <div class="metric-card"><div class="metric-label">LAST CHECK</div><div class="metric-value small" id="inventoryUpdated">読込前</div><div class="metric-sub">表示更新時刻</div></div>
+
+  <div class="farm-period-card">
+    <div><span>集計期間</span><strong id="farmPeriodLabel">7月27日〜8月2日</strong><span id="farmSheetLabel">シート：7.27-8.2</span></div>
+    <select id="farmPeriodSelect" onchange="changeFarmPeriod(this.value)">
+      <option value="7.27-8.2">7月27日〜8月2日</option>
+      <option value="-7.26">7月26日まで</option>
+      <option value="原本">原本</option>
+    </select>
   </div>
-  <div class="dashboard-panel">
-    <div class="dashboard-title"><h2>材料在庫</h2><span class="badge">スプレッドシート連携</span></div>
-    <div id="inventoryGrid" class="inventory-grid"></div>
-    <div class="sheet-note">ブラウザからの自動取得は、Google Sheets側を「リンクを知っている全員が閲覧可」にすると利用できます。取得できない場合も「Google Sheetsを開く」から安全に確認できます。</div>
+
+  <div class="farm-summary">
+    <div class="metric-card"><div class="metric-label">TOTAL FARM</div><div class="metric-value" id="farmGrandTotal">0</div><div class="metric-sub">期間中の総採取数</div></div>
+    <div class="metric-card"><div class="metric-label">DAILY AVERAGE</div><div class="metric-value" id="farmDailyAverage">0</div><div class="metric-sub">1日あたり平均</div></div>
+    <div class="metric-card"><div class="metric-label">TOP STAFF</div><div class="metric-value small" id="farmTopStaff">-</div><div class="metric-sub">採取数ランキング1位</div></div>
+    <div class="metric-card"><div class="metric-label">TOTAL PAYMENT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">Farm査定金額合計</div></div>
   </div>
-  <div class="dashboard-panel embedded-sheet-panel">
-    <div class="dashboard-title"><h2>Google Sheets</h2><span class="badge">埋め込み表示</span></div>
-    <iframe class="sheet-frame" src="https://docs.google.com/spreadsheets/d/1hPPZUUYLy9PnZRhjNXEMbDWB9x2M8549u1TtO_IG6ls/preview?gid=0" title="Lait Divin 在庫表"></iframe>
+
+  <div class="farm-tabs">
+    <button class="active" data-farm-tab="items" onclick="setFarmTab('items')">品目別</button>
+    <button data-farm-tab="staff" onclick="setFarmTab('staff')">スタッフ別</button>
+    <button data-farm-tab="ranking" onclick="setFarmTab('ranking')">Farmランキング</button>
+    <button data-farm-tab="sheet" onclick="setFarmTab('sheet')">原本・シート</button>
+  </div>
+
+  <div id="farmViewItems" class="farm-view active">
+    <div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2><span class="badge">合計・1日平均</span></div><div id="farmItemGrid" class="farm-grid"></div></div>
+  </div>
+
+  <div id="farmViewStaff" class="farm-view">
+    <div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別Farm実績</h2><span class="badge">誰がどれだけ取ったか</span></div><div id="farmStaffGrid" class="farm-staff-grid"></div></div>
+  </div>
+
+  <div id="farmViewRanking" class="farm-view">
+    <div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">採取数・査定・金額</span></div><div id="farmRankingList"></div></div>
+  </div>
+
+  <div id="farmViewSheet" class="farm-view">
+    <div class="dashboard-panel embedded-sheet-panel"><div class="dashboard-title"><h2>Google Sheets</h2><span class="badge" id="farmEmbedBadge">7.27-8.2</span></div><iframe id="farmSheetFrame" class="sheet-frame" src="https://docs.google.com/spreadsheets/d/1CRkK7BKRXyVdcjyG_sLR3LEXnAq3y1HfG1oyGDRadH0/preview?gid=648398871" title="Lait Divin Farm表"></iframe></div>
   </div>
 </section>
 
@@ -916,13 +1000,13 @@ body:not(.login-active) #loginScreen{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.5.0</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.5.1</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
         <button data-employee-page="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button>
         <button data-employee-page="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>ランキング</b></button>
-        <button data-employee-page="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫表</b></button>
+        <button data-employee-page="inventory" onclick="employeeGoPage('inventory')"><span>🌾</span><b>Farm</b></button>
         <button data-employee-page="payslips" onclick="employeeGoPage('payslips')"><span>¥</span><b>給料明細</b></button>
       </nav>
       <div class="v4-sidebar-bottom">
@@ -973,7 +1057,7 @@ body:not(.login-active) #loginScreen{
               <div id="employeeWorkingList" class="working-board v4-working-board"></div>
             </section>
             <section class="v4-panel">
-              <div class="v4-panel-head"><div><span>INVENTORY</span><h2>在庫状況プレビュー</h2></div><button onclick="employeeGoPage('inventory')">在庫表を見る ›</button></div>
+              <div class="v4-panel-head"><div><span>FARM</span><h2>Farm実績プレビュー</h2></div><button onclick="employeeGoPage('inventory')">Farmを見る ›</button></div>
               <div id="employeeInventoryPreview" class="v4-inventory-preview"></div>
             </section>
           </div>
@@ -1002,18 +1086,18 @@ body:not(.login-active) #loginScreen{
           <div class="ranking-layout"><div class="dashboard-panel podium-panel"><div class="dashboard-title"><h2>🏆 Top 3</h2><span class="badge">勤務時間</span></div><div id="employeeRankingPodium" class="podium"></div></div><div class="dashboard-panel"><div class="dashboard-title"><h2>全スタッフ</h2></div><div id="employeeRankingList" class="ranking-list"></div></div></div>
         </section>
 
+        
         <section id="employee-page-inventory" class="employee-page">
-          <div class="page-hero compact inventory-hero"><div><span class="eyebrow">GOOGLE SHEETS</span><h1>在庫表</h1><p>Lait Divinの材料在庫を確認できます。</p></div><div class="inventory-actions"><button class="btn primary" onclick="openInventorySheet()">Google Sheetsを開く</button><button class="btn" onclick="loadEmployeeInventory()">再読込</button></div></div>
-          <div class="inventory-overview"><div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="employeeInventoryItems">0</div><div class="metric-sub">管理材料数</div></div><div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="employeeInventoryLow">0</div><div class="metric-sub">在庫注意</div></div><div class="metric-card"><div class="metric-label">LAST CHECK</div><div class="metric-value small" id="employeeInventoryUpdated">未読込</div><div class="metric-sub">表示更新時刻</div></div></div>
-          <div class="dashboard-panel"><div class="dashboard-title"><h2>材料在庫</h2><span class="badge">閲覧専用</span></div><div id="employeeInventoryGrid" class="inventory-grid"></div></div>
-          <div class="dashboard-panel embedded-sheet-panel"><div class="dashboard-title"><h2>Google Sheets</h2><span class="badge">埋め込み表示</span></div><iframe class="sheet-frame" src="https://docs.google.com/spreadsheets/d/1hPPZUUYLy9PnZRhjNXEMbDWB9x2M8549u1TtO_IG6ls/preview?gid=0" title="Lait Divin 在庫表"></iframe></div>
+          <div class="page-hero compact inventory-hero"><div><span class="eyebrow">FARM SUMMARY</span><h1>Farm</h1><p>採取量・スタッフ別実績・ランキングをまとめて確認できます。</p></div><div class="inventory-actions"><button class="btn primary" onclick="openInventorySheet()">Google Sheetsを開く</button><button class="btn" onclick="loadFarmData()">再読込</button></div></div>
+          <div class="farm-period-card"><div><span>集計期間</span><strong id="employeeFarmPeriodLabel">7月27日〜8月2日</strong><span>最新の期間シート</span></div></div>
+          <div class="farm-summary"><div class="metric-card"><div class="metric-label">TOTAL FARM</div><div class="metric-value" id="employeeFarmGrandTotal">0</div></div><div class="metric-card"><div class="metric-label">DAILY AVERAGE</div><div class="metric-value" id="employeeFarmDailyAverage">0</div></div><div class="metric-card"><div class="metric-label">MY FARM</div><div class="metric-value" id="employeeMyFarm">0</div></div><div class="metric-card"><div class="metric-label">MY RANK</div><div class="metric-value" id="employeeMyFarmRank">-</div></div></div>
+          <div class="farm-tabs"><button class="active" data-employee-farm-tab="items" onclick="setEmployeeFarmTab('items')">品目別</button><button data-employee-farm-tab="ranking" onclick="setEmployeeFarmTab('ranking')">ランキング</button><button data-employee-farm-tab="sheet" onclick="setEmployeeFarmTab('sheet')">シート</button></div>
+          <div id="employeeFarmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2></div><div id="employeeFarmItemGrid" class="farm-grid"></div></div></div>
+          <div id="employeeFarmViewRanking" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2></div><div id="employeeFarmRankingList"></div></div></div>
+          <div id="employeeFarmViewSheet" class="farm-view"><div class="dashboard-panel embedded-sheet-panel"><iframe class="sheet-frame" src="https://docs.google.com/spreadsheets/d/1CRkK7BKRXyVdcjyG_sLR3LEXnAq3y1HfG1oyGDRadH0/preview?gid=648398871" title="Lait Divin Farm表"></iframe></div></div>
         </section>
 
-        <section id="employee-page-payslips" class="employee-page">
-          <div class="page-hero compact"><div><span class="eyebrow">MY PAYSLIPS</span><h1>給料明細</h1><p>あなたに発行された明細を確認・保存できます。</p></div></div>
-          <div id="employeeSlipGrid" class="employee-slip-grid"></div>
-        </section>
-      </main>
+</main>
     </div>
   </div>
 </div>
@@ -1095,7 +1179,7 @@ let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
 
-// ===== Ver.5.0 Global State =====
+// ===== Ver.5.1 Global State =====
 let syncTimer=null;
 let employeeRankingMode='sales';
 let rankingMode='hours';
@@ -1147,7 +1231,7 @@ function ensureMobileNavs(){
   if(!$('employeeMobileNav')){
     const nav=document.createElement('nav');
     nav.id='employeeMobileNav';nav.className='v44-mobile-bottom';
-    nav.innerHTML=`<button data-mobile-employee="home" onclick="employeeGoPage('home')"><span>⌂</span><b>ホーム</b></button><button data-mobile-employee="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button><button data-mobile-employee="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>順位</b></button><button data-mobile-employee="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫</b></button><button onclick="toggleEmployeeSidebar()"><span>☰</span><b>メニュー</b></button>`;
+    nav.innerHTML=`<button data-mobile-employee="home" onclick="employeeGoPage('home')"><span>⌂</span><b>ホーム</b></button><button data-mobile-employee="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button><button data-mobile-employee="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>順位</b></button><button data-mobile-employee="inventory" onclick="employeeGoPage('inventory')"><span>🌾</span><b>Farm</b></button><button onclick="toggleEmployeeSidebar()"><span>☰</span><b>メニュー</b></button>`;
     $('employeeApp')?.appendChild(nav);
   }
 }
@@ -1255,7 +1339,7 @@ async function openAdmin(){
 }
 async function openEmployee(){
   showEmployeeApp();
-  await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData()]);renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();loadEmployeeInventory();subscribeRealtime('employee');
+  await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData()]);renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();loadFarmData();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
@@ -1378,7 +1462,7 @@ function renderEmployeeDashboard(){
   const h=new Date().getHours();$('employeeGreeting').textContent=h<11?'おはようございます':h<18?'こんにちは':'こんばんは';
   $('employeeWorkingList').innerHTML=active.length?active.map(a=>`<div class="working-person"><div class="person-avatar">${esc((a.employeeName||'?').slice(0,1))}</div><div><strong>${esc(a.employeeName)}</strong><span>${esc(a.employeeId)} ・ ${new Date(a.clockIn).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}から</span></div><div class="duration">${formatDuration(attendanceDuration(a))}</div></div>`).join(''):'<div class="empty">現在勤務中のスタッフはいません。</div>';
   const items=inventoryFallback.slice(0,6);
-  $('employeeInventoryPreview').innerHTML=items.map(x=>`<div class="v4-stock ${x.stock<x.min?'low':''}"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min).toLocaleString()}</span><b>${Number(x.stock).toLocaleString()}</b></div>`).join('');
+  $('employeeInventoryPreview').innerHTML=items.map(x=>`<div class="v4-stock ${false?'low':''}"><strong>${esc(x.name)}</strong><span>期間合計</span><b>${Number(x.total).toLocaleString()}</b></div>`).join('');
   const mine=myAttendance.find(a=>!a.clockOut),state=$('employeeStatusPillHome');
   state.textContent=mine?'● 勤務中':'退勤中';state.classList.toggle('working',!!mine);
 }
@@ -1928,101 +2012,127 @@ function renderV4Extras(){
   }
 
   if($('v4InventoryPreview')){
-    const data=typeof inventoryFallback!=='undefined'?inventoryFallback.slice(0,6):[];
-    $('v4InventoryPreview').innerHTML=data.map(x=>`<div class="v4-stock ${x.stock<x.min?'low':''}"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min).toLocaleString()}</span><b>${Number(x.stock).toLocaleString()}</b></div>`).join('')
+    const data=(farmData?.items||farmFallback.items).slice(0,6);
+    $('v4InventoryPreview').innerHTML=data.map(x=>`<div class="v4-stock ${false?'low':''}"><strong>${esc(x.name)}</strong><span>期間合計</span><b>${Number(x.total).toLocaleString()}</b></div>`).join('')
   }
 }
 
-const INVENTORY_SHEET_URL='https://docs.google.com/spreadsheets/d/1hPPZUUYLy9PnZRhjNXEMbDWB9x2M8549u1TtO_IG6ls/edit?gid=0#gid=0';
-const INVENTORY_CSV_URL='https://docs.google.com/spreadsheets/d/1hPPZUUYLy9PnZRhjNXEMbDWB9x2M8549u1TtO_IG6ls/gviz/tq?tqx=out:csv&sheet=%E6%9D%90%E6%96%99';
-const inventoryFallback=[
-{name:'牛乳',min:4000,stock:4103,status:'最低数量間近'},
-{name:'小麦粉',min:2000,stock:2963,status:''},
-{name:'いちご',min:3000,stock:3180,status:'最低数量間近'},
-{name:'桃',min:2000,stock:3205,status:''},
-{name:'ブルーベリー',min:3000,stock:268,status:'在庫注意'},
-{name:'オレンジ',min:2000,stock:1325,status:'在庫注意'},
-{name:'マンゴー',min:2000,stock:997,status:'在庫注意'},
-{name:'チェリー',min:2000,stock:922,status:'在庫注意'},
-{name:'アルコール',min:1000,stock:5081,status:''}
-];
 
-function toggleTheme(){
-  const dark=!document.body.classList.contains('dark');
-  document.body.classList.toggle('dark',dark);
-  localStorage.setItem('ld_theme',dark?'dark':'light');
-  document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️':'🌙');
+const INVENTORY_SHEET_URL='https://docs.google.com/spreadsheets/d/1CRkK7BKRXyVdcjyG_sLR3LEXnAq3y1HfG1oyGDRadH0/edit?gid=0#gid=0';
+const FARM_SHEET_ID='1CRkK7BKRXyVdcjyG_sLR3LEXnAq3y1HfG1oyGDRadH0';
+const FARM_GIDS={'原本':'0','7.27-8.2':'648398871','-7.26':'271117160'};
+let currentFarmPeriod='7.27-8.2';
+let farmData=null;
+
+const farmFallback={
+  sheet:'7.27-8.2',days:7,label:'7月27日〜8月2日',
+  items:[
+    {name:'牛乳',total:4882},{name:'小麦粉',total:3423},{name:'いちご',total:2521},
+    {name:'桃',total:4975},{name:'ブルーベリー',total:1942},{name:'オレンジ',total:2217},
+    {name:'マンゴー',total:1962},{name:'アルコール',total:3336},{name:'サクランボ',total:4553}
+  ],
+  staff:[
+    {name:'桂',total:1538,assessment:1576.6,payment:2776660,items:{'いちご':766,'桃':772}},
+    {name:'リリアン',total:15207,assessment:14097.9,payment:22755300,items:{'牛乳':4104,'小麦粉':2120,'いちご':1331,'桃':2259,'ブルーベリー':1030,'マンゴー':571,'アルコール':535,'サクランボ':3257}},
+    {name:'夜雲 ゆゆ',total:0,assessment:0,payment:0,items:{}},
+    {name:'神崎',total:992,assessment:1030.9,payment:1696320,items:{'牛乳':778,'いちご':214}},
+    {name:'ねめしす',total:12074,assessment:12728.7,payment:26959410,items:{'小麦粉':1303,'いちご':210,'桃':1944,'ブルーベリー':912,'オレンジ':2217,'マンゴー':1391,'アルコール':2801,'サクランボ':1296}}
+  ]
+};
+
+function farmDaysFromName(name){
+  const m=String(name).match(/(\d{1,2})\.(\d{1,2})-(\d{1,2})\.(\d{1,2})/);
+  if(!m)return 1;
+  const year=new Date().getFullYear(),a=new Date(year,Number(m[1])-1,Number(m[2])),b=new Date(year,Number(m[3])-1,Number(m[4]));
+  return Math.max(1,Math.round((b-a)/86400000)+1);
 }
-function initTheme(){
-  const saved=localStorage.getItem('ld_theme');
-  const dark=saved==='dark'||(!saved&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
-  document.body.classList.toggle('dark',dark);
-  document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️':'🌙');
+function farmLabelFromName(name){
+  const m=String(name).match(/(\d{1,2})\.(\d{1,2})-(\d{1,2})\.(\d{1,2})/);
+  return m?`${Number(m[1])}月${Number(m[2])}日〜${Number(m[3])}月${Number(m[4])}日`:name;
 }
-function monthKeyLocal(v){const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
-function rankingRows(){
-  const month=$('rankingMonth')?.value||monthKeyLocal(new Date());
-  const grouped=new Map();
-  attendanceData.filter(a=>monthKeyLocal(a.clockIn)===month).forEach(a=>{
-    const key=a.employeeUid||a.employeeId;
-    const current=grouped.get(key)||{uid:a.employeeUid,id:a.employeeId,name:a.employeeName,ms:0,shifts:0};
-    current.ms+=attendanceDuration(a);current.shifts+=1;grouped.set(key,current);
+function farmNumber(v){return Number(String(v??'').replace(/[¥,\s]/g,''))||0}
+function parseFarmRows(rows,sheet){
+  const headerIndex=rows.findIndex(r=>r[0]==='品名/日付'||r[1]==='原価');
+  const header=rows[headerIndex-1]||rows[1]||[];
+  const itemStart=headerIndex+1;
+  const assessmentIndex=rows.findIndex(r=>r[0]==='査定');
+  const paymentIndex=rows.findIndex(r=>r[0]==='金額');
+  const staffCols=[];
+  for(let c=3;c<header.length;c++){
+    const name=String(header[c]||'').trim();
+    if(name&&name!=='合計')staffCols.push({c,name});
+  }
+  const items=[];
+  for(let r=itemStart;r<(assessmentIndex>0?assessmentIndex:rows.length);r++){
+    const name=String(rows[r]?.[0]||'').trim();
+    if(!name)continue;
+    const total=farmNumber(rows[r]?.[11]??staffCols.reduce((s,x)=>s+farmNumber(rows[r]?.[x.c]),0));
+    items.push({name,total});
+  }
+  const staff=staffCols.map(x=>{
+    const detail={};let total=0;
+    items.forEach((item,i)=>{const v=farmNumber(rows[itemStart+i]?.[x.c]);if(v){detail[item.name]=v;total+=v}});
+    return {name:x.name,total,assessment:farmNumber(rows[assessmentIndex]?.[x.c]),payment:farmNumber(rows[paymentIndex]?.[x.c]),items:detail};
   });
-  employees.forEach(e=>{if(!grouped.has(e.uid))grouped.set(e.uid,{uid:e.uid,id:e.id,name:e.name,ms:0,shifts:0})});
-  return [...grouped.values()].sort((a,b)=>b.ms-a.ms||b.shifts-a.shifts||a.name.localeCompare(b.name,'ja'));
+  return {sheet,days:farmDaysFromName(sheet),label:farmLabelFromName(sheet),items,staff};
 }
-function renderRanking(){
-  if(!$('rankingList'))return;
-  if(!$('rankingMonth').value)$('rankingMonth').value=monthKeyLocal(new Date());
-  const month=$('rankingMonth').value;
-  if(rankingMode==='sales'){
-    const rows=salesRankingRows(month),total=rows.reduce((s,r)=>s+r.amount,0),entries=rows.reduce((s,r)=>s+r.entries,0);
-    $('rankingPageTitle').textContent='売上ランキング';
-    $('rankingPageDescription').textContent='月ごとのスタッフ別売上を自動集計します。';
-    $('rankTotalHours').textContent=yen.format(total);
-    $('rankTotalShifts').textContent=`${entries}件`;
-    $('rankTopStaff').textContent=rows[0]?.amount?rows[0].name:'-';
-    document.querySelector('#rankTotalHours')?.previousElementSibling&&(document.querySelector('#rankTotalHours').previousElementSibling.textContent='TOTAL SALES');
-    document.querySelector('#rankTotalShifts')?.previousElementSibling&&(document.querySelector('#rankTotalShifts').previousElementSibling.textContent='SALES ENTRIES');
-    const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
-    $('rankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${yen.format(r.amount)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の売上記録はありません。</div>';
-    $('rankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${yen.format(r.amount)}</div><div class="ranking-shifts">${r.entries}件</div></div>`).join(''):'<div class="empty">売上記録はありません。</div>';
-  }else{
-    const rows=rankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),shifts=rows.reduce((s,r)=>s+r.shifts,0);
-    $('rankingPageTitle').textContent='勤務時間ランキング';
-    $('rankingPageDescription').textContent='月ごとの勤務時間と出勤回数を自動集計します。';
-    $('rankTotalHours').textContent=formatDuration(total);$('rankTotalShifts').textContent=`${shifts}回`;$('rankTopStaff').textContent=rows[0]?.ms?rows[0].name:'-';
-    document.querySelector('#rankTotalHours')?.previousElementSibling&&(document.querySelector('#rankTotalHours').previousElementSibling.textContent='TOTAL HOURS');
-    document.querySelector('#rankTotalShifts')?.previousElementSibling&&(document.querySelector('#rankTotalShifts').previousElementSibling.textContent='TOTAL SHIFTS');
-    const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
-    $('rankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}"><div class="podium-avatar">${esc(r.name.slice(0,1))}</div><div class="podium-name">${esc(r.name)}</div><div class="podium-hours">${formatDuration(r.ms)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の勤務記録はありません。</div>';
-    $('rankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row"><div class="ranking-position">${i+1}</div><div class="ranking-person"><strong>${esc(r.name)}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${formatDuration(r.ms)}</div><div class="ranking-shifts">${r.shifts}回</div></div>`).join(''):'<div class="empty">勤務記録はありません。</div>';
-  }
+function renderFarm(data){
+  farmData=data;
+  const grand=data.items.reduce((s,x)=>s+x.total,0),payment=data.staff.reduce((s,x)=>s+x.payment,0),ranking=[...data.staff].sort((a,b)=>b.total-a.total);
+  if($('farmPeriodLabel'))$('farmPeriodLabel').textContent=data.label;
+  if($('farmSheetLabel'))$('farmSheetLabel').textContent=`シート：${data.sheet}`;
+  if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');
+  if($('farmDailyAverage'))$('farmDailyAverage').textContent=Math.round(grand/data.days).toLocaleString('ja-JP');
+  if($('farmTopStaff'))$('farmTopStaff').textContent=ranking[0]?.name||'-';
+  if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(payment);
+  if($('farmItemGrid'))$('farmItemGrid').innerHTML=data.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${x.total.toLocaleString('ja-JP')}</div><div class="farm-average">1日平均 ${Math.round(x.total/data.days).toLocaleString('ja-JP')}個</div></article>`).join('');
+  if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=ranking.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${Number(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>採取記録なし</span>'}</div><div class="sheet-note">査定 ${x.assessment.toLocaleString('ja-JP')} ／ ${yen.format(x.payment)}</div></article>`).join('');
+  if($('farmRankingList'))$('farmRankingList').innerHTML=ranking.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div><div><strong>${esc(x.name)}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('');
+  renderEmployeeFarm(data);
 }
-function exportRankingCsv(){
-  const rows=rankingRows(),month=$('rankingMonth').value,table=[['順位','従業員名','従業員番号','勤務時間(分)','出勤回数'],...rows.map((r,i)=>[i+1,r.name,r.id,Math.floor(r.ms/60000),r.shifts])];
-  const csv='\ufeff'+table.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`勤務時間ランキング_${month}.csv`;a.click();URL.revokeObjectURL(a.href)
+function renderEmployeeFarm(data){
+  const grand=data.items.reduce((s,x)=>s+x.total,0),ranking=[...data.staff].sort((a,b)=>b.total-a.total);
+  const me=ranking.find(x=>currentEmployee&&x.name.replace(/\s/g,'')===String(currentEmployee.name||'').replace(/\s/g,''));const idx=me?ranking.indexOf(me):-1;
+  if($('employeeFarmPeriodLabel'))$('employeeFarmPeriodLabel').textContent=data.label;
+  if($('employeeFarmGrandTotal'))$('employeeFarmGrandTotal').textContent=grand.toLocaleString('ja-JP');
+  if($('employeeFarmDailyAverage'))$('employeeFarmDailyAverage').textContent=Math.round(grand/data.days).toLocaleString('ja-JP');
+  if($('employeeMyFarm'))$('employeeMyFarm').textContent=(me?.total||0).toLocaleString('ja-JP');
+  if($('employeeMyFarmRank'))$('employeeMyFarmRank').textContent=idx>=0?`${idx+1}位`:'-';
+  if($('employeeFarmItemGrid'))$('employeeFarmItemGrid').innerHTML=data.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${x.total.toLocaleString('ja-JP')}</div><div class="farm-average">1日平均 ${Math.round(x.total/data.days).toLocaleString('ja-JP')}個</div></article>`).join('');
+  if($('employeeFarmRankingList'))$('employeeFarmRankingList').innerHTML=ranking.map((x,i)=>`<div class="farm-ranking-row ${me===x?'my-ranking-row':''}"><div class="farm-rank-no">${i+1}</div><div><strong>${esc(x.name)}${me===x?'（あなた）':''}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('');
 }
-function parseCsv(text){
-  const rows=[];let row=[],cell='',quoted=false;
-  for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(x=>x!==''))rows.push(row);row=[];cell=''}else cell+=c}
-  row.push(cell);if(row.some(x=>x!==''))rows.push(row);return rows
-}
-function renderInventory(items){
-  const low=items.filter(x=>x.stock<x.min||x.status).length;$('inventoryItems').textContent=items.length;$('inventoryLow').textContent=low;$('inventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-  $('inventoryGrid').innerHTML=items.map(x=>{const ratio=x.min?Math.round(x.stock/x.min*100):100,isLow=x.stock<x.min||x.status;return `<div class="inventory-card ${isLow?'low':''}"><div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''}">${esc(x.status||'在庫OK')}</span></div><div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')}</div><div class="stock-min">最低数量 ${Number(x.min).toLocaleString('ja-JP')} ・ ${ratio}%</div><div class="stock-bar"><span style="width:${Math.min(100,Math.max(3,ratio))}%"></span></div></div>`}).join('');
-}
-async function loadInventorySnapshot(){
-  if(!$('inventoryGrid'))return;
-  renderInventory(inventoryFallback);
+async function loadFarmData(){
+  renderFarm(farmFallback);
+  const sheet=currentFarmPeriod||'7.27-8.2';
+  if(sheet==='原本'){updateFarmFrame(sheet);return}
   try{
-    const res=await fetch(INVENTORY_CSV_URL,{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);
-    const rows=parseCsv(await res.text()),items=rows.slice(1).filter(r=>r[0]&&Number(r[1])>=0).map(r=>({name:r[0],min:Number(String(r[1]).replace(/,/g,''))||0,stock:Number(String(r[8]||r[2]).replace(/,/g,''))||0,status:r[9]||r[3]||''}));
-    if(items.length)renderInventory(items);
-  }catch(e){console.info('Google Sheetsの公開CSVを取得できないため、最新確認済みスナップショットを表示しています。',e)}
+    const url=`https://docs.google.com/spreadsheets/d/${FARM_SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheet)}`;
+    const res=await fetch(url,{cache:'no-store'});if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    const rows=parseCsv(await res.text()),parsed=parseFarmRows(rows,sheet);
+    if(parsed.items.length)renderFarm(parsed);
+  }catch(e){console.info('Farmシートの自動取得ができないため、確認済みデータを表示しています。',e)}
+  updateFarmFrame(sheet);
 }
+function updateFarmFrame(sheet){
+  const gid=FARM_GIDS[sheet]||FARM_GIDS['7.27-8.2'];
+  if($('farmSheetFrame'))$('farmSheetFrame').src=`https://docs.google.com/spreadsheets/d/${FARM_SHEET_ID}/preview?gid=${gid}`;
+  if($('farmEmbedBadge'))$('farmEmbedBadge').textContent=sheet;
+}
+function changeFarmPeriod(sheet){currentFarmPeriod=sheet;loadFarmData()}
+function setFarmTab(tab){
+  document.querySelectorAll('[data-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.farmTab===tab));
+  document.querySelectorAll('#page-inventory .farm-view').forEach(v=>v.classList.remove('active'));
+  $('farmView'+tab.charAt(0).toUpperCase()+tab.slice(1))?.classList.add('active');
+}
+function setEmployeeFarmTab(tab){
+  document.querySelectorAll('[data-employee-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.employeeFarmTab===tab));
+  document.querySelectorAll('#employee-page-inventory .farm-view').forEach(v=>v.classList.remove('active'));
+  $('employeeFarmView'+tab.charAt(0).toUpperCase()+tab.slice(1))?.classList.add('active');
+}
+function loadInventorySnapshot(){return loadFarmData()}
+function loadEmployeeInventory(){return loadFarmData()}
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
+
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
 initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
@@ -2031,5 +2141,5 @@ document.addEventListener('visibilitychange',()=>{if(document.visibilityState===
 window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('admin');if(appMode==='employee')subscribeRealtime('employee');refreshAllData(true)});
 restoreSession();
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.5.0 Build 2026-07-29</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.5.1 Build 2026-07-29</div>
 </body></html>
