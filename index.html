@@ -2611,7 +2611,8 @@ async function openAdmin(){
 }
 async function openEmployee(){
   showEmployeeApp();
-  await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData()]);renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();loadEmployeeInventory();subscribeRealtime('employee');
+  await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData()]);
+  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
@@ -2676,8 +2677,13 @@ function subscribeRealtime(mode){
         if(mode==='admin'){renderSalesPage();renderRanking();renderDashboard()}else{renderEmployeeRanking();renderEmployeeDashboard()}
       }else if(table==='payslips'){
         if(mode==='admin'){await loadHistoryData();renderHistory();renderDashboard()}else{await loadMyHistory();renderEmployeePortal();renderEmployeeDashboard()}
-      }else if(table==='profiles'&&mode==='admin'){
-        await loadEmployees();refreshEmployeeSelect();refreshSalesEmployeeSelect();renderEmployees();
+      }else if(table==='profiles'){
+        await loadEmployees();
+        if(mode==='admin'){
+          refreshEmployeeSelect();refreshSalesEmployeeSelect();renderEmployees();renderRanking();renderDashboard();
+        }else{
+          renderEmployeeRanking();renderEmployeeDashboard();
+        }
       }else if(table==='app_settings'){await loadSettings();applySettings()}
     }catch(error){console.error('Realtime更新エラー:',error)}
   };
