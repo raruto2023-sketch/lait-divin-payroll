@@ -1591,6 +1591,20 @@ body.dark .v41-employee-sidebar{
 body.dark .profile-editor-premium{background:var(--glass)}
 @media(max-width:850px){.profile-shell{grid-template-columns:1fr}.profile-card-premium{padding:23px}.profile-avatar-large,.profile-avatar-wrap{width:94px;height:94px}.profile-avatar-large{border-radius:27px}}
 
+
+/* ===== Premium 1.3 Online Presence ===== */
+.online-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.online-card{display:flex;align-items:center;gap:13px;padding:15px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.78);box-shadow:0 8px 25px rgba(55,39,27,.06)}
+body.dark .online-card{background:rgba(28,32,37,.72)}
+.online-avatar{width:52px;height:52px;border-radius:17px;background:linear-gradient(135deg,#ead8c2,#b7926d);display:grid;place-items:center;font-weight:900;color:#49372a;background-size:cover;background-position:center;flex:none;position:relative}
+.online-avatar.has-image{color:transparent}
+.online-dot{position:absolute;right:-2px;bottom:-2px;width:15px;height:15px;border-radius:50%;border:3px solid #fff;background:#9b9b9b}
+body.dark .online-dot{border-color:#23272c}.online-dot.online{background:#35bd76;box-shadow:0 0 0 4px rgba(53,189,118,.14)}.online-dot.away{background:#e5ae36}.online-dot.offline{background:#a9a9a9}
+.online-info{min-width:0;flex:1}.online-info strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.online-info small{display:block;color:var(--muted);margin-top:3px;font-size:10px}.online-state{font-size:10px;font-weight:900;padding:6px 9px;border-radius:999px;background:#eee;color:#666;white-space:nowrap}.online-state.online{background:#e5f7ed;color:#237c50}.online-state.away{background:#fff2d5;color:#9a6812}.online-state.offline{background:#efefef;color:#777}
+.online-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}.online-summary .metric-card{text-align:center}
+.online-updated{font-size:10px;color:var(--muted);margin-left:auto}
+@media(max-width:620px){.online-summary{grid-template-columns:1fr}.online-grid{grid-template-columns:1fr}.online-card{padding:13px}}
+
 </style>
 
 <style id="premium-1-theme">
@@ -1735,6 +1749,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
       <button data-page="attendance" onclick="goPage('attendance')"><span>◷</span><b>出退勤管理</b></button>
       <button data-page="employees" onclick="goPage('employees')"><span>♟</span><b>従業員管理</b></button>
+      <button data-page="online" onclick="goPage('online')"><span>●</span><b>オンライン</b></button>
       <button data-page="create" onclick="goPage('create')"><span>¥</span><b>給与・ボーナス</b></button>
       <button data-page="history" onclick="goPage('history')"><span>▤</span><b>明細履歴</b></button>
       <button data-page="inventory" onclick="goPage('inventory')"><span>◇</span><b>在庫管理</b></button>
@@ -2048,6 +2063,13 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 </div>
 <div id="attendanceTable" class="attendance-table"></div>
 </section>
+
+<section id="page-online" class="page">
+  <div class="page-hero compact"><div><span class="eyebrow">LIVE PRESENCE</span><h1>オンライン状況</h1><p>現在サイトを閲覧しているスタッフと最終アクセスを確認できます。</p></div><button class="btn" onclick="loadOnlinePresence(true)">再読込</button></div>
+  <div class="online-summary"><div class="metric-card"><div class="metric-label">ONLINE</div><div class="metric-value" id="adminOnlineCount">0</div><div class="metric-sub">オンライン</div></div><div class="metric-card warning"><div class="metric-label">AWAY</div><div class="metric-value" id="adminAwayCount">0</div><div class="metric-sub">離席中</div></div><div class="metric-card"><div class="metric-label">TOTAL</div><div class="metric-value" id="adminPresenceTotal">0</div><div class="metric-sub">登録スタッフ</div></div></div>
+  <div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ状況</h2><span id="adminPresenceUpdated" class="online-updated">未更新</span></div><div id="adminOnlineGrid" class="online-grid"></div></div>
+</section>
+
 <section id="page-history" class="page"><div class="toolbar"><input id="historySearch" placeholder="名前・役職・期間で検索" oninput="renderHistory()" style="max-width:330px"><button class="btn danger" onclick="clearHistory()">履歴をすべて削除</button></div><div id="historyList" class="list"></div></section>
 <section id="page-settings" class="page"><div class="panel" style="padding:20px;max-width:760px"><div class="section-title" style="font-size:18px;margin-bottom:15px">店舗設定</div><div class="grid2"><div class="field"><label>店舗名</label><input id="settingShop"></div><div class="field"><label>街・サブタイトル</label><input id="settingCity"></div></div><div class="grid2"><div class="field"><label>ロゴ文字 / 絵文字</label><input id="settingLogo"></div><div class="field"><label>明細番号の接頭辞</label><input id="settingPrefix"></div></div><div class="field"><label>フッター文章</label><textarea id="settingFooter"></textarea></div><div class="toolbar"><button class="btn primary" onclick="saveSettings()">設定を保存</button><button class="btn" onclick="exportBackup()">バックアップ</button></div><div class="info">設定・従業員・給料明細はSupabaseへ保存され、ログインすればどの端末からでも同じデータを確認できます。</div></div></section>
 </div></div>
@@ -2062,6 +2084,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
+        <button data-employee-page="online" onclick="employeeGoPage('online')"><span>●</span><b>オンライン</b></button>
         <button data-employee-page="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button>
         <button data-employee-page="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>ランキング</b></button>
         <button data-employee-page="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫表</b></button>
@@ -2123,7 +2146,14 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
           </div>
         </section>
 
-        <section id="employee-page-attendance" class="employee-page">
+        
+<section id="employee-page-online" class="employee-page">
+  <div class="page-hero compact"><div><span class="eyebrow">WHO IS HERE</span><h1>オンラインスタッフ</h1><p>今サイトを見ているスタッフを確認できます。</p></div><button class="btn" onclick="loadOnlinePresence(true)">再読込</button></div>
+  <div class="online-summary"><div class="metric-card"><div class="metric-label">ONLINE</div><div class="metric-value" id="employeeOnlineCount">0</div><div class="metric-sub">オンライン</div></div><div class="metric-card warning"><div class="metric-label">AWAY</div><div class="metric-value" id="employeeAwayCount">0</div><div class="metric-sub">離席中</div></div><div class="metric-card"><div class="metric-label">TOTAL</div><div class="metric-value" id="employeePresenceTotal">0</div><div class="metric-sub">登録スタッフ</div></div></div>
+  <div class="v4-panel"><div class="v4-panel-head"><div><span>LIVE PRESENCE</span><h2>スタッフ状況</h2></div><span id="employeePresenceUpdated" class="online-updated">未更新</span></div><div id="employeeOnlineGrid" class="online-grid"></div></div>
+</section>
+
+<section id="employee-page-attendance" class="employee-page">
           <div class="page-hero compact"><div><span class="eyebrow">MY ATTENDANCE</span><h1>出退勤・勤務履歴</h1><p>あなたの勤務状況と最近の出退勤履歴です。</p></div></div>
           <div class="employee-attendance"><div class="panel"><div class="employee-attendance-grid">
             <div class="attendance-status"><h2>現在の勤務状況</h2><p id="employeeAttendanceMessage2">現在の勤務状況</p><div class="attendance-clock" id="employeeNowClock2">--:--:--</div><span id="employeeStatusPill2" class="status-pill off">退勤中</span><div class="attendance-actions"><button id="clockInBtn2" class="btn clock-in" onclick="clockIn()">出勤する</button><button id="clockOutBtn2" class="btn clock-out" onclick="clockOut()" disabled>退勤する</button></div></div>
@@ -2336,6 +2366,11 @@ const DRAFT_KEY='ld_server_draft_v1';
 let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄',prefix:'LD',footer:'Lait Divin\nLuz City\nこの明細書は店舗発行の記録です.'};
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
 let realtimeChannel=null;
+let onlinePresenceData=[];
+let presenceHeartbeatTimer=null;
+let presenceRefreshTimer=null;
+let presenceIdle=false;
+let lastPresenceActivity=Date.now();
 
 // ===== Ver.8.1 Global State =====
 let syncTimer=null;
@@ -2368,11 +2403,11 @@ async function refreshAllData(silent=false){
   refreshInProgress=true;
   try{
     if(appMode==='admin'){
-      await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData()]);
+      await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false)]);
       refreshEmployeeSelect();refreshSalesEmployeeSelect();
       renderDashboard();renderAttendance();renderEmployees();renderRanking();renderSalesPage();
     }else{
-      await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData()]);
+      await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false)]);
       renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();
     }
     if(!silent)toast('最新データに更新しました');
@@ -2589,6 +2624,7 @@ async function restoreSession(){
   }catch(e){console.error(e);await sb.auth.signOut()}
 }
 async function logout(){
+  await stopPresenceTracking();
   stopRealtime();
   if(typeof syncTimer!=='undefined'&&syncTimer){clearInterval(syncTimer);syncTimer=null}
   currentEmployee=null;currentProfile=null;employees=[];historyData=[];attendanceData=[];salesData=[];myHistory=[];myAttendance=[];
@@ -2607,12 +2643,12 @@ async function logout(){
 async function openAdmin(){
   showAdminApp();
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData()]);
-  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();subscribeRealtime('admin');
+  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();startPresenceTracking();subscribeRealtime('admin');
 }
 async function openEmployee(){
   showEmployeeApp();
   await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData()]);
-  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();loadEmployeeInventory();subscribeRealtime('employee');
+  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
@@ -2692,6 +2728,7 @@ function subscribeRealtime(mode){
     .on('postgres_changes',{event:'*',schema:'public',table:'sales_records'},()=>refreshTable('sales_records'))
     .on('postgres_changes',{event:'*',schema:'public',table:'payslips'},()=>refreshTable('payslips'))
     .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},()=>refreshTable('profiles'))
+    .on('postgres_changes',{event:'*',schema:'public',table:'online_presence'},()=>loadOnlinePresence(false))
     .on('postgres_changes',{event:'*',schema:'public',table:'app_settings'},()=>refreshTable('app_settings'))
     .subscribe(status=>{
       markRealtimeStatus(status==='SUBSCRIBED');
@@ -2711,6 +2748,7 @@ function employeeGoPage(page){closeMobileMenu();
   if(page==='inventory')loadEmployeeInventory();if(page==='farm')loadFarmData();
   if(page==='payslips')renderEmployeePortal();
   if(page==='profile')loadMyProfileForm();
+  if(page==='online')loadOnlinePresence(true);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function employeeRankingRows(){
@@ -2782,7 +2820,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -4049,7 +4087,7 @@ function applyMobileNavLabels(){
   const isMobile=window.matchMedia('(max-width:760px)').matches;
   const labels={
     dashboard:'ホーム',employees:'従業員',attendance:'出勤',sales:'売上',
-    inventory:'在庫',farm:'Farm',ranking:'順位',create:'給与',
+    inventory:'在庫',farm:'Farm',ranking:'順位',online:'オンライン',create:'給与',
     history:'履歴',settings:'設定',home:'ホーム',payslips:'明細'
   };
   document.querySelectorAll('.v4-sidebar button[data-page],.employee-sidebar button[data-employee-page]').forEach(btn=>{
@@ -4064,6 +4102,71 @@ window.addEventListener('resize',applyMobileNavLabels);
 document.addEventListener('DOMContentLoaded',applyMobileNavLabels);
 
 
+
+
+// ===== Premium 1.3 Online Presence =====
+function presenceState(row){
+  const seen=row?.last_seen_at?new Date(row.last_seen_at).getTime():0;
+  const age=Date.now()-seen;
+  if(row?.status==='online'&&age<=90000)return 'online';
+  if((row?.status==='online'||row?.status==='away')&&age<=10*60*1000)return 'away';
+  return 'offline';
+}
+function presenceLabel(state){return state==='online'?'オンライン':state==='away'?'離席中':'オフライン'}
+function lastSeenLabel(value){
+  if(!value)return 'アクセス記録なし';
+  const sec=Math.max(0,Math.floor((Date.now()-new Date(value).getTime())/1000));
+  if(sec<60)return 'たった今';
+  if(sec<3600)return `${Math.floor(sec/60)}分前`;
+  if(sec<86400)return `${Math.floor(sec/3600)}時間前`;
+  return new Date(value).toLocaleString('ja-JP',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+async function loadOnlinePresence(showToast=false){
+  if(!sb)return;
+  const {data,error}=await sb.from('online_presence').select('user_id,status,last_seen_at,updated_at');
+  if(error){console.warn('オンライン状況取得エラー:',error);if(showToast)toast('オンライン状況を取得できませんでした');return}
+  onlinePresenceData=data||[];renderOnlinePresence();if(showToast)toast('オンライン状況を更新しました');
+}
+function renderOnlinePresence(){
+  const byId=new Map(onlinePresenceData.map(x=>[x.user_id,x]));
+  const rows=(employees||[]).map(e=>({employee:e,presence:byId.get(e.uid)||null,state:presenceState(byId.get(e.uid))}));
+  rows.sort((a,b)=>({online:0,away:1,offline:2}[a.state]-({online:0,away:1,offline:2}[b.state])||String(a.employee.name).localeCompare(String(b.employee.name),'ja'));
+  const counts={online:0,away:0,offline:0};rows.forEach(r=>counts[r.state]++);
+  const html=rows.length?rows.map(({employee:e,presence:p,state})=>{
+    const avatar=e.avatarUrl?`style="background-image:url('${esc(e.avatarUrl)}')" class="online-avatar has-image"`:`class="online-avatar"`;
+    return `<article class="online-card"><div ${avatar}>${e.avatarUrl?'':esc((e.name||'従').slice(0,1))}<i class="online-dot ${state}"></i></div><div class="online-info"><strong>${esc(e.name||e.legalName||'スタッフ')}</strong><small>${esc(e.role||'Cast')} ・ ${lastSeenLabel(p?.last_seen_at)}</small></div><span class="online-state ${state}">${presenceLabel(state)}</span></article>`;
+  }).join(''):'<div class="empty">スタッフが登録されていません。</div>';
+  ['adminOnlineGrid','employeeOnlineGrid'].forEach(id=>{if($(id))$(id).innerHTML=html});
+  [['adminOnlineCount','employeeOnlineCount'],['adminAwayCount','employeeAwayCount'],['adminPresenceTotal','employeePresenceTotal']].forEach((ids,i)=>ids.forEach(id=>{if($(id))$(id).textContent=i===0?counts.online:i===1?counts.away:rows.length}));
+  const stamp=`更新 ${new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`;
+  ['adminPresenceUpdated','employeePresenceUpdated'].forEach(id=>{if($(id))$(id).textContent=stamp});
+}
+async function sendPresenceHeartbeat(forceStatus){
+  if(!sb||!currentProfile?.id||appMode==='login')return;
+  const status=forceStatus||(presenceIdle?'away':'online');
+  const now=new Date().toISOString();
+  const {error}=await sb.from('online_presence').upsert({user_id:currentProfile.id,status,last_seen_at:now,updated_at:now},{onConflict:'user_id'});
+  if(error)console.warn('オンライン状態更新エラー:',error);
+}
+function recordPresenceActivity(){lastPresenceActivity=Date.now();if(presenceIdle){presenceIdle=false;sendPresenceHeartbeat('online')}}
+function startPresenceTracking(){
+  stopPresenceTracking(false);lastPresenceActivity=Date.now();presenceIdle=false;
+  ['pointerdown','keydown','touchstart','scroll'].forEach(type=>window.addEventListener(type,recordPresenceActivity,{passive:true}));
+  sendPresenceHeartbeat('online');loadOnlinePresence(false);
+  presenceHeartbeatTimer=setInterval(()=>{presenceIdle=Date.now()-lastPresenceActivity>5*60*1000;sendPresenceHeartbeat();},30000);
+  presenceRefreshTimer=setInterval(()=>loadOnlinePresence(false),30000);
+}
+async function stopPresenceTracking(markOffline=true){
+  if(presenceHeartbeatTimer)clearInterval(presenceHeartbeatTimer);if(presenceRefreshTimer)clearInterval(presenceRefreshTimer);
+  presenceHeartbeatTimer=null;presenceRefreshTimer=null;
+  ['pointerdown','keydown','touchstart','scroll'].forEach(type=>window.removeEventListener(type,recordPresenceActivity));
+  if(markOffline&&sb&&currentProfile?.id){
+    try{await sb.from('online_presence').upsert({user_id:currentProfile.id,status:'offline',last_seen_at:new Date().toISOString(),updated_at:new Date().toISOString()},{onConflict:'user_id'})}catch{}
+  }
+}
+document.addEventListener('visibilitychange',()=>{if(appMode!=='login'){if(document.hidden){presenceIdle=true;sendPresenceHeartbeat('away')}else{recordPresenceActivity();loadOnlinePresence(false)}}});
+window.addEventListener('beforeunload',()=>{if(appMode!=='login')sendPresenceHeartbeat('offline')});
+setInterval(()=>{if(appMode!=='login')renderOnlinePresence()},60000);
 
 // ===== Premium 1.1 Profile =====
 let pendingProfileAvatar='';
