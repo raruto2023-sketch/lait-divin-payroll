@@ -1,25 +1,22 @@
-# Lait Divin V8.1 Premium 1.0
+# Lait Divin V8.1 Premium 1.1 — プロフィール編集
 
-既存のV8.1の機能・ログイン・Supabase処理を変更せず、見た目だけを高級感のあるデザインに更新した版です。
+V8.1 Premium 1.0を土台に、従業員本人がプロフィールを編集できる機能を追加した版です。
 
-## 変更内容
-- 全体背景とガラス調カード
-- ヘッダー・ナビゲーション・ボタンの高級デザイン
-- ダッシュボードカードの立体感
-- 入力欄・一覧・ログイン画面の質感改善
-- ダークモード調整
-- スマホ表示調整
+## 追加機能
+- プロフィール専用ページ
+- アイコン画像の選択・自動軽量化
+- 表示名
+- Discord名
+- ひとこと
+- 自己紹介
+- 保存直後にヘッダーへ反映
 
-## 変更していないもの
-- SQL
-- Supabaseのテーブル
-- ログイン処理
-- 売上・給与・在庫・出勤などの既存機能
+## 安全な導入順
+1. Supabase SQL Editorで `sql/01_PROFILE_ADDON_SAFE.sql` を1回実行
+2. GitHubの一番上へ `index.html`、`config.js`、`.nojekyll` を上書き
+3. 反映後に `?v=8.1-premium-1.1` を付けて開く
 
-## 公開方法
-ZIPを解凍し、`index.html`、`config.js`、`.nojekyll`をGitHubリポジトリの一番上へアップロードしてください。
+SQLはprofilesテーブルへ列を追加するだけで、既存データを削除しません。
 
-反映後:
-`https://raruto2023-sketch.github.io/lait-divin-payroll/?v=8.1-premium-1`
-
-元のV8.1は `backup/index.v8.1.original.html` に保存されています。
+## 元に戻す場合
+`backup/index.premium-1.0.html` を `index.html` に戻してください。追加されたDB列は残っても既存版の動作に影響しません。
