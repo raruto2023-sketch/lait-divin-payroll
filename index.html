@@ -1688,6 +1688,25 @@ body.dark .online-state.offline{background:rgba(255,255,255,.06);border-color:rg
 .business-dashboard{margin:14px 0;display:grid;gap:14px}.business-period-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.business-period-card{position:relative;overflow:hidden;background:linear-gradient(145deg,var(--surface),var(--surface2));border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.business-period-card:after{content:"";position:absolute;right:-35px;top:-35px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(190,150,92,.17),transparent 70%)}.business-period-card .period-label{font-size:10px;letter-spacing:.12em;color:var(--muted);font-weight:900}.business-period-card .sales-value{font-size:23px;font-weight:950;margin:8px 0 4px;color:var(--ink)}.business-period-card .profit-row{display:flex;justify-content:space-between;gap:10px;align-items:end}.business-period-card .profit-row span{font-size:10px;color:var(--muted)}.business-period-card .profit-row strong{font-size:14px;color:#2f7d4b}.business-period-card .compare{font-size:10px;margin-top:9px}.business-period-card .compare.up{color:#238642}.business-period-card .compare.down{color:#b84242}.business-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:14px}.sales-trend-chart{height:220px;display:flex;align-items:end;gap:7px;padding:20px 8px 4px;border-radius:14px;background:linear-gradient(180deg,rgba(185,149,99,.08),transparent)}.sales-trend-col{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:6px;min-width:0}.sales-trend-bar{width:100%;max-width:28px;min-height:4px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#c39a62,#72503d);box-shadow:0 6px 12px rgba(83,56,39,.15);position:relative}.sales-trend-bar:hover:before{content:attr(data-value);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#30251f;color:#fff;padding:5px 7px;border-radius:7px;font-size:9px;z-index:3}.sales-trend-col small{font-size:8px;color:var(--muted);white-space:nowrap}.staff-sales-mini{display:grid;gap:8px}.staff-sales-mini-row{display:grid;grid-template-columns:34px 38px minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px;border-radius:13px;background:var(--surface2);border:1px solid var(--line)}.staff-sales-mini-row .rank{font-weight:950;text-align:center}.staff-sales-mini-row .mini-avatar{width:36px;height:36px;border-radius:12px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,#d1a98c,#6a4938);color:#fff;font-weight:900}.staff-sales-mini-row .mini-avatar img{width:100%;height:100%;object-fit:cover}.staff-sales-mini-row .who strong{display:block;font-size:11px}.staff-sales-mini-row .who small{display:block;font-size:9px;color:var(--muted)}.staff-sales-mini-row .amount{font-size:11px;font-weight:950}.profit-note{font-size:9px;color:var(--muted);margin-top:8px;line-height:1.55}
 @media(max-width:950px){.business-layout{grid-template-columns:1fr}}@media(max-width:680px){.business-period-grid{grid-template-columns:1fr}.sales-trend-chart{height:180px;gap:3px}.sales-trend-col small{font-size:7px}}
 
+
+/* ===== Premium 1.5: Community profiles / achievements / Discord report ===== */
+.community-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:16px}
+.community-card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(248,242,235,.88));box-shadow:0 12px 32px rgba(62,42,29,.08);padding:20px;transition:.22s ease}
+.community-card:hover{transform:translateY(-3px);box-shadow:0 20px 44px rgba(62,42,29,.14)}
+body.dark .community-card{background:linear-gradient(145deg,rgba(41,44,49,.96),rgba(27,30,34,.9));border-color:rgba(255,255,255,.08)}
+.community-card:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;right:-45px;top:-55px;background:rgba(185,138,99,.12)}
+.community-head{display:flex;align-items:center;gap:14px;position:relative}
+.community-avatar{width:72px;height:72px;border-radius:23px;display:grid;place-items:center;flex:none;overflow:hidden;background:linear-gradient(135deg,#ead9c5,#9e7455);color:#fff;font:900 25px Georgia;background-size:cover;background-position:center;box-shadow:0 9px 24px rgba(60,42,30,.18)}
+.community-avatar.has-image{color:transparent}.community-avatar img{width:100%;height:100%;object-fit:cover}
+.community-name{min-width:0}.community-name h3{margin:0 0 5px;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.community-name p{margin:0;color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.05em}
+.community-status{margin:15px 0 10px;padding:10px 12px;border-radius:13px;background:rgba(166,126,95,.07);font-size:11px;font-weight:800;color:var(--ink-soft)}
+.community-bio{min-height:52px;white-space:pre-wrap;color:var(--muted);font-size:11px;line-height:1.75}
+.achievement-list{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.achievement-chip{display:inline-flex;align-items:center;gap:5px;padding:7px 9px;border-radius:999px;background:linear-gradient(135deg,#fff3cf,#f4ddaa);border:1px solid #e7c978;color:#7b5721;font-size:9px;font-weight:900}.achievement-empty{font-size:10px;color:var(--muted)}
+.community-discord{margin-top:12px;color:var(--muted);font-size:10px}.community-discord b{color:var(--ink)}
+.achievement-admin{margin-top:15px;padding-top:13px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:8px}.achievement-admin select{min-width:0}
+.discord-report-layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:16px}.discord-preview{background:linear-gradient(145deg,#2b2d31,#1f2024);color:#f4f5f7;border-radius:22px;padding:20px;border-left:5px solid #b88b63;box-shadow:0 15px 40px rgba(0,0,0,.2)}.discord-preview h3{margin:0 0 5px}.discord-preview small{color:#b5bac1}.discord-report-values{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.discord-report-values div{background:rgba(255,255,255,.06);border-radius:13px;padding:12px}.discord-report-values span{display:block;color:#b5bac1;font-size:9px}.discord-report-values strong{display:block;margin-top:4px;font-size:16px}.discord-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.discord-status-box{padding:15px;border-radius:16px;background:var(--surface2);border:1px solid var(--line);font-size:11px;line-height:1.8}.discord-status-box code{font-size:10px}
+@media(max-width:860px){.discord-report-layout{grid-template-columns:1fr}}@media(max-width:620px){.community-grid{grid-template-columns:1fr}.discord-report-values{grid-template-columns:1fr 1fr}.achievement-admin{grid-template-columns:1fr}.achievement-admin button{width:100%}}
+
 </style>
 
 <style id="premium-1-theme">
@@ -1833,6 +1852,8 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
       <button data-page="attendance" onclick="goPage('attendance')"><span>◷</span><b>出退勤管理</b></button>
       <button data-page="employees" onclick="goPage('employees')"><span>♟</span><b>従業員管理</b></button>
       <button data-page="online" onclick="goPage('online')"><span>●</span><b>オンライン</b></button>
+      <button data-page="community" onclick="goPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
+      <button data-page="discord-report" onclick="goPage('discord-report')"><span>◈</span><b>Discordレポート</b></button>
       <button data-page="create" onclick="goPage('create')"><span>¥</span><b>給与・ボーナス</b></button>
       <button data-page="history" onclick="goPage('history')"><span>▤</span><b>明細履歴</b></button>
       <button data-page="inventory" onclick="goPage('inventory')"><span>◇</span><b>在庫管理</b></button>
@@ -2167,6 +2188,19 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 </section>
 
 <section id="page-history" class="page"><div class="toolbar"><input id="historySearch" placeholder="名前・役職・期間で検索" oninput="renderHistory()" style="max-width:330px"><button class="btn danger" onclick="clearHistory()">履歴をすべて削除</button></div><div id="historyList" class="list"></div></section>
+
+<section id="page-community" class="page">
+  <div class="page-hero compact"><div><span class="eyebrow">STAFF COMMUNITY</span><h1>みんなのプロフィール</h1><p>スタッフの自己紹介・実績・プロフィールを一覧で確認できます。</p></div><button class="btn" onclick="loadCommunityProfiles(true)">再読込</button></div>
+  <div id="adminCommunityGrid" class="community-grid"></div>
+</section>
+<section id="page-discord-report" class="page">
+  <div class="page-hero compact"><div><span class="eyebrow">DAILY REPORT</span><h1>Discord 売上レポート</h1><p>本日の売上レポートを確認し、管理者の操作でDiscordへ送信できます。</p></div><button class="btn" onclick="renderDiscordReportPreview()">再集計</button></div>
+  <div class="discord-report-layout">
+    <div class="discord-preview"><small>LAIT DIVIN DAILY REPORT</small><h3 id="discordReportDate">本日の売上レポート</h3><div class="discord-report-values"><div><span>売上</span><strong id="discordPreviewSales">¥0</strong></div><div><span>概算利益</span><strong id="discordPreviewProfit">¥0</strong></div><div><span>出勤人数</span><strong id="discordPreviewStaff">0名</strong></div><div><span>販売登録</span><strong id="discordPreviewEntries">0件</strong></div></div><div class="discord-actions"><button id="discordSendButton" class="btn primary" onclick="sendDiscordDailyReport()">Discordへ今すぐ送信</button></div></div>
+    <div class="panel" style="padding:20px"><div class="section-title">自動投稿の状態</div><div class="discord-status-box"><b>毎日の自動投稿</b><br>Supabase Edge Functionを毎日指定時刻に実行します。<br><br><b>安全な構成</b><br>Discord Webhook URLはサイト内に保存せず、Supabase Secretへ保存します。<br><br><span id="discordLastResult">まだ送信していません。</span></div></div>
+  </div>
+</section>
+
 <section id="page-settings" class="page"><div class="panel" style="padding:20px;max-width:760px"><div class="section-title" style="font-size:18px;margin-bottom:15px">店舗設定</div><div class="grid2"><div class="field"><label>店舗名</label><input id="settingShop"></div><div class="field"><label>街・サブタイトル</label><input id="settingCity"></div></div><div class="grid2"><div class="field"><label>ロゴ文字 / 絵文字</label><input id="settingLogo"></div><div class="field"><label>明細番号の接頭辞</label><input id="settingPrefix"></div></div><div class="field"><label>フッター文章</label><textarea id="settingFooter"></textarea></div><div class="toolbar"><button class="btn primary" onclick="saveSettings()">設定を保存</button><button class="btn" onclick="exportBackup()">バックアップ</button></div><div class="info">設定・従業員・給料明細はSupabaseへ保存され、ログインすればどの端末からでも同じデータを確認できます。</div></div></section>
 </div></div>
 
@@ -2181,6 +2215,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
         <button data-employee-page="online" onclick="employeeGoPage('online')"><span>●</span><b>オンライン</b></button>
+        <button data-employee-page="community" onclick="employeeGoPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
         <button data-employee-page="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button>
         <button data-employee-page="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>ランキング</b></button>
         <button data-employee-page="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫表</b></button>
@@ -2333,7 +2368,13 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
           <div id="employeeSlipGrid" class="employee-slip-grid"></div>
         </section>
 
-        <section id="employee-page-profile" class="employee-page">
+        
+<section id="employee-page-community" class="employee-page">
+  <div class="page-hero compact"><div><span class="eyebrow">STAFF COMMUNITY</span><h1>みんなのプロフィール</h1><p>一緒に働くスタッフの自己紹介と実績を確認できます。</p></div><button class="btn" onclick="loadCommunityProfiles(true)">再読込</button></div>
+  <div id="employeeCommunityGrid" class="community-grid"></div>
+</section>
+
+<section id="employee-page-profile" class="employee-page">
           <div class="page-hero compact"><div><span class="eyebrow">MY PROFILE</span><h1>プロフィール編集</h1><p>アイコン・表示名・自己紹介などを自分らしく設定できます。</p></div></div>
           <div class="profile-shell">
             <article class="profile-card-premium">
@@ -2576,6 +2617,8 @@ function ensureMobileNavs(){
           <button onclick="mobileAdminPage('sales')"><span>▥</span><b>売上入力</b></button>
           <button onclick="mobileAdminPage('ranking')"><span>♛</span><b>ランキング</b></button>
           <button onclick="mobileAdminPage('online')"><span>●</span><b>オンライン</b></button>
+          <button onclick="mobileAdminPage('community')"><span>♙</span><b>プロフィール一覧</b></button>
+          <button onclick="mobileAdminPage('discord-report')"><span>◈</span><b>Discordレポート</b></button>
           <button onclick="mobileAdminPage('settings')"><span>⚙</span><b>設定</b></button>
         </div>
         <div id="mobileEmployeeMenu" class="mobile-menu-grid hidden">
@@ -2587,6 +2630,7 @@ function ensureMobileNavs(){
           <button onclick="mobileEmployeePage('payslips')"><span>¥</span><b>給料明細</b></button>
           <button onclick="mobileEmployeePage('profile')"><span>♙</span><b>プロフィール</b></button>
           <button onclick="mobileEmployeePage('online')"><span>●</span><b>オンライン</b></button>
+          <button onclick="mobileEmployeePage('community')"><span>♙</span><b>プロフィール一覧</b></button>
         </div>
         <div class="mobile-menu-actions">
           <button class="mobile-theme-button" onclick="toggleTheme();updateMobileThemeButtons()">
@@ -2860,6 +2904,7 @@ function employeeGoPage(page){closeMobileMenu();
   if(page==='payslips')renderEmployeePortal();
   if(page==='profile')loadMyProfileForm();
   if(page==='online')loadOnlinePresence(true);
+  if(page==='community')loadCommunityProfiles(false);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function employeeRankingRows(){
@@ -2969,7 +3014,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -4392,6 +4437,87 @@ async function saveMyProfile(){
   finally{button.disabled=false;setTimeout(()=>{if(status.textContent==='保存しました')status.textContent=''},2500)}
 }
 ['profileDisplayName','profileDiscordName','profileStatusMessage'].forEach(id=>document.addEventListener('input',e=>{if(e.target?.id===id)previewProfileForm()}));
+
+
+
+// ===== Premium 1.5: Community profiles, achievements and Discord daily report =====
+let achievementCatalog=[];
+let profileAchievements=[];
+
+async function loadCommunityProfiles(showToast=false){
+  try{
+    const [catalogResult, awardsResult]=await Promise.all([
+      sb.from('achievement_catalog').select('*').order('sort_order',{ascending:true}),
+      sb.from('profile_achievements').select('*').order('awarded_at',{ascending:false})
+    ]);
+    if(catalogResult.error)throw catalogResult.error;
+    if(awardsResult.error)throw awardsResult.error;
+    achievementCatalog=catalogResult.data||[];
+    profileAchievements=awardsResult.data||[];
+    renderCommunityProfiles();
+    if(showToast)toast('プロフィール一覧を更新しました');
+  }catch(error){
+    console.error('プロフィール一覧取得エラー:',error);
+    const message=error.message?.includes('achievement_')?'実績追加SQLを先に実行してください。':`読み込みに失敗しました：${error.message}`;
+    ['adminCommunityGrid','employeeCommunityGrid'].forEach(id=>{if($(id))$(id).innerHTML=`<div class="empty">${esc(message)}</div>`});
+  }
+}
+function achievementsForProfile(profileId){
+  return profileAchievements.filter(x=>x.profile_id===profileId).map(x=>({award:x,item:achievementCatalog.find(a=>a.id===x.achievement_id)})).filter(x=>x.item);
+}
+function profilePresence(profileId){
+  const p=(presenceRows||[]).find(x=>x.profile_id===profileId);
+  if(!p)return {label:'オフライン',cls:'offline'};
+  return presenceComputedState(p);
+}
+function communityCard(profile,isAdmin){
+  const person=mapProfile(profile),awards=achievementsForProfile(profile.id),presence=profilePresence(profile.id),initial=(person.name||'?').slice(0,1);
+  const avatar=person.avatarUrl?`<div class="community-avatar has-image" style="background-image:url('${esc(person.avatarUrl)}')">${esc(initial)}</div>`:`<div class="community-avatar">${esc(initial)}</div>`;
+  const chips=awards.length?awards.map(x=>`<span class="achievement-chip" title="${esc(x.item.description||'')}">${esc(x.item.icon||'🏆')} ${esc(x.item.name)}</span>`).join(''):'<span class="achievement-empty">実績はまだありません</span>';
+  const options=achievementCatalog.filter(a=>!awards.some(x=>x.item.id===a.id)).map(a=>`<option value="${esc(a.id)}">${esc(a.icon||'🏆')} ${esc(a.name)}</option>`).join('');
+  const admin=isAdmin?`<div class="achievement-admin"><select id="achievementSelect-${profile.id}"><option value="">付与する実績を選択</option>${options}</select><button class="btn" onclick="grantAchievement('${profile.id}')">実績を付与</button></div>`:'';
+  return `<article class="community-card"><div class="community-head">${avatar}<div class="community-name"><h3>${esc(person.name||person.legalName||'スタッフ')}</h3><p>${esc(person.role||'Cast')} ・ ${esc(person.id||'-')}</p></div></div><div class="community-status">${presence.cls==='online'?'🟢':presence.cls==='away'?'🟡':'⚫'} ${esc(presence.label)}${person.statusMessage?' ・ '+esc(person.statusMessage):''}</div><div class="community-bio">${esc(person.bio||'自己紹介はまだ設定されていません。')}</div><div class="achievement-list">${chips}</div><div class="community-discord">Discord：<b>${esc(person.discordName||'未設定')}</b></div>${admin}</article>`;
+}
+function renderCommunityProfiles(){
+  const visible=(employees||[]).filter(x=>x.accountType!=='admin'||appMode==='admin');
+  const profiles=visible.map(e=>({id:e.uid,display_name:e.name,employee_name:e.legalName||e.name,role:e.role,employee_id:e.id,account_type:e.accountType,avatar_url:e.avatarUrl,bio:e.bio,discord_name:e.discordName,status_message:e.statusMessage}));
+  const html=profiles.length?profiles.map(p=>communityCard(p,appMode==='admin')).join(''):'<div class="empty">スタッフが登録されていません。</div>';
+  if($('adminCommunityGrid'))$('adminCommunityGrid').innerHTML=html;
+  if($('employeeCommunityGrid'))$('employeeCommunityGrid').innerHTML=html;
+}
+async function grantAchievement(profileId){
+  if(appMode!=='admin')return;
+  const select=$(`achievementSelect-${profileId}`),achievementId=select?.value;
+  if(!achievementId){alert('付与する実績を選択してください。');return}
+  const {error}=await sb.from('profile_achievements').insert({profile_id:profileId,achievement_id:achievementId,awarded_by:currentProfile?.id||null});
+  if(error){alert(error.code==='23505'?'この実績はすでに付与されています。':`付与できませんでした：${error.message}`);return}
+  await loadCommunityProfiles(false);toast('実績を付与しました');
+}
+function todayReportData(){
+  const now=new Date(),start=new Date(now.getFullYear(),now.getMonth(),now.getDate()),end=addDaysDate(start,1),rows=dashboardSalesRows().filter(x=>{const d=new Date((x.salesDate||'')+'T00:00:00');return d>=start&&d<end});
+  const sales=rows.reduce((s,x)=>s+(Number(x.amount)||0),0),payroll=sumPayrollRange(start,end),profit=sales-payroll;
+  const todayKey=iso(now),attendance=attendanceData.filter(a=>dateKey(a.clockIn)===todayKey),staff=new Set(attendance.map(a=>a.employeeUid||a.employeeId)).size;
+  return {date:todayKey,sales,profit,staff,entries:rows.length};
+}
+function renderDiscordReportPreview(){
+  const d=todayReportData();
+  if($('discordReportDate'))$('discordReportDate').textContent=`${new Date().toLocaleDateString('ja-JP')} の売上レポート`;
+  if($('discordPreviewSales'))$('discordPreviewSales').textContent=yen.format(d.sales);
+  if($('discordPreviewProfit'))$('discordPreviewProfit').textContent=yen.format(d.profit);
+  if($('discordPreviewStaff'))$('discordPreviewStaff').textContent=`${d.staff}名`;
+  if($('discordPreviewEntries'))$('discordPreviewEntries').textContent=`${d.entries}件`;
+}
+async function sendDiscordDailyReport(){
+  if(appMode!=='admin'){alert('管理者のみ送信できます。');return}
+  const button=$('discordSendButton'),status=$('discordLastResult');button.disabled=true;button.textContent='送信中…';
+  try{
+    const {data:{session}}=await sb.auth.getSession();if(!session)throw new Error('ログイン情報がありません。');
+    const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/daily-sales-report`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},body:JSON.stringify({source:'manual'})});
+    const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||`HTTP ${response.status}`);
+    status.textContent=`最終送信：${new Date().toLocaleString('ja-JP')}（成功）`;toast('Discordへ売上レポートを送信しました');
+  }catch(error){console.error(error);status.textContent=`送信失敗：${error.message}`;alert(`Discord送信に失敗しました：${error.message}`)}
+  finally{button.disabled=false;button.textContent='Discordへ今すぐ送信'}
+}
 
 </script>
 <div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.8.1 Build 2026-07-29</div>
