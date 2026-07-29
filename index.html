@@ -1683,6 +1683,11 @@ body.dark .online-state.offline{background:rgba(255,255,255,.06);border-color:rg
   .online-state{font-size:9px;padding:6px 8px}
 }
 
+
+/* Premium 1.4 Sales & Profit Dashboard */
+.business-dashboard{margin:14px 0;display:grid;gap:14px}.business-period-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.business-period-card{position:relative;overflow:hidden;background:linear-gradient(145deg,var(--surface),var(--surface2));border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.business-period-card:after{content:"";position:absolute;right:-35px;top:-35px;width:100px;height:100px;border-radius:50%;background:radial-gradient(circle,rgba(190,150,92,.17),transparent 70%)}.business-period-card .period-label{font-size:10px;letter-spacing:.12em;color:var(--muted);font-weight:900}.business-period-card .sales-value{font-size:23px;font-weight:950;margin:8px 0 4px;color:var(--ink)}.business-period-card .profit-row{display:flex;justify-content:space-between;gap:10px;align-items:end}.business-period-card .profit-row span{font-size:10px;color:var(--muted)}.business-period-card .profit-row strong{font-size:14px;color:#2f7d4b}.business-period-card .compare{font-size:10px;margin-top:9px}.business-period-card .compare.up{color:#238642}.business-period-card .compare.down{color:#b84242}.business-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:14px}.sales-trend-chart{height:220px;display:flex;align-items:end;gap:7px;padding:20px 8px 4px;border-radius:14px;background:linear-gradient(180deg,rgba(185,149,99,.08),transparent)}.sales-trend-col{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:6px;min-width:0}.sales-trend-bar{width:100%;max-width:28px;min-height:4px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#c39a62,#72503d);box-shadow:0 6px 12px rgba(83,56,39,.15);position:relative}.sales-trend-bar:hover:before{content:attr(data-value);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);white-space:nowrap;background:#30251f;color:#fff;padding:5px 7px;border-radius:7px;font-size:9px;z-index:3}.sales-trend-col small{font-size:8px;color:var(--muted);white-space:nowrap}.staff-sales-mini{display:grid;gap:8px}.staff-sales-mini-row{display:grid;grid-template-columns:34px 38px minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px;border-radius:13px;background:var(--surface2);border:1px solid var(--line)}.staff-sales-mini-row .rank{font-weight:950;text-align:center}.staff-sales-mini-row .mini-avatar{width:36px;height:36px;border-radius:12px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(135deg,#d1a98c,#6a4938);color:#fff;font-weight:900}.staff-sales-mini-row .mini-avatar img{width:100%;height:100%;object-fit:cover}.staff-sales-mini-row .who strong{display:block;font-size:11px}.staff-sales-mini-row .who small{display:block;font-size:9px;color:var(--muted)}.staff-sales-mini-row .amount{font-size:11px;font-weight:950}.profit-note{font-size:9px;color:var(--muted);margin-top:8px;line-height:1.55}
+@media(max-width:950px){.business-layout{grid-template-columns:1fr}}@media(max-width:680px){.business-period-grid{grid-template-columns:1fr}.sales-trend-chart{height:180px;gap:3px}.sales-trend-col small{font-size:7px}}
+
 </style>
 
 <style id="premium-1-theme">
@@ -1872,6 +1877,19 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
           <article class="v4-kpi"><div class="v4-kpi-icon">◷</div><div><span>本日の勤務時間</span><strong id="dashTodayHours">0時間</strong><small>全スタッフ合計</small></div></article>
           <article class="v4-kpi"><div class="v4-kpi-icon">¥</div><div><span>今月の給与総額</span><strong id="dashMonthlyPayroll">¥0</strong><small>発行済み明細</small></div></article>
         </div>
+
+
+        <section class="business-dashboard" aria-label="売上・利益ダッシュボード">
+          <div class="business-period-grid">
+            <article class="business-period-card"><div class="period-label">TODAY / 本日</div><div id="bizTodaySales" class="sales-value">¥0</div><div class="profit-row"><span>概算利益</span><strong id="bizTodayProfit">¥0</strong></div><div id="bizTodayCompare" class="compare">前日比 --</div></article>
+            <article class="business-period-card"><div class="period-label">THIS WEEK / 今週</div><div id="bizWeekSales" class="sales-value">¥0</div><div class="profit-row"><span>概算利益</span><strong id="bizWeekProfit">¥0</strong></div><div id="bizWeekCompare" class="compare">前週比 --</div></article>
+            <article class="business-period-card"><div class="period-label">THIS MONTH / 今月</div><div id="bizMonthSales" class="sales-value">¥0</div><div class="profit-row"><span>概算利益</span><strong id="bizMonthProfit">¥0</strong></div><div id="bizMonthCompare" class="compare">前月比 --</div></article>
+          </div>
+          <div class="business-layout">
+            <section class="v4-panel"><div class="v4-panel-head"><div><span>SALES TREND</span><h2>売上推移</h2></div><span class="v4-chip">直近14日</span></div><div id="bizSalesChart" class="sales-trend-chart"></div></section>
+            <section class="v4-panel"><div class="v4-panel-head"><div><span>STAFF PERFORMANCE</span><h2>スタッフ別売上</h2></div><button onclick="setRankingMode('sales');goPage('ranking')">すべて見る ›</button></div><div id="bizStaffSales" class="staff-sales-mini"></div><div class="profit-note">概算利益は「売上 − 同期間に発行された給与明細」で算出しています。</div></section>
+          </div>
+        </section>
 
         <div class="v4-dashboard-main">
           <div class="v4-dashboard-left">
@@ -2205,6 +2223,19 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
             <article class="v4-kpi"><div class="v4-kpi-icon">◷</div><div><span>本日の勤務時間</span><strong id="employeeDashTodayHours">0時間</strong><small>全スタッフ合計</small></div></article>
             <article class="v4-kpi"><div class="v4-kpi-icon">¥</div><div><span>今月の給与総額</span><strong id="employeeDashMonthlyPay">¥0</strong><small>あなたの発行済み明細</small></div></article>
           </div>
+
+
+          <section class="business-dashboard" aria-label="売上・利益ダッシュボード">
+            <div class="business-period-grid">
+              <article class="business-period-card"><div class="period-label">TODAY / 本日</div><div id="empBizTodaySales" class="sales-value">¥0</div><div class="profit-row"><span>概算利益</span><strong id="empBizTodayProfit">¥0</strong></div><div id="empBizTodayCompare" class="compare">前日比 --</div></article>
+              <article class="business-period-card"><div class="period-label">THIS WEEK / 今週</div><div id="empBizWeekSales" class="sales-value">¥0</div><div class="profit-row"><span>概算利益</span><strong id="empBizWeekProfit">¥0</strong></div><div id="empBizWeekCompare" class="compare">前週比 --</div></article>
+              <article class="business-period-card"><div class="period-label">THIS MONTH / 今月</div><div id="empBizMonthSales" class="sales-value">¥0</div><div class="profit-row"><span>概算利益</span><strong id="empBizMonthProfit">¥0</strong></div><div id="empBizMonthCompare" class="compare">前月比 --</div></article>
+            </div>
+            <div class="business-layout">
+              <section class="v4-panel"><div class="v4-panel-head"><div><span>SALES TREND</span><h2>売上推移</h2></div><span class="v4-chip">直近14日</span></div><div id="empBizSalesChart" class="sales-trend-chart"></div></section>
+              <section class="v4-panel"><div class="v4-panel-head"><div><span>STAFF PERFORMANCE</span><h2>スタッフ別売上</h2></div><button onclick="setEmployeeRankingMode('sales');employeeGoPage('ranking')">すべて見る ›</button></div><div id="empBizStaffSales" class="staff-sales-mini"></div><div class="profit-note">人気商品ランキングは表示せず、店舗全体の売上とスタッフ実績に絞っています。</div></section>
+            </div>
+          </section>
 
           <div class="v41-employee-grid">
             <section class="v4-panel v41-clock-panel">
@@ -2839,6 +2870,27 @@ function employeeRankingRows(){
   });
   return [...grouped.values()].sort((a,b)=>b.ms-a.ms||b.shifts-a.shifts||a.name.localeCompare(b.name,'ja'));
 }
+
+function startOfWeekDate(d=new Date()){const x=new Date(d);const day=(x.getDay()+6)%7;x.setHours(0,0,0,0);x.setDate(x.getDate()-day);return x}
+function addDaysDate(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function sumSalesRange(start,end){return salesData.filter(x=>{const d=new Date((x.salesDate||'')+'T00:00:00');return d>=start&&d<end}).reduce((s,x)=>s+(Number(x.amount)||0),0)}
+function sumPayrollRange(start,end){return historyData.filter(x=>{const d=new Date((x.issueDate||'')+'T00:00:00');return d>=start&&d<end}).reduce((s,x)=>s+(Number(x.net)||0),0)}
+function compareLabel(current,previous,label){if(!previous)return `${label} --`;const pct=Math.round((current-previous)/previous*100);return `${label} ${pct>=0?'+':''}${pct}%`}
+function setCompareEl(id,current,previous,label){const el=$(id);if(!el)return;el.textContent=compareLabel(current,previous,label);el.classList.remove('up','down');if(previous)el.classList.add(current>=previous?'up':'down')}
+function businessAvatar(r){const p=profileForRanking(r)||{};const name=p.display_name||r.name||'Staff';const url=p.avatar_url||'';return `<div class="mini-avatar">${url?`<img src="${esc(url)}" alt="">`:esc(name.slice(0,1))}</div>`}
+function renderBusinessDashboard(prefix='biz'){
+  const now=new Date(),todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate()),tomorrow=addDaysDate(todayStart,1),yesterday=addDaysDate(todayStart,-1);
+  const weekStart=startOfWeekDate(now),nextWeek=addDaysDate(weekStart,7),prevWeek=addDaysDate(weekStart,-7);
+  const monthStart=new Date(now.getFullYear(),now.getMonth(),1),nextMonth=new Date(now.getFullYear(),now.getMonth()+1,1),prevMonth=new Date(now.getFullYear(),now.getMonth()-1,1);
+  const vals={Today:sumSalesRange(todayStart,tomorrow),Week:sumSalesRange(weekStart,nextWeek),Month:sumSalesRange(monthStart,nextMonth)};
+  const pays={Today:sumPayrollRange(todayStart,tomorrow),Week:sumPayrollRange(weekStart,nextWeek),Month:sumPayrollRange(monthStart,nextMonth)};
+  const prev={Today:sumSalesRange(yesterday,todayStart),Week:sumSalesRange(prevWeek,weekStart),Month:sumSalesRange(prevMonth,monthStart)};
+  ['Today','Week','Month'].forEach(k=>{const a=$(prefix+k+'Sales'),b=$(prefix+k+'Profit');if(a)a.textContent=yen.format(vals[k]);if(b)b.textContent=yen.format(vals[k]-pays[k])});
+  setCompareEl(prefix+'TodayCompare',vals.Today,prev.Today,'前日比');setCompareEl(prefix+'WeekCompare',vals.Week,prev.Week,'前週比');setCompareEl(prefix+'MonthCompare',vals.Month,prev.Month,'前月比');
+  const chart=$(prefix+'SalesChart');if(chart){const days=[...Array(14)].map((_,i)=>addDaysDate(todayStart,i-13));const amounts=days.map(d=>sumSalesRange(d,addDaysDate(d,1)));const max=Math.max(1,...amounts);chart.innerHTML=days.map((d,i)=>`<div class="sales-trend-col"><div class="sales-trend-bar" style="height:${Math.max(3,Math.round(amounts[i]/max*100))}%" data-value="${yen.format(amounts[i])}"></div><small>${d.getMonth()+1}/${d.getDate()}</small></div>`).join('')}
+  const list=$(prefix+'StaffSales');if(list){const rows=salesRankingRows(monthKeyLocal(now)).slice(0,5);list.innerHTML=rows.length?rows.map((r,i)=>`<div class="staff-sales-mini-row"><div class="rank">${i+1}</div>${businessAvatar(r)}<div class="who"><strong>${esc(rankingDisplayName(r))}</strong><small>${esc(r.id||'-')} ・ ${r.entries}件</small></div><div class="amount">${yen.format(r.amount)}</div></div>`).join(''):'<div class="empty">今月の売上記録はありません。</div>'}
+}
+
 function renderEmployeeDashboard(){
   if(!$('employeeDashWorking')||!currentEmployee)return;
   const today=iso(new Date()),active=attendanceData.filter(a=>!a.clockOut),todayList=attendanceData.filter(a=>dateKey(a.clockIn)===today);
@@ -2860,6 +2912,7 @@ function renderEmployeeDashboard(){
   $('employeeWorkingList').innerHTML=active.length?active.map(a=>`<div class="working-person"><div class="person-avatar">${esc((a.employeeName||'?').slice(0,1))}</div><div><strong>${esc(a.employeeName)}</strong><span>${esc(a.employeeId)} ・ ${new Date(a.clockIn).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}から</span></div><div class="duration">${formatDuration(attendanceDuration(a))}</div></div>`).join(''):'<div class="empty">現在勤務中のスタッフはいません。</div>';
   const items=inventoryFallback.slice(0,6);
   $('employeeInventoryPreview').innerHTML=items.map(x=>`<div class="v4-stock ${x.stock<x.min?'low':''}"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min).toLocaleString()}</span><b>${Number(x.stock).toLocaleString()}</b></div>`).join('');
+  renderBusinessDashboard('empBiz');
   const mine=myAttendance.find(a=>!a.clockOut),state=$('employeeStatusPillHome');
   state.textContent=mine?'● 勤務中':'退勤中';state.classList.toggle('working',!!mine);
 }
@@ -2917,6 +2970,7 @@ function renderDashboard(){
   $('dashTodayStaff').textContent=`${todayUnique}名`;
   $('dashTodayHours').textContent=formatDuration(todayMinutes);
   $('dashMonthlyPayroll').textContent=yen.format(monthPayroll);
+  renderBusinessDashboard('biz');
   $('dashWorkingList').innerHTML=active.length?active.map(a=>{
     const emp=employees.find(e=>e.uid===a.employeeUid),role=emp?.role||'Cast';
     return `<div class="working-person"><div class="person-avatar">${esc((a.employeeName||'?').slice(0,1))}</div><div><strong>${esc(a.employeeName)}</strong><span>${esc(role)} ・ ${esc(a.employeeId)}<br>Since ${new Date(a.clockIn).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}</span></div><div class="duration">${formatDuration(attendanceDuration(a))}</div></div>`;
