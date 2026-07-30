@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.13.7.3</title>
+<title>Lait Divin Ver.13.7.4</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1812,7 +1812,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 
 
 
-/* ===== Ver.13.7.3 dark mode readability refresh ===== */
+/* ===== Ver.13.7.4 dark mode readability refresh ===== */
 :root{
   --bg:#f6f1eb;
   --surface:#fffdfa;
@@ -2022,7 +2022,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
 }
 
 
-/* ===== Ver.13.7.3 mobile refinement ===== */
+/* ===== Ver.13.7.4 mobile refinement ===== */
 @media (max-width: 760px){
   html,body{overflow-x:hidden!important}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:12px!important;padding-right:12px!important;padding-bottom:96px!important}
@@ -2087,7 +2087,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:10px!important;padding-right:10px!important}
 }
 
-/* ===== Ver.13.7.3 mobile notification menu ===== */
+/* ===== Ver.13.7.4 mobile notification menu ===== */
 .mobile-notification-menu-btn{position:relative}
 .mobile-notification-menu-btn .notification-badge{position:absolute;top:8px;right:8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#d84f4f;color:#fff!important;font-size:9px!important;font-weight:900;line-height:1;box-shadow:0 4px 12px rgba(216,79,79,.35)}
 .mobile-notification-menu-btn .notification-badge.hidden{display:none!important}
@@ -2385,7 +2385,7 @@ body.dark .mobile-notification-menu-btn .notification-badge{background:#ef6a62;c
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.3</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.4</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4847,21 +4847,69 @@ function renderCommunityProfiles(){
   if($('adminCommunityGrid'))$('adminCommunityGrid').innerHTML=html;
   if($('employeeCommunityGrid'))$('employeeCommunityGrid').innerHTML=html;
 }
+function profileNameForAction(profileId){
+  const employee=employees.find(e=>e.uid===profileId);
+  return employee?.name||employee?.legalName||'スタッフ';
+}
+async function createAchievementNotification(profileId,mode,item){
+  const targetName=profileNameForAction(profileId);
+  const granted=mode==='granted';
+  const payload={
+    type:granted?'success':'general',
+    title:granted?'🏆 実績を獲得しました':'🏆 実績が解除されました',
+    body:granted
+      ?`${targetName}さんに「${item?.icon||'🏆'} ${item?.name||'実績'}」が付与されました。\nプロフィールから確認できます。`
+      :`${targetName}さんの「${item?.icon||'🏆'} ${item?.name||'実績'}」が解除されました。`,
+    is_pinned:false,
+    is_active:true,
+    target_profile_id:profileId,
+    target_name:targetName,
+    created_by:currentProfile?.id||null,
+    created_by_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者'
+  };
+  const {error}=await sb.from('notifications').insert(payload);
+  if(error)console.warn('実績通知の作成に失敗しました:',error);
+}
 async function grantAchievement(profileId){
   if(appMode!=='admin')return;
   const select=$(`achievementSelect-${profileId}`),achievementId=select?.value;
   if(!achievementId){alert('付与する実績を選択してください。');return}
+  const item=achievementCatalog.find(x=>x.id===achievementId)||{id:achievementId,name:'実績',icon:'🏆'};
+  const targetName=profileNameForAction(profileId);
   const {error}=await sb.from('profile_achievements').insert({profile_id:profileId,achievement_id:achievementId,awarded_by:currentProfile?.id||null});
   if(error){alert(error.code==='23505'?'この実績はすでに付与されています。':`付与できませんでした：${error.message}`);return}
-  await loadCommunityProfiles(false);toast('実績を付与しました');
+  await Promise.all([
+    createAchievementNotification(profileId,'granted',item),
+    writeAudit('achievement','実績を付与',`${item.icon||'🏆'} ${item.name}`,targetName)
+  ]);
+  await Promise.all([loadCommunityProfiles(false),loadNotifications(false),loadAuditLogs(false)]);
+  toast(`${targetName}さんに実績を付与し、通知しました`);
 }
 async function revokeAchievement(awardId,profileId,achievementName){
   if(appMode!=='admin')return;
   if(!confirm(`「${achievementName}」を解除しますか？`))return;
+  const award=profileAchievements.find(x=>Number(x.id)===Number(awardId));
+  const item=achievementCatalog.find(x=>x.id===award?.achievement_id)||{name:achievementName,icon:'🏆'};
+  const targetName=profileNameForAction(profileId);
   const {error}=await sb.from('profile_achievements').delete().eq('id',awardId).eq('profile_id',profileId);
   if(error){alert(`実績を解除できませんでした：${error.message}`);return}
-  await loadCommunityProfiles(false);toast('実績を解除しました');
+  await Promise.all([
+    createAchievementNotification(profileId,'revoked',item),
+    writeAudit('achievement','実績を解除',`${item.icon||'🏆'} ${item.name}`,targetName)
+  ]);
+  await Promise.all([loadCommunityProfiles(false),loadNotifications(false),loadAuditLogs(false)]);
+  toast(`${targetName}さんの実績を解除し、通知しました`);
 }
+// Realtime publication未設定時でも通知・管理履歴を素早く同期する安全な補助更新
+setInterval(()=>{
+  if(!currentProfile?.id||document.visibilityState!=='visible')return;
+  loadNotifications(false);
+  if(appMode==='admin')loadAuditLogs(false);
+},5000);
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'&&currentProfile?.id){loadNotifications(false);if(appMode==='admin')loadAuditLogs(false)}
+});
+
 function selectedDiscordReportDate(){
   const input=$('discordReportDateInput');
   if(input&&!input.value)input.value=iso(new Date());
@@ -4939,8 +4987,14 @@ async function saveSalesGoals(){
 // ===== Ver.13.7 Audit Log =====
 function auditIcon(type){return type==='sales'?'¥':type==='goal'?'🎯':type==='notification'?'🔔':type==='employee'?'♟':type==='achievement'?'🏆':type==='settings'?'⚙':'▦'}
 async function writeAudit(type,action,detail='',targetName=''){
-  if(!sb||appMode!=='admin')return;
-  try{await sb.from('audit_logs').insert({actor_id:currentProfile?.id||null,actor_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者',action_type:type,action,detail,target_name:targetName||null})}catch(error){console.warn('Audit write error:',error)}
+  if(!sb||appMode!=='admin')return null;
+  try{
+    const payload={actor_id:currentProfile?.id||null,actor_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者',action_type:type,action,detail,target_name:targetName||null};
+    const {data,error}=await sb.from('audit_logs').insert(payload).select().single();
+    if(error)throw error;
+    if(data){auditRows=[data,...auditRows.filter(x=>Number(x.id)!==Number(data.id))];renderAuditLogs()}
+    return data||null;
+  }catch(error){console.error('Audit write error:',error);toast('管理履歴の保存に失敗しました');return null}
 }
 async function loadAuditLogs(show=false){
   if(!sb||appMode!=='admin')return;
@@ -4962,8 +5016,8 @@ function formatNotificationDate(v){return v?new Date(v).toLocaleString('ja-JP',{
 function renderNotifications(){
   const sorted=[...notificationRows].sort((a,b)=>(Number(b.is_pinned)-Number(a.is_pinned))||new Date(b.created_at)-new Date(a.created_at));
   const unread=sorted.filter(n=>!notificationReadIds.has(String(n.id))).length;
-  ['adminNotificationBadge','adminTopNotificationBadge','employeeNotificationBadge','employeeTopNotificationBadge'].forEach(id=>{const el=$(id);if(!el)return;el.textContent=unread>99?'99+':String(unread);el.classList.toggle('hidden',unread===0)});
-  const html=sorted.length?sorted.map(n=>{const isUnread=!notificationReadIds.has(String(n.id));const adminDelete=appMode==='admin'?`<button class="btn danger notification-delete-btn" onclick="deleteNotification(${Number(n.id)}, event)">削除</button>`:'';return `<article class="notification-card ${esc(n.type||'general')} ${isUnread?'unread':''}"><div class="notification-head"><h3>${notificationIcon(n.type)} ${esc(n.title||'お知らせ')}${n.is_pinned?' 📌':''}</h3><small>${formatNotificationDate(n.created_at)}</small></div><div class="notification-body">${esc(n.body||'')}</div><div class="notification-meta"><span class="notification-type">${notificationTypeLabel(n.type)}</span><span>${esc(n.created_by_name||'Lait Divin')}</span></div><div class="notification-actions">${isUnread?`<button class="btn" onclick="markNotificationRead(${Number(n.id)})">既読にする</button>`:''}${adminDelete}</div></article>`}).join(''):'<div class="notification-empty">新しい通知はありません。</div>';
+  ['adminNotificationBadge','adminTopNotificationBadge','adminMobileNotificationBadge','employeeNotificationBadge','employeeTopNotificationBadge','employeeMobileNotificationBadge'].forEach(id=>{const el=$(id);if(!el)return;el.textContent=unread>99?'99+':String(unread);el.classList.toggle('hidden',unread===0)});
+  const html=sorted.length?sorted.map(n=>{const isUnread=!notificationReadIds.has(String(n.id));const adminDelete=appMode==='admin'?`<button class="btn danger notification-delete-btn" onclick="deleteNotification(${Number(n.id)}, event)">削除</button>`:'';return `<article class="notification-card ${esc(n.type||'general')} ${isUnread?'unread':''}"><div class="notification-head"><h3>${notificationIcon(n.type)} ${esc(n.title||'お知らせ')}${n.is_pinned?' 📌':''}</h3><small>${formatNotificationDate(n.created_at)}</small></div><div class="notification-body">${esc(n.body||'')}</div><div class="notification-meta"><span class="notification-type">${notificationTypeLabel(n.type)}</span><span>${esc(n.created_by_name||'Lait Divin')}</span>${n.target_profile_id?`<span>宛先：${esc(n.target_name||'あなた')}</span>`:''}</div><div class="notification-actions">${isUnread?`<button class="btn" onclick="markNotificationRead(${Number(n.id)})">既読にする</button>`:''}${adminDelete}</div></article>`}).join(''):'<div class="notification-empty">新しい通知はありません。</div>';
   if($('adminNotificationList'))$('adminNotificationList').innerHTML=html;
   if($('employeeNotificationList'))$('employeeNotificationList').innerHTML=html;
 }
@@ -5034,7 +5088,7 @@ async function sendSiteAndDiscordNotification(){
   }
   const observer=new MutationObserver(syncMobileNotificationBadges);
   window.addEventListener('DOMContentLoaded',()=>{
-    ['adminNotificationBadge','adminTopNotificationBadge','employeeNotificationBadge','employeeTopNotificationBadge'].forEach(id=>{
+    ['adminNotificationBadge','adminTopNotificationBadge','adminMobileNotificationBadge','employeeNotificationBadge','employeeTopNotificationBadge','employeeMobileNotificationBadge'].forEach(id=>{
       const el=document.getElementById(id);
       if(el)observer.observe(el,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
     });
