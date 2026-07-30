@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.4 Dark Only</title>
+<title>Lait Divin Ver.14.5 Dark Readable</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3131,6 +3131,285 @@ body.dark .status-open,.status-open *{color:#7fe0a8!important;}
 body.dark .status-closed,.status-closed *{color:#ff9d97!important;}
 </style>
 
+
+<style id="ver14-5-readable-dark-overrides">
+/* ===== Ver.14.5 Readability-first Dark Theme ===== */
+body.dark{
+  --rd-bg:#0f1115;
+  --rd-bg-soft:#141821;
+  --rd-panel:#1a1f28;
+  --rd-panel-2:#202632;
+  --rd-panel-3:#252d39;
+  --rd-line:#303949;
+  --rd-line-soft:#252d38;
+  --rd-text:#f6f1ea;
+  --rd-text-soft:#d9d0c5;
+  --rd-muted:#a9a093;
+  --rd-accent:#c99a65;
+  --rd-accent-2:#e8c089;
+  --rd-accent-soft:#34281d;
+  --rd-success:#69d79a;
+  --rd-success-soft:#183126;
+  --rd-warning:#f0bb68;
+  --rd-warning-soft:#382914;
+  --rd-danger:#f08b86;
+  --rd-danger-soft:#381d1e;
+  --rd-info:#87c0ff;
+  --rd-info-soft:#16283a;
+  background:
+   radial-gradient(circle at 0% 0%, rgba(201,154,101,.12), transparent 22%),
+   radial-gradient(circle at 100% 0%, rgba(122,164,219,.08), transparent 18%),
+   linear-gradient(180deg, #0d1014 0%, #12161d 45%, #0f1218 100%) !important;
+  color:var(--rd-text)!important;
+}
+body.dark,
+body.dark *{scrollbar-color:#6e7f97 #1a2028;}
+body.dark .v4-sidebar,
+body.dark .v41-employee-sidebar,
+body.dark .employee-sidebar{
+  background:linear-gradient(180deg,#12161d 0%, #101319 100%) !important;
+  border-right:1px solid rgba(255,255,255,.05) !important;
+  box-shadow:16px 0 40px rgba(0,0,0,.32) !important;
+}
+body.dark .v4-sidebar .brand,
+body.dark .v41-employee-sidebar .brand,
+body.dark .employee-sidebar .brand{
+  background:linear-gradient(180deg,#1c222d,#151a22) !important;
+  border:1px solid var(--rd-line) !important;
+  box-shadow:none !important;
+}
+body.dark .header,
+body.dark .v4-topbar,
+body.dark .v41-employee-topbar,
+body.dark .nav,
+body.dark .panel,
+body.dark .card,
+body.dark .section,
+body.dark .dashboard-panel,
+body.dark .metric-card,
+body.dark .v4-panel,
+body.dark .v4-kpi,
+body.dark .employee-slip-card,
+body.dark .online-card,
+body.dark .audit-row,
+body.dark .sales-goal-card,
+body.dark .notification-item,
+body.dark .table-wrap,
+body.dark .profile-card,
+body.dark .v4-month-chart,
+body.dark .v4-stock,
+body.dark .v4-dashboard-footer,
+body.dark .achievement-card,
+body.dark .inventory-card,
+body.dark .community-card,
+body.dark .notification-card,
+body.dark .attendance-table,
+body.dark .employee-attendance .panel,
+body.dark .employee-history-row,
+body.dark .empty,
+body.dark .sheet-note,
+body.dark .info,
+body.dark .sheet-frame{
+  background:linear-gradient(180deg, var(--rd-panel) 0%, var(--rd-panel-2) 100%) !important;
+  border:1px solid var(--rd-line) !important;
+  color:var(--rd-text) !important;
+  box-shadow:0 16px 34px rgba(0,0,0,.26) !important;
+}
+body.dark .header,
+body.dark .v4-topbar,
+body.dark .v41-employee-topbar{
+  background:rgba(20,24,31,.9) !important;
+  backdrop-filter:blur(18px);
+}
+body.dark .metric-card,
+body.dark .v4-kpi,
+body.dark .sales-goal-card,
+body.dark .inventory-card,
+body.dark .notification-card,
+body.dark .community-card,
+body.dark .employee-history-row,
+body.dark .online-card{
+  border-radius:22px !important;
+}
+body.dark .metric-card::before,
+body.dark .v4-kpi::before,
+body.dark .sales-goal-card::before{
+  height:4px !important;
+  background:linear-gradient(90deg,var(--rd-accent),var(--rd-accent-2),transparent 85%) !important;
+}
+body.dark .page-hero,
+body.dark .hero,
+body.dark #page-online .page-hero,
+body.dark #employee-page-online .page-hero,
+body.dark .attendance-status{
+  background:linear-gradient(135deg,#5f4432 0%, #2a3442 46%, #1a2028 100%) !important;
+  border:1px solid #415166 !important;
+  box-shadow:0 24px 50px rgba(0,0,0,.34) !important;
+}
+body.dark .page-hero:after,
+body.dark #page-online .page-hero:after,
+body.dark #employee-page-online .page-hero:after,
+body.dark .attendance-status:after{
+  border-color:rgba(255,255,255,.07) !important;
+}
+body.dark .page-hero h1,
+body.dark .page-hero h2,
+body.dark .attendance-status h2,
+body.dark .dashboard-title h2,
+body.dark .panel h2,
+body.dark .panel h3,
+body.dark .v4-panel-head h2,
+body.dark .profile-name,
+body.dark .community-card h3,
+body.dark .notification-head h3,
+body.dark .inventory-card h3,
+body.dark .stock-value,
+body.dark .sales-goal-head strong,
+body.dark .goal-numbers b,
+body.dark .metric-card strong,
+body.dark .v4-kpi strong,
+body.dark .employee-history-row strong,
+body.dark .attendance-table th,
+body.dark .attendance-table td,
+body.dark .list-item strong,
+body.dark .ranking-row strong,
+body.dark .podium-name,
+body.dark .podium-score,
+body.dark .modal-content h3{color:var(--rd-text)!important;}
+body.dark p,
+body.dark small,
+body.dark span,
+body.dark label,
+body.dark .brandsub,
+body.dark .app-version,
+body.dark .metric-card small,
+body.dark .v4-kpi small,
+body.dark .goal-meta,
+body.dark .goal-numbers small,
+body.dark .stock-min,
+body.dark .sheet-note,
+body.dark .audit-row p,
+body.dark .notification-meta,
+body.dark .notification-body,
+body.dark .employee-history-row span,
+body.dark .attendance-note,
+body.dark .empty,
+body.dark .info,
+body.dark .ranking-row .sub,
+body.dark .list-item span{color:var(--rd-muted)!important;}
+body.dark .nav,
+body.dark .mobile-bottom-nav{background:#151a21 !important;border-color:var(--rd-line)!important;}
+body.dark .nav button,
+body.dark .v4-sidebar nav button,
+body.dark .v41-employee-sidebar nav button,
+body.dark .employee-sidebar nav button,
+body.dark .mobile-bottom-nav button{
+  color:#d7ccbe !important;
+  background:transparent !important;
+  border:1px solid transparent !important;
+}
+body.dark .nav button:hover,
+body.dark .v4-sidebar nav button:hover,
+body.dark .v41-employee-sidebar nav button:hover,
+body.dark .employee-sidebar nav button:hover,
+body.dark .mobile-bottom-nav button:hover{
+  background:#222936 !important;
+  border-color:#303a49 !important;
+  color:#fff4e6 !important;
+}
+body.dark .nav button.active,
+body.dark .v4-sidebar nav button.active,
+body.dark .v41-employee-sidebar nav button.active,
+body.dark .employee-sidebar nav button.active,
+body.dark .mobile-bottom-nav button.active{
+  background:linear-gradient(135deg,#d2a06f,#a77652) !important;
+  border-color:#d7ac80 !important;
+  color:#17120f !important;
+  box-shadow:0 10px 24px rgba(0,0,0,.25) !important;
+}
+body.dark input,
+body.dark select,
+body.dark textarea,
+body.dark .field input,
+body.dark .field select,
+body.dark .field textarea,
+body.dark .login-card,
+body.dark .login-tabs,
+body.dark .modal-content{
+  background:#141921 !important;
+  color:var(--rd-text)!important;
+  border-color:#2e3948 !important;
+}
+body.dark input:focus,
+body.dark select:focus,
+body.dark textarea:focus{
+  outline:none !important;
+  border-color:#86b7ff !important;
+  box-shadow:0 0 0 4px rgba(134,183,255,.16) !important;
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder{color:#7f8b99 !important;}
+body.dark .btn.primary,
+body.dark button.primary,
+body.dark .btn.btn-primary,
+body.dark button.btn-primary{
+  background:linear-gradient(135deg,#d7a978,#f0c790) !important;
+  color:#1c1510 !important;
+  border:none !important;
+  box-shadow:0 12px 28px rgba(0,0,0,.24) !important;
+}
+body.dark .btn:not(.primary):not(.danger),
+body.dark button:not(.primary):not(.danger):not(.btn-primary){
+  background:#18202a !important;
+  color:var(--rd-text-soft)!important;
+  border:1px solid #313b4b !important;
+}
+body.dark .btn.danger,
+body.dark button.danger{background:#341d1e !important;color:#ffaca7 !important;border-color:#523133 !important;}
+body.dark .status-pill.working{background:var(--rd-success-soft)!important;color:var(--rd-success)!important;}
+body.dark .status-pill.off{background:#252b34!important;color:#ced3db!important;}
+body.dark .stock-pill,
+body.dark .badge,
+body.dark .chip,
+body.dark .pill{background:#202833 !important;color:#cfd6e0 !important;border:1px solid #303948 !important;}
+body.dark .stock-pill.low,
+body.dark .badge.low{background:var(--rd-danger-soft)!important;color:var(--rd-danger)!important;border-color:#543135!important;}
+body.dark .inventory-card.low{
+  background:linear-gradient(180deg,#2d1e20 0%, #25181a 100%) !important;
+  border-color:#5a373a !important;
+}
+body.dark .goal-track,
+body.dark .stock-bar{background:#11161d !important;border:1px solid #27303b !important;}
+body.dark .goal-fill,
+body.dark .stock-bar span{background:linear-gradient(90deg,#b78554 0%, #efc98e 100%) !important;}
+body.dark .goal-fill.done{background:linear-gradient(90deg,#3aa26d,#78d9a2) !important;}
+body.dark .metric-card.warning,
+body.dark .v4-kpi.warning{background:linear-gradient(180deg,#2b241a 0%, #231d15 100%) !important;border-color:#54402b !important;}
+body.dark .metric-card.success,
+body.dark .v4-kpi.success{background:linear-gradient(180deg,#1b2a23 0%, #17221d 100%) !important;border-color:#2f5644 !important;}
+body.dark .metric-card.info,
+body.dark .v4-kpi.info{background:linear-gradient(180deg,#1b2530 0%, #182028 100%) !important;border-color:#324e69 !important;}
+body.dark .attendance-table table th{background:#151a20 !important;color:#f4ede5 !important;}
+body.dark .attendance-table table td{background:transparent !important;}
+body.dark tr td{border-bottom:1px solid #2a3340 !important;}
+body.dark .sheet-frame{background:#12171e !important;}
+body.dark .sheet-note{background:#161d25 !important;}
+body.dark .positive,.body.dark .metric-value-positive,.body.dark .profit-up{color:var(--rd-success)!important;}
+body.dark .negative,.body.dark .profit-down{color:var(--rd-danger)!important;}
+body.dark .online-user-dot{background:var(--rd-success)!important;box-shadow:0 0 0 5px rgba(105,215,154,.12) !important;}
+body.dark .notification-card.unread,
+body.dark .notification-item.unread{border-left:4px solid var(--rd-accent) !important;}
+body.dark .theme-toggle,
+body.dark .mobile-theme-button,
+body.dark .v41-login-theme,
+body.dark button[onclick*="toggleTheme"]{display:none !important;}
+@media (max-width:760px){
+  body.dark .nav,
+  body.dark .mobile-bottom-nav{background:rgba(17,21,27,.94)!important;backdrop-filter:blur(16px);}
+  body.dark .page-hero{padding:22px !important;}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -6170,7 +6449,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.4 Dark Only Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.5 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
