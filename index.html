@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6.7 Real IMG Avatar Fix</title>
+<title>Lait Divin Ver.14.6.8 All Avatar Sync</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3871,7 +3871,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 
 
 <style id="ver14-6-3-visual-fix">
-/* ===== Ver.14.6.7: profile icon + sidebar readability fix ===== */
+/* ===== Ver.14.6.8: profile icon + sidebar readability fix ===== */
 body.dark .v4-greeting,
 body.dark .v41-employee-topbar .v4-greeting{
   background:transparent !important;
@@ -4138,6 +4138,48 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active span{
 }
 </style>
 
+
+<style id="ver14-6-8-all-avatar-sync">
+.v4-profile-avatar,
+.profile-avatar-large,
+.avatar-upload-preview,
+.community-avatar,
+.online-avatar,
+.ranking-avatar,
+.podium-avatar,
+.v4-rank-avatar,
+.person-avatar,
+.mini-avatar,
+.admin-profile-avatar{
+  overflow:hidden !important;
+  position:relative !important;
+}
+.v4-profile-avatar > img,
+.profile-avatar-large > img,
+.avatar-upload-preview > img,
+.community-avatar > img,
+.online-avatar > img,
+.ranking-avatar > img,
+.podium-avatar > img,
+.v4-rank-avatar > img,
+.person-avatar > img,
+.mini-avatar > img,
+.admin-profile-avatar > img{
+  width:100% !important;
+  height:100% !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  border-radius:inherit !important;
+}
+.profile-avatar-large.has-image,
+.avatar-upload-preview.has-image,
+.v4-profile-avatar.has-image{
+  background:none !important;
+  color:transparent !important;
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4188,7 +4230,7 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active span{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.7</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.8</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4429,7 +4471,7 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active span{
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.7</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.8</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4580,7 +4622,7 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active span{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.7</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.8</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -5188,7 +5230,7 @@ async function openAdmin(){
   showAdminApp();
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)]);
   await hydrateCurrentProfileVisuals();
-  applyAdminProfileEverywhere();
+  applyAdminProfileEverywhere();syncAllCurrentAvatarElements();
   refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
 }
 async function openEmployee(){
@@ -5196,7 +5238,7 @@ async function openEmployee(){
   await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals()]);
   await hydrateCurrentProfileVisuals();
   if(currentProfile && currentEmployee && !cleanAvatarUrl(currentEmployee.avatarUrl) && cleanAvatarUrl(currentProfile.avatar_url)) currentEmployee.avatarUrl=currentProfile.avatar_url;
-  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
+  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
@@ -6895,6 +6937,28 @@ function syncCurrentVisualEmployee(){
   }
   return found||null;
 }
+function updateEmployeeCacheFromProfile(profile){
+  if(!profile)return;
+  const mapped=mapProfile(profile);
+  const index=(employees||[]).findIndex(e=>e.uid===mapped.uid||(
+    normalizeIdentityValue(e.id)===normalizeIdentityValue(mapped.id)&&normalizeIdentityValue(mapped.id)
+  ));
+  if(index>=0)employees[index]={...employees[index],...mapped};
+  else if(mapped.accountType==='employee')employees.push(mapped);
+}
+function syncAllCurrentAvatarElements(){
+  if(!currentProfile&&!currentEmployee)return;
+  const matched=syncCurrentVisualEmployee?.()||null;
+  const name=currentEmployee?.name||currentProfile?.display_name||currentProfile?.employee_name||matched?.name||'スタッフ';
+  const role=currentEmployee?.role||currentProfile?.role||matched?.role||'Cast';
+  const avatar=cleanAvatarUrl(currentEmployee?.avatarUrl)||cleanAvatarUrl(currentProfile?.avatar_url)||cleanAvatarUrl(matched?.avatarUrl)||'';
+  const initial=(name||'従').slice(0,1);
+  ['employeeProfileAvatar','profileCardAvatar','profileAvatarPreview','adminProfileAvatar'].forEach(id=>setAvatarElement($(id),avatar,initial));
+  if($('employeeTopName'))$('employeeTopName').textContent=name;
+  if($('employeeTopRole'))$('employeeTopRole').textContent=role;
+  if($('adminTopName')&&appMode==='admin')$('adminTopName').textContent=name;
+  if($('adminTopRole')&&appMode==='admin')$('adminTopRole').textContent=role;
+}
 function applyAdminProfileEverywhere(){
   if(!currentProfile)return;
   const matched=syncCurrentVisualEmployee();
@@ -6907,6 +6971,7 @@ function applyAdminProfileEverywhere(){
   if($('adminTopName'))$('adminTopName').textContent=name;
   if($('adminTopRole'))$('adminTopRole').textContent=role;
   setAvatarElement($('adminProfileAvatar'),avatar,initial);
+  syncAllCurrentAvatarElements();
 }
 
 function applyProfileEverywhere(){
@@ -6920,6 +6985,7 @@ function applyProfileEverywhere(){
   setAvatarElement($('employeeProfileAvatar'),avatar,initial);
   setAvatarElement($('profileCardAvatar'),avatar,initial);
   setAvatarElement($('profileAvatarPreview'),avatar,initial);
+  syncAllCurrentAvatarElements();
   if($('profileCardName'))$('profileCardName').textContent=name;
   if($('profileCardRole'))$('profileCardRole').textContent=`${currentEmployee.role||'Cast'} ・ ${currentEmployee.id||'-'}`;
   if($('profileCardBio'))$('profileCardBio').textContent=currentEmployee.bio||'自己紹介はまだ設定されていません。';
@@ -6965,7 +7031,7 @@ async function saveMyProfile(){
   try{
     const {data,error}=await sb.from('profiles').update(patch).eq('id',currentProfile.id).select('*').single();
     if(error)throw error;
-    currentProfile=data;currentEmployee=mapProfile(data);applyProfileEverywhere();renderEmployeePortal();renderEmployeeDashboard();status.textContent='保存しました';toast('プロフィールを保存しました');
+    currentProfile=data;currentEmployee=mapProfile(data);updateEmployeeCacheFromProfile(data);applyProfileEverywhere();syncAllCurrentAvatarElements();renderEmployeePortal();renderEmployeeDashboard();renderEmployeeRanking();renderOnlinePresence();await loadCommunityProfiles(false);status.textContent='保存しました';toast('プロフィールを保存しました');
   }catch(error){console.error(error);status.textContent='保存できませんでした';alert(error.message?.includes('column')?'プロフィール追加SQLを先に実行してください。':`保存に失敗しました：${error.message}`)}
   finally{button.disabled=false;setTimeout(()=>{if(status.textContent==='保存しました')status.textContent=''},2500)}
 }
@@ -7304,7 +7370,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.7 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.8 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
