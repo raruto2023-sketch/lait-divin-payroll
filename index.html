@@ -5059,6 +5059,21 @@ if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) {
 const sb = window.supabase.createClient(cfg.SUPABASE_URL || '', cfg.SUPABASE_ANON_KEY || '', {
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
 });
+window.addEventListener('unhandledrejection',event=>console.error('未処理の通信エラー:',event.reason));
+async function verifyPortalConnection(){
+  try{
+    const {error}=await sb.from('profiles').select('id').limit(1);
+    if(error)throw error;
+    console.info('Lait Divin Portal: Supabase接続OK');
+    return true;
+  }catch(error){
+    console.error('Lait Divin Portal: Supabase接続失敗',error);
+    const e=document.getElementById('loginError');
+    if(e&&!document.body.classList.contains('login-active'))return false;
+    if(e){e.textContent='データベースへ接続できません。config.js・Supabase設定・SQLを確認してください。';e.classList.add('show')}
+    return false;
+  }
+}
 const $=id=>document.getElementById(id),yen=new Intl.NumberFormat('ja-JP',{style:'currency',currency:'JPY',maximumFractionDigits:0});
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const DRAFT_KEY='ld_server_draft_v1';
@@ -5105,11 +5120,11 @@ async function refreshAllData(silent=false){
   refreshInProgress=true;
   try{
     if(appMode==='admin'){
-      await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadAuditLogs(false),loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false)]);
+      await Promise.allSettled([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadAuditLogs(false),loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false),loadInventoryAlerts(false)]);
       refreshEmployeeSelect();refreshSalesEmployeeSelect();
       renderDashboard();renderAttendance();renderEmployees();renderRanking();renderSalesPage();
     }else{
-      await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false)]);
+      await Promise.allSettled([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false)]);
       renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();
     }
     if(!silent)toast('最新データに更新しました');
@@ -5356,17 +5371,24 @@ async function logout(){
 }
 async function openAdmin(){
   showAdminApp();
-  await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)]);
-  await hydrateCurrentProfileVisuals();
+  const coreTasks=[loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)];
+  const coreResults=await Promise.allSettled(coreTasks);
+  coreResults.forEach((r,i)=>{if(r.status==='rejected')console.error('管理者コアデータ読込失敗',i,r.reason)});
+  const optionalResults=await Promise.allSettled([loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false),loadInventoryAlerts(false)]);
+  optionalResults.forEach((r,i)=>{if(r.status==='rejected')console.warn('追加機能読込失敗',i,r.reason)});
+  try{await hydrateCurrentProfileVisuals()}catch(e){console.warn('プロフィール表示読込失敗',e)}
   applyAdminProfileEverywhere();syncAllCurrentAvatarElements();
-  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
+  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();renderCampaigns();renderStoreNews();renderStaffAwards();renderInventoryAlerts();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
 }
 async function openEmployee(){
   showEmployeeApp();
-  await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals()]);
-  await hydrateCurrentProfileVisuals();
+  const coreResults=await Promise.allSettled([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals()]);
+  coreResults.forEach((r,i)=>{if(r.status==='rejected')console.error('従業員コアデータ読込失敗',i,r.reason)});
+  const optionalResults=await Promise.allSettled([loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false)]);
+  optionalResults.forEach((r,i)=>{if(r.status==='rejected')console.warn('追加機能読込失敗',i,r.reason)});
+  try{await hydrateCurrentProfileVisuals()}catch(e){console.warn('プロフィール表示読込失敗',e)}
   if(currentProfile && currentEmployee && !cleanAvatarUrl(currentEmployee.avatarUrl) && cleanAvatarUrl(currentProfile.avatar_url)) currentEmployee.avatarUrl=currentProfile.avatar_url;
-  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
+  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();renderCampaigns();renderStoreNews();renderStaffAwards();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
@@ -6601,7 +6623,7 @@ initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(n
 window.addEventListener('focus',()=>refreshAllData(true));
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAllData(true)});
 window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('admin');if(appMode==='employee')subscribeRealtime('employee');refreshAllData(true)});
-restoreSession();
+verifyPortalConnection().finally(()=>restoreSession());
 
 
 /* ===== Ver.6 Supabase Farm Module ===== */
