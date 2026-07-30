@@ -6704,7 +6704,7 @@ async function sendInventoryAlertToDiscord(){
   try{
     const payload={
       sent_at:new Date().toISOString(),
-      sent_by:currentAdmin?.name||'管理者',
+      sent_by:currentEmployee?.name||currentProfile?.display_name||currentProfile?.employee_name||'管理者',
       item_count:low.length,
       items:low.map(x=>({
         name:String(x.name||'材料'),
@@ -7637,7 +7637,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.4 Inventory Discord Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.4.1 Inventory Discord Fix Build</div>
 
 <script>
 (function(){
