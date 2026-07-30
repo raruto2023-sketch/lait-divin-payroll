@@ -4533,6 +4533,313 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
 }
 </style>
 
+
+<style id="ver17-6-premium-refresh">
+/* =========================================================
+   Lait Divin Portal Ver.17.6 — Premium Café Lounge UI
+   Visual-only refresh. Existing IDs, data flow and functions stay intact.
+   ========================================================= */
+:root{
+  --ld-bg:#f4ede5;
+  --ld-bg-2:#ede2d5;
+  --ld-surface:rgba(255,252,248,.94);
+  --ld-surface-strong:#fffaf4;
+  --ld-surface-dark:#201713;
+  --ld-text:#3b291f;
+  --ld-muted:#8c7564;
+  --ld-line:rgba(113,78,52,.15);
+  --ld-line-strong:rgba(185,133,84,.34);
+  --ld-gold:#cf9a5f;
+  --ld-gold-2:#efc68e;
+  --ld-brown:#65422d;
+  --ld-brown-deep:#2e1f18;
+  --ld-success:#4b8460;
+  --ld-danger:#b95e4b;
+  --ld-shadow:0 22px 58px rgba(66,42,28,.12);
+  --ld-shadow-soft:0 12px 32px rgba(66,42,28,.08);
+}
+body{
+  background:
+    radial-gradient(circle at 15% 0%,rgba(237,197,148,.20),transparent 30%),
+    radial-gradient(circle at 92% 8%,rgba(126,80,50,.10),transparent 26%),
+    linear-gradient(145deg,var(--ld-bg),var(--ld-bg-2))!important;
+  color:var(--ld-text)!important;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(rgba(255,255,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.24),transparent 68%);
+}
+
+/* Login */
+#loginScreen.v41-login{
+  padding:28px!important;
+  background:
+    radial-gradient(circle at 18% 10%,rgba(239,198,145,.18),transparent 26%),
+    radial-gradient(circle at 88% 90%,rgba(96,58,36,.16),transparent 30%),
+    linear-gradient(135deg,#1d1512,#332218 48%,#1b1411)!important;
+}
+.v41-login-shell{
+  width:min(1180px,calc(100% - 34px))!important;
+  min-height:690px!important;
+  border-radius:34px!important;
+  border:1px solid rgba(238,199,148,.20)!important;
+  background:rgba(255,252,248,.97)!important;
+  box-shadow:0 46px 130px rgba(0,0,0,.34)!important;
+}
+.v41-login-visual{
+  padding:64px!important;
+  background:
+    linear-gradient(145deg,rgba(53,32,22,.90),rgba(23,17,14,.97)),
+    url('inventory-hero-coffee.jpg') center/cover!important;
+}
+.v41-login-visual::before{
+  width:480px!important;height:480px!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  background:radial-gradient(circle,rgba(238,194,135,.10),transparent 68%)!important;
+  right:-170px!important;top:-160px!important;
+}
+.v41-login-visual::after{
+  content:"LAIT DIVIN"!important;
+  position:absolute!important;left:58px!important;bottom:44px!important;
+  width:auto!important;height:auto!important;border-radius:0!important;
+  background:transparent!important;filter:none!important;
+  font:700 78px Georgia,serif!important;letter-spacing:.08em!important;
+  color:rgba(255,255,255,.035)!important;white-space:nowrap!important;
+}
+.v41-login-cow{
+  width:108px!important;height:108px!important;
+  border-radius:28px!important;padding:10px!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.16),rgba(255,255,255,.05))!important;
+  border:1px solid rgba(255,255,255,.20)!important;
+  box-shadow:0 24px 48px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.22)!important;
+}
+.v41-login-cow img{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 10px 16px rgba(0,0,0,.22))}
+.v41-login-brand>span{color:#efc68e!important;letter-spacing:.30em!important}
+.v41-login-brand h1{font-size:58px!important;color:#fff6eb!important;letter-spacing:.025em!important}
+.v41-login-brand p{color:#decfc2!important;font-size:13px!important;max-width:440px!important}
+.v41-login-status div{color:#d8c3af!important}
+.v41-login-form{
+  padding:66px 62px!important;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(232,188,132,.18),transparent 34%),
+    linear-gradient(180deg,#fffdf9,#f7eee5)!important;
+}
+.v41-login-form-head>span{color:#a66f42!important;letter-spacing:.22em!important}
+.v41-login-form-head h2{
+  font-family:Georgia,'Yu Mincho',serif!important;
+  font-size:34px!important;color:#3a281e!important
+}
+.v41-login-form-head p{font-size:12px!important;color:#8f7868!important}
+.v41-login-tabs{
+  padding:6px!important;border-radius:16px!important;
+  background:#eadfd3!important;border:1px solid rgba(113,78,52,.10)!important
+}
+.v41-login-tabs button{
+  min-height:46px!important;color:#806b5c!important;transition:.18s ease!important
+}
+.v41-login-tabs button.active{
+  background:linear-gradient(145deg,#fffdf9,#f8efe6)!important;
+  color:#4a3122!important;box-shadow:0 8px 20px rgba(82,52,33,.10)!important
+}
+.v41-input-wrap{
+  min-height:52px!important;border-radius:14px!important;
+  background:rgba(255,255,255,.82)!important;
+  border:1px solid rgba(118,82,57,.18)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.70)!important
+}
+.v41-input-wrap:focus-within{
+  border-color:#ca9256!important;box-shadow:0 0 0 4px rgba(202,146,86,.12)!important
+}
+.v41-login-submit{
+  min-height:54px!important;border:0!important;
+  background:linear-gradient(135deg,#e9bd83,#be7d43)!important;
+  color:#28180f!important;font-weight:900!important;
+  box-shadow:0 16px 30px rgba(159,96,48,.25)!important
+}
+.v41-login-submit:hover{transform:translateY(-2px)!important;box-shadow:0 20px 38px rgba(159,96,48,.32)!important}
+.v41-login-note{color:#9a8474!important}
+
+/* Sidebar */
+.v4-sidebar,.v41-employee-sidebar{
+  width:268px!important;padding:20px 15px!important;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(227,177,119,.10),transparent 28%),
+    linear-gradient(180deg,#33231b 0%,#211814 52%,#171210 100%)!important;
+  border-right:1px solid rgba(232,185,128,.12)!important;
+  box-shadow:18px 0 50px rgba(25,15,10,.20)!important
+}
+.v4-admin-layout{grid-template-columns:268px minmax(0,1fr)!important}
+.v4-main{grid-column:2!important}
+.v4-brand,.v41-employee-sidebar .v4-brand{
+  padding:13px 10px 20px!important;
+  border-bottom:1px solid rgba(255,255,255,.08)!important
+}
+.v4-brand-logo{
+  width:68px!important;height:68px!important;border-radius:21px!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.04))!important
+}
+.v4-brand strong{font-size:22px!important;color:#fff7ef!important}
+.v4-brand span{color:#cdb8a8!important}
+.v4-nav{gap:6px!important;padding-top:17px!important}
+.v4-nav button{
+  min-height:48px!important;border-radius:14px!important;
+  color:#d8c9bd!important;padding:11px 13px!important;
+  transition:.18s ease!important
+}
+.v4-nav button:hover{
+  background:rgba(255,255,255,.065)!important;color:#fff8f0!important;
+  transform:translateX(3px)!important
+}
+.v4-nav button.active{
+  background:linear-gradient(135deg,#f0c68f,#c6854e)!important;
+  color:#2a190f!important;
+  box-shadow:0 12px 28px rgba(180,111,55,.25)!important
+}
+.v4-nav button.active span,.v4-nav button.active b{color:#2a190f!important}
+.v4-sidebar-bottom button{color:#cdbcb0!important}
+.v4-copyright{color:#f0dfd2!important}
+
+/* Topbar */
+.v4-topbar,.v41-employee-topbar{
+  height:auto!important;min-height:80px!important;
+  margin:14px 18px 0!important;padding:15px 20px!important;
+  border-radius:20px!important;
+  border:1px solid rgba(118,82,57,.14)!important;
+  background:rgba(255,252,248,.88)!important;
+  box-shadow:var(--ld-shadow-soft)!important;
+  backdrop-filter:blur(22px)!important
+}
+.v4-greeting strong,.v4-profile strong{color:#402c21!important}
+.v4-greeting span,.v4-profile span{color:#8d7767!important}
+.v4-open-pill{background:#e8f2e8!important;color:#467653!important;border:1px solid #c9ddca!important}
+.v4-icon-btn{
+  border:1px solid rgba(118,82,57,.14)!important;
+  background:#fffaf4!important;box-shadow:0 6px 16px rgba(66,42,28,.08)!important
+}
+.v4-profile-avatar{border:2px solid #e6c69d!important;box-shadow:0 8px 18px rgba(72,43,26,.14)!important}
+
+/* Main containers */
+.v4-content,.v41-employee-content{padding:24px 26px 40px!important}
+.page-hero,.v4-panel,.dashboard-panel,.panel,.metric-card,.v4-kpi,.card,.section,
+.online-card,.profile-card,.notification-item,.audit-row,.employee-slip-card,.table-wrap{
+  border:1px solid var(--ld-line)!important;
+  background:linear-gradient(180deg,rgba(255,253,250,.96),rgba(249,241,233,.94))!important;
+  border-radius:22px!important;
+  box-shadow:var(--ld-shadow-soft)!important
+}
+.page-hero{
+  padding:25px 28px!important;
+  background:
+    radial-gradient(circle at 90% 20%,rgba(225,174,111,.15),transparent 28%),
+    linear-gradient(135deg,#fffdf9,#f4e8dc)!important
+}
+.page-hero h1,.dashboard-title h2,.v4-panel-head h2,.panel h2{
+  color:#3d291f!important;font-family:Georgia,'Yu Mincho',serif!important
+}
+.page-hero p,.dashboard-title span,.v4-panel-head span{color:#8b7463!important}
+
+/* KPI */
+.v4-kpi-grid{gap:15px!important}
+.v4-kpi,.metric-card{
+  min-height:126px!important;padding:20px!important;position:relative!important;overflow:hidden!important
+}
+.v4-kpi::before,.metric-card::before{
+  content:"";position:absolute;inset:0 auto 0 0;width:4px;height:100%!important;
+  background:linear-gradient(180deg,#efc68e,#bc7640)!important
+}
+.v4-kpi-icon,.metric-icon{
+  width:48px!important;height:48px!important;border-radius:15px!important;
+  background:linear-gradient(145deg,#f1dfc8,#e1bb8b)!important;
+  color:#765033!important
+}
+.v4-kpi strong,.metric-card strong{font-family:Georgia,serif!important;color:#402a1e!important}
+
+/* Buttons and controls */
+.btn,.v4-quick-actions button{
+  border-radius:13px!important;border:1px solid rgba(118,82,57,.15)!important;
+  background:linear-gradient(145deg,#fffdf9,#f4e9df)!important;
+  color:#533a2a!important;font-weight:800!important;
+  box-shadow:0 7px 18px rgba(66,42,28,.07)!important;
+  transition:.18s ease!important
+}
+.btn:hover,.v4-quick-actions button:hover{transform:translateY(-1px)!important;border-color:#cb9256!important}
+.btn.primary{
+  background:linear-gradient(135deg,#edc28a,#be7b43)!important;
+  border-color:#dfab6d!important;color:#28180f!important
+}
+input,select,textarea{
+  border-radius:12px!important;border:1px solid rgba(118,82,57,.16)!important;
+  background:#fffdf9!important;color:#3d291f!important
+}
+input:focus,select:focus,textarea:focus{
+  border-color:#ca9256!important;box-shadow:0 0 0 4px rgba(202,146,86,.11)!important
+}
+
+/* Tables */
+table{border-collapse:separate!important;border-spacing:0!important}
+th{
+  color:#7a624f!important;background:#eee1d4!important;
+  font-size:10px!important;letter-spacing:.08em!important
+}
+td{color:#493328!important}
+tr:hover td{background:rgba(237,202,160,.10)!important}
+
+/* Mobile */
+@media(max-width:900px){
+  .v4-sidebar,.v41-employee-sidebar{width:min(86vw,300px)!important}
+  .v4-admin-layout{grid-template-columns:1fr!important}
+  .v4-main{grid-column:1!important}
+  .v4-topbar,.v41-employee-topbar{margin:10px 10px 0!important;border-radius:17px!important}
+  .v4-content,.v41-employee-content{padding:14px 10px 94px!important}
+}
+@media(max-width:800px){
+  #loginScreen.v41-login{padding:12px!important}
+  .v41-login-shell{width:100%!important;margin:0!important;border-radius:24px!important}
+  .v41-login-visual{min-height:285px!important;padding:32px!important}
+  .v41-login-visual::after{left:26px!important;bottom:20px!important;font-size:50px!important}
+  .v41-login-brand h1{font-size:42px!important}
+  .v41-login-cow{width:76px!important;height:76px!important;border-radius:21px!important}
+  .v41-login-form{padding:38px 26px!important}
+}
+@media(max-width:520px){
+  .v41-login-form-head h2{font-size:28px!important}
+  .v4-kpi-grid{grid-template-columns:1fr!important}
+  .v4-top-status{gap:9px!important}
+  .v4-top-stat{display:none!important}
+}
+
+/* Keep dark-only operation coherent */
+body.dark{
+  --ld-bg:#151210;--ld-bg-2:#211915;--ld-text:#f5e8dc;--ld-muted:#b9a89a;
+  --ld-line:rgba(222,175,119,.13);
+  background:
+    radial-gradient(circle at 18% 0%,rgba(207,154,95,.10),transparent 28%),
+    linear-gradient(145deg,#151210,#201813)!important;
+}
+body.dark .page-hero,body.dark .v4-panel,body.dark .dashboard-panel,body.dark .panel,
+body.dark .metric-card,body.dark .v4-kpi,body.dark .card,body.dark .section,
+body.dark .online-card,body.dark .profile-card,body.dark .notification-item,
+body.dark .audit-row,body.dark .employee-slip-card,body.dark .table-wrap{
+  background:linear-gradient(180deg,rgba(35,27,23,.97),rgba(23,19,17,.97))!important;
+  border-color:rgba(222,175,119,.13)!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.22)!important
+}
+body.dark .v4-topbar,body.dark .v41-employee-topbar{
+  background:rgba(31,24,20,.90)!important;border-color:rgba(222,175,119,.13)!important
+}
+body.dark .v4-greeting strong,body.dark .v4-profile strong,body.dark .page-hero h1,
+body.dark .dashboard-title h2,body.dark .v4-panel-head h2,body.dark .panel h2,
+body.dark .v4-kpi strong,body.dark .metric-card strong{color:#f4e7db!important}
+body.dark .v4-greeting span,body.dark .v4-profile span,body.dark .page-hero p,
+body.dark .dashboard-title span,body.dark .v4-panel-head span{color:#b8a79a!important}
+body.dark input,body.dark select,body.dark textarea{
+  background:#211a17!important;color:#f4e7db!important;border-color:rgba(222,175,119,.15)!important
+}
+body.dark th{background:#2c211c!important;color:#cdbbad!important}
+body.dark td{color:#eadfd6!important}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4541,7 +4848,7 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
     <section class="v41-login-visual">
       <div class="v41-login-glow"></div>
       <div class="v41-login-brand">
-        <div class="v41-login-cow">🐄</div>
+        <div class="v41-login-cow"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
         <span>DIVINE MILK CAFÉ</span>
         <h1>Lait Divin Portal</h1>
         <p>給与・出退勤・在庫・ランキングを、ひとつの場所で。</p>
@@ -7901,7 +8208,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.5.1 Mobile Event Menu Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.6 Premium Refresh Build</div>
 
 <script>
 (function(){
