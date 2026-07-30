@@ -4305,6 +4305,234 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
 .inventory-discord-result.error{color:#ef9a92}
 </style>
 
+
+<style id="ver17-5-inventory-redesign">
+/* ===== Lait Divin Inventory Redesign ===== */
+.inventory-redesign{
+  --inv-gold:#d3a064;
+  --inv-gold-soft:#f1c98f;
+  --inv-coffee:#4c2e20;
+  --inv-panel:#1e1713;
+  --inv-panel-2:#271c17;
+  --inv-line:rgba(216,164,99,.28);
+}
+.inventory-redesign .inventory-hero{
+  min-height:250px!important;
+  padding:34px 38px!important;
+  border:1px solid rgba(218,164,98,.62)!important;
+  border-radius:22px!important;
+  overflow:hidden!important;
+  position:relative!important;
+  background:
+    linear-gradient(90deg,rgba(69,37,23,.98) 0%,rgba(73,40,24,.94) 48%,rgba(41,26,19,.40) 72%,rgba(24,18,15,.18) 100%),
+    url('inventory-hero-coffee.jpg') right center/48% 100% no-repeat!important;
+  box-shadow:0 18px 42px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.05)!important;
+}
+.inventory-redesign .inventory-hero:after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,transparent 58%,rgba(211,160,100,.10));
+}
+.inventory-redesign .inventory-hero>div{position:relative;z-index:2}
+.inventory-redesign .inventory-hero .eyebrow{
+  color:#e0ad70!important;letter-spacing:.22em!important;font-size:10px!important
+}
+.inventory-redesign .inventory-hero h1{
+  font-family:Georgia,'Yu Mincho',serif!important;
+  font-size:34px!important;letter-spacing:.04em!important;
+  color:#f7e4ca!important;margin:12px 0 10px!important;
+}
+.inventory-redesign .inventory-hero p{color:#decab7!important;max-width:580px!important}
+.inventory-redesign .inventory-live-status{
+  margin-top:16px!important;color:#cab9a7!important
+}
+.inventory-redesign .inventory-live-status i{
+  box-shadow:0 0 0 4px rgba(107,173,112,.12)!important
+}
+.inventory-redesign .inventory-actions{
+  align-self:flex-end!important;justify-content:flex-end!important;
+  max-width:760px!important;flex-wrap:wrap!important
+}
+.inventory-redesign .inventory-actions .btn{
+  min-height:44px!important;padding:0 18px!important;
+  border-radius:12px!important;border:1px solid rgba(218,164,98,.34)!important;
+  background:rgba(30,22,18,.80)!important;color:#f3ddc2!important;
+  backdrop-filter:blur(10px)!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.16)!important
+}
+.inventory-redesign .inventory-actions .btn:hover{
+  border-color:#d7a264!important;background:#352319!important;transform:translateY(-1px)
+}
+.inventory-redesign .inventory-actions .btn.primary{
+  background:linear-gradient(135deg,#f0c486,#d59a58)!important;
+  color:#2b1b12!important;border-color:#f2cc96!important;font-weight:900!important
+}
+.inventory-redesign .inventory-actions .inventory-discord-button{
+  background:rgba(40,29,24,.92)!important;color:#f3ddc2!important;
+  border-color:rgba(218,164,98,.34)!important
+}
+
+.inventory-redesign .inventory-alert-panel{
+  padding:18px!important;border-radius:19px!important;
+  border:1px solid var(--inv-line)!important;
+  background:linear-gradient(145deg,rgba(35,25,20,.98),rgba(24,18,15,.98))!important;
+  box-shadow:0 14px 32px rgba(0,0,0,.14)!important
+}
+.inventory-redesign .inventory-alert-head h3{
+  color:#e8c08c!important;font-size:15px!important
+}
+.inventory-redesign .inventory-alert-count{
+  background:linear-gradient(135deg,#c57b58,#a95a43)!important;
+  color:#fff!important;box-shadow:0 5px 14px rgba(174,83,62,.25)!important
+}
+.inventory-redesign .inventory-alert-list{
+  grid-template-columns:1fr!important
+}
+.inventory-redesign .inventory-alert-item{
+  min-height:70px!important;padding:13px 16px!important;
+  border-radius:13px!important;border:1px solid rgba(222,170,106,.16)!important;
+  background:linear-gradient(90deg,rgba(71,47,37,.72),rgba(43,31,26,.76))!important
+}
+.inventory-redesign .inventory-alert-main{
+  display:flex;align-items:center;gap:12px
+}
+.inventory-redesign .inventory-alert-main i{
+  width:9px;height:9px;border-radius:50%;background:#d6564d;
+  box-shadow:0 0 0 5px rgba(214,86,77,.09)
+}
+.inventory-redesign .inventory-alert-main strong{
+  display:block;color:#f3dfc6!important;font-size:13px!important;margin-bottom:5px
+}
+.inventory-redesign .inventory-alert-main span{
+  display:block;color:#af9d8e!important;font-size:11px!important
+}
+.inventory-redesign .inventory-shortage-badge{
+  padding:6px 10px;border-radius:999px!important;
+  color:#f08c75!important;background:rgba(173,64,44,.13)!important;
+  border:1px solid rgba(218,91,68,.28)!important;font-weight:900!important
+}
+.inventory-redesign .inventory-discord-result{
+  padding:11px 14px!important;margin-top:12px!important;border:1px solid rgba(74,173,119,.22)!important;
+  border-radius:9px!important;background:rgba(34,109,68,.22)!important;color:#59ce8a!important
+}
+
+.inventory-redesign .inventory-overview{
+  gap:14px!important;margin:15px 0!important
+}
+.inventory-redesign .inventory-overview .metric-card{
+  min-height:115px!important;padding:20px!important;
+  border-radius:18px!important;border:1px solid rgba(218,164,98,.28)!important;
+  background:
+    radial-gradient(circle at 88% 18%,rgba(215,161,95,.12),transparent 34%),
+    linear-gradient(145deg,#281d17,#1d1714)!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.14)!important
+}
+.inventory-redesign .inventory-overview .metric-label{
+  color:#bda991!important;letter-spacing:.18em!important
+}
+.inventory-redesign .inventory-overview .metric-value{
+  color:#f1cf9f!important;font-family:Georgia,serif!important;font-size:31px!important
+}
+.inventory-redesign .inventory-overview .metric-sub{color:#a79484!important}
+
+.inventory-redesign .inventory-material-panel{
+  padding:16px!important;border-radius:20px!important;
+  border:1px solid rgba(218,164,98,.24)!important;
+  background:linear-gradient(145deg,#211915,#171311)!important
+}
+.inventory-redesign .inventory-material-panel .dashboard-title{
+  margin-bottom:14px!important
+}
+.inventory-redesign .inventory-material-panel .dashboard-title h2{
+  color:#eac18a!important;font-family:Georgia,'Yu Mincho',serif!important
+}
+.inventory-redesign .inventory-section-icon{
+  color:#d6a15f!important;margin-right:4px
+}
+.inventory-redesign .inventory-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important
+}
+.inventory-redesign .inventory-card{
+  display:grid!important;grid-template-columns:112px minmax(0,1fr)!important;
+  gap:14px!important;align-items:stretch!important;
+  padding:12px!important;min-height:158px!important;
+  border-radius:17px!important;border:1px solid rgba(222,177,121,.32)!important;
+  background:linear-gradient(145deg,#f8efe3,#ead8c2)!important;
+  box-shadow:0 12px 26px rgba(0,0,0,.16)!important;
+  transition:.18s ease!important
+}
+.inventory-redesign .inventory-card:hover{
+  transform:translateY(-3px)!important;box-shadow:0 18px 34px rgba(0,0,0,.22)!important
+}
+.inventory-redesign .inventory-card.low{
+  border-color:rgba(197,100,72,.55)!important;
+  background:linear-gradient(145deg,#f7e6dc,#eac9b6)!important
+}
+.inventory-redesign .inventory-product-visual{
+  border-radius:13px!important;display:grid!important;place-items:center!important;
+  background:
+    radial-gradient(circle at 30% 25%,rgba(255,255,255,.88),transparent 35%),
+    linear-gradient(145deg,#e9ddce,#cbb69d)!important;
+  border:1px solid rgba(89,58,38,.12)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.72)!important
+}
+.inventory-redesign .inventory-product-visual span{
+  font-size:52px!important;filter:drop-shadow(0 7px 6px rgba(65,39,24,.18))
+}
+.inventory-redesign .inventory-card-content{
+  min-width:0!important;padding:4px 2px!important;display:flex!important;flex-direction:column!important
+}
+.inventory-redesign .inventory-card h3{
+  color:#3c281d!important;font-size:15px!important
+}
+.inventory-redesign .stock-pill{
+  color:#3f6846!important;background:#dce7cf!important;border:1px solid #afc89f!important;
+  padding:5px 9px!important
+}
+.inventory-redesign .stock-pill.low{
+  color:#9c4639!important;background:#f1cfc4!important;border-color:#dda494!important
+}
+.inventory-redesign .stock-value{
+  color:#4a2f20!important;font-family:Georgia,serif!important;
+  font-size:30px!important;margin:18px 0 12px!important
+}
+.inventory-redesign .stock-value small{
+  font-family:inherit!important;font-size:11px!important;color:#8f725d!important;font-weight:600!important
+}
+.inventory-redesign .stock-meta{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  color:#7e6857!important;font-size:10px!important;margin-top:auto!important
+}
+.inventory-redesign .stock-meta strong{color:#62805d!important;font-size:11px!important}
+.inventory-redesign .stock-bar{
+  height:7px!important;background:rgba(68,52,40,.12)!important;margin-top:8px!important
+}
+.inventory-redesign .stock-bar span{
+  background:linear-gradient(90deg,#4f774d,#78a36f)!important
+}
+.inventory-redesign .inventory-card.low .stock-bar span{
+  background:linear-gradient(90deg,#a94f42,#dd8467)!important
+}
+.inventory-redesign .sheet-note{
+  background:transparent!important;border-top:1px solid rgba(218,164,98,.15)!important;
+  border-radius:0!important;color:#8f7b6c!important;padding:14px 4px 2px!important
+}
+
+@media(max-width:1180px){
+  .inventory-redesign .inventory-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .inventory-redesign .inventory-hero{background-size:58% 100%!important}
+}
+@media(max-width:760px){
+  .inventory-redesign .inventory-hero{
+    min-height:auto!important;padding:24px!important;
+    background:linear-gradient(135deg,#573522,#2a1d17)!important
+  }
+  .inventory-redesign .inventory-hero h1{font-size:28px!important}
+  .inventory-redesign .inventory-actions{align-self:stretch!important;max-width:none!important}
+  .inventory-redesign .inventory-grid{grid-template-columns:1fr!important}
+  .inventory-redesign .inventory-card{grid-template-columns:96px minmax(0,1fr)!important}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4561,7 +4789,7 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
   </div>
 </section>
 
-<section id="page-inventory" class="page">
+<section id="page-inventory" class="page inventory-redesign">
   <div class="page-hero compact inventory-hero">
     <div><span class="eyebrow">GOOGLE SHEETS SYNC</span><h1>在庫ダッシュボード</h1><p>Google Sheets「在庫表」の材料シートをSupabaseへ同期して表示します。</p><div class="inventory-live-status"><i id="inventorySyncDot"></i><span id="inventorySyncStatus">同期待機中</span></div></div>
     <div class="inventory-actions"><button class="btn primary" id="inventorySyncButton" onclick="syncInventoryFromGoogleSheet(true)">Google Sheets同期</button><button class="btn" onclick="loadInventorySnapshot(true)">表示を再読込</button><button class="btn" onclick="openInventorySheet()">原本を開く</button><button class="btn inventory-discord-button" id="inventoryDiscordButton" onclick="sendInventoryAlertToDiscord()">⚠ Discordへ送信</button></div>
@@ -4576,8 +4804,8 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
     <div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="inventoryLow">5</div><div class="metric-sub">在庫注意</div></div>
     <div class="metric-card"><div class="metric-label">LAST CHECK</div><div class="metric-value small" id="inventoryUpdated">読込前</div><div class="metric-sub">表示更新時刻</div></div>
   </div>
-  <div class="dashboard-panel">
-    <div class="dashboard-title"><h2>材料在庫</h2><span class="badge">Supabase同期</span></div>
+  <div class="dashboard-panel inventory-material-panel">
+    <div class="dashboard-title"><h2><span class="inventory-section-icon">▣</span> 材料在庫</h2><span class="badge">Supabase同期</span></div>
     <div id="inventoryGrid" class="inventory-grid"></div>
     <div class="sheet-note">Google Sheetsの「材料」シートから同期した最新データを表示します。</div>
   </div>
@@ -6508,14 +6736,50 @@ function renderInventoryAlerts(items){
   list.innerHTML=low.map(x=>{
     const stock=Number(x.stock||0),min=Number(x.min||0);
     const shortage=Math.max(0,min-stock);
-    return `<div class="inventory-alert-item"><div><strong>${esc(x.name)}</strong><br><span>現在 ${stock.toLocaleString('ja-JP')} / 最低 ${min.toLocaleString('ja-JP')}</span></div><span>不足 ${shortage.toLocaleString('ja-JP')}</span></div>`;
+    return `<div class="inventory-alert-item">
+      <div class="inventory-alert-main"><i></i><div><strong>${esc(x.name)}</strong><span>現在 ${stock.toLocaleString('ja-JP')} / 最低 ${min.toLocaleString('ja-JP')}</span></div></div>
+      <span class="inventory-shortage-badge">不足 ${shortage.toLocaleString('ja-JP')}</span>
+    </div>`;
   }).join('');
 }
 
+function inventoryVisual(name){
+  const n=String(name||'');
+  if(/牛乳|ミルク/.test(n))return {icon:'🥛',unit:'ml'};
+  if(/小麦|粉|砂糖/.test(n))return {icon:'🌾',unit:'g'};
+  if(/いちご|苺/.test(n))return {icon:'🍓',unit:'g'};
+  if(/ブルーベリー/.test(n))return {icon:'🫐',unit:'g'};
+  if(/桃|ピーチ/.test(n))return {icon:'🍑',unit:'g'};
+  if(/オレンジ|みかん/.test(n))return {icon:'🍊',unit:'g'};
+  if(/マンゴー/.test(n))return {icon:'🥭',unit:'g'};
+  if(/コーヒー|豆/.test(n))return {icon:'☕',unit:'g'};
+  if(/卵|たまご/.test(n))return {icon:'🥚',unit:'個'};
+  if(/バター/.test(n))return {icon:'🧈',unit:'g'};
+  if(/クリーム/.test(n))return {icon:'🍨',unit:'ml'};
+  return {icon:'📦',unit:''};
+}
 function renderInventory(items){
-  const low=items.filter(x=>x.stock<x.min||x.status).length;$('inventoryItems').textContent=items.length;$('inventoryLow').textContent=low;$('inventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+  const low=items.filter(x=>x.stock<x.min||x.status).length;
+  $('inventoryItems').textContent=items.length;
+  $('inventoryLow').textContent=low;
+  $('inventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
   renderInventoryAlerts(items);
-  $('inventoryGrid').innerHTML=items.map(x=>{const ratio=x.min?Math.round(x.stock/x.min*100):100,isLow=x.stock<x.min||x.status,isCritical=x.min&&Number(x.stock)<Number(x.min)*0.5;return `<div class="inventory-card ${isLow?'low':''} ${isCritical?'critical':''}"><div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''} ${isCritical?'critical':''}">${isCritical?'緊急補充':esc(x.status||'在庫OK')}</span></div><div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')}</div><div class="stock-min">最低数量 ${Number(x.min).toLocaleString('ja-JP')} ・ ${ratio}%</div><div class="stock-bar"><span style="width:${Math.min(100,Math.max(3,ratio))}%"></span></div></div>`}).join('');
+  $('inventoryGrid').innerHTML=items.map(x=>{
+    const ratio=x.min?Math.round(x.stock/x.min*100):100;
+    const isLow=x.stock<x.min||x.status;
+    const isCritical=x.min&&Number(x.stock)<Number(x.min)*0.5;
+    const visual=inventoryVisual(x.name);
+    const safeRatio=Math.min(100,Math.max(3,ratio));
+    return `<div class="inventory-card ${isLow?'low':''} ${isCritical?'critical':''}">
+      <div class="inventory-product-visual"><span>${visual.icon}</span></div>
+      <div class="inventory-card-content">
+        <div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''} ${isCritical?'critical':''}">${isCritical?'緊急補充':esc(x.status||'在庫OK')}</span></div>
+        <div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')} <small>${visual.unit}</small></div>
+        <div class="stock-meta"><span>最低 ${Number(x.min).toLocaleString('ja-JP')}</span><strong>${ratio}%</strong></div>
+        <div class="stock-bar"><span style="width:${safeRatio}%"></span></div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 
@@ -7635,7 +7899,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.4.2 CORS Bypass Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.5 Inventory Redesign Build</div>
 
 <script>
 (function(){
