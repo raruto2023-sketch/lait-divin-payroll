@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.0</title>
+<title>Lait Divin Ver.14.2</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -2541,6 +2541,228 @@ body.dark .v41-login-theme{
 }
 </style>
 
+
+<style id="ver14-2-light-contrast-redesign">
+/* ===== Ver.14.2 Light Contrast Redesign ===== */
+body:not(.dark){
+  --v142-bg:#f6f1ea;
+  --v142-bg2:#efe6dc;
+  --v142-panel:#fffdfa;
+  --v142-panel-2:#fff8f0;
+  --v142-line:#e4d6c8;
+  --v142-line-strong:#cfb8a4;
+  --v142-text:#2a211c;
+  --v142-text-soft:#5f5148;
+  --v142-accent:#936645;
+  --v142-accent-2:#c79363;
+  --v142-accent-3:#f7e5d3;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(201,153,103,.16), transparent 22%),
+    radial-gradient(circle at 100% 8%, rgba(255,235,211,.7), transparent 18%),
+    linear-gradient(180deg, var(--v142-bg), var(--v142-bg2)) !important;
+  color:var(--v142-text) !important;
+}
+body:not(.dark) .header{
+  background:rgba(255,250,245,.92) !important;
+  border-bottom:1px solid var(--v142-line) !important;
+  box-shadow:0 10px 28px rgba(74,53,39,.08) !important;
+}
+body:not(.dark) .brandtitle,
+body:not(.dark) .dashboard-title h2,
+body:not(.dark) .panel h2,
+body:not(.dark) .panel h3,
+body:not(.dark) .page-hero h1,
+body:not(.dark) .page-hero h2,
+body:not(.dark) .v4-panel-head h2,
+body:not(.dark) .inventory-card h3,
+body:not(.dark) .stock-value,
+body:not(.dark) .metric-value,
+body:not(.dark) .sales-goal-head strong,
+body:not(.dark) .goal-numbers b,
+body:not(.dark) .employee-history-row strong,
+body:not(.dark) .notification-head h3,
+body:not(.dark) .community-card h3,
+body:not(.dark) .attendance-table th,
+body:not(.dark) .attendance-table td,
+body:not(.dark) .ranking-person strong,
+body:not(.dark) .podium-name,
+body:not(.dark) .podium-block{
+  color:var(--v142-text) !important;
+}
+body:not(.dark) p,
+body:not(.dark) small,
+body:not(.dark) span,
+body:not(.dark) label,
+body:not(.dark) .metric-sub,
+body:not(.dark) .goal-meta,
+body:not(.dark) .goal-numbers small,
+body:not(.dark) .stock-min,
+body:not(.dark) .sheet-note,
+body:not(.dark) .audit-row p,
+body:not(.dark) .notification-body,
+body:not(.dark) .notification-meta,
+body:not(.dark) .empty,
+body:not(.dark) .info,
+body:not(.dark) .community-card p,
+body:not(.dark) .brandsub,
+body:not(.dark) .app-version,
+body:not(.dark) .ranking-person span,
+body:not(.dark) .stock-pill{
+  color:var(--v142-text-soft) !important;
+}
+body:not(.dark) .dashboard-panel,
+body:not(.dark) .metric-card,
+body:not(.dark) .panel,
+body:not(.dark) .section,
+body:not(.dark) .card,
+body:not(.dark) .v4-panel,
+body:not(.dark) .inventory-card,
+body:not(.dark) .sales-goal-card,
+body:not(.dark) .notification-card,
+body:not(.dark) .community-card,
+body:not(.dark) .employee-history-row,
+body:not(.dark) .attendance-table,
+body:not(.dark) .empty,
+body:not(.dark) .info,
+body:not(.dark) .sheet-note,
+body:not(.dark) .online-card,
+body:not(.dark) .employee-card{
+  background:linear-gradient(180deg, rgba(255,253,250,.98), rgba(251,246,240,.94)) !important;
+  border:1px solid var(--v142-line) !important;
+  box-shadow:0 16px 34px rgba(74,53,39,.08) !important;
+}
+body:not(.dark) .metric-card,
+body:not(.dark) .v4-kpi,
+body:not(.dark) .sales-goal-card{
+  overflow:hidden;
+}
+body:not(.dark) .metric-card::before,
+body:not(.dark) .v4-kpi::before,
+body:not(.dark) .sales-goal-card::before{
+  background:linear-gradient(90deg, var(--v142-accent), var(--v142-accent-2), rgba(255,255,255,0)) !important;
+}
+body:not(.dark) .page-hero,
+body:not(.dark) .dashboard-title,
+body:not(.dark) .v41-employee-welcome,
+body:not(.dark) .v4-greeting,
+body:not(.dark) .v4-profile,
+body:not(.dark) .v41-login-visual,
+body:not(.dark) .inventory-hero{
+  background:linear-gradient(135deg, #6e4d39 0%, #8d6448 42%, #2e241f 100%) !important;
+  color:#fff8f2 !important;
+  border:1px solid rgba(120,82,56,.2) !important;
+  box-shadow:0 22px 55px rgba(67,46,31,.18) !important;
+}
+body:not(.dark) .page-hero h1,
+body:not(.dark) .page-hero h2,
+body:not(.dark) .dashboard-title h2,
+body:not(.dark) .v4-greeting strong,
+body:not(.dark) .v4-profile strong,
+body:not(.dark) .inventory-live-status,
+body:not(.dark) .page-hero .eyebrow,
+body:not(.dark) .page-hero p,
+body:not(.dark) .dashboard-title span{
+  color:#fff4ea !important;
+}
+body:not(.dark) .page-hero p,
+body:not(.dark) .page-hero .eyebrow{opacity:.92 !important}
+body:not(.dark) .v4-sidebar,
+body:not(.dark) .v41-employee-sidebar{
+  background:linear-gradient(180deg, #3f2c22 0%, #241915 100%) !important;
+  border-right:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:12px 0 36px rgba(56,37,25,.16) !important;
+}
+body:not(.dark) .v4-sidebar .nav button,
+body:not(.dark) .v41-employee-sidebar .nav button{
+  color:#f5ebe3 !important;
+  background:rgba(255,255,255,.02) !important;
+  border:1px solid transparent !important;
+}
+body:not(.dark) .v4-sidebar .nav button:hover,
+body:not(.dark) .v41-employee-sidebar .nav button:hover{
+  background:rgba(255,255,255,.08) !important;
+  border-color:rgba(255,255,255,.07) !important;
+  transform:translateX(3px);
+}
+body:not(.dark) .v4-sidebar .nav button.active,
+body:not(.dark) .v41-employee-sidebar .nav button.active{
+  background:linear-gradient(135deg, #fff7ee 0%, #f4e2d1 100%) !important;
+  color:#3b281d !important;
+  border-color:#f0d7c0 !important;
+  box-shadow:0 12px 26px rgba(0,0,0,.16) !important;
+}
+body:not(.dark) .v4-sidebar-bottom button,
+body:not(.dark) .v4-copyright,
+body:not(.dark) .v4-sidebar small,
+body:not(.dark) .v4-sidebar span{
+  color:#e6d4c5 !important;
+}
+body:not(.dark) .btn.primary,
+body:not(.dark) button.btn.primary{
+  background:linear-gradient(135deg, #b88456, #e3b483) !important;
+  color:#2d1d13 !important;
+  box-shadow:0 12px 24px rgba(184,132,86,.22) !important;
+}
+body:not(.dark) .btn:not(.primary):not(.danger),
+body:not(.dark) button.btn:not(.primary):not(.danger),
+body:not(.dark) .dashboard-sync-btn{
+  background:#fff8f0 !important;
+  color:#5b4537 !important;
+  border:1px solid #e6d2c0 !important;
+}
+body:not(.dark) input,
+body:not(.dark) select,
+body:not(.dark) textarea,
+body:not(.dark) .field input,
+body:not(.dark) .field select,
+body:not(.dark) .field textarea{
+  background:#fffdf9 !important;
+  color:var(--v142-text) !important;
+  border:1px solid #ddcdbf !important;
+}
+body:not(.dark) input::placeholder,
+body:not(.dark) textarea::placeholder{
+  color:#a39184 !important;
+}
+body:not(.dark) .goal-track,
+body:not(.dark) .stock-bar{background:#efe1d2 !important}
+body:not(.dark) .goal-fill,
+body:not(.dark) .stock-bar span{background:linear-gradient(90deg, #b37d4f, #d7a779) !important}
+body:not(.dark) .v4-stock,
+body:not(.dark) .inventory-card{
+  background:linear-gradient(180deg, rgba(255,255,255,.98), rgba(251,247,242,.95)) !important;
+}
+body:not(.dark) .v4-month-chart,
+body:not(.dark) .sales-trend-chart,
+body:not(.dark) .attendance-mini-chart,
+body:not(.dark) .chart-card{
+  background:linear-gradient(180deg, rgba(255,248,240,.92), rgba(249,241,232,.88)) !important;
+  border:1px solid #ead9c8 !important;
+}
+body:not(.dark) .notification-card.unread{
+  border-left:4px solid #c79261 !important;
+}
+body:not(.dark) .metric-card.warning,
+body:not(.dark) .inventory-card.low{
+  background:linear-gradient(180deg, #fff7ef, #fff1e4) !important;
+  border-color:#efcfb1 !important;
+}
+body:not(.dark) .positive,body:not(.dark) .metric-value-positive,body:not(.dark) .profit-up{color:#1f8a57 !important}
+body:not(.dark) .negative,body:not(.dark) .profit-down{color:#cb5b57 !important}
+body:not(.dark) .theme-toggle,
+body:not(.dark) .mobile-theme-button,
+body:not(.dark) .v41-login-theme{
+  background:#fff9f2 !important;
+  color:#5d4639 !important;
+  border-color:#e3cfbf !important;
+}
+@media (max-width:760px){
+  body:not(.dark) .header{background:rgba(255,249,243,.96) !important}
+  body:not(.dark) .v4-sidebar,
+  body:not(.dark) .v41-employee-sidebar{box-shadow:0 24px 60px rgba(0,0,0,.26) !important}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -2591,7 +2813,7 @@ body.dark .v41-login-theme{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.13.7</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.2</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -2832,7 +3054,7 @@ body.dark .v41-login-theme{
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.0</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.2</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -2983,7 +3205,7 @@ body.dark .v41-login-theme{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.13.7</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.2</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -5580,7 +5802,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.13.7 Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.2 Build 2026-07-30</div>
 
 <script>
 (function(){
