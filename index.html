@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.13.7.6</title>
+<title>Lait Divin Ver.14.0</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1812,7 +1812,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 
 
 
-/* ===== Ver.13.7.6 dark mode readability refresh ===== */
+/* ===== Ver.14.0 dark mode readability refresh ===== */
 :root{
   --bg:#f6f1eb;
   --surface:#fffdfa;
@@ -2022,7 +2022,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
 }
 
 
-/* ===== Ver.13.7.6 mobile refinement ===== */
+/* ===== Ver.14.0 mobile refinement ===== */
 @media (max-width: 760px){
   html,body{overflow-x:hidden!important}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:12px!important;padding-right:12px!important;padding-bottom:96px!important}
@@ -2087,11 +2087,102 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:10px!important;padding-right:10px!important}
 }
 
-/* ===== Ver.13.7.6 mobile notification menu ===== */
+/* ===== Ver.14.0 mobile notification menu ===== */
 .mobile-notification-menu-btn{position:relative}
 .mobile-notification-menu-btn .notification-badge{position:absolute;top:8px;right:8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#d84f4f;color:#fff!important;font-size:9px!important;font-weight:900;line-height:1;box-shadow:0 4px 12px rgba(216,79,79,.35)}
 .mobile-notification-menu-btn .notification-badge.hidden{display:none!important}
 body.dark .mobile-notification-menu-btn .notification-badge{background:#ef6a62;color:#fff!important}
+</style>
+
+
+<style id="ver14-design-renewal">
+/* ===== Ver.14.0 Complete Design Renewal ===== */
+:root{
+  --v14-bg:#f6f0ea;
+  --v14-bg-2:#efe4d7;
+  --v14-surface:#fffaf5;
+  --v14-surface-2:#fff4e8;
+  --v14-panel:#ffffff;
+  --v14-border:#ead8c8;
+  --v14-text:#2e241e;
+  --v14-muted:#8a7769;
+  --v14-accent:#be8755;
+  --v14-accent-2:#e7b57d;
+  --v14-accent-3:#774c2e;
+  --v14-success:#31996a;
+  --v14-warning:#d28c37;
+  --v14-danger:#d96b61;
+  --v14-shadow:0 24px 60px rgba(70,44,25,.10);
+  --v14-shadow-soft:0 12px 28px rgba(70,44,25,.08);
+}
+html,body{background:
+ radial-gradient(circle at top left, rgba(231,181,125,.16), transparent 18%),
+ radial-gradient(circle at top right, rgba(190,135,85,.08), transparent 15%),
+ linear-gradient(180deg,#fbf7f3 0%, var(--v14-bg) 45%, #efe5da 100%) !important;
+ color:var(--v14-text) !important;}
+body{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif !important;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(180deg, rgba(255,255,255,.25), transparent 30%);}
+.v41-login-shell,.login-shell,.login-wrap{background:transparent !important;}
+.v41-login-card{border:1px solid rgba(234,216,200,.9) !important;background:linear-gradient(180deg, rgba(255,251,247,.96), rgba(255,245,235,.92)) !important;box-shadow:0 30px 80px rgba(90,58,35,.14) !important;border-radius:32px !important;overflow:hidden;}
+.v41-login-form,.v41-login-visual{background:transparent !important;}
+.v41-login-card h1,.v41-login-card h2,.v41-login-form h1,.v41-login-form h2{color:var(--v14-text) !important;letter-spacing:.02em;}
+.v41-login-card p,.v41-login-card small,.v41-login-form p{color:var(--v14-muted) !important;}
+.v4-sidebar,.v41-employee-sidebar{background:linear-gradient(180deg, rgba(57,38,28,.98) 0%, rgba(36,27,22,.98) 42%, rgba(27,21,19,.99) 100%) !important;color:#f8efe8 !important;border-right:1px solid rgba(255,255,255,.06);box-shadow:16px 0 36px rgba(28,18,14,.22) !important;}
+.v4-sidebar .brand,.v41-employee-sidebar .brand{background:linear-gradient(135deg, rgba(255,255,255,.08), rgba(255,255,255,.02)) !important;border:1px solid rgba(255,255,255,.08) !important;border-radius:22px !important;padding:16px !important;}
+.v4-sidebar .brand strong,.v41-employee-sidebar .brand strong,.v4-sidebar .brand h1,.v41-employee-sidebar .brand h1{color:#fffaf6 !important}
+.v4-sidebar .brand span,.v41-employee-sidebar .brand span{color:#d8c4b5 !important}
+.v4-sidebar nav button,.v41-employee-sidebar nav button,.v4-sidebar-bottom button{border-radius:16px !important;margin-bottom:6px;color:#eadcd1 !important;transition:.2s ease;}
+.v4-sidebar nav button:hover,.v41-employee-sidebar nav button:hover,.v4-sidebar-bottom button:hover{background:rgba(255,255,255,.08) !important;transform:translateX(2px);}
+.v4-sidebar nav button.active,.v41-employee-sidebar nav button.active,.v4-sidebar-bottom button.active{background:linear-gradient(135deg, #f0d4b7, #d49a67) !important;color:#2b1c14 !important;box-shadow:0 10px 26px rgba(212,154,103,.26) !important;}
+.v4-sidebar nav button.active b,.v4-sidebar nav button.active span,.v41-employee-sidebar nav button.active b,.v41-employee-sidebar nav button.active span{color:#2b1c14 !important}
+.v4-content,.v41-employee-main,.main-content,.app-content{background:transparent !important}
+.v4-topbar,.v41-employee-topbar,.page-hero,.dashboard-panel,.panel,.v4-panel,.metric-card,.employee-slip-card,.online-card,.audit-row,.sales-goal-card,.notification-item,.table-wrap,.card,.modal-content,.achievement-card,.profile-card,.v4-month-chart,.v4-stock,.v4-kpi,.v4-dashboard-footer,.v4-quick-actions button{border-radius:24px !important;border:1px solid rgba(234,216,200,.92) !important;background:linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,248,241,.92)) !important;box-shadow:var(--v14-shadow-soft) !important;backdrop-filter: blur(10px);}
+.v4-topbar,.v41-employee-topbar{padding:18px 22px !important;background:linear-gradient(180deg, rgba(255,253,250,.88), rgba(255,247,239,.88)) !important;position:sticky;top:12px;z-index:20;}
+.v4-mobile-brand{padding:6px 2px 14px !important;}
+.v4-mobile-brand strong{font-size:24px !important;color:var(--v14-text) !important;font-family:Georgia,serif}
+.v4-mobile-brand button,.mobile-menu-btn,.v41-mobile-menu-btn{border-radius:14px !important;border:1px solid var(--v14-border) !important;background:rgba(255,255,255,.92) !important;box-shadow:0 10px 18px rgba(70,44,25,.08) !important;}
+.v4-kpi,.metric-card{position:relative;overflow:hidden;}
+.v4-kpi::before,.metric-card::before,.sales-goal-card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,var(--v14-accent),var(--v14-accent-2));}
+.v4-kpi strong,.metric-card strong,.dashboard-title h2,.panel h2,.v4-panel-head h2,.sales-goal-head strong,.profile-name,.online-card strong,.audit-row h3{color:var(--v14-text) !important;}
+.v4-kpi span,.v4-kpi small,.metric-card small,.metric-card span,.v4-panel-head span,.dashboard-title span,.goal-meta,.goal-numbers small,.audit-row p,.notification-item p,.stock-min{color:var(--v14-muted) !important;}
+.v4-kpi-icon,.metric-icon{background:linear-gradient(135deg, rgba(231,181,125,.26), rgba(190,135,85,.14)) !important;color:var(--v14-accent-3) !important;box-shadow:none !important;}
+input,select,textarea,.field input,.field select,.field textarea{border-radius:16px !important;border:1px solid var(--v14-border) !important;background:rgba(255,255,255,.92) !important;color:var(--v14-text) !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.6);}
+input:focus,select:focus,textarea:focus{outline:none !important;border-color:rgba(190,135,85,.9) !important;box-shadow:0 0 0 4px rgba(190,135,85,.14) !important;}
+button,.btn{border-radius:16px !important;}
+.btn.primary,button.primary,button.btn-primary,.btn-main,.save-btn{background:linear-gradient(135deg,var(--v14-accent-2),var(--v14-accent)) !important;color:#2c1d15 !important;border:none !important;box-shadow:0 14px 28px rgba(190,135,85,.22) !important;}
+.btn.primary:hover,button.primary:hover,button.btn-primary:hover,.btn-main:hover,.save-btn:hover{transform:translateY(-1px);filter:saturate(1.04);}
+.btn:not(.primary):not(.danger),button:not(.primary):not(.danger):not(.btn-primary){border:1px solid var(--v14-border) !important;background:rgba(255,255,255,.9) !important;color:var(--v14-text) !important;}
+.btn.danger,button.danger{background:linear-gradient(135deg,#ea8d86,#d96b61) !important;color:#fff !important;border:none !important;}
+.v4-inventory-preview,.inventory-preview{gap:14px !important}
+.v4-stock,.inventory-card{border-radius:20px !important;min-height:unset !important;}
+.v4-stock strong,.inventory-card strong{color:var(--v14-text) !important}
+.stock-pill,.status-badge,.badge,.pill{border-radius:999px !important;border:1px solid rgba(190,135,85,.18) !important;background:rgba(190,135,85,.10) !important;color:var(--v14-accent-3) !important;}
+.online-card{display:flex;align-items:center;gap:14px}
+.online-card img,.online-card .avatar{box-shadow:0 8px 20px rgba(70,44,25,.14)}
+.sales-goal-card{overflow:hidden}
+.goal-track{height:12px !important;border-radius:999px !important;background:#eadfd3 !important}
+.goal-fill{border-radius:999px !important;background:linear-gradient(90deg,var(--v14-accent),var(--v14-accent-2)) !important}
+.goal-fill.done{background:linear-gradient(90deg,#39b97b,#68d09d) !important}
+.goal-numbers b{color:var(--v14-text) !important}
+table{border-collapse:separate;border-spacing:0}
+th{color:#6d5b4f !important;background:rgba(190,135,85,.08) !important}
+td,th{padding:12px 14px !important}
+tr td{border-bottom:1px solid rgba(234,216,200,.72) !important}
+body.dark{--v14-bg:#11100f;--v14-bg-2:#1a1513;--v14-surface:#1a1614;--v14-surface-2:#221b18;--v14-panel:#1c1715;--v14-border:#3c312c;--v14-text:#f7efe7;--v14-muted:#b8a89b;--v14-accent:#d59a66;--v14-accent-2:#efc089;--v14-accent-3:#ffe7ca;--v14-shadow:0 24px 60px rgba(0,0,0,.28);--v14-shadow-soft:0 12px 28px rgba(0,0,0,.22);background:radial-gradient(circle at top left, rgba(213,154,102,.16), transparent 18%),radial-gradient(circle at top right, rgba(239,192,137,.06), transparent 14%),linear-gradient(180deg,#11100f 0%, #161210 38%, #100d0c 100%) !important;color:var(--v14-text) !important;}
+body.dark .v4-sidebar,body.dark .v41-employee-sidebar{background:linear-gradient(180deg,#2f221c 0%, #1c1715 52%, #13100f 100%) !important;border-right-color:rgba(255,255,255,.05) !important;}
+body.dark .v4-topbar,body.dark .v41-employee-topbar,body.dark .page-hero,body.dark .dashboard-panel,body.dark .panel,body.dark .v4-panel,body.dark .metric-card,body.dark .employee-slip-card,body.dark .online-card,body.dark .audit-row,body.dark .sales-goal-card,body.dark .notification-item,body.dark .table-wrap,body.dark .card,body.dark .modal-content,body.dark .achievement-card,body.dark .profile-card,body.dark .v4-month-chart,body.dark .v4-stock,body.dark .v4-kpi,body.dark .v4-dashboard-footer,body.dark .v4-quick-actions button{background:linear-gradient(180deg, rgba(30,25,22,.96), rgba(21,18,17,.94)) !important;border-color:rgba(213,154,102,.12) !important;box-shadow:0 16px 34px rgba(0,0,0,.22) !important;}
+body.dark .v4-kpi::before,body.dark .metric-card::before,body.dark .sales-goal-card::before{background:linear-gradient(90deg,#d59a66,#efc089) !important;}
+body.dark .v4-kpi strong,body.dark .metric-card strong,body.dark .dashboard-title h2,body.dark .panel h2,body.dark .v4-panel-head h2,body.dark .sales-goal-head strong,body.dark .profile-name,body.dark .online-card strong,body.dark .audit-row h3,body.dark h1,body.dark h2,body.dark h3,body.dark h4{color:var(--v14-text) !important}
+body.dark .v4-kpi span,body.dark .v4-kpi small,body.dark .metric-card small,body.dark .metric-card span,body.dark .v4-panel-head span,body.dark .dashboard-title span,body.dark .goal-meta,body.dark .goal-numbers small,body.dark .audit-row p,body.dark .notification-item p,body.dark .stock-min,body.dark p,body.dark small,body.dark label{color:var(--v14-muted) !important}
+body.dark input,body.dark select,body.dark textarea,body.dark .field input,body.dark .field select,body.dark .field textarea{background:#151210 !important;border-color:#3c312c !important;color:var(--v14-text) !important;}
+body.dark .btn:not(.primary):not(.danger),body.dark button:not(.primary):not(.danger):not(.btn-primary){background:#1b1614 !important;border-color:#3c312c !important;color:var(--v14-text) !important;}
+body.dark .goal-track{background:#302824 !important}
+body.dark .stock-pill,.dark .status-badge,.dark .badge,.dark .pill{background:rgba(213,154,102,.12) !important;border-color:rgba(213,154,102,.18) !important;color:#f4d4b1 !important;}
+body.dark th{background:rgba(213,154,102,.09) !important;color:#ecd9cb !important}
+body.dark tr td{border-bottom-color:rgba(255,255,255,.05) !important}
+@media (max-width:900px){.v4-content,.v41-employee-main{padding:14px 12px 96px !important}.v4-panel,.metric-card,.sales-goal-card,.online-card,.dashboard-panel{border-radius:20px !important}}
+@media (max-width:760px){.v4-kpi-grid{grid-template-columns:1fr 1fr !important;gap:10px !important}.v4-dashboard-main,.dashboard-grid,.sales-grid{display:block !important}.v4-dashboard-left,.v4-dashboard-right{display:block !important}.v4-panel,.dashboard-panel,.metric-card,.sales-goal-card{margin-bottom:12px !important}.v4-inventory-preview{grid-template-columns:1fr !important}.v4-quick-actions{grid-template-columns:1fr 1fr !important;gap:10px !important}}
+@media (max-width:520px){.v4-kpi-grid,.v4-quick-actions{grid-template-columns:1fr !important}.v4-topbar,.v41-employee-topbar{padding:14px !important}.v4-mobile-brand strong{font-size:22px !important}}
 </style>
 
 </head>
@@ -2385,7 +2476,7 @@ body.dark .mobile-notification-menu-btn .notification-badge{background:#ef6a62;c
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.6</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.0</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -5164,5 +5255,5 @@ async function sendSiteAndDiscordNotification(){
 })();
 </script>
 
-<!-- Ver.13.7.6: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
+<!-- Ver.14.0: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
 </body></html>
