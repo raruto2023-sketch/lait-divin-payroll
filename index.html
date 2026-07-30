@@ -4270,6 +4270,27 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
 /* ===== Ver.17.2 Campaign Manager ===== */
 .campaign-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.8fr);gap:18px}.campaign-list{display:grid;gap:13px}.campaign-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow)}.campaign-card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.campaign-card h3{margin:5px 0 7px;font-size:18px}.campaign-card p{margin:0;color:var(--muted);line-height:1.75;white-space:pre-wrap}.campaign-status{padding:6px 10px;border-radius:999px;font-size:10px;font-weight:900;white-space:nowrap}.campaign-status.upcoming{background:#e8eef9;color:#48607e}.campaign-status.active{background:#e2f3e9;color:#28704a}.campaign-status.ended{background:#eee8e4;color:#745e52}.campaign-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px;font-size:11px;color:var(--muted)}.campaign-meta span{padding:6px 9px;border:1px solid var(--line);border-radius:999px}.campaign-progress{height:9px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:14px}.campaign-progress>i{display:block;height:100%;background:linear-gradient(90deg,#c8935d,#edc18d);border-radius:999px}.campaign-actions{display:flex;gap:8px;margin-top:14px}.campaign-empty{padding:42px 18px;text-align:center;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}.campaign-form{position:sticky;top:95px}.campaign-form .field{margin-bottom:12px}.campaign-employee-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.campaign-employee-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--card)}.campaign-employee-card h3{margin:7px 0}.campaign-employee-card p{color:var(--muted);line-height:1.7;white-space:pre-wrap}.campaign-badge-row{display:flex;justify-content:space-between;gap:8px;align-items:center}@media(max-width:900px){.campaign-layout{grid-template-columns:1fr}.campaign-form{position:static}.campaign-employee-grid{grid-template-columns:1fr}}
 </style>
+
+<style id="ver17-3-inventory-alerts">
+.inventory-alert-panel{
+  margin:0 0 15px;padding:16px 18px;border:1px solid rgba(224,180,104,.35);
+  border-radius:18px;background:linear-gradient(135deg,rgba(224,180,104,.12),rgba(126,73,48,.08));
+}
+.inventory-alert-panel.ok{border-color:rgba(111,194,139,.35);background:rgba(111,194,139,.08)}
+.inventory-alert-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.inventory-alert-head h3{margin:0;font-size:15px}
+.inventory-alert-count{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:26px;padding:0 9px;border-radius:999px;background:#b86f55;color:#fff;font-size:11px;font-weight:900}
+.inventory-alert-panel.ok .inventory-alert-count{background:#4d8a67}
+.inventory-alert-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.inventory-alert-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.inventory-alert-item strong{font-size:12px}
+.inventory-alert-item span{font-size:11px;color:var(--muted)}
+.inventory-alert-empty{font-size:12px;color:var(--muted);line-height:1.7}
+.v4-stock.critical,.inventory-card.critical{box-shadow:0 0 0 1px rgba(227,120,109,.55),0 10px 28px rgba(227,120,109,.12)!important}
+.stock-pill.critical{background:#b55349!important;color:#fff!important}
+@media(max-width:680px){.inventory-alert-list{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4530,6 +4551,10 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
   <div class="page-hero compact inventory-hero">
     <div><span class="eyebrow">GOOGLE SHEETS SYNC</span><h1>在庫ダッシュボード</h1><p>Google Sheets「在庫表」の材料シートをSupabaseへ同期して表示します。</p><div class="inventory-live-status"><i id="inventorySyncDot"></i><span id="inventorySyncStatus">同期待機中</span></div></div>
     <div class="inventory-actions"><button class="btn primary" id="inventorySyncButton" onclick="syncInventoryFromGoogleSheet(true)">Google Sheets同期</button><button class="btn" onclick="loadInventorySnapshot(true)">表示を再読込</button><button class="btn" onclick="openInventorySheet()">原本を開く</button></div>
+  </div>
+  <div id="inventoryAlertPanel" class="inventory-alert-panel">
+    <div class="inventory-alert-head"><h3>⚠ 在庫アラート</h3><span id="inventoryAlertCount" class="inventory-alert-count">0</span></div>
+    <div id="inventoryAlertList" class="inventory-alert-empty">在庫データを読み込んでいます。</div>
   </div>
   <div class="inventory-overview">
     <div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="inventoryItems">9</div><div class="metric-sub">管理材料数</div></div>
@@ -6447,9 +6472,37 @@ function parseCsv(text){
   for(let i=0;i<text.length;i++){const c=text[i],n=text[i+1];if(c==='"'&&quoted&&n==='"'){cell+='"';i++}else if(c==='"'){quoted=!quoted}else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);if(row.some(x=>x!==''))rows.push(row);row=[];cell=''}else cell+=c}
   row.push(cell);if(row.some(x=>x!==''))rows.push(row);return rows
 }
+
+function renderInventoryAlerts(items){
+  const panel=$('inventoryAlertPanel'),list=$('inventoryAlertList'),count=$('inventoryAlertCount');
+  if(!panel||!list||!count)return;
+  const low=(items||[]).filter(x=>{
+    const stock=Number(x.stock||0),min=Number(x.min||0);
+    return stock<min||Boolean(x.status);
+  }).sort((a,b)=>{
+    const ar=Number(a.min||0)?Number(a.stock||0)/Number(a.min):999;
+    const br=Number(b.min||0)?Number(b.stock||0)/Number(b.min):999;
+    return ar-br;
+  });
+  count.textContent=String(low.length);
+  panel.classList.toggle('ok',low.length===0);
+  if(!low.length){
+    list.className='inventory-alert-empty';
+    list.innerHTML='現在、最低在庫を下回っている材料はありません。';
+    return;
+  }
+  list.className='inventory-alert-list';
+  list.innerHTML=low.map(x=>{
+    const stock=Number(x.stock||0),min=Number(x.min||0);
+    const shortage=Math.max(0,min-stock);
+    return `<div class="inventory-alert-item"><div><strong>${esc(x.name)}</strong><br><span>現在 ${stock.toLocaleString('ja-JP')} / 最低 ${min.toLocaleString('ja-JP')}</span></div><span>不足 ${shortage.toLocaleString('ja-JP')}</span></div>`;
+  }).join('');
+}
+
 function renderInventory(items){
   const low=items.filter(x=>x.stock<x.min||x.status).length;$('inventoryItems').textContent=items.length;$('inventoryLow').textContent=low;$('inventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-  $('inventoryGrid').innerHTML=items.map(x=>{const ratio=x.min?Math.round(x.stock/x.min*100):100,isLow=x.stock<x.min||x.status;return `<div class="inventory-card ${isLow?'low':''}"><div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''}">${esc(x.status||'在庫OK')}</span></div><div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')}</div><div class="stock-min">最低数量 ${Number(x.min).toLocaleString('ja-JP')} ・ ${ratio}%</div><div class="stock-bar"><span style="width:${Math.min(100,Math.max(3,ratio))}%"></span></div></div>`}).join('');
+  renderInventoryAlerts(items);
+  $('inventoryGrid').innerHTML=items.map(x=>{const ratio=x.min?Math.round(x.stock/x.min*100):100,isLow=x.stock<x.min||x.status,isCritical=x.min&&Number(x.stock)<Number(x.min)*0.5;return `<div class="inventory-card ${isLow?'low':''} ${isCritical?'critical':''}"><div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''} ${isCritical?'critical':''}">${isCritical?'緊急補充':esc(x.status||'在庫OK')}</span></div><div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')}</div><div class="stock-min">最低数量 ${Number(x.min).toLocaleString('ja-JP')} ・ ${ratio}%</div><div class="stock-bar"><span style="width:${Math.min(100,Math.max(3,ratio))}%"></span></div></div>`}).join('');
 }
 
 
@@ -7488,7 +7541,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.17 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.3 Inventory Alerts Build</div>
 
 <script>
 (function(){
