@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.13.7.4</title>
+<title>Lait Divin Ver.13.7.5</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1812,7 +1812,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 
 
 
-/* ===== Ver.13.7.4 dark mode readability refresh ===== */
+/* ===== Ver.13.7.5 dark mode readability refresh ===== */
 :root{
   --bg:#f6f1eb;
   --surface:#fffdfa;
@@ -2022,7 +2022,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
 }
 
 
-/* ===== Ver.13.7.4 mobile refinement ===== */
+/* ===== Ver.13.7.5 mobile refinement ===== */
 @media (max-width: 760px){
   html,body{overflow-x:hidden!important}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:12px!important;padding-right:12px!important;padding-bottom:96px!important}
@@ -2087,7 +2087,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:10px!important;padding-right:10px!important}
 }
 
-/* ===== Ver.13.7.4 mobile notification menu ===== */
+/* ===== Ver.13.7.5 mobile notification menu ===== */
 .mobile-notification-menu-btn{position:relative}
 .mobile-notification-menu-btn .notification-badge{position:absolute;top:8px;right:8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#d84f4f;color:#fff!important;font-size:9px!important;font-weight:900;line-height:1;box-shadow:0 4px 12px rgba(216,79,79,.35)}
 .mobile-notification-menu-btn .notification-badge.hidden{display:none!important}
@@ -2385,7 +2385,7 @@ body.dark .mobile-notification-menu-btn .notification-badge{background:#ef6a62;c
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.4</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.5</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4851,24 +4851,49 @@ function profileNameForAction(profileId){
   const employee=employees.find(e=>e.uid===profileId);
   return employee?.name||employee?.legalName||'スタッフ';
 }
+let achievementRealtimeChannel=null;
+function achievementNoticeStorageKey(){return `lait-divin-achievement-notices-${currentProfile?.id||'guest'}`}
+function loadLocalAchievementNotices(){
+  if(!currentProfile?.id)return [];
+  try{return JSON.parse(localStorage.getItem(achievementNoticeStorageKey())||'[]').slice(0,50)}catch(_){return []}
+}
+function saveLocalAchievementNotices(rows){
+  if(!currentProfile?.id)return;
+  try{localStorage.setItem(achievementNoticeStorageKey(),JSON.stringify(rows.slice(0,50)))}catch(_){}
+}
+function receiveAchievementNotice(payload){
+  if(!payload||payload.target_profile_id!==currentProfile?.id)return;
+  const notice={id:Number(payload.id||-Date.now()),type:payload.type||'success',title:payload.title||'🏆 実績のお知らせ',body:payload.body||'',is_pinned:false,is_active:true,target_profile_id:currentProfile.id,target_name:payload.target_name||currentProfile.display_name||currentProfile.employee_name||'あなた',created_by_name:payload.created_by_name||'Lait Divin',created_at:payload.created_at||new Date().toISOString(),local_only:true};
+  const locals=loadLocalAchievementNotices().filter(x=>String(x.id)!==String(notice.id));
+  saveLocalAchievementNotices([notice,...locals]);
+  notificationRows=[notice,...notificationRows.filter(x=>String(x.id)!==String(notice.id))];
+  renderNotifications();
+  toast(notice.title.replace(/^🏆\s*/,''));
+}
+function ensureAchievementRealtimeSubscription(){
+  if(!sb||!currentProfile?.id||achievementRealtimeChannel)return;
+  const channelName=`achievement-user-${currentProfile.id}`;
+  achievementRealtimeChannel=sb.channel(channelName,{config:{broadcast:{ack:true}}}).on('broadcast',{event:'achievement-notification'},({payload})=>receiveAchievementNotice(payload)).subscribe();
+}
+async function sendAchievementRealtime(profileId,payload){
+  if(!sb||!profileId)return false;
+  return await new Promise(resolve=>{
+    const channel=sb.channel(`achievement-user-${profileId}`,{config:{broadcast:{ack:true}}});
+    const timer=setTimeout(()=>{try{sb.removeChannel(channel)}catch(_){};resolve(false)},7000);
+    channel.subscribe(async status=>{
+      if(status==='SUBSCRIBED'){
+        try{const result=await channel.send({type:'broadcast',event:'achievement-notification',payload});clearTimeout(timer);setTimeout(()=>{try{sb.removeChannel(channel)}catch(_){}},250);resolve(result==='ok')}
+        catch(_){clearTimeout(timer);try{sb.removeChannel(channel)}catch(__){};resolve(false)}
+      }
+    });
+  });
+}
 async function createAchievementNotification(profileId,mode,item){
-  const targetName=profileNameForAction(profileId);
-  const granted=mode==='granted';
-  const payload={
-    type:granted?'success':'general',
-    title:granted?'🏆 実績を獲得しました':'🏆 実績が解除されました',
-    body:granted
-      ?`${targetName}さんに「${item?.icon||'🏆'} ${item?.name||'実績'}」が付与されました。\nプロフィールから確認できます。`
-      :`${targetName}さんの「${item?.icon||'🏆'} ${item?.name||'実績'}」が解除されました。`,
-    is_pinned:false,
-    is_active:true,
-    target_profile_id:profileId,
-    target_name:targetName,
-    created_by:currentProfile?.id||null,
-    created_by_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者'
-  };
-  const {error}=await sb.from('notifications').insert(payload);
-  if(error)console.warn('実績通知の作成に失敗しました:',error);
+  const targetName=profileNameForAction(profileId),granted=mode==='granted';
+  const payload={id:-Date.now(),type:granted?'success':'general',title:granted?'🏆 実績を獲得しました':'🏆 実績が解除されました',body:granted?`${targetName}さんに「${item?.icon||'🏆'} ${item?.name||'実績'}」が付与されました。\nプロフィールから確認できます。`:`${targetName}さんの「${item?.icon||'🏆'} ${item?.name||'実績'}」が解除されました。`,target_profile_id:profileId,target_name:targetName,created_by_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者',created_at:new Date().toISOString()};
+  const sent=await sendAchievementRealtime(profileId,payload);
+  if(currentProfile?.id===profileId)receiveAchievementNotice(payload);
+  return sent;
 }
 async function grantAchievement(profileId){
   if(appMode!=='admin')return;
@@ -4988,13 +5013,19 @@ async function saveSalesGoals(){
 function auditIcon(type){return type==='sales'?'¥':type==='goal'?'🎯':type==='notification'?'🔔':type==='employee'?'♟':type==='achievement'?'🏆':type==='settings'?'⚙':'▦'}
 async function writeAudit(type,action,detail='',targetName=''){
   if(!sb||appMode!=='admin')return null;
+  const payload={actor_id:currentProfile?.id||null,actor_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者',action_type:type||'other',action:action||'操作',detail:detail||'',target_name:targetName||null,created_at:new Date().toISOString()};
   try{
-    const payload={actor_id:currentProfile?.id||null,actor_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者',action_type:type,action,detail,target_name:targetName||null};
-    const {data,error}=await sb.from('audit_logs').insert(payload).select().single();
+    const {error}=await sb.from('audit_logs').insert(payload);
     if(error)throw error;
-    if(data){auditRows=[data,...auditRows.filter(x=>Number(x.id)!==Number(data.id))];renderAuditLogs()}
-    return data||null;
-  }catch(error){console.error('Audit write error:',error);toast('管理履歴の保存に失敗しました');return null}
+    await loadAuditLogs(false);
+    return true;
+  }catch(error){
+    console.error('Audit write error:',error);
+    const fallback={id:`local-${Date.now()}`,...payload};
+    auditRows=[fallback,...auditRows];renderAuditLogs();
+    toast(`管理履歴のDB保存に失敗：${error.message||'権限を確認してください'}`);
+    return false;
+  }
 }
 async function loadAuditLogs(show=false){
   if(!sb||appMode!=='admin')return;
@@ -5025,11 +5056,12 @@ async function loadNotifications(show=false){
   if(!sb||!currentProfile?.id)return;
   try{
     const [{data:notices,error:ne},{data:reads,error:re}]=await Promise.all([sb.from('notifications').select('*').eq('is_active',true).order('is_pinned',{ascending:false}).order('created_at',{ascending:false}).limit(100),sb.from('notification_reads').select('notification_id').eq('profile_id',currentProfile.id)]);
-    if(ne)throw ne;if(re)throw re;notificationRows=notices||[];notificationReadIds=new Set((reads||[]).map(x=>String(x.notification_id)));renderNotifications();if(show)toast('通知を更新しました');
+    if(ne)throw ne;if(re)throw re;ensureAchievementRealtimeSubscription();const locals=loadLocalAchievementNotices();notificationRows=[...locals,...(notices||[])].filter((x,i,a)=>a.findIndex(y=>String(y.id)===String(x.id))===i);notificationReadIds=new Set((reads||[]).map(x=>String(x.notification_id)));try{JSON.parse(localStorage.getItem(`${achievementNoticeStorageKey()}-reads`)||'[]').forEach(x=>notificationReadIds.add(String(x)))}catch(_){}renderNotifications();if(show)toast('通知を更新しました');
   }catch(error){console.error('Notification load error',error);if(show)alert('通知を取得できませんでした：'+error.message)}
 }
 async function markNotificationRead(id){
   if(!currentProfile?.id)return;
+  if(Number(id)<0){notificationReadIds.add(String(id));const key=`${achievementNoticeStorageKey()}-reads`;try{const s=new Set(JSON.parse(localStorage.getItem(key)||'[]'));s.add(String(id));localStorage.setItem(key,JSON.stringify([...s]))}catch(_){}renderNotifications();return}
   const {error}=await sb.from('notification_reads').upsert({notification_id:id,profile_id:currentProfile.id,read_at:new Date().toISOString()},{onConflict:'notification_id,profile_id'});
   if(error)return alert('既読にできませんでした：'+error.message);notificationReadIds.add(String(id));renderNotifications();
 }
@@ -5097,4 +5129,6 @@ async function sendSiteAndDiscordNotification(){
   });
 })();
 </script>
+
+<!-- Ver.13.7.5: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
 </body></html>
