@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6.4 Icon & Sidebar Final Fix</title>
+<title>Lait Divin Ver.14.6.5 Dark Calm History</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3871,7 +3871,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 
 
 <style id="ver14-6-3-visual-fix">
-/* ===== Ver.14.6.4: profile icon + sidebar readability fix ===== */
+/* ===== Ver.14.6.5: profile icon + sidebar readability fix ===== */
 body.dark .v4-greeting,
 body.dark .v41-employee-topbar .v4-greeting{
   background:transparent !important;
@@ -4036,6 +4036,58 @@ body.dark .v4-topbar .v4-profile-avatar{
 }
 </style>
 
+
+<style id="ver14-6-5-dark-calm-history">
+body.dark #page-history .toolbar input,
+body.dark #employee-page-history .toolbar input,
+body.dark input,
+body.dark select,
+body.dark textarea{
+  background:linear-gradient(180deg,rgba(28,19,16,.94),rgba(21,15,13,.94)) !important;
+  color:#f5e9de !important;
+  border:1px solid rgba(203,157,111,.28) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 8px 24px rgba(0,0,0,.18) !important;
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder{color:#bfa694 !important;}
+body.dark .list-item,
+body.dark .card,
+body.dark .empty{
+  background:linear-gradient(135deg,rgba(39,27,22,.96) 0%, rgba(26,19,16,.96) 100%) !important;
+  border:1px solid rgba(194,144,98,.24) !important;
+  box-shadow:0 16px 32px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.03) !important;
+}
+body.dark .list-item{
+  grid-template-columns:1.25fr .85fr .85fr auto;
+}
+body.dark .list-item:hover,
+body.dark .card:hover{
+  border-color:rgba(226,178,128,.42) !important;
+  box-shadow:0 20px 40px rgba(0,0,0,.30), 0 0 0 1px rgba(226,178,128,.10) inset !important;
+}
+body.dark .list-main strong,
+body.dark .list-item strong,
+body.dark .card h3{color:#fff7f0 !important;}
+body.dark .list-main span,
+body.dark .list-item>div,
+body.dark .card p,
+body.dark .empty,
+body.dark .list-actions + div{color:#c9b19d !important;}
+body.dark .list-item .btn.primary{background:linear-gradient(135deg,#d7a56f,#b97c43) !important;color:#24150f !important;border:none !important;}
+body.dark .list-item .btn.danger{background:linear-gradient(135deg,#b74b43,#8a332d) !important;color:#fff5f2 !important;border:none !important;}
+body.dark .list-item .btn.primary:hover{filter:brightness(1.05)}
+body.dark .list-item .btn.danger:hover{filter:brightness(1.05)}
+body.dark #historyList,
+body.dark #employeeSlipGrid{gap:14px !important;}
+body.dark .toolbar{margin-bottom:18px !important;}
+body.dark #page-history .page,
+body.dark #page-history,
+body.dark #employee-page-history{background:transparent !important;}
+@media(max-width:620px){
+  body.dark .list-item{grid-template-columns:1fr !important;gap:10px !important;padding:16px !important;}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4086,7 +4138,7 @@ body.dark .v4-topbar .v4-profile-avatar{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.4</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.5</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4327,7 +4379,7 @@ body.dark .v4-topbar .v4-profile-avatar{
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.4</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.5</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4478,7 +4530,7 @@ body.dark .v4-topbar .v4-profile-avatar{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.4</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.5</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -7169,7 +7221,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.4 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.5 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
