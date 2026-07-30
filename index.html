@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6.1 Café Polish</title>
+<title>Lait Divin Ver.14.6.2 Topbar Profile Fix</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3810,6 +3810,65 @@ body.dark .v4-topbar .v4-menu-btn{
 body.dark .v4-topbar .v4-menu-btn:hover{background:linear-gradient(180deg,#35251d 0%, #281c16 100%) !important;}
 </style>
 
+
+<style id="ver14-6-2-topbar-profile-fix">
+/* ===== Ver.14.6.2: topbar profile cleanup ===== */
+body.dark .v4-topbar .v4-profile,
+body.dark .v41-employee-topbar .v4-profile{
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  overflow:visible !important;
+  position:relative !important;
+  min-width:0 !important;
+}
+body.dark .v4-topbar .v4-profile::after,
+body.dark .v41-employee-topbar .v4-profile::after{
+  display:none !important;
+  content:none !important;
+}
+body.dark .v4-topbar .v4-profile > div:last-child,
+body.dark .v41-employee-topbar .v4-profile > div:last-child{
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+}
+body.dark .v4-topbar .v4-profile strong,
+body.dark .v41-employee-topbar .v4-profile strong{
+  color:#f8efe6 !important;
+  font-size:12px !important;
+  line-height:1.15 !important;
+}
+body.dark .v4-topbar .v4-profile span,
+body.dark .v41-employee-topbar .v4-profile span{
+  color:#d9c7b8 !important;
+  font-size:10px !important;
+  line-height:1.15 !important;
+  margin-top:2px !important;
+}
+body.dark .v4-topbar .v4-profile-avatar,
+body.dark .v41-employee-topbar .v4-profile-avatar{
+  width:44px !important;
+  height:44px !important;
+  border-radius:50% !important;
+  overflow:hidden !important;
+  background:linear-gradient(135deg,#ddb78f,#9c6b49) !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
+  border:1px solid rgba(234,202,172,.26) !important;
+  box-shadow:0 8px 18px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.18) !important;
+  color:#fff8f1 !important;
+  font-weight:900 !important;
+  flex:none !important;
+}
+body.dark .v4-topbar .v4-profile-avatar.has-image,
+body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
+  color:transparent !important;
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -3860,7 +3919,7 @@ body.dark .v4-topbar .v4-menu-btn:hover{background:linear-gradient(180deg,#35251
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.1</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.2</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -3900,8 +3959,8 @@ body.dark .v4-topbar .v4-menu-btn:hover{background:linear-gradient(180deg,#35251
         <button class="v4-icon-btn notification-top-btn" onclick="goPage('notifications')" title="通知センター">🔔<i id="adminTopNotificationBadge" class="notification-badge hidden">0</i></button>
         <button class="v4-icon-btn" onclick="manualDiscordSync()" title="Discord同期">↻</button>
         <div class="v4-profile">
-          <div class="v4-profile-avatar">管</div>
-          <div><strong>管理者</strong><span>Owner</span></div>
+          <div class="v4-profile-avatar" id="adminProfileAvatar">管</div>
+          <div><strong id="adminTopName">管理者</strong><span id="adminTopRole">Owner</span></div>
         </div>
       </div>
     </header>
@@ -4101,7 +4160,7 @@ body.dark .v4-topbar .v4-menu-btn:hover{background:linear-gradient(180deg,#35251
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.1</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.2</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4252,7 +4311,7 @@ body.dark .v4-topbar .v4-menu-btn:hover{background:linear-gradient(180deg,#35251
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.1</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.2</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4859,6 +4918,7 @@ async function logout(){
 async function openAdmin(){
   showAdminApp();
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)]);
+  applyAdminProfileEverywhere();
   refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();startPresenceTracking();subscribeRealtime('admin');
 }
 async function openEmployee(){
@@ -6456,6 +6516,16 @@ function setAvatarElement(el,url,fallback){
   if(url){el.classList.add('has-image');el.style.backgroundImage=`url("${String(url).replace(/"/g,'&quot;')}")`;el.textContent='';}
   else{el.classList.remove('has-image');el.style.backgroundImage='';el.textContent=(fallback||'従').slice(0,1);}
 }
+function applyAdminProfileEverywhere(){
+  if(!currentProfile)return;
+  const name=currentProfile.display_name||currentProfile.employee_name||'管理者';
+  const role=currentProfile.role||'Administrator';
+  const initial=(name||'管').slice(0,1);
+  if($('adminTopName'))$('adminTopName').textContent=name;
+  if($('adminTopRole'))$('adminTopRole').textContent=role;
+  setAvatarElement($('adminProfileAvatar'),currentProfile.avatar_url||'',initial);
+}
+
 function applyProfileEverywhere(){
   if(!currentEmployee)return;
   const name=currentEmployee.name||currentEmployee.legalName||'スタッフ';
@@ -6849,7 +6919,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.1 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.2 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
