@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6.6 Admin Avatar Owner Link</title>
+<title>Lait Divin Ver.14.6.7 Real IMG Avatar Fix</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3871,7 +3871,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 
 
 <style id="ver14-6-3-visual-fix">
-/* ===== Ver.14.6.6: profile icon + sidebar readability fix ===== */
+/* ===== Ver.14.6.7: profile icon + sidebar readability fix ===== */
 body.dark .v4-greeting,
 body.dark .v41-employee-topbar .v4-greeting{
   background:transparent !important;
@@ -4103,6 +4103,41 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active *{
 }
 </style>
 
+
+<style id="ver14-6-7-real-img-avatar-fix">
+body.dark .v4-profile-avatar{
+  overflow:hidden !important;
+  position:relative !important;
+}
+body.dark .v4-profile-avatar > img{
+  width:100% !important;
+  height:100% !important;
+  display:block !important;
+  object-fit:cover !important;
+  object-position:center !important;
+  border-radius:inherit !important;
+}
+body.dark .v4-profile-avatar.has-image{
+  background:none !important;
+  color:transparent !important;
+}
+body.dark .v4-sidebar .v4-nav button.active,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active{
+  background:linear-gradient(135deg,rgba(149,91,54,.78),rgba(83,46,28,.96)) !important;
+  border:1px solid rgba(255,225,199,.62) !important;
+}
+body.dark .v4-sidebar .v4-nav button.active *,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active *,
+body.dark .v4-sidebar .v4-nav button.active b,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active b,
+body.dark .v4-sidebar .v4-nav button.active span,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active span{
+  color:#ffffff !important;
+  opacity:1 !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.42) !important;
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4153,7 +4188,7 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active *{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.6</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.7</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4394,7 +4429,7 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active *{
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.6</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.7</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4545,7 +4580,7 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active *{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.6</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.7</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -6798,20 +6833,37 @@ function setAvatarElement(el,url,fallback){
   if(!el)return;
   const safeUrl=cleanAvatarUrl(url);
   const fallbackText=(fallback||'従').slice(0,1);
-  const applyFallback=()=>{
-    el.classList.remove('has-image');
-    el.style.backgroundImage='';
+
+  el.classList.remove('has-image');
+  el.style.backgroundImage='';
+  el.innerHTML='';
+
+  if(!safeUrl){
     el.textContent=fallbackText;
-  };
-  if(!safeUrl){applyFallback();return;}
-  const probe=new Image();
-  probe.onload=()=>{
+    return;
+  }
+
+  const img=document.createElement('img');
+  img.alt=fallbackText;
+  img.loading='eager';
+  img.decoding='async';
+  img.referrerPolicy='no-referrer';
+  img.src=safeUrl;
+
+  img.onload=()=>{
     el.classList.add('has-image');
-    el.style.backgroundImage=`url("${String(safeUrl).replace(/"/g,'&quot;')}")`;
     el.textContent='';
+    if(!el.contains(img))el.appendChild(img);
   };
-  probe.onerror=applyFallback;
-  probe.src=safeUrl;
+
+  img.onerror=()=>{
+    el.classList.remove('has-image');
+    el.innerHTML='';
+    el.textContent=fallbackText;
+    console.warn('プロフィール画像を読み込めませんでした:',safeUrl);
+  };
+
+  el.appendChild(img);
 }
 function syncCurrentVisualEmployee(){
   if(!currentProfile||!(employees||[]).length)return null;
@@ -7252,7 +7304,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.6 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.7 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
