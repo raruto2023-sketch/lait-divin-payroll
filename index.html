@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6.2 Topbar Profile Fix</title>
+<title>Lait Divin Ver.14.6.3 Profile & Sidebar Fix</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3869,6 +3869,129 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 }
 </style>
 
+
+<style id="ver14-6-3-visual-fix">
+/* ===== Ver.14.6.3: profile icon + sidebar readability fix ===== */
+body.dark .v4-greeting,
+body.dark .v41-employee-topbar .v4-greeting{
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  min-width:0 !important;
+}
+body.dark .v4-greeting::before,
+body.dark .v4-greeting::after,
+body.dark .v41-employee-topbar .v4-greeting::before,
+body.dark .v41-employee-topbar .v4-greeting::after{
+  display:none !important;
+  content:none !important;
+}
+body.dark .v4-greeting strong,
+body.dark .v41-employee-topbar .v4-greeting strong{
+  display:block !important;
+  color:#fff4ea !important;
+  font-size:16px !important;
+  text-shadow:0 1px 0 rgba(0,0,0,.22) !important;
+  background:none !important;
+}
+body.dark .v4-greeting span,
+body.dark .v41-employee-topbar .v4-greeting span{
+  display:block !important;
+  color:#dcc4b1 !important;
+  font-size:11px !important;
+  background:none !important;
+}
+body.dark .v4-sidebar nav button,
+body.dark .v41-employee-sidebar nav button,
+body.dark .employee-sidebar nav button{
+  position:relative !important;
+  min-height:56px !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:12px !important;
+  padding:14px 18px !important;
+  color:#f5eadf !important;
+  font-weight:800 !important;
+  letter-spacing:.01em !important;
+}
+body.dark .v4-sidebar nav button span,
+body.dark .v4-sidebar nav button b,
+body.dark .v41-employee-sidebar nav button span,
+body.dark .v41-employee-sidebar nav button b,
+body.dark .employee-sidebar nav button span,
+body.dark .employee-sidebar nav button b{
+  color:#f5eadf !important;
+  text-shadow:none !important;
+}
+body.dark .v4-sidebar nav button.active,
+body.dark .v41-employee-sidebar nav button.active,
+body.dark .employee-sidebar nav button.active{
+  background:linear-gradient(135deg,#f7dfbf 0%, #dba46d 100%) !important;
+  border-color:#ffedd5 !important;
+  color:#2e1b10 !important;
+  box-shadow:0 16px 34px rgba(154,93,47,.30), inset 0 1px 0 rgba(255,255,255,.42) !important;
+}
+body.dark .v4-sidebar nav button.active::before,
+body.dark .v41-employee-sidebar nav button.active::before,
+body.dark .employee-sidebar nav button.active::before{
+  content:'';
+  position:absolute;
+  left:10px;
+  top:50%;
+  transform:translateY(-50%);
+  width:5px;
+  height:22px;
+  border-radius:999px;
+  background:rgba(54,31,18,.78);
+}
+body.dark .v4-sidebar nav button.active span,
+body.dark .v4-sidebar nav button.active b,
+body.dark .v41-employee-sidebar nav button.active span,
+body.dark .v41-employee-sidebar nav button.active b,
+body.dark .employee-sidebar nav button.active span,
+body.dark .employee-sidebar nav button.active b,
+body.dark .v4-sidebar nav button.active *,
+body.dark .v41-employee-sidebar nav button.active *,
+body.dark .employee-sidebar nav button.active *{
+  color:#2e1b10 !important;
+  opacity:1 !important;
+  font-weight:900 !important;
+}
+body.dark .v4-topbar .v4-profile,
+body.dark .v41-employee-topbar .v4-profile{
+  gap:10px !important;
+}
+body.dark .v4-topbar .v4-profile-avatar,
+body.dark .v41-employee-topbar .v4-profile-avatar{
+  width:46px !important;
+  height:46px !important;
+  border-radius:50% !important;
+  overflow:hidden !important;
+  background-color:#c99669 !important;
+  background-size:cover !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
+  border:1px solid rgba(247,220,191,.38) !important;
+  box-shadow:0 10px 22px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.16) !important;
+  flex:0 0 auto !important;
+}
+body.dark .v4-topbar .v4-profile-avatar.has-image,
+body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
+  color:transparent !important;
+}
+body.dark .v4-topbar .v4-profile strong,
+body.dark .v41-employee-topbar .v4-profile strong{
+  color:#fff4ea !important;
+  font-size:12px !important;
+}
+body.dark .v4-topbar .v4-profile span,
+body.dark .v41-employee-topbar .v4-profile span{
+  color:#d8c2b0 !important;
+  font-size:10px !important;
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -3919,7 +4042,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.2</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.3</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4160,7 +4283,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.2</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.3</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4311,7 +4434,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.2</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.3</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4918,6 +5041,7 @@ async function logout(){
 async function openAdmin(){
   showAdminApp();
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)]);
+  await hydrateCurrentProfileVisuals();
   applyAdminProfileEverywhere();
   refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();startPresenceTracking();subscribeRealtime('admin');
 }
@@ -6511,9 +6635,56 @@ setInterval(()=>{if(appMode!=='login')renderOnlinePresence()},60000);
 
 // ===== Premium 1.1 Profile =====
 let pendingProfileAvatar='';
+function cleanAvatarUrl(url){
+  const value=String(url||'').trim();
+  if(!value||value==='null'||value==='undefined')return '';
+  return value;
+}
+function normalizeIdentityValue(value){
+  return String(value||'').replace(/\s+/g,'').toLowerCase();
+}
+function scoreVisualProfile(candidate,target){
+  if(!candidate)return 0;
+  const targetIds=[target?.employee_id,target?.employeeId,target?.id].map(normalizeIdentityValue);
+  const targetNames=[target?.employee_name,target?.display_name,target?.name,target?.legalName].map(normalizeIdentityValue);
+  let score=0;
+  if(cleanAvatarUrl(candidate.avatar_url||candidate.avatarUrl))score+=20;
+  if(targetIds.includes(normalizeIdentityValue(candidate.employee_id||candidate.id)))score+=9;
+  if(targetNames.includes(normalizeIdentityValue(candidate.employee_name||candidate.legalName)))score+=7;
+  if(targetNames.includes(normalizeIdentityValue(candidate.display_name||candidate.name)))score+=6;
+  if((candidate.account_type||candidate.accountType)==='employee')score+=3;
+  return score;
+}
+async function hydrateCurrentProfileVisuals(){
+  if(!sb||!currentProfile)return;
+  const currentAvatar=cleanAvatarUrl(currentProfile.avatar_url);
+  const clauses=[];
+  const employeeId=String(currentProfile.employee_id||'').trim();
+  const employeeName=String(currentProfile.employee_name||'').trim();
+  const displayName=String(currentProfile.display_name||'').trim();
+  if(employeeId)clauses.push(`employee_id.eq.${employeeId}`);
+  if(employeeName){clauses.push(`employee_name.eq.${employeeName}`);clauses.push(`display_name.eq.${employeeName}`);}
+  if(displayName){clauses.push(`display_name.eq.${displayName}`);clauses.push(`employee_name.eq.${displayName}`);}
+  if(!clauses.length)return;
+  try{
+    const {data,error}=await sb.from('profiles').select('*').or(clauses.join(',')).limit(12);
+    if(error||!(data||[]).length)return;
+    const target={employee_id:employeeId,employee_name:employeeName,display_name:displayName};
+    const pool=(data||[]).slice().sort((a,b)=>scoreVisualProfile(b,target)-scoreVisualProfile(a,target));
+    const best=pool[0];
+    if(!best)return;
+    if(!currentAvatar){
+      const bestAvatar=cleanAvatarUrl(best.avatar_url);
+      if(bestAvatar)currentProfile.avatar_url=bestAvatar;
+    }
+    if((!currentProfile.display_name||currentProfile.display_name==='管理者')&&(best.display_name||best.employee_name))currentProfile.display_name=best.display_name||best.employee_name;
+    if(!currentProfile.employee_name&&best.employee_name)currentProfile.employee_name=best.employee_name;
+  }catch(err){console.warn('プロフィール表示補完エラー:',err)}
+}
 function setAvatarElement(el,url,fallback){
   if(!el)return;
-  if(url){el.classList.add('has-image');el.style.backgroundImage=`url("${String(url).replace(/"/g,'&quot;')}")`;el.textContent='';}
+  const safeUrl=cleanAvatarUrl(url);
+  if(safeUrl){el.classList.add('has-image');el.style.backgroundImage=`url("${String(safeUrl).replace(/"/g,'&quot;')}")`;el.textContent='';}
   else{el.classList.remove('has-image');el.style.backgroundImage='';el.textContent=(fallback||'従').slice(0,1);}
 }
 function applyAdminProfileEverywhere(){
@@ -6523,7 +6694,7 @@ function applyAdminProfileEverywhere(){
   const initial=(name||'管').slice(0,1);
   if($('adminTopName'))$('adminTopName').textContent=name;
   if($('adminTopRole'))$('adminTopRole').textContent=role;
-  setAvatarElement($('adminProfileAvatar'),currentProfile.avatar_url||'',initial);
+  setAvatarElement($('adminProfileAvatar'),cleanAvatarUrl(currentProfile.avatar_url)||cleanAvatarUrl(currentEmployee?.avatarUrl)||'',initial);
 }
 
 function applyProfileEverywhere(){
@@ -6919,7 +7090,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.2 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.3 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
