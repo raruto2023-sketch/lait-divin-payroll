@@ -5437,6 +5437,7 @@ async function loadEmployees(){const {data,error}=await sb.from('profiles').sele
 async function loadHistoryData(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadMyHistory(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadSettings(){const {data,error}=await sb.from('app_settings').select('*').eq('id',1).maybeSingle();if(error) throw error;if(data) settings={shop:data.shop_name,city:data.city_subtitle,logo:data.logo_text,prefix:data.slip_prefix,footer:data.footer_text}}
+function loadSettingsUI(){if($('settingShop'))$('settingShop').value=settings.shop||'';if($('settingCity'))$('settingCity').value=settings.city||'';if($('settingLogo'))$('settingLogo').value=settings.logo||'';if($('settingPrefix'))$('settingPrefix').value=settings.prefix||'';if($('settingFooter'))$('settingFooter').value=settings.footer||''}
 function stopRealtime(){
   if(realtimeChannel&&sb){try{sb.removeChannel(realtimeChannel)}catch{}}
   realtimeChannel=null;markRealtimeStatus(false);
@@ -6619,7 +6620,28 @@ async function loadInventorySnapshot(show=false){
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
-initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
+function startLaitDivinPortal(){
+  try{
+    initTheme();
+    if($('issueDate'))$('issueDate').value=iso(new Date());
+    if($('attendanceDate'))$('attendanceDate').value=iso(new Date());
+    if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());
+    if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());
+    if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());
+    currentSlipNo=newSlipNo();
+    if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}
+    loadSettingsUI();
+    update();
+    updateClocks();
+    setInterval(updateClocks,1000);
+    showLoginScreen();
+  }catch(err){
+    console.error('Portal startup error',err);
+    try{showLoginScreen()}catch(_){}
+  }
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startLaitDivinPortal,{once:true});
+else setTimeout(startLaitDivinPortal,0);
 window.addEventListener('focus',()=>refreshAllData(true));
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAllData(true)});
 window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('admin');if(appMode==='employee')subscribeRealtime('employee');refreshAllData(true)});
@@ -7536,7 +7558,7 @@ function renderInventoryAlerts(){const host=$('inventoryAlertList');if(!host)ret
 setInterval(()=>{if(appMode!=='login'){loadCampaigns(false);loadStoreNews(false);loadStaffAwards(false);loadPayslipAcks(false)}},60000);
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.18 Feature Suite Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.18.0.3 Runtime Fix Build 2026-07-31</div>
 
 <script>
 (function(){
