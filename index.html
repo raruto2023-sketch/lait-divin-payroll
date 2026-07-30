@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6.5 Dark Calm History</title>
+<title>Lait Divin Ver.14.6.6 Admin Avatar Owner Link</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3871,7 +3871,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 
 
 <style id="ver14-6-3-visual-fix">
-/* ===== Ver.14.6.5: profile icon + sidebar readability fix ===== */
+/* ===== Ver.14.6.6: profile icon + sidebar readability fix ===== */
 body.dark .v4-greeting,
 body.dark .v41-employee-topbar .v4-greeting{
   background:transparent !important;
@@ -4088,6 +4088,21 @@ body.dark #employee-page-history{background:transparent !important;}
 }
 </style>
 
+
+<style id="ver14-6-6-admin-avatar-link-fix">
+body.dark #adminProfileAvatar.has-image,
+body.dark #employeeProfileAvatar.has-image{
+  background-size:cover !important;
+  background-position:center !important;
+  background-repeat:no-repeat !important;
+  color:transparent !important;
+}
+body.dark .v4-sidebar .v4-nav button.active *,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active *{
+  color:#ffffff !important;
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4138,7 +4153,7 @@ body.dark #employee-page-history{background:transparent !important;}
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.5</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.6</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4379,7 +4394,7 @@ body.dark #employee-page-history{background:transparent !important;}
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.5</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.6</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4530,7 +4545,7 @@ body.dark #employee-page-history{background:transparent !important;}
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.5</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.6</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -5139,7 +5154,7 @@ async function openAdmin(){
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)]);
   await hydrateCurrentProfileVisuals();
   applyAdminProfileEverywhere();
-  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();startPresenceTracking();subscribeRealtime('admin');
+  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
 }
 async function openEmployee(){
   showEmployeeApp();
@@ -6802,25 +6817,41 @@ function syncCurrentVisualEmployee(){
   if(!currentProfile||!(employees||[]).length)return null;
   const pid=normalizeIdentityValue(currentProfile.employee_id||'');
   const pname=normalizeIdentityValue(currentProfile.employee_name||currentProfile.display_name||'');
-  const found=employees.find(e=>normalizeIdentityValue(e.id)===pid)
-    || employees.find(e=>normalizeIdentityValue(e.legalName)===pname)
-    || employees.find(e=>normalizeIdentityValue(e.name)===pname);
+  const prole=normalizeIdentityValue(currentProfile.role||'');
+  let found=employees.find(e=>pid&&normalizeIdentityValue(e.id)===pid)
+    || employees.find(e=>pname&&normalizeIdentityValue(e.legalName)===pname)
+    || employees.find(e=>pname&&normalizeIdentityValue(e.name)===pname);
+  if(!found && currentProfile.account_type==='admin'){
+    const ownerCandidates=employees.filter(e=>{
+      const role=normalizeIdentityValue(e.role||'');
+      return role==='owner'||role.includes('owner')||role.includes('オーナー');
+    });
+    found=ownerCandidates.find(e=>cleanAvatarUrl(e.avatarUrl))||ownerCandidates[0]||null;
+  }
+  if(!found && prole){
+    const roleCandidates=employees.filter(e=>normalizeIdentityValue(e.role||'')===prole);
+    found=roleCandidates.find(e=>cleanAvatarUrl(e.avatarUrl))||roleCandidates[0]||null;
+  }
   if(found){
-    if(!cleanAvatarUrl(currentProfile.avatar_url) && cleanAvatarUrl(found.avatarUrl)) currentProfile.avatar_url=found.avatarUrl;
-    if(!cleanAvatarUrl(currentEmployee?.avatarUrl) && cleanAvatarUrl(found.avatarUrl)){
-      if(currentEmployee) currentEmployee.avatarUrl=found.avatarUrl;
-      else currentEmployee={...found};
+    if(cleanAvatarUrl(found.avatarUrl)) currentProfile.avatar_url=found.avatarUrl;
+    if(currentProfile.account_type==='admin'){
+      currentProfile._linked_employee_name=found.name||found.legalName||'';
+      currentProfile._linked_employee_role=found.role||'';
     }
+    if(!currentEmployee) currentEmployee={...found};
+    else if(!cleanAvatarUrl(currentEmployee.avatarUrl)&&cleanAvatarUrl(found.avatarUrl))currentEmployee.avatarUrl=found.avatarUrl;
   }
   return found||null;
 }
 function applyAdminProfileEverywhere(){
   if(!currentProfile)return;
   const matched=syncCurrentVisualEmployee();
-  const name=currentProfile.display_name||currentProfile.employee_name||matched?.name||'管理者';
-  const role=currentProfile.role||matched?.role||'Administrator';
+  const linkedName=currentProfile._linked_employee_name||matched?.name||matched?.legalName||'';
+  const linkedRole=currentProfile._linked_employee_role||matched?.role||'';
+  const name=linkedName||currentProfile.display_name||currentProfile.employee_name||'管理者';
+  const role=linkedRole||currentProfile.role||'Administrator';
   const initial=(name||'管').slice(0,1);
-  const avatar=cleanAvatarUrl(currentProfile.avatar_url)||cleanAvatarUrl(matched?.avatarUrl)||cleanAvatarUrl(currentEmployee?.avatarUrl)||'';
+  const avatar=cleanAvatarUrl(matched?.avatarUrl)||cleanAvatarUrl(currentProfile.avatar_url)||cleanAvatarUrl(currentEmployee?.avatarUrl)||'';
   if($('adminTopName'))$('adminTopName').textContent=name;
   if($('adminTopRole'))$('adminTopRole').textContent=role;
   setAvatarElement($('adminProfileAvatar'),avatar,initial);
@@ -7221,7 +7252,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.5 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.6 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
