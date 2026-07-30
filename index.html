@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.3</title>
+<title>Lait Divin Ver.14.4 Dark Only</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3025,6 +3025,110 @@ body:not(.dark) .v41-login-theme{
   body:not(.dark) .v4-sidebar,
   body:not(.dark) .v41-employee-sidebar{box-shadow:0 24px 60px rgba(0,0,0,.28)!important}
 }
+</style>
+
+
+<style id="dark-only-overrides">
+html,body{background:#111317;}
+body.dark{
+  --bg:#0d0f12;
+  --bg2:#16191e;
+  --surface:#171a1f;
+  --surface2:#1e2229;
+  --surface3:#262b33;
+  --ink:#f7f1e9;
+  --ink-soft:#dfd4c7;
+  --muted:#b4a79a;
+  --line:#332b24;
+  --line-strong:#4a3e35;
+  --brand:#d4aa83;
+  --brand-strong:#b98962;
+  --brand-soft:#2b211a;
+  --gold:#e6bc71;
+  --gold-soft:#3d2e18;
+  --success:#71d79c;
+  --success-soft:#173126;
+  --warning:#ffbe68;
+  --warning-soft:#3b2915;
+  --danger:#ff8d88;
+  --danger-soft:#381d1f;
+  --info:#7fc0ff;
+  --info-soft:#172938;
+  --shadow:0 14px 36px rgba(0,0,0,.34);
+  --shadow-lg:0 28px 84px rgba(0,0,0,.52);
+  --glass:rgba(22,25,30,.94);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(212,170,131,.13), transparent 28%),
+    radial-gradient(circle at 100% 0%, rgba(124,85,54,.12), transparent 24%),
+    linear-gradient(180deg,#0c0e11 0%, #14171c 35%, #101216 100%);
+  color:var(--ink)!important;
+}
+body:not(.dark){background:#111317!important;color:#f7f1e9!important;}
+body.dark .header,
+body.dark .nav,
+body.dark .panel,
+body.dark .card,
+body.dark .section,
+body.dark .dashboard-panel,
+body.dark .metric-card,
+body.dark .attendance-table,
+body.dark .goal-card,
+body.dark .audit-row,
+body.dark .ranking-row,
+body.dark .inventory-card,
+body.dark .community-card,
+body.dark .notice-card,
+body.dark .employee-stat-card,
+body.dark .history-card,
+body.dark .sheet-note,
+body.dark .empty{
+  background:linear-gradient(180deg,rgba(28,31,37,.96),rgba(20,22,27,.96))!important;
+  border-color:rgba(212,170,131,.16)!important;
+  color:var(--ink)!important;
+  box-shadow:var(--shadow)!important;
+}
+body.dark .page-hero,body.dark .hero,body.dark .sheet-head{
+  background:linear-gradient(135deg,#6d4d3a 0%, #3d2b21 45%, #1b1614 100%)!important;
+  color:#fff7f0!important;
+}
+body.dark .brandmark, body.dark .login-mark{
+  background:linear-gradient(145deg,#d0a67d,#6e4f3c)!important;
+  color:#fff9f2!important;
+}
+body.dark input,body.dark select,body.dark textarea,body.dark .btn,body.dark .login-tabs,body.dark .login-card{
+  background:#15181d!important;
+  color:var(--ink)!important;
+  border-color:rgba(212,170,131,.18)!important;
+}
+body.dark .login-card{background:rgba(19,22,27,.96)!important;}
+body.dark .login-tabs button{color:var(--muted)!important;}
+body.dark .login-tabs button.active{background:#22262d!important;color:var(--ink)!important;box-shadow:none!important;}
+body.dark input::placeholder,body.dark textarea::placeholder{color:#8f8478!important;}
+body.dark .btn.primary{background:linear-gradient(135deg,#d7a97b,#936746)!important;color:#16110d!important;border:0!important;}
+body.dark .btn.soft{background:#211b17!important;color:#ead8c4!important;}
+body.dark .btn.danger{background:#3b1d20!important;color:#ffada8!important;}
+body.dark .nav button{background:transparent!important;color:#d8cdbf!important;border-color:transparent!important;}
+body.dark .nav button:hover{background:#221d19!important;color:#fff3e6!important;border-color:#3a3028!important;}
+body.dark .nav button.active{background:linear-gradient(135deg,#d1a277,#875d3f)!important;color:#1a120d!important;box-shadow:0 10px 24px rgba(0,0,0,.28)!important;}
+body.dark .header{background:rgba(17,19,24,.92)!important;border-bottom:1px solid rgba(212,170,131,.12)!important;}
+body.dark .info, body.dark .notification-empty, body.dark .sheet-note{background:#171b20!important;color:var(--muted)!important;}
+body.dark .stock-pill,body.dark .badge,body.dark .chip{background:#2a221c!important;color:#e7c39a!important;border-color:#4a3829!important;}
+body.dark .inventory-card.low{background:linear-gradient(180deg,#35211f,#281919)!important;border-color:#71463f!important;}
+body.dark .stock-bar{background:#27211c!important;}
+body.dark .stock-bar span,body.dark .goal-fill{background:linear-gradient(90deg,#a87644,#edc175)!important;}
+body.dark .goal-fill.done{background:linear-gradient(90deg,#2f8c62,#7bd49f)!important;}
+body.dark .ranking-avatar,body.dark .podium-avatar,body.dark .person-avatar,.v4-rank-avatar{box-shadow:0 8px 22px rgba(0,0,0,.24)!important;}
+body.dark .metric-card .label, body.dark .metric-label, body.dark small, body.dark .muted, body.dark .brandsub, body.dark .app-version{color:var(--muted)!important;}
+body.dark .page-hero p, body.dark .hero p{color:rgba(255,245,235,.82)!important;}
+body.dark .theme-toggle,
+body.dark .mobile-theme-button,
+body.dark .v41-login-theme,
+button[onclick*="toggleTheme"]{display:none!important;}
+body.dark .sheet-frame{background:#14181d!important;border-color:rgba(212,170,131,.18)!important;}
+body.dark .sheet-scroll{scrollbar-color:#8a6243 #1c2025;}
+body.dark .attendance-row-selected{background:#2a211b!important;}
+body.dark .status-open,.status-open *{color:#7fe0a8!important;}
+body.dark .status-closed,.status-closed *{color:#ff9d97!important;}
 </style>
 
 </head>
@@ -6066,7 +6170,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.3 Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.4 Dark Only Build 2026-07-30</div>
 
 <script>
 (function(){
@@ -6098,4 +6202,34 @@ async function sendSiteAndDiscordNotification(){
 </script>
 
 <!-- Ver.14.0: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
+
+<script id="dark-only-script">
+(function(){
+  function forceDarkMode(){
+    if(!document.body) return;
+    document.body.classList.add('dark');
+    try{ localStorage.setItem('ld_theme','dark'); }catch(e){}
+    document.documentElement.setAttribute('data-theme','dark');
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.setAttribute('content','#121418');
+    document.querySelectorAll('.theme-toggle,.mobile-theme-button,.v41-login-theme').forEach(el=>el.remove());
+    document.querySelectorAll('button').forEach(btn=>{
+      const txt=(btn.textContent||'').replace(/\s+/g,'');
+      if(txt.includes('テーマ切替')||txt.includes('ライトモードに変更')||txt.includes('ダークモードに変更')){
+        const wrap = btn.closest('.mobile-menu-item,.menu-item,li,.sidebar-item,.sidebar-link,.mobile-menu-card');
+        if(wrap && wrap !== document.body && wrap.textContent.replace(/\s+/g,'').includes(txt)) wrap.style.display='none';
+        else btn.style.display='none';
+      }
+    });
+  }
+  const oldToggle = window.toggleTheme;
+  window.toggleTheme = function(){ forceDarkMode(); if(typeof toast==='function') toast('ダークモード固定です'); };
+  const oldInit = window.initTheme;
+  window.initTheme = function(){ if(typeof oldInit==='function'){ try{ oldInit(); }catch(e){} } forceDarkMode(); };
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', function(){ forceDarkMode(); setTimeout(forceDarkMode,100); setTimeout(forceDarkMode,800); });
+  }else{ forceDarkMode(); setTimeout(forceDarkMode,100); }
+})();
+</script>
+
 </body></html>
