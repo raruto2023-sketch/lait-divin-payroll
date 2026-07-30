@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.13.7</title>
+<title>Lait Divin Ver.13.7.2</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1810,6 +1810,282 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 .admin-profile-meta{display:grid;grid-template-columns:auto 1fr;gap:7px 10px;padding:11px 12px;border-radius:13px;background:rgba(166,126,95,.06);font-size:10px}
 .admin-profile-meta span{color:var(--muted)}.admin-profile-meta strong{text-align:right;overflow-wrap:anywhere}
 
+
+
+/* ===== Ver.13.7.2 dark mode readability refresh ===== */
+:root{
+  --bg:#f6f1eb;
+  --surface:#fffdfa;
+  --surface2:#f5ede4;
+  --panel:#fffaf5;
+  --ink:#2e241e;
+  --muted:#7f6f63;
+  --line:#e5d6c7;
+  --accent:#d2a06e;
+  --accent2:#9a6540;
+  --soft:#efe4d7;
+  --success:#2c9d63;
+  --danger:#d86a67;
+}
+body{background:linear-gradient(180deg,#f8f2ec 0%,#f3ede7 100%);color:var(--ink)}
+body.dark,
+body.dark #adminApp,
+body.dark #employeeApp{
+  --bg:#141110;
+  --surface:#1c1817;
+  --surface2:#231d1b;
+  --panel:#1f1a18;
+  --ink:#f7efe7;
+  --muted:#baa79a;
+  --line:#40342f;
+  --accent:#e3b27d;
+  --accent2:#b97843;
+  --soft:#2d2522;
+  --success:#3cbf7e;
+  --danger:#f08f84;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(185,120,67,.18) 0, transparent 24%),
+    radial-gradient(circle at 100% 0%, rgba(227,178,125,.10) 0, transparent 22%),
+    linear-gradient(180deg,#141110 0%,#191413 45%,#130f0e 100%) !important;
+  color:var(--ink) !important;
+}
+body.dark .header,
+body.dark .nav,
+body.dark .panel,
+body.dark .section,
+body.dark .card,
+body.dark .dashboard-panel,
+body.dark .metric-card,
+body.dark .v4-panel,
+body.dark .v4-kpi,
+body.dark .inventory-card,
+body.dark .farm-item,
+body.dark .farm-staff-card,
+body.dark .attendance-control-panel,
+body.dark .employee-card,
+body.dark .modal,
+body.dark .online-card,
+body.dark .audit-row,
+body.dark .sales-goal-card,
+body.dark .v4-stock,
+body.dark .v4-month-chart,
+body.dark .v41-employee-topbar,
+body.dark .v4-topbar,
+body.dark .v41-login-form,
+body.dark .v41-login-visual,
+body.dark .v41-login-card{
+  background:linear-gradient(180deg,rgba(31,25,23,.96),rgba(23,18,17,.94)) !important;
+  border-color:rgba(227,178,125,.14) !important;
+  box-shadow:0 18px 48px rgba(0,0,0,.28) !important;
+}
+body.dark .v4-sidebar,
+body.dark .v41-employee-sidebar{
+  background:linear-gradient(180deg,#2c1f19 0%,#1a1615 100%) !important;
+  border-right:1px solid rgba(227,178,125,.16) !important;
+}
+body.dark .v4-sidebar .nav button,
+body.dark .v41-employee-sidebar .nav button,
+body.dark .nav button{color:var(--ink)!important}
+body.dark .nav button.active,
+body.dark .v4-sidebar .nav button.active,
+body.dark .v41-employee-sidebar .nav button.active{
+  background:linear-gradient(135deg,#f5e4d4,#e1b58f) !important;
+  color:#2b1d15 !important;
+  border-color:transparent !important;
+  box-shadow:0 8px 20px rgba(227,178,125,.22) !important;
+}
+body.dark h1,body.dark h2,body.dark h3,body.dark h4,
+body.dark .dashboard-title h2,
+body.dark .sales-goal-head strong,
+body.dark .v4-panel-head h2,
+body.dark .v4-greeting strong,
+body.dark .v4-profile strong,
+body.dark .v41-greeting strong,
+body.dark .goal-numbers b,
+body.dark .stock-value,
+body.dark .audit-row h3{
+  color:var(--ink)!important;
+}
+body.dark p,
+body.dark small,
+body.dark span,
+body.dark .metric-sub,
+body.dark .goal-meta,
+body.dark .goal-numbers small,
+body.dark .stock-min,
+body.dark .sheet-note,
+body.dark .audit-row p,
+body.dark .v4-greeting span,
+body.dark .v4-profile span{
+  color:var(--muted)!important;
+}
+body.dark input,
+body.dark select,
+body.dark textarea,
+body.dark .field input,
+body.dark .field select,
+body.dark .field textarea{
+  background:#171312 !important;
+  color:var(--ink) !important;
+  border:1px solid rgba(227,178,125,.16) !important;
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder{color:#8f7e73!important}
+body.dark .btn:not(.primary):not(.danger),
+body.dark button.btn:not(.primary):not(.danger){
+  background:#1a1514 !important;
+  color:var(--ink)!important;
+  border-color:rgba(227,178,125,.16)!important;
+}
+body.dark .btn.primary,
+body.dark button.btn.primary{
+  background:linear-gradient(135deg,#f0cfaa,#d69c66)!important;
+  color:#2f1f16!important;
+  border:none!important;
+  box-shadow:0 10px 24px rgba(214,156,102,.24)!important;
+}
+body.dark .btn.danger,
+body.dark button.btn.danger{
+  background:linear-gradient(135deg,#a74d49,#8c302d)!important;
+  color:#fff!important;
+  border:none!important;
+}
+body.dark .sales-goal-card{
+  position:relative;
+  overflow:hidden;
+}
+body.dark .sales-goal-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.03),transparent 40%);
+  pointer-events:none;
+}
+body.dark .goal-track{background:rgba(255,255,255,.08)!important}
+body.dark .goal-editor{border-top:1px solid rgba(227,178,125,.12)!important}
+body.dark .goal-fill{background:linear-gradient(90deg,#cf9559,#f0d39a)!important}
+body.dark .goal-fill.done{background:linear-gradient(90deg,#2da46b,#72d39b)!important}
+body.dark .metric-value-positive,
+body.dark .positive,
+body.dark .profit-up{color:#58d78f!important}
+body.dark .negative,
+body.dark .profit-down{color:#ff8c84!important}
+body.dark .v4-stock,
+body.dark .inventory-card,
+body.dark .inventory-card.low{
+  background:linear-gradient(180deg,rgba(29,35,44,.88),rgba(24,28,35,.92)) !important;
+  border-color:rgba(96,138,191,.18)!important;
+}
+body.dark .inventory-card.low,
+body.dark .v4-stock.low{
+  background:linear-gradient(180deg,rgba(58,37,29,.96),rgba(38,24,20,.95)) !important;
+  border-color:rgba(228,155,111,.25)!important;
+}
+body.dark .stock-pill{background:rgba(255,255,255,.08)!important;color:#d9c9bc!important}
+body.dark .stock-pill.low{background:rgba(240,143,132,.15)!important;color:#ffb5a7!important}
+body.dark .stock-bar{background:rgba(255,255,255,.07)!important}
+body.dark .stock-bar span{background:linear-gradient(90deg,#6aa7ff,#7bc2ff)!important}
+body.dark .v4-kpi,
+body.dark .metric-card{background:linear-gradient(180deg,rgba(21,29,39,.92),rgba(18,24,32,.88)) !important;border-color:rgba(102,153,214,.18)!important}
+body.dark .v4-kpi strong,
+body.dark .metric-card strong,
+body.dark .v4-kpi b{color:#f8f1eb!important}
+body.dark .v4-kpi small,
+body.dark .metric-card small,
+body.dark .v4-kpi span{color:#c2b4a8!important}
+body.dark .sales-grid .dashboard-panel,
+body.dark .chart-card,
+body.dark canvas{color:var(--ink)!important}
+body.dark .table,
+body.dark table,
+body.dark .attendance-table{background:transparent!important;color:var(--ink)!important}
+body.dark th{color:#d8c7ba!important;border-bottom-color:rgba(227,178,125,.12)!important}
+body.dark td{border-bottom-color:rgba(255,255,255,.05)!important}
+body.dark .toast,
+body.dark .notification-item{background:linear-gradient(180deg,rgba(35,29,27,.98),rgba(24,20,19,.98))!important;border-color:rgba(227,178,125,.14)!important;color:var(--ink)!important}
+body.dark .badge,
+body.dark .status-badge,
+body.dark .pill{background:rgba(227,178,125,.12)!important;color:#f1d0af!important;border-color:rgba(227,178,125,.18)!important}
+body.dark .theme-toggle,
+body.dark .mobile-theme-button,
+body.dark .v41-login-theme{
+  background:#1e1917!important;
+  color:var(--ink)!important;
+  border-color:rgba(227,178,125,.16)!important;
+}
+body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
+@media (max-width:760px){
+  body.dark .v4-content,body.dark .v41-employee-main{background:transparent!important}
+  body.dark .sales-goal-card,
+  body.dark .v4-panel,
+  body.dark .metric-card{border-radius:18px!important}
+}
+
+
+/* ===== Ver.13.7.2 mobile refinement ===== */
+@media (max-width: 760px){
+  html,body{overflow-x:hidden!important}
+  .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:12px!important;padding-right:12px!important;padding-bottom:96px!important}
+  .v4-kpi-grid,.metric-grid,.summary-grid{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .v4-kpi,.metric-card{min-height:106px!important;padding:14px!important;border-radius:18px!important}
+  .v4-kpi-icon,.metric-icon{width:38px!important;height:38px!important;min-width:38px!important;border-radius:13px!important}
+  .v4-kpi strong,.metric-card strong{font-size:19px!important;line-height:1.2!important}
+  .v4-kpi small,.metric-card small{font-size:10px!important;line-height:1.5!important}
+  .sales-goal-section{margin:12px 0 16px!important}
+  .sales-goal-grid{grid-template-columns:1fr!important;gap:12px!important}
+  .sales-goal-card{padding:16px!important;border-radius:19px!important}
+  .sales-goal-head{align-items:center!important;margin-bottom:12px!important}
+  .sales-goal-head strong{font-size:19px!important;display:block!important;margin-top:3px!important}
+  .sales-goal-head span{font-size:9px!important;letter-spacing:.14em!important}
+  .goal-numbers b{font-size:20px!important}
+  .goal-numbers small{font-size:11px!important}
+  .goal-editor{display:grid!important;grid-template-columns:1fr auto!important;gap:9px!important}
+  .goal-editor input{width:100%!important;max-width:none!important;min-width:0!important}
+  .goal-editor .btn{white-space:nowrap!important;padding:0 14px!important}
+  .dashboard-grid,.v4-dashboard-main,.dashboard-two-col{grid-template-columns:1fr!important;display:block!important}
+  .v4-panel,.dashboard-panel,.panel,.section{border-radius:18px!important;margin-bottom:12px!important;padding:15px!important}
+  .v4-panel-head,.panel-head,.section-head{gap:10px!important;align-items:flex-start!important}
+  .v4-panel-head h2,.panel-head h2,.section-head h2{font-size:17px!important}
+  .v4-ranking-list,.ranking-list{gap:8px!important}
+  .ranking-row,.v4-ranking-row{padding:10px!important;border-radius:14px!important;grid-template-columns:28px 42px minmax(0,1fr) auto!important;gap:8px!important}
+  .ranking-row img,.v4-ranking-row img,.ranking-avatar{width:42px!important;height:42px!important}
+  .v4-inventory-preview{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .v4-stock{padding:11px!important;border-radius:14px!important;min-width:0!important}
+  .v4-stock strong{font-size:12px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+  .v4-stock b{font-size:15px!important}
+  .inventory-grid{grid-template-columns:1fr 1fr!important;gap:9px!important}
+  .inventory-card{padding:13px!important;border-radius:15px!important;min-width:0!important}
+  .inventory-card h3{font-size:12px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+  .stock-value{font-size:22px!important;margin:12px 0 4px!important}
+  .stock-min{font-size:9px!important}
+  .online-summary{grid-template-columns:1fr 1fr!important}
+  .online-grid{grid-template-columns:1fr!important}
+  .online-card{padding:13px!important;border-radius:17px!important}
+  .community-grid,.profile-grid{grid-template-columns:1fr!important}
+  .audit-toolbar{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .audit-toolbar .field{min-width:0!important;width:100%!important}
+  .audit-list{gap:8px!important}
+  .audit-row{grid-template-columns:40px minmax(0,1fr)!important;padding:12px!important}
+  .audit-time{grid-column:2!important;text-align:left!important}
+  .attendance-control-grid,.employee-grid,.farm-grid{grid-template-columns:1fr!important}
+  .table-wrap{overflow-x:auto!important;-webkit-overflow-scrolling:touch!important}
+  table{min-width:720px!important}
+  .modal-card,.modal-content{width:calc(100vw - 24px)!important;max-height:88vh!important;overflow:auto!important;border-radius:20px!important}
+  .notification-list{gap:9px!important}
+  .notification-item{padding:13px!important;border-radius:15px!important}
+  .mobile-bottom-nav{padding-bottom:max(8px,env(safe-area-inset-bottom))!important}
+  .mobile-bottom-nav button{min-width:0!important;font-size:10px!important}
+}
+@media (max-width: 430px){
+  .v4-kpi-grid,.metric-grid,.summary-grid{grid-template-columns:1fr!important}
+  .v4-kpi,.metric-card{min-height:auto!important}
+  .v4-inventory-preview,.inventory-grid{grid-template-columns:1fr!important}
+  .goal-editor{grid-template-columns:1fr!important}
+  .goal-editor .btn{width:100%!important}
+  .audit-toolbar{grid-template-columns:1fr!important}
+  .online-summary{grid-template-columns:1fr!important}
+  .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:10px!important;padding-right:10px!important}
+}
 </style>
 
 </head>
@@ -2103,7 +2379,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.2</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
