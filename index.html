@@ -4180,6 +4180,77 @@ body.dark .v41-employee-sidebar .v41-employee-nav button.active span{
 }
 </style>
 
+
+<style id="dark-payslip-fix">
+/* Ver14.6.9: dark payroll sheet refinement */
+body.dark .sheet{
+  background:linear-gradient(180deg,#171210 0%,#1d1613 100%) !important;
+  color:#f3e8dd !important;
+  border:1px solid rgba(214,169,126,.16) !important;
+  box-shadow:0 30px 80px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.03) !important;
+}
+body.dark .sheet-head{
+  background:linear-gradient(135deg,#7a5138 0%,#4a3024 50%,#231816 100%) !important;
+}
+body.dark .sheet-head:after{border-color:rgba(255,255,255,.06) !important;}
+body.dark .sheet-city,
+body.dark .issue{color:rgba(255,240,229,.74) !important;opacity:1 !important;}
+body.dark .sheet-body{background:linear-gradient(180deg,#191310 0%,#171210 100%) !important;}
+body.dark .person{
+  background:linear-gradient(180deg,#221916 0%,#1d1613 100%) !important;
+  border-color:rgba(214,169,126,.14) !important;
+}
+body.dark .meta-k,
+body.dark .sheet th,
+body.dark .sum .k,
+body.dark .sheet-foot{color:#bca393 !important;}
+body.dark .meta-v{color:#f3cfad !important;}
+body.dark .summary .sum{
+  background:linear-gradient(180deg,#241c18 0%,#1f1714 100%) !important;
+  border-color:rgba(214,169,126,.14) !important;
+  color:#f3e8dd !important;
+}
+body.dark .summary .sum.net{
+  background:linear-gradient(135deg,#9b6a49 0%,#5a3a2b 48%,#261b16 100%) !important;
+  border-color:transparent !important;
+  color:#fff7f0 !important;
+}
+body.dark .summary .sum.net .k{color:#f3ded0 !important;}
+body.dark .table-title{
+  color:#f0bb86 !important;
+  border-color:rgba(214,169,126,.22) !important;
+}
+body.dark .sheet table{background:transparent !important;}
+body.dark .sheet td,
+body.dark .sheet th{
+  color:#efe1d3 !important;
+  border-color:rgba(214,169,126,.12) !important;
+}
+body.dark .sheet tbody tr:nth-child(odd) td{background:rgba(255,255,255,.012);}
+body.dark .sheet td:last-child{color:#ffd4a8 !important;font-weight:800;}
+body.dark .note{
+  background:linear-gradient(180deg,#221a17 0%,#1b1512 100%) !important;
+  border-left-color:#d59d6f !important;
+  color:#eadbcf !important;
+}
+body.dark .stamp{
+  border-color:#d19a6f !important;
+  color:#d9ad84 !important;
+  background:rgba(209,154,111,.06) !important;
+}
+body.dark .sheet-scroll{scrollbar-color:#8b6241 #1c1512;}
+body.dark .payroll-import{
+  background:linear-gradient(180deg,#241b17 0%,#1b1411 100%) !important;
+  border-color:rgba(214,169,126,.14) !important;
+}
+body.dark .payroll-import .result div{
+  background:#201713 !important;
+  color:#c8b2a1 !important;
+  border:1px solid rgba(214,169,126,.10);
+}
+body.dark .payroll-import .result strong{color:#f0bb86 !important;}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -5538,7 +5609,7 @@ async function savePayslip(){
   const {error}=await sb.from('payslips').insert(payload);if(error){console.error(error);alert('サーバー保存に失敗しました：'+error.message);return}
   currentSlipNo=newSlipNo();localStorage.removeItem(DRAFT_KEY);await loadHistoryData();update();toast('サーバーへ保存しました')
 }
-async function saveImage(){const c=await html2canvas($('sheet'),{scale:2.2,backgroundColor:'#fff',useCORS:true});const a=document.createElement('a');a.download=`${settings.shop}_${slipNo()}_${($('employee').value||'従業員').replace(/[\\/:*?"<>|]/g,'_')}.png`;a.href=c.toDataURL('image/png');a.click()}
+async function saveImage(){const c=await html2canvas($('sheet'),{scale:2.2,backgroundColor:'#171210',useCORS:true});const a=document.createElement('a');a.download=`${settings.shop}_${slipNo()}_${($('employee').value||'従業員').replace(/[\\/:*?"<>|]/g,'_')}.png`;a.href=c.toDataURL('image/png');a.click()}
 function refreshEmployeeSelect(){const s=$('employeeSelect');s.innerHTML='<option value="">直接入力する</option>';employees.forEach((e,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${e.name}（${e.role}）`;s.appendChild(o)})}
 function applyEmployee(){const i=$('employeeSelect').value;if(i==='')return;const e=employees[Number(i)];$('employee').value=e.name;$('role').value=e.role;$('employeeId').value=e.id;update()}
 function openEmployeeModal(i=''){$('employeeModal').classList.remove('hidden');$('editEmployeeIndex').value=i;if(i===''){$('employeeModalTitle').textContent='従業員を登録';$('modalName').value='';$('modalRole').value='Cast';$('modalId').value='';$('modalPassword').value=''}else{const e=employees[Number(i)];$('employeeModalTitle').textContent='従業員を編集';$('modalName').value=e.name;$('modalRole').value=e.role;$('modalId').value=e.id;$('modalPassword').value=''}}
@@ -6205,7 +6276,7 @@ function exportAttendanceCsv(){
 }
 function updateClocks(){const now=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit'});if($('adminNowClock'))$('adminNowClock').textContent=now;if($('employeeNowClock'))$('employeeNowClock').textContent=now;if($('employeeNowClock2'))$('employeeNowClock2').textContent=now;if(!$('employeeApp').classList.contains('hidden')&&myAttendance.some(a=>!a.clockOut))renderEmployeeAttendance()}
 
-async function downloadViewedSlip(){const c=await html2canvas($('viewedSheet'),{scale:2,backgroundColor:'#fff'}),a=document.createElement('a');a.download=`${settings.shop}_${currentViewedSlip.slipNo}.png`;a.href=c.toDataURL('image/png');a.click()}
+async function downloadViewedSlip(){const c=await html2canvas($('viewedSheet'),{scale:2,backgroundColor:'#171210'}),a=document.createElement('a');a.download=`${settings.shop}_${currentViewedSlip.slipNo}.png`;a.href=c.toDataURL('image/png');a.click()}
 
 
 
