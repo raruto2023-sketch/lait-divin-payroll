@@ -4251,6 +4251,177 @@ body.dark .payroll-import .result div{
 body.dark .payroll-import .result strong{color:#f0bb86 !important;}
 </style>
 
+
+<style id="ver14-7-dual-theme">
+/* ===== Ver.14.7 Dual Theme ===== */
+button[onclick*="toggleTheme"],
+.theme-toggle,
+.mobile-theme-button,
+.v41-login-theme{
+  display:flex !important;
+}
+.v4-sidebar-bottom button[onclick*="toggleTheme"],
+.v41-employee-sidebar .v4-sidebar-bottom button[onclick*="toggleTheme"]{
+  display:block !important;
+}
+body:not(.dark){
+  --lt-bg:#f3eee8;
+  --lt-bg2:#e9dfd5;
+  --lt-panel:#fffdf9;
+  --lt-panel2:#f8f1e9;
+  --lt-line:#d9c7b8;
+  --lt-text:#2c211b;
+  --lt-soft:#6f5e52;
+  --lt-accent:#9b6541;
+  --lt-accent2:#d5a26f;
+  background:
+    radial-gradient(circle at 0% 0%,rgba(198,144,93,.16),transparent 22%),
+    radial-gradient(circle at 100% 0%,rgba(239,211,180,.32),transparent 18%),
+    linear-gradient(180deg,var(--lt-bg),var(--lt-bg2)) !important;
+  color:var(--lt-text) !important;
+}
+body:not(.dark) .v4-sidebar,
+body:not(.dark) .v41-employee-sidebar{
+  background:linear-gradient(180deg,#2d211b 0%,#201814 100%) !important;
+  border-right:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:16px 0 38px rgba(65,42,27,.16) !important;
+}
+body:not(.dark) .v4-brand,
+body:not(.dark) .v41-employee-sidebar .v4-brand{
+  background:linear-gradient(180deg,#3b2b23,#2a1f1a) !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+}
+body:not(.dark) .v4-brand strong,
+body:not(.dark) .v4-brand span,
+body:not(.dark) .v4-brand small{
+  color:#fff8f1 !important;
+}
+body:not(.dark) .v4-sidebar nav button,
+body:not(.dark) .v41-employee-sidebar nav button{
+  background:rgba(255,255,255,.035) !important;
+  color:#f3e8dd !important;
+  border:1px solid rgba(255,255,255,.07) !important;
+}
+body:not(.dark) .v4-sidebar nav button:hover,
+body:not(.dark) .v41-employee-sidebar nav button:hover{
+  background:rgba(255,255,255,.08) !important;
+}
+body:not(.dark) .v4-sidebar nav button.active,
+body:not(.dark) .v41-employee-sidebar nav button.active{
+  background:linear-gradient(135deg,#a96e45,#74442d) !important;
+  border-color:#d8a77d !important;
+  box-shadow:0 12px 28px rgba(55,31,19,.24) !important;
+}
+body:not(.dark) .v4-sidebar nav button.active *,
+body:not(.dark) .v41-employee-sidebar nav button.active *{
+  color:#fff !important;
+  opacity:1 !important;
+}
+body:not(.dark) .v4-sidebar-bottom button{
+  background:rgba(255,255,255,.04) !important;
+  color:#f3e8dd !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+}
+body:not(.dark) .v4-topbar,
+body:not(.dark) .v41-employee-topbar,
+body:not(.dark) .header{
+  background:rgba(255,252,248,.93) !important;
+  border:1px solid var(--lt-line) !important;
+  color:var(--lt-text) !important;
+  box-shadow:0 12px 28px rgba(72,46,30,.08) !important;
+}
+body:not(.dark) .v4-greeting strong,
+body:not(.dark) .v4-top-stat strong,
+body:not(.dark) .v4-profile strong{color:var(--lt-text) !important;}
+body:not(.dark) .v4-greeting span,
+body:not(.dark) .v4-top-stat small,
+body:not(.dark) .v4-profile span{color:var(--lt-soft) !important;}
+body:not(.dark) .panel,
+body:not(.dark) .card,
+body:not(.dark) .v4-panel,
+body:not(.dark) .v4-kpi,
+body:not(.dark) .sales-goal-card,
+body:not(.dark) .inventory-card,
+body:not(.dark) .notification-card,
+body:not(.dark) .community-card,
+body:not(.dark) .employee-history-row,
+body:not(.dark) .list-item,
+body:not(.dark) .table-wrap,
+body:not(.dark) .online-card,
+body:not(.dark) .achievement-card{
+  background:linear-gradient(180deg,var(--lt-panel),var(--lt-panel2)) !important;
+  border:1px solid var(--lt-line) !important;
+  color:var(--lt-text) !important;
+  box-shadow:0 14px 32px rgba(72,46,30,.08) !important;
+}
+body:not(.dark) h1,
+body:not(.dark) h2,
+body:not(.dark) h3,
+body:not(.dark) h4,
+body:not(.dark) strong,
+body:not(.dark) b,
+body:not(.dark) .metric-value,
+body:not(.dark) .stock-value{
+  color:var(--lt-text) !important;
+}
+body:not(.dark) p,
+body:not(.dark) small,
+body:not(.dark) label,
+body:not(.dark) .muted,
+body:not(.dark) .goal-meta,
+body:not(.dark) .stock-min,
+body:not(.dark) .list-item>div,
+body:not(.dark) .list-main span{
+  color:var(--lt-soft) !important;
+}
+body:not(.dark) input,
+body:not(.dark) select,
+body:not(.dark) textarea{
+  background:#fffdf9 !important;
+  color:var(--lt-text) !important;
+  border:1px solid #cfbaaa !important;
+}
+body:not(.dark) input::placeholder,
+body:not(.dark) textarea::placeholder{color:#9b897b !important;}
+body:not(.dark) .btn.primary,
+body:not(.dark) button.primary{
+  background:linear-gradient(135deg,#bb7d4c,#e0ad78) !important;
+  color:#24160f !important;
+}
+body:not(.dark) .page-hero,
+body:not(.dark) .v41-employee-welcome,
+body:not(.dark) .dashboard-title{
+  background:linear-gradient(135deg,#7b5238 0%,#513428 48%,#2a201c 100%) !important;
+  border:1px solid #8b664d !important;
+  color:#fff8f1 !important;
+}
+body:not(.dark) .page-hero *,
+body:not(.dark) .v41-employee-welcome *,
+body:not(.dark) .dashboard-title *{color:#fff8f1 !important;}
+/* Light payslip */
+body:not(.dark) .sheet{
+  background:#fffdf9 !important;
+  color:#2c211b !important;
+  border:1px solid #dac8b9 !important;
+  box-shadow:0 28px 72px rgba(72,46,30,.16) !important;
+}
+body:not(.dark) .sheet-body{background:#fffdf9 !important;}
+body:not(.dark) .person,
+body:not(.dark) .summary .sum,
+body:not(.dark) .note{
+  background:#f8f1e9 !important;
+  border-color:#ddcabc !important;
+}
+body:not(.dark) .summary .sum.net{
+  background:linear-gradient(135deg,#6b4937,#2f231f) !important;
+  color:#fff !important;
+}
+body:not(.dark) .meta-v,
+body:not(.dark) .table-title{color:#a86c43 !important;}
+body:not(.dark) .sheet td,
+body:not(.dark) .sheet th{color:#46372f !important;border-color:#e4d5c9 !important;}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -7474,33 +7645,5 @@ async function sendSiteAndDiscordNotification(){
 
 <!-- Ver.14.0: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
 
-<script id="dark-only-script">
-(function(){
-  function forceDarkMode(){
-    if(!document.body) return;
-    document.body.classList.add('dark');
-    try{ localStorage.setItem('ld_theme','dark'); }catch(e){}
-    document.documentElement.setAttribute('data-theme','dark');
-    const meta=document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.setAttribute('content','#121418');
-    document.querySelectorAll('.theme-toggle,.mobile-theme-button,.v41-login-theme').forEach(el=>el.remove());
-    document.querySelectorAll('button').forEach(btn=>{
-      const txt=(btn.textContent||'').replace(/\s+/g,'');
-      if(txt.includes('テーマ切替')||txt.includes('ライトモードに変更')||txt.includes('ダークモードに変更')){
-        const wrap = btn.closest('.mobile-menu-item,.menu-item,li,.sidebar-item,.sidebar-link,.mobile-menu-card');
-        if(wrap && wrap !== document.body && wrap.textContent.replace(/\s+/g,'').includes(txt)) wrap.style.display='none';
-        else btn.style.display='none';
-      }
-    });
-  }
-  const oldToggle = window.toggleTheme;
-  window.toggleTheme = function(){ forceDarkMode(); if(typeof toast==='function') toast('ダークモード固定です'); };
-  const oldInit = window.initTheme;
-  window.initTheme = function(){ if(typeof oldInit==='function'){ try{ oldInit(); }catch(e){} } forceDarkMode(); };
-  if(document.readyState==='loading'){
-    document.addEventListener('DOMContentLoaded', function(){ forceDarkMode(); setTimeout(forceDarkMode,100); setTimeout(forceDarkMode,800); });
-  }else{ forceDarkMode(); setTimeout(forceDarkMode,100); }
-})();
-</script>
 
 </body></html>
