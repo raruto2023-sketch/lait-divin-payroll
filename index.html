@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.13.7.5</title>
+<title>Lait Divin Ver.13.7.6</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1812,7 +1812,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 
 
 
-/* ===== Ver.13.7.5 dark mode readability refresh ===== */
+/* ===== Ver.13.7.6 dark mode readability refresh ===== */
 :root{
   --bg:#f6f1eb;
   --surface:#fffdfa;
@@ -2022,7 +2022,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
 }
 
 
-/* ===== Ver.13.7.5 mobile refinement ===== */
+/* ===== Ver.13.7.6 mobile refinement ===== */
 @media (max-width: 760px){
   html,body{overflow-x:hidden!important}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:12px!important;padding-right:12px!important;padding-bottom:96px!important}
@@ -2087,7 +2087,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:10px!important;padding-right:10px!important}
 }
 
-/* ===== Ver.13.7.5 mobile notification menu ===== */
+/* ===== Ver.13.7.6 mobile notification menu ===== */
 .mobile-notification-menu-btn{position:relative}
 .mobile-notification-menu-btn .notification-badge{position:absolute;top:8px;right:8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#d84f4f;color:#fff!important;font-size:9px!important;font-weight:900;line-height:1;box-shadow:0 4px 12px rgba(216,79,79,.35)}
 .mobile-notification-menu-btn .notification-badge.hidden{display:none!important}
@@ -2385,7 +2385,7 @@ body.dark .mobile-notification-menu-btn .notification-badge{background:#ef6a62;c
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.5</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.6</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -5059,16 +5059,50 @@ async function loadNotifications(show=false){
     if(ne)throw ne;if(re)throw re;ensureAchievementRealtimeSubscription();const locals=loadLocalAchievementNotices();notificationRows=[...locals,...(notices||[])].filter((x,i,a)=>a.findIndex(y=>String(y.id)===String(x.id))===i);notificationReadIds=new Set((reads||[]).map(x=>String(x.notification_id)));try{JSON.parse(localStorage.getItem(`${achievementNoticeStorageKey()}-reads`)||'[]').forEach(x=>notificationReadIds.add(String(x)))}catch(_){}renderNotifications();if(show)toast('通知を更新しました');
   }catch(error){console.error('Notification load error',error);if(show)alert('通知を取得できませんでした：'+error.message)}
 }
+function saveLocalNotificationRead(id){
+  notificationReadIds.add(String(id));
+  const key=`${achievementNoticeStorageKey()}-reads`;
+  try{const saved=new Set(JSON.parse(localStorage.getItem(key)||'[]'));saved.add(String(id));localStorage.setItem(key,JSON.stringify([...saved]))}catch(_){}
+}
 async function markNotificationRead(id){
   if(!currentProfile?.id)return;
-  if(Number(id)<0){notificationReadIds.add(String(id));const key=`${achievementNoticeStorageKey()}-reads`;try{const s=new Set(JSON.parse(localStorage.getItem(key)||'[]'));s.add(String(id));localStorage.setItem(key,JSON.stringify([...s]))}catch(_){}renderNotifications();return}
-  const {error}=await sb.from('notification_reads').upsert({notification_id:id,profile_id:currentProfile.id,read_at:new Date().toISOString()},{onConflict:'notification_id,profile_id'});
-  if(error)return alert('既読にできませんでした：'+error.message);notificationReadIds.add(String(id));renderNotifications();
+  const numericId=Number(id);
+  if(!Number.isFinite(numericId))return;
+  if(numericId<0){saveLocalNotificationRead(numericId);renderNotifications();return}
+  if(notificationReadIds.has(String(numericId))){renderNotifications();return}
+  const row={notification_id:numericId,profile_id:currentProfile.id,read_at:new Date().toISOString()};
+  const {error}=await sb.from('notification_reads').insert(row);
+  // 23505 / HTTP 409 は、別タブ等ですでに既読登録済みのため成功扱いにします。
+  if(error&&error.code!=='23505'){
+    console.error('Notification read insert error',error);
+    return alert('既読にできませんでした：'+error.message);
+  }
+  notificationReadIds.add(String(numericId));renderNotifications();
 }
 async function markAllNotificationsRead(){
   if(!currentProfile?.id||!notificationRows.length)return;
-  const rows=notificationRows.map(n=>({notification_id:n.id,profile_id:currentProfile.id,read_at:new Date().toISOString()}));
-  const {error}=await sb.from('notification_reads').upsert(rows,{onConflict:'notification_id,profile_id'});if(error)return alert('既読にできませんでした：'+error.message);rows.forEach(x=>notificationReadIds.add(String(x.notification_id)));renderNotifications();toast('すべて既読にしました');
+  const localRows=notificationRows.filter(n=>Number(n.id)<0&&!notificationReadIds.has(String(n.id)));
+  localRows.forEach(n=>saveLocalNotificationRead(n.id));
+  const dbIds=notificationRows
+    .map(n=>Number(n.id))
+    .filter(id=>Number.isFinite(id)&&id>0&&!notificationReadIds.has(String(id)));
+  if(dbIds.length){
+    const now=new Date().toISOString();
+    // 一括upsertは環境によって409になるため、未読分のみinsertし、重複は成功扱いにします。
+    const results=await Promise.all(dbIds.map(async notification_id=>{
+      const {error}=await sb.from('notification_reads').insert({notification_id,profile_id:currentProfile.id,read_at:now});
+      if(error&&error.code!=='23505')return {notification_id,error};
+      return {notification_id,error:null};
+    }));
+    const failed=results.filter(x=>x.error);
+    results.filter(x=>!x.error).forEach(x=>notificationReadIds.add(String(x.notification_id)));
+    if(failed.length){
+      console.error('Mark all notifications read errors',failed);
+      renderNotifications();
+      return alert(`一部の通知を既読にできませんでした（${failed.length}件）。`);
+    }
+  }
+  renderNotifications();toast('すべて既読にしました');
 }
 async function deleteNotification(id,event){
   if(event)event.stopPropagation();
@@ -5130,5 +5164,5 @@ async function sendSiteAndDiscordNotification(){
 })();
 </script>
 
-<!-- Ver.13.7.5: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
+<!-- Ver.13.7.6: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
 </body></html>
