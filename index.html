@@ -4323,7 +4323,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.4</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.7</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4733,7 +4733,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.4</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.7</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -5117,6 +5117,8 @@ let presenceHeartbeatTimer=null;
 let presenceRefreshTimer=null;
 let presenceIdle=false;
 let lastPresenceActivity=Date.now();
+let presenceWriteDisabled=false;
+let discordFunctionDisabled=false;
 
 // ===== Ver.13.7 Global State =====
 let salesGoals={weekly:0,monthly:0};
@@ -6075,13 +6077,19 @@ async function deleteEmployeeMonthAttendance(){
 }
 
 async function refreshDiscordStatusBoard(showSuccess=false){
+  if(discordFunctionDisabled){
+    if(showSuccess) alert('Discord連携は現在停止中です。Supabase Edge Function「discord-staff-status」を認証なしで呼べる設定にする必要があります。');
+    return false;
+  }
   try{
     const result=await invokePortalFunction('discord-staff-status',{});
     if(showSuccess) toast(`Discord更新完了：${result.staff_online??0}名勤務中`);
     return true;
   }catch(e){
-    console.error('Discord Staff Status Board update failed:',e);
-    if(showSuccess) alert('Discordボード更新に失敗しました。\n'+(e.message||e));
+    const message=String(e?.message||e||'');
+    if(/401|Unauthorized/i.test(message)) discordFunctionDisabled=true;
+    console.warn('Discord連携は利用できません:',message);
+    if(showSuccess) alert('Discordボード更新に失敗しました。\nEdge Function側の認証設定が必要です。');
     return false;
   }
 }
@@ -6959,11 +6967,18 @@ function renderOnlinePresence(){
   ['adminPresenceUpdated','employeePresenceUpdated'].forEach(id=>{if($(id))$(id).textContent=stamp});
 }
 async function sendPresenceHeartbeat(forceStatus){
-  if(!sb||!currentProfile?.id||appMode==='login')return;
+  if(!sb||!currentProfile?.id||appMode==='login'||presenceWriteDisabled)return;
   const status=forceStatus||(presenceIdle?'away':'online');
   const now=new Date().toISOString();
   const {error}=await sb.from('online_presence').upsert({user_id:currentProfile.id,status,last_seen_at:now,updated_at:now},{onConflict:'user_id'});
-  if(error)console.warn('オンライン状態更新エラー:',error);
+  if(error){
+    if(error.code==='42501'||/row-level security|401|Unauthorized/i.test(String(error.message||''))){
+      presenceWriteDisabled=true;
+      console.warn('オンライン表示の書き込みを停止しました。SQL 10_VER18_ONLINE_PRESENCE_POLICY.sql を実行してください。');
+      return;
+    }
+    console.warn('オンライン状態更新エラー:',error.message||error);
+  }
 }
 function recordPresenceActivity(){lastPresenceActivity=Date.now();if(presenceIdle){presenceIdle=false;sendPresenceHeartbeat('online')}}
 function startPresenceTracking(){
@@ -6978,7 +6993,7 @@ async function stopPresenceTracking(markOffline=true){
   presenceHeartbeatTimer=null;presenceRefreshTimer=null;
   ['pointerdown','keydown','touchstart','scroll'].forEach(type=>window.removeEventListener(type,recordPresenceActivity));
   if(markOffline&&sb&&currentProfile?.id){
-    try{await sb.from('online_presence').upsert({user_id:currentProfile.id,status:'offline',last_seen_at:new Date().toISOString(),updated_at:new Date().toISOString()},{onConflict:'user_id'})}catch{}
+    try{await sendPresenceHeartbeat('offline')}catch{}
   }
 }
 document.addEventListener('visibilitychange',()=>{if(appMode!=='login'){if(document.hidden){presenceIdle=true;sendPresenceHeartbeat('away')}else{recordPresenceActivity();loadOnlinePresence(false)}}});
@@ -7605,7 +7620,7 @@ function renderInventoryAlerts(){const host=$('inventoryAlertList');if(!host)ret
 setInterval(()=>{if(appMode!=='login'){loadCampaigns(false);loadStoreNews(false);loadStaffAwards(false);loadPayslipAcks(false)}},60000);
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.18.0.6 Auth Fallback Fix Build 2026-07-31</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.18.0.7 Auth Fallback Fix Build 2026-07-31</div>
 
 <script>
 (function(){
