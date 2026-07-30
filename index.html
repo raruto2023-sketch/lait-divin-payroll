@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.13.7.2</title>
+<title>Lait Divin Ver.13.7.3</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -1812,7 +1812,7 @@ body.dark input,body.dark select,body.dark textarea{background:rgba(40,34,30,.8)
 
 
 
-/* ===== Ver.13.7.2 dark mode readability refresh ===== */
+/* ===== Ver.13.7.3 dark mode readability refresh ===== */
 :root{
   --bg:#f6f1eb;
   --surface:#fffdfa;
@@ -2022,7 +2022,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
 }
 
 
-/* ===== Ver.13.7.2 mobile refinement ===== */
+/* ===== Ver.13.7.3 mobile refinement ===== */
 @media (max-width: 760px){
   html,body{overflow-x:hidden!important}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:12px!important;padding-right:12px!important;padding-bottom:96px!important}
@@ -2086,6 +2086,12 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
   .online-summary{grid-template-columns:1fr!important}
   .v4-content,.v41-employee-content,.page-content,.main-content{padding-left:10px!important;padding-right:10px!important}
 }
+
+/* ===== Ver.13.7.3 mobile notification menu ===== */
+.mobile-notification-menu-btn{position:relative}
+.mobile-notification-menu-btn .notification-badge{position:absolute;top:8px;right:8px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;display:grid;place-items:center;background:#d84f4f;color:#fff!important;font-size:9px!important;font-weight:900;line-height:1;box-shadow:0 4px 12px rgba(216,79,79,.35)}
+.mobile-notification-menu-btn .notification-badge.hidden{display:none!important}
+body.dark .mobile-notification-menu-btn .notification-badge{background:#ef6a62;color:#fff!important}
 </style>
 
 </head>
@@ -2379,7 +2385,7 @@ body.dark .section-title,body.dark .panel-title{letter-spacing:.04em}
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.2</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.13.7.3</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -2955,6 +2961,7 @@ function ensureMobileNavs(){
           <button onclick="mobileAdminPage('ranking')"><span>♛</span><b>ランキング</b></button>
           <button onclick="mobileAdminPage('online')"><span>●</span><b>オンライン</b></button>
           <button onclick="mobileAdminPage('community')"><span>♙</span><b>プロフィール一覧</b></button>
+          <button class="mobile-notification-menu-btn" onclick="mobileAdminPage('notifications')"><span>🔔</span><b>通知センター</b><i id="adminMobileNotificationBadge" class="notification-badge hidden">0</i></button>
           <button onclick="mobileAdminPage('discord-report')"><span>◈</span><b>Discordレポート</b></button>
           <button onclick="mobileAdminPage('settings')"><span>⚙</span><b>設定</b></button>
         </div>
@@ -2968,6 +2975,7 @@ function ensureMobileNavs(){
           <button onclick="mobileEmployeePage('profile')"><span>♙</span><b>プロフィール</b></button>
           <button onclick="mobileEmployeePage('online')"><span>●</span><b>オンライン</b></button>
           <button onclick="mobileEmployeePage('community')"><span>♙</span><b>プロフィール一覧</b></button>
+          <button class="mobile-notification-menu-btn" onclick="mobileEmployeePage('notifications')"><span>🔔</span><b>通知センター</b><i id="employeeMobileNotificationBadge" class="notification-badge hidden">0</i></button>
         </div>
         <div class="mobile-menu-actions">
           <button class="mobile-theme-button" onclick="toggleTheme();updateMobileThemeButtons()">
@@ -5006,4 +5014,33 @@ async function sendSiteAndDiscordNotification(){
 
 </script>
 <div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.13.7 Build 2026-07-30</div>
+
+<script>
+(function(){
+  function syncMobileNotificationBadges(){
+    const pairs=[
+      ['adminNotificationBadge','adminMobileNotificationBadge'],
+      ['adminTopNotificationBadge','adminMobileNotificationBadge'],
+      ['employeeNotificationBadge','employeeMobileNotificationBadge'],
+      ['employeeTopNotificationBadge','employeeMobileNotificationBadge']
+    ];
+    pairs.forEach(([sourceId,targetId])=>{
+      const source=document.getElementById(sourceId);
+      const target=document.getElementById(targetId);
+      if(!source||!target)return;
+      target.textContent=source.textContent||'0';
+      target.classList.toggle('hidden',source.classList.contains('hidden')||Number(source.textContent||0)<=0);
+    });
+  }
+  const observer=new MutationObserver(syncMobileNotificationBadges);
+  window.addEventListener('DOMContentLoaded',()=>{
+    ['adminNotificationBadge','adminTopNotificationBadge','employeeNotificationBadge','employeeTopNotificationBadge'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el)observer.observe(el,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
+    });
+    setTimeout(syncMobileNotificationBadges,300);
+    setInterval(syncMobileNotificationBadges,1500);
+  });
+})();
+</script>
 </body></html>
