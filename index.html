@@ -4253,7 +4253,7 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
 
 
 <style id="ver14-7-dual-theme">
-/* ===== Ver.14.7 Dual Theme ===== */
+/* ===== Ver.14.7.1 Dual Theme ===== */
 button[onclick*="toggleTheme"],
 .theme-toggle,
 .mobile-theme-button,
@@ -4422,6 +4422,196 @@ body:not(.dark) .sheet td,
 body:not(.dark) .sheet th{color:#46372f !important;border-color:#e4d5c9 !important;}
 </style>
 
+
+<style id="ver14-7-1-light-readable-fix">
+/* ===== Ver.14.7.1 readable light mode + visible theme switch ===== */
+.top-theme-button{
+  min-width:104px;
+  height:40px;
+  padding:0 14px;
+  border-radius:14px;
+  border:1px solid rgba(172,126,88,.28);
+  background:linear-gradient(180deg,#fffaf4,#f4e8dc);
+  color:#3b281d;
+  font-weight:900;
+  font-size:11px;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(59,40,29,.10);
+  white-space:nowrap;
+}
+.top-theme-button:hover{transform:translateY(-1px);filter:brightness(1.02)}
+body.dark .top-theme-button{
+  background:linear-gradient(180deg,#2d211c,#201713) !important;
+  color:#fff3e7 !important;
+  border-color:#5d4435 !important;
+  box-shadow:0 8px 18px rgba(0,0,0,.24) !important;
+}
+body:not(.dark){
+  --lr-bg:#f3eee8;
+  --lr-surface:#ffffff;
+  --lr-surface-soft:#faf6f1;
+  --lr-line:#d8c9bc;
+  --lr-line-soft:#eadfd5;
+  --lr-text:#211a16;
+  --lr-muted:#675a50;
+  --lr-accent:#9a6540;
+  background:linear-gradient(180deg,#f6f2ed 0%,#eee7df 100%) !important;
+  color:var(--lr-text) !important;
+}
+body:not(.dark) #adminApp,
+body:not(.dark) #employeeApp,
+body:not(.dark) .v4-main,
+body:not(.dark) .v4-content{
+  background:transparent !important;
+  color:var(--lr-text) !important;
+}
+/* Sidebar remains dark in light mode for strong readability */
+body:not(.dark) .v4-sidebar,
+body:not(.dark) .v41-employee-sidebar{
+  background:linear-gradient(180deg,#2c211b 0%,#1c1613 100%) !important;
+  color:#fff7ef !important;
+  border-right:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:18px 0 38px rgba(45,31,24,.20) !important;
+}
+body:not(.dark) .v4-brand{
+  background:linear-gradient(180deg,#3a2a22,#291e19) !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+}
+body:not(.dark) .v4-brand strong,
+body:not(.dark) .v4-brand span,
+body:not(.dark) .v4-brand small,
+body:not(.dark) .v4-copyright,
+body:not(.dark) .v4-copyright span{
+  color:#fff7ef !important;
+  opacity:1 !important;
+}
+body:not(.dark) .v4-sidebar .v4-nav button,
+body:not(.dark) .v41-employee-sidebar .v41-employee-nav button{
+  background:rgba(255,255,255,.035) !important;
+  color:#f4e9df !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:none !important;
+}
+body:not(.dark) .v4-sidebar .v4-nav button *,
+body:not(.dark) .v41-employee-sidebar .v41-employee-nav button *{
+  color:#f4e9df !important;
+  opacity:1 !important;
+}
+body:not(.dark) .v4-sidebar .v4-nav button:hover,
+body:not(.dark) .v41-employee-sidebar .v41-employee-nav button:hover{
+  background:rgba(255,255,255,.09) !important;
+  border-color:rgba(255,255,255,.16) !important;
+}
+body:not(.dark) .v4-sidebar .v4-nav button.active,
+body:not(.dark) .v41-employee-sidebar .v41-employee-nav button.active{
+  background:linear-gradient(135deg,#a86f47,#70462f) !important;
+  border-color:#d9aa82 !important;
+  box-shadow:0 10px 26px rgba(0,0,0,.20) !important;
+}
+body:not(.dark) .v4-sidebar .v4-nav button.active *,
+body:not(.dark) .v41-employee-sidebar .v41-employee-nav button.active *{
+  color:#ffffff !important;
+  opacity:1 !important;
+  text-shadow:0 1px 2px rgba(0,0,0,.26) !important;
+}
+body:not(.dark) .v4-sidebar-bottom button{
+  background:rgba(255,255,255,.05) !important;
+  color:#fff5ec !important;
+  border:1px solid rgba(255,255,255,.10) !important;
+}
+/* Topbar */
+body:not(.dark) .v4-topbar,
+body:not(.dark) .v41-employee-topbar{
+  background:rgba(255,255,255,.94) !important;
+  border:1px solid var(--lr-line) !important;
+  box-shadow:0 12px 28px rgba(55,40,30,.10) !important;
+}
+body:not(.dark) .v4-topbar *,
+body:not(.dark) .v41-employee-topbar *{color:var(--lr-text) !important;}
+body:not(.dark) .v4-live-indicator{color:#20824d !important;}
+body:not(.dark) .v4-open-pill{background:#e7f6e9 !important;color:#176d3c !important;}
+/* Cards */
+body:not(.dark) .v4-kpi,
+body:not(.dark) .sales-goal-card,
+body:not(.dark) .business-period-card,
+body:not(.dark) .v4-panel,
+body:not(.dark) .panel,
+body:not(.dark) .card,
+body:not(.dark) .inventory-card,
+body:not(.dark) .community-card,
+body:not(.dark) .notification-card,
+body:not(.dark) .employee-history-row,
+body:not(.dark) .working-person,
+body:not(.dark) .online-card,
+body:not(.dark) .attendance-table,
+body:not(.dark) .list-item,
+body:not(.dark) .empty,
+body:not(.dark) .info{
+  background:var(--lr-surface) !important;
+  border:1px solid var(--lr-line) !important;
+  color:var(--lr-text) !important;
+  box-shadow:0 12px 28px rgba(55,40,30,.08) !important;
+}
+body:not(.dark) .v41-employee-welcome,
+body:not(.dark) .dashboard-title,
+body:not(.dark) .page-hero{
+  background:linear-gradient(135deg,#76503a 0%,#4a3024 52%,#251b17 100%) !important;
+  border:1px solid #76533f !important;
+  color:#fff9f4 !important;
+}
+body:not(.dark) .v41-employee-welcome *,
+body:not(.dark) .dashboard-title *,
+body:not(.dark) .page-hero *{color:#fff9f4 !important;}
+body:not(.dark) h1,
+body:not(.dark) h2,
+body:not(.dark) h3,
+body:not(.dark) h4,
+body:not(.dark) strong,
+body:not(.dark) b,
+body:not(.dark) .sales-value,
+body:not(.dark) .stock-value,
+body:not(.dark) .metric-value,
+body:not(.dark) .goal-numbers b{
+  color:var(--lr-text) !important;
+}
+body:not(.dark) p,
+body:not(.dark) small,
+body:not(.dark) label,
+body:not(.dark) .goal-meta,
+body:not(.dark) .stock-min,
+body:not(.dark) .metric-sub,
+body:not(.dark) .ranking-person span,
+body:not(.dark) .list-item span{
+  color:var(--lr-muted) !important;
+}
+body:not(.dark) .v4-kpi-icon,
+body:not(.dark) .metric-icon{
+  background:#f3e6d8 !important;
+  color:#784a2f !important;
+}
+body:not(.dark) .goal-track,
+body:not(.dark) .stock-bar{background:#e5d9ce !important;border:1px solid #d8c8ba !important;}
+body:not(.dark) .goal-fill,
+body:not(.dark) .stock-bar span{background:linear-gradient(90deg,#976039,#c99060) !important;}
+body:not(.dark) input,
+body:not(.dark) select,
+body:not(.dark) textarea{
+  background:#ffffff !important;
+  color:var(--lr-text) !important;
+  border:1px solid #cdbbad !important;
+}
+body:not(.dark) input::placeholder,
+body:not(.dark) textarea::placeholder{color:#8c7b6e !important;}
+body:not(.dark) .positive,
+body:not(.dark) .profit-up{color:#167542 !important;}
+body:not(.dark) .negative,
+body:not(.dark) .profit-down{color:#bf4747 !important;}
+@media(max-width:1100px){
+  .top-theme-button{min-width:42px;width:42px;padding:0;font-size:0}
+  .top-theme-button::first-letter{font-size:16px}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4510,6 +4700,7 @@ body:not(.dark) .sheet th{color:#46372f !important;border-color:#e4d5c9 !importa
         <div id="v4OpenStatus" class="v4-open-pill">● OPEN</div>
         <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="v4TopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 接続中</div>
         <button class="v4-icon-btn notification-top-btn" onclick="goPage('notifications')" title="通知センター">🔔<i id="adminTopNotificationBadge" class="notification-badge hidden">0</i></button>
+        <button class="top-theme-button theme-toggle" onclick="toggleTheme()" title="ライト／ダーク切替">🌙 ダーク</button>
         <button class="v4-icon-btn" onclick="manualDiscordSync()" title="Discord同期">↻</button>
         <div class="v4-profile">
           <div class="v4-profile-avatar" id="adminProfileAvatar">管</div>
@@ -4893,6 +5084,7 @@ body:not(.dark) .sheet th{color:#46372f !important;border-color:#e4d5c9 !importa
           <div id="employeeOpenStatus" class="v4-open-pill">● CLOSED</div>
           <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="employeeTopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 接続中</div>
           <button class="v4-icon-btn notification-top-btn" onclick="employeeGoPage('notifications')" title="通知センター">🔔<i id="employeeTopNotificationBadge" class="notification-badge hidden">0</i></button>
+          <button class="top-theme-button theme-toggle" onclick="toggleTheme()" title="ライト／ダーク切替">🌙 ダーク</button>
           <div class="v4-profile">
             <div class="v4-profile-avatar" id="employeeProfileAvatar">従</div>
             <div><strong id="employeeTopName">スタッフ</strong><span id="employeeTopRole">Cast</span></div>
@@ -6503,14 +6695,14 @@ function toggleTheme(){
   const dark=!document.body.classList.contains('dark');
   document.body.classList.toggle('dark',dark);
   localStorage.setItem('ld_theme',dark?'dark':'light');
-  document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️':'🌙');
+  document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️ ライト':'🌙 ダーク');
   updateMobileThemeButtons();
 }
 function initTheme(){
   const saved=localStorage.getItem('ld_theme');
   const dark=saved==='dark'||(!saved&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);
   document.body.classList.toggle('dark',dark);
-  document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️':'🌙');
+  document.querySelectorAll('.theme-toggle').forEach(b=>b.textContent=dark?'☀️ ライト':'🌙 ダーク');
   updateMobileThemeButtons();
 }
 function monthKeyLocal(v){const d=new Date(v);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`}
