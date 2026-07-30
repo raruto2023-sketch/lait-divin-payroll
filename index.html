@@ -5394,49 +5394,251 @@ body:not(.dark) textarea{
 }
 </style>
 
+
+<style id="ver17-8-cow-dual-login">
+/* ===== Cow dual login: actual interactive HTML, not a background mockup ===== */
+.cow-dual-login{
+  min-height:100vh!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:30px 18px!important;
+  overflow:auto!important;
+  background:
+    radial-gradient(circle at 50% -8%,rgba(233,185,128,.18),transparent 28%),
+    radial-gradient(circle at 8% 90%,rgba(120,67,39,.24),transparent 28%),
+    linear-gradient(145deg,#2d160d 0%,#5b2f1c 46%,#2b160e 100%)!important;
+}
+.cow-dual-login::before{
+  content:"";position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 15% 20%,rgba(255,255,255,.025),transparent 22%),
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:auto,42px 42px,42px 42px;
+}
+.cow-dual-login .v41-login-theme{
+  position:fixed!important;right:22px!important;top:20px!important;z-index:20!important;
+  width:44px!important;height:44px!important;border-radius:50%!important;
+  background:rgba(255,248,239,.12)!important;color:#fff4e7!important;
+  border:1px solid rgba(255,255,255,.18)!important;backdrop-filter:blur(12px)!important;
+}
+.cow-login-stage{
+  width:min(1120px,100%)!important;
+  position:relative!important;
+  padding-top:188px!important;
+}
+.cow-login-header{
+  position:absolute!important;left:50%!important;top:0!important;transform:translateX(-50%)!important;
+  width:min(760px,92%)!important;height:250px!important;z-index:3!important;
+  display:flex!important;justify-content:center!important;
+}
+.cow-login-mascot{
+  position:absolute!important;top:0!important;left:50%!important;transform:translateX(-50%)!important;
+  width:560px!important;height:250px!important;
+  background:url('login-cow-mascot.jpg') center 7%/cover no-repeat!important;
+  border-radius:44% 44% 18px 18px!important;
+  filter:drop-shadow(0 26px 28px rgba(25,10,4,.28))!important;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,transparent 100%)!important;
+  mask-image:linear-gradient(to bottom,#000 0%,#000 76%,transparent 100%)!important;
+}
+.cow-login-brandline{
+  position:absolute!important;left:50%!important;bottom:2px!important;transform:translateX(-50%)!important;
+  z-index:4!important;display:flex!important;align-items:center!important;gap:13px!important;
+  min-width:420px!important;padding:12px 18px!important;border-radius:18px!important;
+  background:rgba(42,23,14,.80)!important;border:1px solid rgba(238,194,139,.24)!important;
+  backdrop-filter:blur(14px)!important;box-shadow:0 14px 34px rgba(30,12,5,.25)!important;
+}
+.cow-login-brandline img{width:62px!important;height:62px!important;object-fit:contain!important}
+.cow-login-brandline span{display:block!important;color:#e9b979!important;font-size:9px!important;letter-spacing:.24em!important;font-weight:900!important}
+.cow-login-brandline h1{margin:3px 0 1px!important;color:#fff7ee!important;font:700 26px Georgia,serif!important}
+.cow-login-brandline p{margin:0!important;color:#d9bfaa!important;font-size:10px!important}
+.cow-login-board{
+  position:relative!important;z-index:2!important;
+  padding:64px 48px 28px!important;border-radius:34px!important;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(223,169,105,.14),transparent 24%),
+    linear-gradient(180deg,#fffaf3 0%,#f4e6d7 100%)!important;
+  border:1px solid rgba(255,255,255,.65)!important;
+  box-shadow:0 44px 110px rgba(35,12,4,.35),inset 0 1px rgba(255,255,255,.86)!important;
+}
+.cow-login-board::before{
+  content:"";position:absolute;inset:12px;border-radius:26px;pointer-events:none;
+  border:1px solid rgba(160,99,51,.14);
+}
+.cow-login-board-head{text-align:center!important;margin:0 auto 26px!important;position:relative!important;z-index:2!important}
+.cow-login-board-head>span{color:#a96c3e!important;font-size:9px!important;letter-spacing:.25em!important;font-weight:900!important}
+.cow-login-board-head h2{margin:9px 0 7px!important;color:#462a1c!important;font:700 26px Georgia,'Yu Mincho',serif!important}
+.cow-login-board-head p{margin:0!important;color:#927666!important;font-size:11px!important}
+.cow-login-grid{
+  display:grid!important;grid-template-columns:minmax(0,1fr) 54px minmax(0,1fr)!important;
+  gap:12px!important;align-items:stretch!important;position:relative!important;z-index:2!important;
+}
+.cow-login-card{
+  min-width:0!important;padding:24px!important;border-radius:22px!important;
+  background:rgba(255,253,249,.76)!important;border:1px solid rgba(112,70,42,.13)!important;
+  box-shadow:0 12px 30px rgba(95,56,30,.08)!important;
+  transition:.20s ease!important;cursor:pointer!important;
+}
+.cow-login-card:hover,.cow-login-card.active{
+  transform:translateY(-3px)!important;
+  border-color:rgba(190,122,66,.45)!important;
+  box-shadow:0 20px 42px rgba(95,56,30,.14),0 0 0 4px rgba(197,132,75,.07)!important;
+}
+.cow-login-type{
+  width:100%!important;display:grid!important;grid-template-columns:48px 1fr!important;grid-template-rows:auto auto!important;
+  column-gap:12px!important;text-align:left!important;align-items:center!important;
+  padding:0 0 17px!important;margin:0 0 17px!important;border:0!important;border-radius:0!important;
+  border-bottom:1px solid rgba(112,70,42,.12)!important;background:transparent!important;box-shadow:none!important;
+}
+.cow-login-type>span{
+  grid-row:1/3!important;width:46px!important;height:46px!important;display:grid!important;place-items:center!important;
+  border-radius:15px!important;background:linear-gradient(145deg,#f1d6b5,#c98a52)!important;
+  color:#432719!important;font-size:21px!important;box-shadow:0 8px 18px rgba(139,80,38,.15)!important;
+}
+.cow-login-type b{color:#4b2d1d!important;font-size:18px!important}
+.cow-login-type small{color:#a38470!important;font-size:8px!important;letter-spacing:.18em!important}
+.cow-login-card .field{margin-bottom:14px!important}
+.cow-login-card label{color:#765543!important;font-size:10px!important;font-weight:900!important}
+.cow-login-card .v41-input-wrap{
+  min-height:52px!important;background:#fffdf9!important;border:1px solid rgba(119,75,45,.16)!important;
+  border-radius:14px!important;box-shadow:inset 0 1px rgba(255,255,255,.78)!important;
+}
+.cow-login-card .v41-input-wrap span{color:#bc7c45!important}
+.cow-login-card .v41-input-wrap input{background:transparent!important;color:#4c3020!important}
+.cow-login-card .v41-input-wrap input::placeholder{color:#ae9686!important}
+.cow-login-card .v41-input-wrap:focus-within{
+  border-color:#c9874d!important;box-shadow:0 0 0 4px rgba(201,135,77,.12)!important;
+}
+.cow-login-card .v41-login-submit{
+  min-height:52px!important;margin-top:8px!important;border-radius:14px!important;
+  color:#fff9f2!important;font-weight:900!important;border:0!important;
+}
+.cow-login-card .employee-submit{background:linear-gradient(135deg,#b8753f,#7b431f)!important}
+.cow-login-card .admin-submit{background:linear-gradient(135deg,#4c2e1f,#1f1510)!important}
+.cow-login-card .v41-login-submit:hover{transform:translateY(-1px)!important}
+.cow-login-help{margin:12px 0 0!important;text-align:center!important;color:#9c8271!important;font-size:9px!important}
+.cow-admin-spacer{
+  min-height:132px!important;margin:0 0 14px!important;padding:17px!important;border-radius:15px!important;
+  background:linear-gradient(145deg,rgba(77,45,29,.06),rgba(194,132,76,.08))!important;
+  border:1px dashed rgba(126,76,43,.18)!important;
+}
+.cow-admin-spacer span{color:#8c5a36!important;font-size:9px!important;letter-spacing:.16em!important;font-weight:900!important}
+.cow-admin-spacer p{margin:9px 0 0!important;color:#887061!important;font-size:11px!important;line-height:1.75!important}
+.cow-login-divider{display:grid!important;place-items:center!important;position:relative!important}
+.cow-login-divider::before{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(transparent,rgba(113,69,41,.20),transparent)}
+.cow-login-divider span{
+  position:relative!important;z-index:1!important;width:40px!important;height:40px!important;display:grid!important;place-items:center!important;
+  border-radius:50%!important;background:#6b3c21!important;color:#fff2e5!important;font:700 10px Georgia,serif!important;
+  border:4px solid #f6eadd!important;box-shadow:0 7px 16px rgba(83,45,24,.16)!important;
+}
+.cow-login-error{position:relative!important;z-index:2!important;text-align:center!important;margin-top:14px!important}
+.cow-login-footer{
+  position:relative!important;z-index:2!important;margin-top:22px!important;padding-top:17px!important;
+  border-top:1px solid rgba(112,70,42,.12)!important;
+  display:flex!important;justify-content:space-between!important;gap:12px!important;
+}
+.cow-login-footer span,.cow-login-footer small{color:#927866!important;font-size:9px!important}
+.cow-dual-login .hidden{display:none!important}
+
+/* Both forms intentionally remain visible. */
+.cow-dual-login #employeeLogin,
+.cow-dual-login #adminLogin{display:block!important}
+
+@media(max-width:780px){
+  .cow-dual-login{padding:18px 10px!important;align-items:start!important}
+  .cow-login-stage{padding-top:154px!important}
+  .cow-login-header{height:205px!important}
+  .cow-login-mascot{width:410px!important;height:205px!important}
+  .cow-login-brandline{min-width:0!important;width:min(420px,94%)!important}
+  .cow-login-brandline img{width:50px!important;height:50px!important}
+  .cow-login-brandline h1{font-size:21px!important}
+  .cow-login-board{padding:56px 18px 24px!important;border-radius:26px!important}
+  .cow-login-grid{grid-template-columns:1fr!important;gap:14px!important}
+  .cow-login-divider{height:38px!important}
+  .cow-login-divider::before{left:0;right:0;top:50%;bottom:auto;width:auto;height:1px!important}
+  .cow-login-card{padding:20px!important}
+  .cow-login-footer{flex-direction:column!important;text-align:center!important}
+}
+@media(max-width:460px){
+  .cow-login-stage{padding-top:130px!important}
+  .cow-login-header{height:176px!important}
+  .cow-login-mascot{width:340px!important;height:176px!important}
+  .cow-login-brandline{bottom:-1px!important;padding:9px 12px!important}
+  .cow-login-brandline img{width:42px!important;height:42px!important}
+  .cow-login-brandline span{font-size:7px!important}
+  .cow-login-brandline h1{font-size:18px!important}
+  .cow-login-brandline p{display:none!important}
+  .cow-login-board-head h2{font-size:21px!important}
+}
+</style>
+
 </head>
 <body class="login-active">
-<div id="loginScreen" class="login-screen v41-login">
+<div id="loginScreen" class="login-screen v41-login cow-dual-login">
   <button class="v41-login-theme" onclick="toggleTheme()" title="テーマ切替">◐</button>
-  <div class="v41-login-shell">
-    <section class="v41-login-visual">
-      <div class="v41-login-glow"></div>
-      <div class="v41-login-brand">
-        <div class="v41-login-cow"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <span>DIVINE MILK CAFÉ</span>
-        <h1>Lait Divin Portal</h1>
-        <p>給与・出退勤・在庫・ランキングを、ひとつの場所で。</p>
+  <main class="cow-login-stage">
+    <header class="cow-login-header">
+      <div class="cow-login-mascot" aria-hidden="true"></div>
+      <div class="cow-login-brandline">
+        <img src="lait-divin-logo.png" alt="Lait Divin">
+        <div>
+          <span>LAIT DIVIN STAFF PORTAL</span>
+          <h1>Lait Divin Portal</h1>
+          <p>上質なミルクで、しあわせな毎日を。</p>
+        </div>
       </div>
-      <div class="v41-login-status">
-        <div><i></i><span>STAFF MANAGEMENT</span></div>
-        <div><i></i><span>REALTIME ATTENDANCE</span></div>
-        <div><i></i><span>DISCORD STATUS BOARD</span></div>
+    </header>
+
+    <section class="cow-login-board">
+      <div class="cow-login-board-head">
+        <span>SECURE ACCESS</span>
+        <h2>ログインするアカウントを選んでください</h2>
+        <p>従業員用と管理者用は、それぞれ専用のログインフォームになっています。</p>
       </div>
-      <small>© 2026 Lait Divin Portal</small>
+
+      <div class="cow-login-grid">
+        <article id="employeeLogin" class="cow-login-card active" onclick="switchLogin('employee')">
+          <button id="tabEmployee" class="cow-login-type active" type="button" onclick="switchLogin('employee');event.stopPropagation()">
+            <span>♟</span><b>従業員ログイン</b><small>STAFF ACCESS</small>
+          </button>
+          <div class="field">
+            <label for="loginEmployeeId">従業員番号</label>
+            <div class="v41-input-wrap"><span>♟</span><input id="loginEmployeeId" name="employee_id" autocomplete="username" placeholder="例：LD1"></div>
+          </div>
+          <div class="field">
+            <label for="loginEmployeePassword">パスワード</label>
+            <div class="v41-input-wrap"><span>●</span><input id="loginEmployeePassword" name="employee_password" type="password" autocomplete="current-password" placeholder="登録されたパスワード"></div>
+          </div>
+          <button class="btn primary full v41-login-submit employee-submit" onclick="employeeLogin();event.stopPropagation()">従業員ポータルへ <b>→</b></button>
+          <p class="cow-login-help">出退勤・給与明細・在庫・イベントを確認できます。</p>
+        </article>
+
+        <div class="cow-login-divider"><span>OR</span></div>
+
+        <article id="adminLogin" class="cow-login-card" onclick="switchLogin('admin')">
+          <button id="tabAdmin" class="cow-login-type" type="button" onclick="switchLogin('admin');event.stopPropagation()">
+            <span>♛</span><b>管理者ログイン</b><small>MANAGER ACCESS</small>
+          </button>
+          <div class="field">
+            <label for="loginAdminPassword">管理者パスワード</label>
+            <div class="v41-input-wrap"><span>♛</span><input id="loginAdminPassword" name="admin_password" type="password" autocomplete="current-password" placeholder="管理者パスワード"></div>
+          </div>
+          <div class="cow-admin-spacer">
+            <span>管理者専用</span>
+            <p>従業員管理・給与・売上・在庫など、店舗全体を管理します。</p>
+          </div>
+          <button class="btn primary full v41-login-submit admin-submit" onclick="adminLogin();event.stopPropagation()">管理画面へ <b>→</b></button>
+          <p class="cow-login-help">管理権限をお持ちの方のみご利用ください。</p>
+        </article>
+      </div>
+
+      <div id="loginError" class="error cow-login-error"></div>
+      <footer class="cow-login-footer">
+        <span>ログイン情報が分からない場合は店舗管理者へお問い合わせください。</span>
+        <small>© 2026 Lait Divin Portal</small>
+      </footer>
     </section>
-    <section class="v41-login-form">
-      <div class="v41-login-form-head">
-        <span>WELCOME BACK</span>
-        <h2>ポータルへログイン</h2>
-        <p>アカウントの種類を選択してください。</p>
-      </div>
-      <div class="login-tabs v41-login-tabs">
-        <button id="tabEmployee" class="active" onclick="switchLogin('employee')">従業員</button>
-        <button id="tabAdmin" onclick="switchLogin('admin')">管理者</button>
-      </div>
-      <div id="employeeLogin">
-        <div class="field"><label>従業員番号</label><div class="v41-input-wrap"><span>♟</span><input id="loginEmployeeId" placeholder="例：LD1"></div></div>
-        <div class="field"><label>パスワード</label><div class="v41-input-wrap"><span>●</span><input id="loginEmployeePassword" type="password" placeholder="登録されたパスワード"></div></div>
-        <button class="btn primary full v41-login-submit" onclick="employeeLogin()">スタッフポータルを開く <b>→</b></button>
-      </div>
-      <div id="adminLogin" class="hidden">
-        <div class="field"><label>管理者パスワード</label><div class="v41-input-wrap"><span>♛</span><input id="loginAdminPassword" type="password" placeholder="管理者パスワード"></div></div>
-        <button class="btn primary full v41-login-submit" onclick="adminLogin()">管理画面を開く <b>→</b></button>
-      </div>
-      <div id="loginError" class="error"></div>
-      <div class="v41-login-note">ログイン情報が分からない場合は店舗管理者へお問い合わせください。</div>
-    </section>
-  </div>
+  </main>
 </div>
 
 <div id="adminApp" class="hidden">
@@ -6411,7 +6613,14 @@ function newSlipNo(){
   const d=new Date(), p=n=>String(n).padStart(2,'0');
   return `${settings.prefix||'LD'}-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}-${Math.random().toString(36).slice(2,5).toUpperCase()}`;
 }
-function switchLogin(type){$('tabEmployee').classList.toggle('active',type==='employee');$('tabAdmin').classList.toggle('active',type==='admin');$('employeeLogin').classList.toggle('hidden',type!=='employee');$('adminLogin').classList.toggle('hidden',type!=='admin');showError('')}
+function switchLogin(type){
+  const employee=type==='employee';
+  $('tabEmployee')?.classList.toggle('active',employee);
+  $('tabAdmin')?.classList.toggle('active',!employee);
+  $('employeeLogin')?.classList.toggle('active',employee);
+  $('adminLogin')?.classList.toggle('active',!employee);
+  showError('');
+}
 function showError(t){$('loginError').textContent=t;$('loginError').classList.toggle('show',!!t)}
 function toast(t){const x=$('toast');x.textContent=t;x.classList.add('show');setTimeout(()=>x.classList.remove('show'),1900)}
 function iso(d){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')}
@@ -8762,7 +8971,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.7 Signature Redesign Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8 Cow Dual Login Build</div>
 
 <script>
 (function(){
