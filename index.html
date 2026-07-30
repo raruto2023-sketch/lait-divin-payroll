@@ -2185,6 +2185,362 @@ body.dark tr td{border-bottom-color:rgba(255,255,255,.05) !important}
 @media (max-width:520px){.v4-kpi-grid,.v4-quick-actions{grid-template-columns:1fr !important}.v4-topbar,.v41-employee-topbar{padding:14px !important}.v4-mobile-brand strong{font-size:22px !important}}
 </style>
 
+
+<style id="ver14-dark-history-fix">
+body.dark .employee-history-list,
+body.dark #employeeAttendanceHistory{
+  scrollbar-color:#7b5a42 #1b1714;
+}
+body.dark .employee-history-row{
+  background:linear-gradient(180deg, rgba(28,23,20,.98), rgba(20,17,15,.96)) !important;
+  border:1px solid rgba(213,154,102,.14) !important;
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
+}
+body.dark .employee-history-row strong,
+body.dark .employee-history-row .duration{
+  color:#f7efe7 !important;
+}
+body.dark .employee-history-row span{
+  color:#b8a89b !important;
+}
+body.dark .attendance-table{
+  background:linear-gradient(180deg, rgba(28,23,20,.98), rgba(20,17,15,.96)) !important;
+  border-color:rgba(213,154,102,.12) !important;
+}
+body.dark .attendance-table th{
+  background:rgba(213,154,102,.08) !important;
+  color:#ecd9cb !important;
+}
+body.dark .attendance-table td{
+  color:#f7efe7 !important;
+  border-bottom-color:rgba(255,255,255,.05) !important;
+}
+body.dark .attendance-note,
+body.dark .employee-attendance .section-title,
+body.dark .employee-attendance p{
+  color:#b8a89b !important;
+}
+body.dark .empty{
+  background:linear-gradient(180deg, rgba(28,23,20,.98), rgba(20,17,15,.96)) !important;
+  border:1px solid rgba(213,154,102,.12) !important;
+  color:#b8a89b !important;
+}
+</style>
+
+
+<style id="ver14-1-bold-theme-refresh">
+/* ===== Ver.14.1 Bold Theme Refresh ===== */
+:root{
+  --v14-radial-a: rgba(180,122,77,.18);
+  --v14-radial-b: rgba(214,174,129,.18);
+  --v14-light-bg:#f7f2ec;
+  --v14-light-bg-2:#efe6dc;
+  --v14-light-panel:#fffdfa;
+  --v14-light-panel-2:#f7efe7;
+  --v14-light-border:#e7d8c9;
+  --v14-light-text:#2f2520;
+  --v14-light-muted:#7b6b60;
+  --v14-dark-bg:#0f0d0c;
+  --v14-dark-bg-2:#181311;
+  --v14-dark-panel:#191412;
+  --v14-dark-panel-2:#231b18;
+  --v14-dark-border:#3d3028;
+  --v14-dark-text:#f7efe7;
+  --v14-dark-muted:#bdaea1;
+  --v14-accent:#d29862;
+  --v14-accent-2:#f0c896;
+  --v14-accent-3:#fff2dd;
+  --v14-blue:#7bb2ff;
+  --v14-green:#66d59d;
+  --v14-red:#ff9a90;
+  --v14-shadow-lg:0 22px 60px rgba(53,34,21,.12);
+  --v14-shadow-soft:0 12px 28px rgba(53,34,21,.08);
+}
+body,
+body #adminApp,
+body #employeeApp{
+  background:
+    radial-gradient(circle at 0% 0%, var(--v14-radial-a), transparent 20%),
+    radial-gradient(circle at 100% 0%, var(--v14-radial-b), transparent 18%),
+    linear-gradient(180deg, var(--v14-light-bg) 0%, var(--v14-light-bg-2) 100%) !important;
+  color:var(--v14-light-text) !important;
+}
+body.dark,
+body.dark #adminApp,
+body.dark #employeeApp{
+  background:
+    radial-gradient(circle at 0% 0%, rgba(210,152,98,.16), transparent 18%),
+    radial-gradient(circle at 100% 0%, rgba(240,200,150,.08), transparent 14%),
+    linear-gradient(180deg, var(--v14-dark-bg) 0%, var(--v14-dark-bg-2) 42%, #0d0a09 100%) !important;
+  color:var(--v14-dark-text) !important;
+}
+.header,
+.nav,
+.panel,
+.section,
+.card,
+.dashboard-panel,
+.metric-card,
+.v4-panel,
+.v4-kpi,
+.inventory-card,
+.farm-item,
+.farm-staff-card,
+.attendance-control-panel,
+.employee-card,
+.modal,
+.online-card,
+.audit-row,
+.sales-goal-card,
+.v4-stock,
+.v4-month-chart,
+.v41-employee-topbar,
+.v4-topbar,
+.v41-login-form,
+.v41-login-visual,
+.v41-login-card,
+.notification-card,
+.community-card,
+.working-person,
+.quick-action,
+.employee-history-row,
+.attendance-table,
+.empty,
+.info,
+.sheet-note{
+  background:linear-gradient(180deg, rgba(255,253,250,.94), rgba(247,239,231,.88)) !important;
+  border:1px solid var(--v14-light-border) !important;
+  color:var(--v14-light-text) !important;
+  box-shadow:var(--v14-shadow-soft) !important;
+}
+body.dark .header,
+body.dark .nav,
+body.dark .panel,
+body.dark .section,
+body.dark .card,
+body.dark .dashboard-panel,
+body.dark .metric-card,
+body.dark .v4-panel,
+body.dark .v4-kpi,
+body.dark .inventory-card,
+body.dark .farm-item,
+body.dark .farm-staff-card,
+body.dark .attendance-control-panel,
+body.dark .employee-card,
+body.dark .modal,
+body.dark .online-card,
+body.dark .audit-row,
+body.dark .sales-goal-card,
+body.dark .v4-stock,
+body.dark .v4-month-chart,
+body.dark .v41-employee-topbar,
+body.dark .v4-topbar,
+body.dark .v41-login-form,
+body.dark .v41-login-visual,
+body.dark .v41-login-card,
+body.dark .notification-card,
+body.dark .community-card,
+body.dark .working-person,
+body.dark .quick-action,
+body.dark .employee-history-row,
+body.dark .attendance-table,
+body.dark .empty,
+body.dark .info,
+body.dark .sheet-note{
+  background:linear-gradient(180deg, rgba(25,20,18,.94), rgba(18,14,12,.92)) !important;
+  border:1px solid var(--v14-dark-border) !important;
+  color:var(--v14-dark-text) !important;
+  box-shadow:0 20px 50px rgba(0,0,0,.22) !important;
+}
+.v4-sidebar,
+.v41-employee-sidebar{
+  background:linear-gradient(180deg, rgba(44,28,19,.98), rgba(27,20,16,.98)) !important;
+  border-right:1px solid rgba(255,255,255,.08) !important;
+}
+body.dark .v4-sidebar,
+body.dark .v41-employee-sidebar{
+  background:linear-gradient(180deg, rgba(35,23,18,.98), rgba(17,13,11,.98)) !important;
+}
+.nav button,
+.v4-sidebar .nav button,
+.v41-employee-sidebar .nav button{
+  border-radius:16px !important;
+  transition:all .22s ease;
+}
+.nav button:hover,
+.v4-sidebar .nav button:hover,
+.v41-employee-sidebar .nav button:hover{
+  transform:translateX(3px);
+  background:rgba(210,152,98,.12) !important;
+}
+.nav button.active,
+.v4-sidebar .nav button.active,
+.v41-employee-sidebar .nav button.active{
+  background:linear-gradient(135deg, rgba(210,152,98,.25), rgba(240,200,150,.16)) !important;
+  border:1px solid rgba(210,152,98,.32) !important;
+  color:#2d211a !important;
+  box-shadow:0 14px 28px rgba(210,152,98,.14);
+}
+body.dark .nav button.active,
+body.dark .v4-sidebar .nav button.active,
+body.dark .v41-employee-sidebar .nav button.active{
+  color:#fff4ea !important;
+  background:linear-gradient(135deg, rgba(210,152,98,.20), rgba(240,200,150,.10)) !important;
+}
+.page-hero,
+.dashboard-title,
+.v41-employee-welcome,
+.v4-greeting,
+.v4-profile,
+.v41-login-visual{
+  position:relative;
+  overflow:hidden;
+}
+.page-hero::after,
+.dashboard-title::after,
+.v41-employee-welcome::after,
+.v4-greeting::after,
+.v4-profile::after,
+.v41-login-visual::after{
+  content:"";
+  position:absolute;
+  inset:auto -10% -35% auto;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(240,200,150,.24) 0%, rgba(240,200,150,0) 70%);
+  pointer-events:none;
+}
+body.dark .page-hero,
+body.dark .dashboard-title,
+body.dark .v41-employee-welcome,
+body.dark .v4-greeting,
+body.dark .v4-profile,
+body.dark .v41-login-visual{
+  background:linear-gradient(135deg, rgba(72,44,29,.88), rgba(34,24,20,.92)) !important;
+}
+input,select,textarea,.field input,.field select,.field textarea{
+  background:rgba(255,255,255,.82) !important;
+  color:var(--v14-light-text) !important;
+  border:1px solid rgba(127,92,67,.18) !important;
+}
+body.dark input,body.dark select,body.dark textarea,
+body.dark .field input,body.dark .field select,body.dark .field textarea{
+  background:rgba(34,27,23,.88) !important;
+  color:var(--v14-dark-text) !important;
+  border:1px solid rgba(213,154,102,.18) !important;
+}
+.btn.primary,button.btn.primary{
+  background:linear-gradient(135deg, var(--v14-accent), var(--v14-accent-2)) !important;
+  color:#2d1d13 !important;
+  border-color:transparent !important;
+  box-shadow:0 12px 24px rgba(210,152,98,.24);
+}
+body.dark .btn.primary,body.dark button.btn.primary{
+  color:#2d1d13 !important;
+}
+.btn:not(.primary):not(.danger),button.btn:not(.primary):not(.danger){
+  background:rgba(255,255,255,.62) !important;
+}
+body.dark .btn:not(.primary):not(.danger),
+body.dark button.btn:not(.primary):not(.danger){
+  background:rgba(255,255,255,.05) !important;
+}
+.metric-card,.v4-kpi{
+  border-radius:24px !important;
+}
+.metric-card,
+.v4-kpi,
+.sales-goal-card{
+  position:relative;
+  overflow:hidden;
+}
+.metric-card::before,
+.v4-kpi::before,
+.sales-goal-card::before{
+  content:"";
+  position:absolute;
+  inset:0 auto auto 0;
+  width:100%;
+  height:3px;
+  background:linear-gradient(90deg, var(--v14-accent), var(--v14-accent-2), transparent);
+  opacity:.8;
+}
+body.dark .metric-card,
+body.dark .v4-kpi{
+  background:linear-gradient(180deg, rgba(17,26,36,.92), rgba(17,20,27,.88)) !important;
+  border-color:rgba(115,155,210,.18) !important;
+}
+body.dark .inventory-card,
+body.dark .v4-stock{
+  background:linear-gradient(180deg, rgba(24,31,42,.92), rgba(18,23,32,.9)) !important;
+  border-color:rgba(88,132,194,.18) !important;
+}
+body.dark .sales-goal-card{
+  background:linear-gradient(180deg, rgba(29,24,21,.96), rgba(21,18,16,.94)) !important;
+  border-color:rgba(213,154,102,.16) !important;
+}
+body.dark .sales-goal-head strong,
+body.dark .goal-numbers b,
+body.dark .stock-value,
+body.dark .inventory-card h3,
+body.dark .employee-history-row strong,
+body.dark .attendance-table td,
+body.dark .attendance-table th,
+body.dark .notification-head h3,
+body.dark .community-card h3,
+body.dark .dashboard-title h2,
+body.dark .page-hero h1,
+body.dark .page-hero h2,
+body.dark .v4-panel-head h2,
+body.dark .panel h2,
+body.dark .panel h3,
+body.dark .section-title,
+body.dark .panel-title{
+  color:#fbf3eb !important;
+}
+body.dark p,
+body.dark small,
+body.dark span,
+body.dark .metric-sub,
+body.dark .goal-meta,
+body.dark .goal-numbers small,
+body.dark .stock-min,
+body.dark .sheet-note,
+body.dark .audit-row p,
+body.dark .notification-body,
+body.dark .notification-meta,
+body.dark .empty,
+body.dark .info,
+body.dark .community-card p{
+  color:#c5b7ab !important;
+}
+.goal-track{background:rgba(119,103,73,.14) !important}
+body.dark .goal-track{background:rgba(255,255,255,.08) !important}
+.goal-fill{background:linear-gradient(90deg, var(--v14-accent), var(--v14-accent-2)) !important}
+.goal-fill.done{background:linear-gradient(90deg, #2ea36b, #78d7a0) !important}
+.employee-history-row,.audit-row,.notification-card,.community-card{border-radius:18px !important}
+body.dark .employee-history-row .duration,
+body.dark .audit-time{color:#f0c896 !important}
+.positive,.metric-value-positive,.profit-up{color:#2da46b !important}
+.negative,.profit-down{color:#d65f5f !important}
+body.dark .positive,body.dark .metric-value-positive,body.dark .profit-up{color:#66d59d !important}
+body.dark .negative,body.dark .profit-down{color:#ff9a90 !important}
+body.dark .theme-toggle,
+body.dark .mobile-theme-button,
+body.dark .v41-login-theme{
+  background:rgba(25,20,18,.94) !important;
+  color:#f7efe7 !important;
+  border-color:rgba(213,154,102,.18) !important;
+}
+/* mobile polish */
+@media (max-width: 760px){
+  .v4-sidebar,.v41-employee-sidebar{width:min(86vw,320px)!important;box-shadow:0 25px 60px rgba(0,0,0,.35)!important}
+  .metric-card,.v4-kpi,.sales-goal-card,.panel,.dashboard-panel{border-radius:20px!important}
+  .page-hero::after,.dashboard-title::after,.v41-employee-welcome::after,.v4-greeting::after,.v4-profile::after,.v41-login-visual::after{width:160px;height:160px}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
