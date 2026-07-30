@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.2</title>
+<title>Lait Divin Ver.14.3</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -2543,7 +2543,7 @@ body.dark .v41-login-theme{
 
 
 <style id="ver14-2-light-contrast-redesign">
-/* ===== Ver.14.2 Light Contrast Redesign ===== */
+/* ===== Ver.14.3 Light Contrast Redesign ===== */
 body:not(.dark){
   --v142-bg:#f6f1ea;
   --v142-bg2:#efe6dc;
@@ -2763,6 +2763,270 @@ body:not(.dark) .v41-login-theme{
 }
 </style>
 
+
+<style id="ver14-3-light-mode-complete-fix">
+/* ===== Ver.14.3 Light Mode Complete Fix ===== */
+body:not(.dark){
+  --lm-bg:#ece7e1;
+  --lm-bg-2:#e5ddd5;
+  --lm-panel:#ffffff;
+  --lm-panel-soft:#f7f3ef;
+  --lm-line:#d7cbc0;
+  --lm-line-strong:#c7b5a7;
+  --lm-text:#241c18;
+  --lm-text-soft:#66584f;
+  --lm-muted:#8b7c72;
+  --lm-accent:#8a5b3d;
+  --lm-accent-2:#c99568;
+  --lm-accent-soft:#f0dfcf;
+  --lm-sidebar:#2c201a;
+  --lm-sidebar-2:#1d1714;
+  background:linear-gradient(180deg,var(--lm-bg),var(--lm-bg-2)) !important;
+  color:var(--lm-text)!important;
+}
+body:not(.dark) #adminApp,
+body:not(.dark) #employeeApp,
+body:not(.dark) .v4-main,
+body:not(.dark) .v4-content,
+body:not(.dark) .v41-employee-main{
+  background:transparent!important;
+  color:var(--lm-text)!important;
+}
+body:not(.dark) .v4-sidebar,
+body:not(.dark) .v41-employee-sidebar{
+  background:linear-gradient(180deg,var(--lm-sidebar),var(--lm-sidebar-2))!important;
+  color:#fff8f2!important;
+  border-right:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:14px 0 36px rgba(41,27,20,.18)!important;
+}
+body:not(.dark) .v4-sidebar .v4-brand,
+body:not(.dark) .v41-employee-sidebar .v4-brand,
+body:not(.dark) .v4-sidebar .brand,
+body:not(.dark) .v41-employee-sidebar .brand{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+body:not(.dark) .v4-sidebar strong,
+body:not(.dark) .v41-employee-sidebar strong,
+body:not(.dark) .v4-sidebar b,
+body:not(.dark) .v41-employee-sidebar b,
+body:not(.dark) .v4-sidebar span,
+body:not(.dark) .v41-employee-sidebar span,
+body:not(.dark) .v4-sidebar small,
+body:not(.dark) .v41-employee-sidebar small{
+  color:#fff5ec!important;
+}
+body:not(.dark) .v4-nav button,
+body:not(.dark) .v41-employee-nav button,
+body:not(.dark) .v4-sidebar-bottom button{
+  background:transparent!important;
+  color:#eadbd1!important;
+  border:1px solid transparent!important;
+  border-radius:14px!important;
+}
+body:not(.dark) .v4-nav button:hover,
+body:not(.dark) .v41-employee-nav button:hover,
+body:not(.dark) .v4-sidebar-bottom button:hover{
+  background:rgba(255,255,255,.08)!important;
+  border-color:rgba(255,255,255,.07)!important;
+}
+body:not(.dark) .v4-nav button.active,
+body:not(.dark) .v41-employee-nav button.active{
+  background:#fffaf5!important;
+  color:#2f2119!important;
+  border-color:#ead5c1!important;
+  box-shadow:0 12px 26px rgba(0,0,0,.18)!important;
+}
+body:not(.dark) .v4-nav button.active span,
+body:not(.dark) .v4-nav button.active b,
+body:not(.dark) .v41-employee-nav button.active span,
+body:not(.dark) .v41-employee-nav button.active b{
+  color:#2f2119!important;
+}
+body:not(.dark) .v4-topbar,
+body:not(.dark) .v41-employee-topbar{
+  background:#fffaf6!important;
+  border:1px solid var(--lm-line)!important;
+  box-shadow:0 12px 30px rgba(62,43,31,.08)!important;
+  color:var(--lm-text)!important;
+}
+body:not(.dark) .v4-topbar *,
+body:not(.dark) .v41-employee-topbar *{
+  color:var(--lm-text)!important;
+}
+body:not(.dark) .v4-live-indicator,
+body:not(.dark) .v4-open-pill{
+  background:#e7f5ec!important;
+  color:#1f7549!important;
+  border-color:#c9e8d7!important;
+}
+body:not(.dark) .page-hero,
+body:not(.dark) .inventory-hero{
+  background:linear-gradient(135deg,#6d4934,#8b6248 55%,#35271f)!important;
+  border:1px solid rgba(88,56,36,.28)!important;
+  box-shadow:0 18px 40px rgba(69,46,31,.17)!important;
+}
+body:not(.dark) .page-hero h1,
+body:not(.dark) .page-hero h2,
+body:not(.dark) .page-hero p,
+body:not(.dark) .page-hero span,
+body:not(.dark) .page-hero .eyebrow,
+body:not(.dark) .inventory-hero h1,
+body:not(.dark) .inventory-hero p,
+body:not(.dark) .inventory-hero span{
+  color:#fffaf6!important;
+  opacity:1!important;
+}
+body:not(.dark) .page-hero .btn,
+body:not(.dark) .inventory-hero .btn{
+  background:#fffaf6!important;
+  color:#4b3325!important;
+  border:1px solid #ead9ca!important;
+}
+body:not(.dark) .panel,
+body:not(.dark) .section,
+body:not(.dark) .card,
+body:not(.dark) .dashboard-panel,
+body:not(.dark) .metric-card,
+body:not(.dark) .v4-panel,
+body:not(.dark) .v4-kpi,
+body:not(.dark) .inventory-card,
+body:not(.dark) .farm-item,
+body:not(.dark) .farm-staff-card,
+body:not(.dark) .attendance-control-panel,
+body:not(.dark) .employee-card,
+body:not(.dark) .online-card,
+body:not(.dark) .audit-row,
+body:not(.dark) .sales-goal-card,
+body:not(.dark) .v4-stock,
+body:not(.dark) .v4-month-chart,
+body:not(.dark) .notification-card,
+body:not(.dark) .community-card,
+body:not(.dark) .working-person,
+body:not(.dark) .quick-action,
+body:not(.dark) .employee-history-row,
+body:not(.dark) .attendance-table,
+body:not(.dark) .empty,
+body:not(.dark) .info,
+body:not(.dark) .sheet-note{
+  background:var(--lm-panel)!important;
+  border:1px solid var(--lm-line)!important;
+  color:var(--lm-text)!important;
+  box-shadow:0 12px 28px rgba(58,42,31,.07)!important;
+}
+body:not(.dark) .dashboard-title,
+body:not(.dark) .v41-employee-welcome,
+body:not(.dark) .v4-greeting,
+body:not(.dark) .v4-profile{
+  background:transparent!important;
+  color:var(--lm-text)!important;
+  box-shadow:none!important;
+  border:0!important;
+}
+body:not(.dark) h1,
+body:not(.dark) h2,
+body:not(.dark) h3,
+body:not(.dark) h4,
+body:not(.dark) strong,
+body:not(.dark) b,
+body:not(.dark) .metric-value,
+body:not(.dark) .stock-value,
+body:not(.dark) .sales-goal-head strong,
+body:not(.dark) .goal-numbers b,
+body:not(.dark) .notification-head h3,
+body:not(.dark) .community-card h3,
+body:not(.dark) .employee-history-row strong{
+  color:var(--lm-text)!important;
+}
+body:not(.dark) p,
+body:not(.dark) small,
+body:not(.dark) label,
+body:not(.dark) .metric-sub,
+body:not(.dark) .goal-meta,
+body:not(.dark) .goal-numbers small,
+body:not(.dark) .stock-min,
+body:not(.dark) .sheet-note,
+body:not(.dark) .audit-row p,
+body:not(.dark) .notification-body,
+body:not(.dark) .notification-meta,
+body:not(.dark) .community-card p,
+body:not(.dark) .ranking-person span,
+body:not(.dark) .v4-panel-head span,
+body:not(.dark) .v4-greeting span,
+body:not(.dark) .v4-profile span{
+  color:var(--lm-text-soft)!important;
+}
+body:not(.dark) .metric-card::before,
+body:not(.dark) .v4-kpi::before,
+body:not(.dark) .sales-goal-card::before{
+  background:linear-gradient(90deg,var(--lm-accent),var(--lm-accent-2),transparent)!important;
+}
+body:not(.dark) input,
+body:not(.dark) select,
+body:not(.dark) textarea{
+  background:#fffdfb!important;
+  color:var(--lm-text)!important;
+  border:1px solid var(--lm-line-strong)!important;
+}
+body:not(.dark) input::placeholder,
+body:not(.dark) textarea::placeholder{color:#9b8b80!important}
+body:not(.dark) .btn.primary,
+body:not(.dark) button.btn.primary{
+  background:linear-gradient(135deg,#9a6746,#d2a06f)!important;
+  color:#fff!important;
+  border:0!important;
+}
+body:not(.dark) .btn:not(.primary):not(.danger),
+body:not(.dark) button.btn:not(.primary):not(.danger),
+body:not(.dark) .dashboard-sync-btn{
+  background:#fffaf6!important;
+  color:#4f382b!important;
+  border:1px solid var(--lm-line)!important;
+}
+body:not(.dark) .stock-pill,
+body:not(.dark) .status-badge,
+body:not(.dark) .badge,
+body:not(.dark) .pill,
+body:not(.dark) .v4-chip{
+  background:#f2e6da!important;
+  color:#6f4b34!important;
+  border:1px solid #e2cdbb!important;
+}
+body:not(.dark) .goal-track,
+body:not(.dark) .stock-bar{
+  background:#eadfd4!important;
+}
+body:not(.dark) .goal-fill,
+body:not(.dark) .stock-bar span{
+  background:linear-gradient(90deg,#9b6745,#d4a16e)!important;
+}
+body:not(.dark) .inventory-card.low,
+body:not(.dark) .metric-card.warning{
+  background:#fff5ec!important;
+  border-color:#e9c8aa!important;
+}
+body:not(.dark) .notification-card.unread{
+  border-left:4px solid #a86e45!important;
+}
+body:not(.dark) .positive,
+body:not(.dark) .metric-value-positive,
+body:not(.dark) .profit-up{color:#1f8a57!important}
+body:not(.dark) .negative,
+body:not(.dark) .profit-down{color:#c45350!important}
+body:not(.dark) .theme-toggle,
+body:not(.dark) .mobile-theme-button,
+body:not(.dark) .v41-login-theme{
+  background:#fffaf6!important;
+  color:#4f382b!important;
+  border-color:var(--lm-line)!important;
+}
+@media(max-width:760px){
+  body:not(.dark) .v4-sidebar,
+  body:not(.dark) .v41-employee-sidebar{box-shadow:0 24px 60px rgba(0,0,0,.28)!important}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -2813,7 +3077,7 @@ body:not(.dark) .v41-login-theme{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.2</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.3</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -3054,7 +3318,7 @@ body:not(.dark) .v41-login-theme{
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.2</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.3</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -3205,7 +3469,7 @@ body:not(.dark) .v41-login-theme{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.2</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.3</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -5802,7 +6066,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.2 Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.3 Build 2026-07-30</div>
 
 <script>
 (function(){
