@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6 Café Dark</title>
+<title>Lait Divin Ver.14.6.1 Café Polish</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3688,6 +3688,128 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
 }
 </style>
 
+
+<style id="ver14-6-1-cafe-polish">
+/* ===== Ver.14.6.1 polish: readable sidebar + clean greeting ===== */
+body.dark .v4-sidebar,
+body.dark .v41-employee-sidebar,
+body.dark .employee-sidebar{
+  background:linear-gradient(180deg,#1c130f 0%, #1a120f 28%, #16100d 100%) !important;
+  border-right:1px solid rgba(228,188,145,.12) !important;
+  box-shadow:18px 0 42px rgba(0,0,0,.38) !important;
+}
+body.dark .v4-sidebar .brand,
+body.dark .v41-employee-sidebar .brand,
+body.dark .employee-sidebar .brand{
+  background:linear-gradient(180deg,#2a1d17 0%, #221814 100%) !important;
+  border:1px solid rgba(234,198,160,.16) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04), 0 10px 24px rgba(0,0,0,.16) !important;
+}
+body.dark .v4-sidebar nav button,
+body.dark .v41-employee-sidebar nav button,
+body.dark .employee-sidebar nav button{
+  background:linear-gradient(180deg,#251a15 0%, #1e1612 100%) !important;
+  color:#f7ece2 !important;
+  border:1px solid rgba(196,153,109,.22) !important;
+  border-radius:18px !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.03), 0 6px 14px rgba(0,0,0,.18) !important;
+}
+body.dark .v4-sidebar nav button span,
+body.dark .v4-sidebar nav button b,
+body.dark .v41-employee-sidebar nav button span,
+body.dark .v41-employee-sidebar nav button b,
+body.dark .employee-sidebar nav button span,
+body.dark .employee-sidebar nav button b,
+body.dark .v4-sidebar nav button *,
+body.dark .v41-employee-sidebar nav button *,
+body.dark .employee-sidebar nav button *{
+  color:#f7ece2 !important;
+  opacity:1 !important;
+}
+body.dark .v4-sidebar nav button:hover,
+body.dark .v41-employee-sidebar nav button:hover,
+body.dark .employee-sidebar nav button:hover{
+  background:linear-gradient(180deg,#30211a 0%, #251b16 100%) !important;
+  border-color:rgba(231,191,145,.38) !important;
+}
+body.dark .v4-sidebar nav button.active,
+body.dark .v41-employee-sidebar nav button.active,
+body.dark .employee-sidebar nav button.active{
+  background:linear-gradient(135deg,#f4d5ad 0%, #d9a46d 100%) !important;
+  border:1px solid #f7deb9 !important;
+  color:#2a180f !important;
+  box-shadow:0 12px 26px rgba(153,94,49,.28), inset 0 1px 0 rgba(255,255,255,.35) !important;
+}
+body.dark .v4-sidebar nav button.active span,
+body.dark .v4-sidebar nav button.active b,
+body.dark .v41-employee-sidebar nav button.active span,
+body.dark .v41-employee-sidebar nav button.active b,
+body.dark .employee-sidebar nav button.active span,
+body.dark .employee-sidebar nav button.active b,
+body.dark .v4-sidebar nav button.active *,
+body.dark .v41-employee-sidebar nav button.active *,
+body.dark .employee-sidebar nav button.active *{
+  color:#2a180f !important;
+  opacity:1 !important;
+}
+body.dark .v4-sidebar-bottom button,
+body.dark .v41-employee-sidebar-bottom button,
+body.dark .employee-sidebar-bottom button{
+  background:linear-gradient(180deg,#241913 0%, #1c1410 100%) !important;
+  color:#f5eadf !important;
+  border:1px solid rgba(204,164,124,.24) !important;
+}
+body.dark .v4-sidebar-bottom button:hover,
+body.dark .v41-employee-sidebar-bottom button:hover,
+body.dark .employee-sidebar-bottom button:hover{
+  background:linear-gradient(180deg,#30211a 0%, #241913 100%) !important;
+  border-color:rgba(233,193,149,.38) !important;
+}
+/* clean the small greeting box in top bar */
+body.dark .v4-topbar .v4-greeting,
+body.dark .v41-employee-topbar .v4-greeting,
+body.dark .header .v4-greeting{
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  padding:0 !important;
+  margin:0 !important;
+  min-width:0 !important;
+}
+body.dark .v4-topbar .v4-greeting::after,
+body.dark .v41-employee-topbar .v4-greeting::after,
+body.dark .header .v4-greeting::after{
+  display:none !important;
+  content:none !important;
+}
+body.dark .v4-topbar .v4-greeting strong,
+body.dark .v41-employee-topbar .v4-greeting strong,
+body.dark .header .v4-greeting strong{
+  color:#f8efe6 !important;
+  font-size:15px !important;
+  line-height:1.2 !important;
+  letter-spacing:.02em !important;
+}
+body.dark .v4-topbar .v4-greeting span,
+body.dark .v41-employee-topbar .v4-greeting span,
+body.dark .header .v4-greeting span{
+  color:#d5c2b1 !important;
+  font-size:11px !important;
+  line-height:1.45 !important;
+  display:block !important;
+  margin-top:4px !important;
+}
+body.dark .v4-topbar{grid-template-columns:auto minmax(180px,1fr) auto !important;}
+body.dark .v4-topbar .v4-menu-btn{
+  background:linear-gradient(180deg,#2a1d17 0%, #1f1612 100%) !important;
+  border:1px solid rgba(224,185,142,.18) !important;
+  color:#f5eadf !important;
+  border-radius:14px !important;
+  width:44px;height:44px;
+}
+body.dark .v4-topbar .v4-menu-btn:hover{background:linear-gradient(180deg,#35251d 0%, #281c16 100%) !important;}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -3738,7 +3860,7 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.1</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -3979,7 +4101,7 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.1</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4130,7 +4252,7 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.1</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -6727,7 +6849,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.1 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
