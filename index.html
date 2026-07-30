@@ -36,7 +36,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.18 ===== */
+/* ===== Lait Divin Portal Ver.18.0.4 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -3871,7 +3871,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 
 
 <style id="ver14-6-3-visual-fix">
-/* ===== Ver.18: profile icon + sidebar readability fix ===== */
+/* ===== Ver.18.0.4: profile icon + sidebar readability fix ===== */
 body.dark .v4-greeting,
 body.dark .v41-employee-topbar .v4-greeting{
   background:transparent !important;
@@ -4323,7 +4323,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.4</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4568,7 +4568,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.18</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.18.0.4</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4733,7 +4733,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.4</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -5074,6 +5074,30 @@ async function verifyPortalConnection(){
     return false;
   }
 }
+
+async function getPortalFunctionHeaders(){
+  let {data:{session}}=await sb.auth.getSession();
+  if(!session?.access_token){
+    const refreshed=await sb.auth.refreshSession();
+    session=refreshed?.data?.session||null;
+  }
+  if(!session?.access_token) throw new Error('ログイン認証を確認できません。いったんログアウトして再ログインしてください。');
+  return {
+    'Content-Type':'application/json',
+    'apikey':cfg.SUPABASE_ANON_KEY,
+    'Authorization':`Bearer ${session.access_token}`
+  };
+}
+async function invokePortalFunction(name,body={}){
+  const headers=await getPortalFunctionHeaders();
+  const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/${name}`,{
+    method:'POST',headers,body:JSON.stringify(body||{})
+  });
+  const payload=await response.json().catch(()=>({}));
+  if(!response.ok) throw new Error(payload?.error||payload?.details||`HTTP ${response.status}`);
+  return payload;
+}
+
 const $=id=>document.getElementById(id),yen=new Intl.NumberFormat('ja-JP',{style:'currency',currency:'JPY',maximumFractionDigits:0});
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const DRAFT_KEY='ld_server_draft_v1';
@@ -5972,7 +5996,7 @@ async function deleteAttendanceIds(ids,message){
   await loadAttendanceData();
   renderAttendance();renderDashboard();renderRanking();renderEmployees();
   if(attendanceDetailEmployee)renderAttendanceDetail();
-  await refreshDiscordStatusBoard(false);
+  // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
   toast(`${clean.length}件の勤務記録を削除しました`);
 }
 async function deleteSelectedAttendance(){
@@ -6045,21 +6069,13 @@ async function deleteEmployeeMonthAttendance(){
 
 async function refreshDiscordStatusBoard(showSuccess=false){
   try{
-    const {data:{session}}=await sb.auth.getSession();
-    const headers={'Content-Type':'application/json','apikey':cfg.SUPABASE_ANON_KEY};
-    if(session?.access_token) headers['Authorization']=`Bearer ${session.access_token}`;
-    const res=await fetch(`${cfg.SUPABASE_URL}/functions/v1/discord-staff-status`,{
-      method:'POST',
-      headers,
-      body:'{}'
-    });
-    const result=await res.json().catch(()=>({}));
-    if(!res.ok) throw new Error(result.error||`HTTP ${res.status}`);
+    const result=await invokePortalFunction('discord-staff-status',{});
     if(showSuccess) toast(`Discord更新完了：${result.staff_online??0}名勤務中`);
     return true;
   }catch(e){
     console.error('Discord Staff Status Board update failed:',e);
-    if(showSuccess) alert('出退勤データは保存されていますが、Discordボード更新に失敗しました。\n'+(e.message||e));
+    if(showSuccess) alert('Discordボード更新に失敗しました。
+'+(e.message||e));
     return false;
   }
 }
@@ -6193,7 +6209,7 @@ async function refreshAfterAdminAttendance(message){
   renderDashboard();
   renderRanking();
   renderEmployees();
-  await refreshDiscordStatusBoard(false);
+  // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
   toast(message);
 }
 async function adminQuickClockIn(uid){
@@ -6284,7 +6300,7 @@ async function clockIn(){
     renderEmployeeDashboard();
     renderEmployeeRanking();
     toast('出勤しました');
-    await refreshDiscordStatusBoard(false);
+    // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
   }catch(error){
     console.error('出勤登録エラー:',error,JSON.stringify(error));
     alert('出勤登録に失敗しました：'+(error.message||error));
@@ -6314,7 +6330,7 @@ async function clockOut(){
     renderEmployeeDashboard();
     renderEmployeeRanking();
     toast('退勤しました');
-    await refreshDiscordStatusBoard(false);
+    // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
   }catch(error){
     console.error('退勤登録エラー:',error,JSON.stringify(error));
     alert('退勤登録に失敗しました：'+(error.message||error));
@@ -6739,22 +6755,7 @@ async function syncFarmFromGoogleSheet(show=true){
   window.__farmSyncRunning=true;
   setFarmSyncStatus('syncing','Google Sheetsから同期中…');
   try{
-    const {data:{session}}=await sb.auth.getSession();
-    const {data,error}=await sb.functions.invoke('sync-farm-sheet',{
-      body:{period_id:Number(currentFarmPeriod)},
-      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
-    });
-    if(error){
-      let detail=error.message||String(error);
-      try{
-        if(error.context){
-          const cloned=error.context.clone();
-          const payload=await cloned.json();
-          detail=payload?.error||payload?.details||JSON.stringify(payload);
-        }
-      }catch(_){}
-      throw new Error(detail);
-    }
+    const data=await invokePortalFunction('sync-farm-sheet',{period_id:Number(currentFarmPeriod)});
     if(!data?.ok)throw new Error(data?.error||data?.details||'同期に失敗しました');
     await loadFarmData(false);
     const now=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
@@ -6848,8 +6849,8 @@ async function createFarmPeriod(){
     .select().single();
   if(error)return alert(error.message);
   currentFarmPeriod=data.id;
-  await syncFarmFromGoogleSheet(false);
-  await loadFarmData();
+  await loadFarmData(false);
+  // Google Sheets同期は作成後に管理者がボタンから手動実行
   toast('期間を追加してGoogle Sheetsを同期しました');
 }
 
@@ -7528,7 +7529,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 
-// ===== Ver.18 Feature Suite =====
+// ===== Ver.18.0.4 Feature Suite =====
 function featureDate(v){return v?new Date(v+'T00:00:00').toLocaleDateString('ja-JP'):'未設定'}
 function campaignStatusLabel(v){return v==='active'?'開催中':v==='ended'?'終了':'開催予定'}
 function campaignStatusIcon(v){return v==='active'?'🟢':v==='ended'?'⚫':'🟡'}
@@ -7558,7 +7559,7 @@ function renderInventoryAlerts(){const host=$('inventoryAlertList');if(!host)ret
 setInterval(()=>{if(appMode!=='login'){loadCampaigns(false);loadStoreNews(false);loadStaffAwards(false);loadPayslipAcks(false)}},60000);
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.18.0.3 Runtime Fix Build 2026-07-31</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.18.0.4.0.3 Runtime Fix Build 2026-07-31</div>
 
 <script>
 (function(){
