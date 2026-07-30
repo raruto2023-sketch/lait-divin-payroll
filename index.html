@@ -6074,8 +6074,7 @@ async function refreshDiscordStatusBoard(showSuccess=false){
     return true;
   }catch(e){
     console.error('Discord Staff Status Board update failed:',e);
-    if(showSuccess) alert('Discordボード更新に失敗しました。
-'+(e.message||e));
+    if(showSuccess) alert('Discordボード更新に失敗しました。\n'+(e.message||e));
     return false;
   }
 }
