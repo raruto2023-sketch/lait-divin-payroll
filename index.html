@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.6.3 Profile & Sidebar Fix</title>
+<title>Lait Divin Ver.14.6.4 Icon & Sidebar Final Fix</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3871,7 +3871,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 
 
 <style id="ver14-6-3-visual-fix">
-/* ===== Ver.14.6.3: profile icon + sidebar readability fix ===== */
+/* ===== Ver.14.6.4: profile icon + sidebar readability fix ===== */
 body.dark .v4-greeting,
 body.dark .v41-employee-topbar .v4-greeting{
   background:transparent !important;
@@ -3992,6 +3992,50 @@ body.dark .v41-employee-topbar .v4-profile span{
 }
 </style>
 
+
+<style id="ver14-6-4-sidebar-profile-tune">
+body.dark .v4-sidebar .v4-nav button.active,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active,
+body.dark .v4-sidebar .v4-nav button.active:hover,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active:hover{
+  background:linear-gradient(135deg,rgba(177,116,70,.38),rgba(97,55,30,.78)) !important;
+  border:1px solid rgba(255,224,196,.55) !important;
+  box-shadow:0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.10) !important;
+}
+body.dark .v4-sidebar .v4-nav button.active *,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active *,
+body.dark .v4-sidebar .v4-nav button.active b,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active b,
+body.dark .v4-sidebar .v4-nav button.active span,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active span,
+body.dark .v4-sidebar .v4-nav button.active i,
+body.dark .v41-employee-sidebar .v41-employee-nav button.active i{
+  color:#fffaf6 !important;
+  opacity:1 !important;
+  text-shadow:0 1px 1px rgba(0,0,0,.35) !important;
+}
+body.dark .v4-sidebar .v4-nav button,
+body.dark .v41-employee-sidebar .v41-employee-nav button{
+  color:#f4e4d6 !important;
+}
+body.dark .v4-sidebar .v4-nav button b,
+body.dark .v41-employee-sidebar .v41-employee-nav button b,
+body.dark .v4-sidebar .v4-nav button span,
+body.dark .v41-employee-sidebar .v41-employee-nav button span{
+  color:inherit !important;
+}
+body.dark .v4-profile-avatar,
+body.dark .v41-employee-topbar .v4-profile-avatar,
+body.dark .v4-topbar .v4-profile-avatar{
+  display:grid !important;
+  place-items:center !important;
+  font-weight:900 !important;
+  font-size:18px !important;
+  color:#fff7ef !important;
+  background-color:#c89262 !important;
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4042,7 +4086,7 @@ body.dark .v41-employee-topbar .v4-profile span{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.3</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.4</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4283,7 +4327,7 @@ body.dark .v41-employee-topbar .v4-profile span{
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.3</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6.4</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4434,7 +4478,7 @@ body.dark .v41-employee-topbar .v4-profile span{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.3</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6.4</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -5048,6 +5092,8 @@ async function openAdmin(){
 async function openEmployee(){
   showEmployeeApp();
   await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals()]);
+  await hydrateCurrentProfileVisuals();
+  if(currentProfile && currentEmployee && !cleanAvatarUrl(currentEmployee.avatarUrl) && cleanAvatarUrl(currentProfile.avatar_url)) currentEmployee.avatarUrl=currentProfile.avatar_url;
   renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
@@ -5219,7 +5265,7 @@ function renderEmployeeDashboard(){
   $('employeeTopWorking').textContent=`${active.length}名`;
   $('employeeTopName').textContent=currentEmployee.name;
   $('employeeTopRole').textContent=currentEmployee.role;
-  setAvatarElement($('employeeProfileAvatar'),currentEmployee.avatarUrl,(currentEmployee.name||'従').slice(0,1));
+  setAvatarElement($('employeeProfileAvatar'),cleanAvatarUrl(currentEmployee.avatarUrl)||cleanAvatarUrl(currentProfile?.avatar_url)||'',(currentEmployee.name||'従').slice(0,1));
   const open=active.length>0;
   $('employeeOpenStatus').textContent=open?'● OPEN':'● CLOSED';
   $('employeeOpenStatus').style.color=open?'#238642':'#b84242';
@@ -6684,28 +6730,61 @@ async function hydrateCurrentProfileVisuals(){
 function setAvatarElement(el,url,fallback){
   if(!el)return;
   const safeUrl=cleanAvatarUrl(url);
-  if(safeUrl){el.classList.add('has-image');el.style.backgroundImage=`url("${String(safeUrl).replace(/"/g,'&quot;')}")`;el.textContent='';}
-  else{el.classList.remove('has-image');el.style.backgroundImage='';el.textContent=(fallback||'従').slice(0,1);}
+  const fallbackText=(fallback||'従').slice(0,1);
+  const applyFallback=()=>{
+    el.classList.remove('has-image');
+    el.style.backgroundImage='';
+    el.textContent=fallbackText;
+  };
+  if(!safeUrl){applyFallback();return;}
+  const probe=new Image();
+  probe.onload=()=>{
+    el.classList.add('has-image');
+    el.style.backgroundImage=`url("${String(safeUrl).replace(/"/g,'&quot;')}")`;
+    el.textContent='';
+  };
+  probe.onerror=applyFallback;
+  probe.src=safeUrl;
+}
+function syncCurrentVisualEmployee(){
+  if(!currentProfile||!(employees||[]).length)return null;
+  const pid=normalizeIdentityValue(currentProfile.employee_id||'');
+  const pname=normalizeIdentityValue(currentProfile.employee_name||currentProfile.display_name||'');
+  const found=employees.find(e=>normalizeIdentityValue(e.id)===pid)
+    || employees.find(e=>normalizeIdentityValue(e.legalName)===pname)
+    || employees.find(e=>normalizeIdentityValue(e.name)===pname);
+  if(found){
+    if(!cleanAvatarUrl(currentProfile.avatar_url) && cleanAvatarUrl(found.avatarUrl)) currentProfile.avatar_url=found.avatarUrl;
+    if(!cleanAvatarUrl(currentEmployee?.avatarUrl) && cleanAvatarUrl(found.avatarUrl)){
+      if(currentEmployee) currentEmployee.avatarUrl=found.avatarUrl;
+      else currentEmployee={...found};
+    }
+  }
+  return found||null;
 }
 function applyAdminProfileEverywhere(){
   if(!currentProfile)return;
-  const name=currentProfile.display_name||currentProfile.employee_name||'管理者';
-  const role=currentProfile.role||'Administrator';
+  const matched=syncCurrentVisualEmployee();
+  const name=currentProfile.display_name||currentProfile.employee_name||matched?.name||'管理者';
+  const role=currentProfile.role||matched?.role||'Administrator';
   const initial=(name||'管').slice(0,1);
+  const avatar=cleanAvatarUrl(currentProfile.avatar_url)||cleanAvatarUrl(matched?.avatarUrl)||cleanAvatarUrl(currentEmployee?.avatarUrl)||'';
   if($('adminTopName'))$('adminTopName').textContent=name;
   if($('adminTopRole'))$('adminTopRole').textContent=role;
-  setAvatarElement($('adminProfileAvatar'),cleanAvatarUrl(currentProfile.avatar_url)||cleanAvatarUrl(currentEmployee?.avatarUrl)||'',initial);
+  setAvatarElement($('adminProfileAvatar'),avatar,initial);
 }
 
 function applyProfileEverywhere(){
   if(!currentEmployee)return;
-  const name=currentEmployee.name||currentEmployee.legalName||'スタッフ';
+  syncCurrentVisualEmployee();
+  const name=currentEmployee.name||currentEmployee.legalName||currentProfile?.display_name||'スタッフ';
   const initial=name.slice(0,1)||'従';
+  const avatar=cleanAvatarUrl(currentEmployee.avatarUrl)||cleanAvatarUrl(currentProfile?.avatar_url)||'';
   if($('employeeTopName'))$('employeeTopName').textContent=name;
   if($('employeeTopRole'))$('employeeTopRole').textContent=currentEmployee.role||'Cast';
-  setAvatarElement($('employeeProfileAvatar'),currentEmployee.avatarUrl,initial);
-  setAvatarElement($('profileCardAvatar'),currentEmployee.avatarUrl,initial);
-  setAvatarElement($('profileAvatarPreview'),currentEmployee.avatarUrl,initial);
+  setAvatarElement($('employeeProfileAvatar'),avatar,initial);
+  setAvatarElement($('profileCardAvatar'),avatar,initial);
+  setAvatarElement($('profileAvatarPreview'),avatar,initial);
   if($('profileCardName'))$('profileCardName').textContent=name;
   if($('profileCardRole'))$('profileCardRole').textContent=`${currentEmployee.role||'Cast'} ・ ${currentEmployee.id||'-'}`;
   if($('profileCardBio'))$('profileCardBio').textContent=currentEmployee.bio||'自己紹介はまだ設定されていません。';
@@ -7090,7 +7169,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.3 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6.4 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
