@@ -36,7 +36,7 @@
 @media(max-width:1050px){.grid{grid-template-columns:1fr}.attendance-hero,.employee-attendance-grid{grid-template-columns:1fr}.editor{position:relative;top:0;max-height:none}.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.attendance-summary{grid-template-columns:1fr}.attendance-actions{grid-template-columns:1fr}.header{padding:11px 12px}.header-actions .hide-mobile{display:none}.shell{padding:10px}.nav{gap:4px}.nav button{padding:10px 4px;font-size:11px}.grid2{grid-template-columns:1fr}.money-row{grid-template-columns:minmax(0,1fr) 105px 36px}.cards,.employee-slip-grid{grid-template-columns:1fr}.list-item{grid-template-columns:1fr}.sheet-scroll{justify-content:flex-start}.sheet{transform:scale(.66);transform-origin:top left;margin-bottom:-350px}}
 @media print{body{background:#fff}.header,.nav,.editor,.preview-bar,.employee-head,.employee-slip-grid{display:none!important}.shell{padding:0}.grid{display:block}.sheet-scroll{padding:0;overflow:visible}.sheet{width:100%;min-height:auto;border-radius:0;box-shadow:none}}
 
-/* ===== Lait Divin Portal Ver.18.0.4 ===== */
+/* ===== Lait Divin Portal Ver.17 ===== */
 .nav{grid-template-columns:repeat(6,1fr)}
 .dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-bottom:16px}
 .metric-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(47,41,38,.05)}
@@ -3871,7 +3871,7 @@ body.dark .v41-employee-topbar .v4-profile-avatar.has-image{
 
 
 <style id="ver14-6-3-visual-fix">
-/* ===== Ver.18.0.4: profile icon + sidebar readability fix ===== */
+/* ===== Ver.17: profile icon + sidebar readability fix ===== */
 body.dark .v4-greeting,
 body.dark .v41-employee-topbar .v4-greeting{
   background:transparent !important;
@@ -4266,13 +4266,6 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
 @media(max-width:760px){.v4-brand strong{font-size:17px!important}.v4-brand-logo{width:58px!important;height:58px!important}}
 </style>
 
-
-<style id="ver18-feature-suite-css">
-.ops-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.ops-stack{display:grid;gap:16px}.ops-card{padding:20px;border:1px solid var(--line);border-radius:22px;background:var(--panel);box-shadow:0 16px 38px rgba(0,0,0,.08)}.ops-card h2{margin:0 0 5px;font-size:19px}.ops-card .sub{color:var(--muted);font-size:11px;margin-bottom:16px}.campaign-list,.news-list,.award-list,.inventory-alert-list{display:grid;gap:11px}.campaign-item,.news-item,.award-item,.inventory-alert-item{border:1px solid var(--line);border-radius:18px;padding:15px;background:var(--surface2)}.campaign-head,.news-head,.award-head,.inventory-alert-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.campaign-head h3,.news-head h3,.award-head h3,.inventory-alert-head h3{margin:0;font-size:15px}.campaign-meta,.news-meta,.award-meta,.inventory-alert-meta{font-size:10px;color:var(--muted);margin-top:4px}.campaign-desc,.news-body,.award-reason{font-size:12px;line-height:1.75;margin:11px 0;color:var(--ink)}.campaign-progress{height:10px;border-radius:999px;background:var(--soft);overflow:hidden}.campaign-progress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent2),var(--accent));max-width:100%}.campaign-values{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:7px}.ops-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ops-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.news-pinned{border-left:4px solid #d6a36d}.award-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;font-size:22px;background:rgba(207,159,103,.16)}.award-item{display:grid;grid-template-columns:42px 1fr auto;gap:12px;align-items:center}.payslip-ack{display:inline-flex;align-items:center;gap:5px;padding:5px 9px;border-radius:999px;font-size:9px;font-weight:900}.payslip-ack.done{background:rgba(78,190,120,.16);color:#63d68d}.payslip-ack.pending{background:rgba(240,183,91,.14);color:#e7b75d}.dashboard-news{margin:0 0 18px}.dashboard-news .news-item{background:linear-gradient(135deg,rgba(166,110,69,.14),rgba(255,255,255,.02))}.inventory-alert-item.low{border-color:rgba(226,126,107,.45);background:rgba(132,50,42,.12)}.inventory-alert-item.ok{border-color:rgba(92,192,127,.3)}
-body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .award-item,body.dark .inventory-alert-item{background:linear-gradient(180deg,#211916,#191310)!important;border-color:#4a382e!important}.feature-empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px}.feature-badge{display:inline-flex;padding:5px 9px;border-radius:999px;background:var(--soft);font-size:9px;font-weight:900;color:var(--muted)}
-@media(max-width:900px){.ops-grid{grid-template-columns:1fr}.ops-form-grid{grid-template-columns:1fr}}@media(max-width:620px){.campaign-head,.news-head{display:block}.ops-actions .btn{flex:1}.award-item{grid-template-columns:42px 1fr}.award-item .ops-actions{grid-column:1/-1}}
-</style>
-
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4323,7 +4316,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.7</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4340,9 +4333,6 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
       <button data-page="sales" onclick="goPage('sales')"><span>▥</span><b>売上入力</b></button>
       <button data-page="ranking" onclick="goPage('ranking')"><span>♛</span><b>ランキング</b></button>
       <button data-page="audit" onclick="goPage('audit')"><span>▦</span><b>管理履歴</b></button>
-      <button data-page="campaigns" onclick="goPage('campaigns')"><span>🎪</span><b>イベント管理</b></button>
-      <button data-page="news" onclick="goPage('news')"><span>📰</span><b>店舗ニュース</b></button>
-      <button data-page="awards" onclick="goPage('awards')"><span>🏆</span><b>表彰管理</b></button>
       <button data-page="settings" onclick="goPage('settings')"><span>⚙</span><b>設定</b></button>
     </nav>
     <div class="v4-sidebar-bottom">
@@ -4376,7 +4366,6 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
       <section id="page-dashboard" class="page active">
         <div class="v4-mobile-brand"><strong><img src="lait-divin-logo.png" alt=""> Lait Divin Portal</strong><button onclick="toggleV4Sidebar()">☰</button></div>
 
-        <div id="adminDashboardNews" class="dashboard-news"></div>
         <div class="v4-kpi-grid">
           <article class="v4-kpi"><div class="v4-kpi-icon">◉</div><div><span>現在の出勤人数</span><strong id="dashWorking">0名</strong><small id="v4AttendanceRate">登録スタッフ 0名</small></div></article>
           <article class="v4-kpi"><div class="v4-kpi-icon">♟</div><div><span>本日の出勤人数</span><strong id="dashTodayStaff">0名</strong><small>本日のユニーク人数</small></div></article>
@@ -4544,7 +4533,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   </div>
   <div class="dashboard-panel">
     <div class="dashboard-title"><h2>材料在庫</h2><span class="badge">Supabase同期</span></div>
-    <div id="inventoryGrid" class="inventory-grid"></div><div class="ops-card" style="margin-top:16px"><div class="campaign-head"><div><h2>在庫アラート</h2><div class="sub">最低在庫を下回ると通知センターへ自動通知します。</div></div><button class="btn" onclick="loadInventoryAlerts(true)">更新</button></div><div id="inventoryAlertList" class="inventory-alert-list"></div></div>
+    <div id="inventoryGrid" class="inventory-grid"></div>
     <div class="sheet-note">Google Sheetsの「材料」シートから同期した最新データを表示します。</div>
   </div>
   <div class="dashboard-panel"><div class="dashboard-title"><h2>在庫表リンク</h2><span class="badge">別タブ表示</span></div><div class="sheet-note">Google Sheetsは埋め込まず、上の「Google Sheetsを開く」ボタンから別タブで確認します。ブラウザのCORB・stylesheet警告は発生しません。</div></div>
@@ -4568,7 +4557,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.18.0.4</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.17</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -4710,20 +4699,6 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   </div>
 </section>
 
-
-<section id="page-campaigns" class="page">
-  <div class="page-hero compact"><div><span class="eyebrow">CAMPAIGN MANAGEMENT</span><h1>イベント・キャンペーン管理</h1><p>期間限定商品やイベントの目標・実績を管理します。</p></div><button class="btn" onclick="loadCampaigns(true)">↻ 更新</button></div>
-  <div class="ops-grid"><div class="ops-card"><h2>イベント一覧</h2><div class="sub">開催中・予定・終了した企画を確認できます。</div><div id="adminCampaignList" class="campaign-list"></div></div><div class="ops-card"><h2>イベントを登録</h2><div class="ops-form-grid"><div class="field"><label>イベント名</label><input id="campaignTitle" maxlength="80"></div><div class="field"><label>状態</label><select id="campaignStatus"><option value="planned">開催予定</option><option value="active">開催中</option><option value="ended">終了</option></select></div><div class="field"><label>開始日</label><input id="campaignStart" type="date"></div><div class="field"><label>終了日</label><input id="campaignEnd" type="date"></div><div class="field"><label>目標売上</label><input id="campaignTarget" type="number" min="0"></div><div class="field"><label>現在売上</label><input id="campaignCurrent" type="number" min="0"></div></div><div class="field"><label>説明・対象商品</label><textarea id="campaignDescription" maxlength="1000"></textarea></div><label style="display:flex;gap:8px;align-items:center"><input id="campaignNotify" type="checkbox" checked> 登録時に通知センターへ投稿</label><div class="ops-actions"><button class="btn primary" onclick="saveCampaign()">登録する</button></div></div></div>
-</section>
-<section id="page-news" class="page">
-  <div class="page-hero compact"><div><span class="eyebrow">STORE NEWS</span><h1>店舗ニュース</h1><p>スタッフへ常に見てほしい店舗情報を掲載します。</p></div><button class="btn" onclick="loadStoreNews(true)">↻ 更新</button></div>
-  <div class="ops-grid"><div class="ops-card"><h2>ニュース一覧</h2><div id="adminNewsList" class="news-list"></div></div><div class="ops-card"><h2>ニュースを投稿</h2><div class="field"><label>カテゴリ</label><select id="newsCategory"><option value="general">一般</option><option value="product">新商品</option><option value="rule">ルール</option><option value="important">重要</option><option value="maintenance">メンテナンス</option></select></div><div class="field"><label>タイトル</label><input id="newsTitle" maxlength="100"></div><div class="field"><label>本文</label><textarea id="newsBody" maxlength="3000"></textarea></div><label style="display:flex;gap:8px;align-items:center"><input id="newsPinned" type="checkbox"> 上部に固定</label><label style="display:flex;gap:8px;align-items:center;margin-top:8px"><input id="newsNotify" type="checkbox" checked> 通知センターにも投稿</label><div class="ops-actions"><button class="btn primary" onclick="saveStoreNews()">投稿する</button></div></div></div>
-</section>
-<section id="page-awards" class="page">
-  <div class="page-hero compact"><div><span class="eyebrow">STAFF AWARDS</span><h1>スタッフ表彰</h1><p>MVP・接客賞・Farm貢献賞などを付与します。</p></div><button class="btn" onclick="loadStaffAwards(true)">↻ 更新</button></div>
-  <div class="ops-grid"><div class="ops-card"><h2>表彰一覧</h2><div id="adminAwardList" class="award-list"></div></div><div class="ops-card"><h2>表彰を付与</h2><div class="field"><label>対象スタッフ</label><select id="awardProfile"></select></div><div class="ops-form-grid"><div class="field"><label>アイコン</label><input id="awardIcon" value="🏆" maxlength="8"></div><div class="field"><label>対象月</label><input id="awardMonth" type="month"></div></div><div class="field"><label>表彰名</label><select id="awardName"><option>今月のMVP</option><option>接客賞</option><option>Farm貢献賞</option><option>売上賞</option><option>出勤貢献賞</option><option>新人賞</option></select></div><div class="field"><label>理由</label><textarea id="awardReason" maxlength="600"></textarea></div><div class="ops-actions"><button class="btn primary" onclick="saveStaffAward()">表彰を付与</button></div></div></div>
-</section>
-
 <section id="page-settings" class="page"><div class="panel" style="padding:20px;max-width:760px"><div class="section-title" style="font-size:18px;margin-bottom:15px">店舗設定</div><div class="grid2"><div class="field"><label>店舗名</label><input id="settingShop"></div><div class="field"><label>街・サブタイトル</label><input id="settingCity"></div></div><div class="grid2"><div class="field"><label>ロゴ文字 / 絵文字</label><input id="settingLogo"></div><div class="field"><label>明細番号の接頭辞</label><input id="settingPrefix"></div></div><div class="field"><label>フッター文章</label><textarea id="settingFooter"></textarea></div><div class="toolbar"><button class="btn primary" onclick="saveSettings()">設定を保存</button><button class="btn" onclick="exportBackup()">バックアップ</button></div><div class="info">設定・従業員・給料明細はSupabaseへ保存され、ログインすればどの端末からでも同じデータを確認できます。</div></div></section>
 </div></div>
 
@@ -4733,7 +4708,7 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 18.0.7</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4745,8 +4720,6 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
         <button data-employee-page="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫表</b></button>
         <button data-employee-page="farm" onclick="employeeGoPage('farm')"><span>🌾</span><b>Farm</b></button>
         <button data-employee-page="payslips" onclick="employeeGoPage('payslips')"><span>¥</span><b>給料明細</b></button>
-        <button data-employee-page="campaigns" onclick="employeeGoPage('campaigns')"><span>🎪</span><b>イベント</b></button>
-        <button data-employee-page="news" onclick="employeeGoPage('news')"><span>📰</span><b>店舗ニュース</b></button>
         <button data-employee-page="profile" onclick="employeeGoPage('profile')"><span>♙</span><b>プロフィール</b><i class="profile-nav-badge">NEW</i></button>
       </nav>
       <div class="v4-sidebar-bottom">
@@ -4779,7 +4752,6 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
             <div id="employeeStatusPillHome" class="v41-shift-state">退勤中</div>
           </div>
 
-          <div id="employeeDashboardNews" class="dashboard-news"></div>
           <div class="v4-kpi-grid">
             <article class="v4-kpi"><div class="v4-kpi-icon">◉</div><div><span>現在の出勤人数</span><strong id="employeeDashWorking">0名</strong><small>店舗のリアルタイム状況</small></div></article>
             <article class="v4-kpi"><div class="v4-kpi-icon">♟</div><div><span>本日の出勤人数</span><strong id="employeeDashTodayStaff">0名</strong><small>本日のユニーク人数</small></div></article>
@@ -4909,14 +4881,6 @@ body.dark .ops-card,body.dark .campaign-item,body.dark .news-item,body.dark .awa
   <div id="employeeCommunityGrid" class="community-grid"></div>
 </section>
 
-
-
-<section id="employee-page-campaigns" class="employee-page">
-  <div class="page-hero compact"><div><span class="eyebrow">EVENTS & CAMPAIGNS</span><h1>イベント</h1><p>開催中・開催予定のキャンペーンを確認できます。</p></div><button class="btn" onclick="loadCampaigns(true)">↻ 更新</button></div><div id="employeeCampaignList" class="campaign-list"></div>
-</section>
-<section id="employee-page-news" class="employee-page">
-  <div class="page-hero compact"><div><span class="eyebrow">STORE NEWS</span><h1>店舗ニュース</h1><p>新商品・ルール変更・重要なお知らせを確認できます。</p></div><button class="btn" onclick="loadStoreNews(true)">↻ 更新</button></div><div id="employeeNewsList" class="news-list"></div>
-</section>
 
 <section id="employee-page-notifications" class="employee-page">
   <div class="page-hero compact"><div><span class="eyebrow">NOTIFICATION CENTER</span><h1>通知センター</h1><p>Lait Divin Portalからの最新のお知らせを確認できます。</p></div><button class="btn" onclick="loadNotifications(true)">↻ 更新</button></div>
@@ -5059,66 +5023,17 @@ if (!cfg.SUPABASE_URL || !cfg.SUPABASE_ANON_KEY) {
 const sb = window.supabase.createClient(cfg.SUPABASE_URL || '', cfg.SUPABASE_ANON_KEY || '', {
   auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
 });
-window.addEventListener('unhandledrejection',event=>console.error('未処理の通信エラー:',event.reason));
-async function verifyPortalConnection(){
-  try{
-    const {error}=await sb.from('profiles').select('id').limit(1);
-    if(error)throw error;
-    console.info('Lait Divin Portal: Supabase接続OK');
-    return true;
-  }catch(error){
-    console.error('Lait Divin Portal: Supabase接続失敗',error);
-    const e=document.getElementById('loginError');
-    if(e&&!document.body.classList.contains('login-active'))return false;
-    if(e){e.textContent='データベースへ接続できません。config.js・Supabase設定・SQLを確認してください。';e.classList.add('show')}
-    return false;
-  }
-}
-
-async function getPortalFunctionHeaders(){
-  let session=null;
-  try{
-    const result=await sb.auth.getSession();
-    session=result?.data?.session||null;
-    if(!session?.access_token){
-      const refreshed=await sb.auth.refreshSession();
-      session=refreshed?.data?.session||null;
-    }
-  }catch(_){session=null}
-  // このポータルは独自ログインも使用するため、Supabase Authセッションが無い場合は
-  // 有効なJWTであるanon keyをEdge Function認証に使用する。
-  const token=session?.access_token||cfg.SUPABASE_ANON_KEY;
-  if(!token)throw new Error('Supabase接続情報を確認できません。config.jsを確認してください。');
-  return {
-    'Content-Type':'application/json',
-    'apikey':cfg.SUPABASE_ANON_KEY,
-    'Authorization':`Bearer ${token}`
-  };
-}
-async function invokePortalFunction(name,body={}){
-  const headers=await getPortalFunctionHeaders();
-  const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/${name}`,{
-    method:'POST',headers,body:JSON.stringify(body||{})
-  });
-  const payload=await response.json().catch(()=>({}));
-  if(!response.ok) throw new Error(payload?.error||payload?.details||`HTTP ${response.status}`);
-  return payload;
-}
-
 const $=id=>document.getElementById(id),yen=new Intl.NumberFormat('ja-JP',{style:'currency',currency:'JPY',maximumFractionDigits:0});
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const DRAFT_KEY='ld_server_draft_v1';
 let settings={shop:'Lait Divin',city:'Luz City ・ Divine Milk Café',logo:'🐄',prefix:'LD',footer:'Lait Divin\nLuz City\nこの明細書は店舗発行の記録です.'};
 let employees=[],historyData=[],attendanceData=[],myAttendance=[],currentEmployee=null,currentProfile=null,currentViewedSlip=null,currentSlipNo='';
-let campaignRows=[],storeNewsRows=[],staffAwardRows=[],payslipAckRows=[],inventoryAlertRows=[];
 let realtimeChannel=null;
 let onlinePresenceData=[];
 let presenceHeartbeatTimer=null;
 let presenceRefreshTimer=null;
 let presenceIdle=false;
 let lastPresenceActivity=Date.now();
-let presenceWriteDisabled=false;
-let discordFunctionDisabled=false;
 
 // ===== Ver.13.7 Global State =====
 let salesGoals={weekly:0,monthly:0};
@@ -5153,11 +5068,11 @@ async function refreshAllData(silent=false){
   refreshInProgress=true;
   try{
     if(appMode==='admin'){
-      await Promise.allSettled([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadAuditLogs(false),loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false),loadInventoryAlerts(false)]);
+      await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadAuditLogs(false)]);
       refreshEmployeeSelect();refreshSalesEmployeeSelect();
       renderDashboard();renderAttendance();renderEmployees();renderRanking();renderSalesPage();
     }else{
-      await Promise.allSettled([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false)]);
+      await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals()]);
       renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();
     }
     if(!silent)toast('最新データに更新しました');
@@ -5220,9 +5135,6 @@ function ensureMobileNavs(){
           <button onclick="mobileAdminPage('community')"><span>♙</span><b>プロフィール一覧</b></button>
           <button class="mobile-notification-menu-btn" onclick="mobileAdminPage('notifications')"><span>🔔</span><b>通知センター</b><i id="adminMobileNotificationBadge" class="notification-badge hidden">0</i></button>
           <button onclick="mobileAdminPage('discord-report')"><span>◈</span><b>Discordレポート</b></button>
-          <button onclick="mobileAdminPage('campaigns')"><span>🎪</span><b>イベント管理</b></button>
-          <button onclick="mobileAdminPage('news')"><span>📰</span><b>店舗ニュース</b></button>
-          <button onclick="mobileAdminPage('awards')"><span>🏆</span><b>表彰管理</b></button>
           <button onclick="mobileAdminPage('settings')"><span>⚙</span><b>設定</b></button>
         </div>
         <div id="mobileEmployeeMenu" class="mobile-menu-grid hidden">
@@ -5232,8 +5144,6 @@ function ensureMobileNavs(){
           <button onclick="mobileEmployeePage('inventory')"><span>◇</span><b>在庫表</b></button>
           <button onclick="mobileEmployeePage('farm')"><span>🌾</span><b>Farm</b></button>
           <button onclick="mobileEmployeePage('payslips')"><span>¥</span><b>給料明細</b></button>
-          <button onclick="mobileEmployeePage('campaigns')"><span>🎪</span><b>イベント</b></button>
-          <button onclick="mobileEmployeePage('news')"><span>📰</span><b>店舗ニュース</b></button>
           <button onclick="mobileEmployeePage('profile')"><span>♙</span><b>プロフィール</b></button>
           <button onclick="mobileEmployeePage('online')"><span>●</span><b>オンライン</b></button>
           <button onclick="mobileEmployeePage('community')"><span>♙</span><b>プロフィール一覧</b></button>
@@ -5404,24 +5314,17 @@ async function logout(){
 }
 async function openAdmin(){
   showAdminApp();
-  const coreTasks=[loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)];
-  const coreResults=await Promise.allSettled(coreTasks);
-  coreResults.forEach((r,i)=>{if(r.status==='rejected')console.error('管理者コアデータ読込失敗',i,r.reason)});
-  const optionalResults=await Promise.allSettled([loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false),loadInventoryAlerts(false)]);
-  optionalResults.forEach((r,i)=>{if(r.status==='rejected')console.warn('追加機能読込失敗',i,r.reason)});
-  try{await hydrateCurrentProfileVisuals()}catch(e){console.warn('プロフィール表示読込失敗',e)}
+  await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)]);
+  await hydrateCurrentProfileVisuals();
   applyAdminProfileEverywhere();syncAllCurrentAvatarElements();
-  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();renderCampaigns();renderStoreNews();renderStaffAwards();renderInventoryAlerts();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
+  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
 }
 async function openEmployee(){
   showEmployeeApp();
-  const coreResults=await Promise.allSettled([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals()]);
-  coreResults.forEach((r,i)=>{if(r.status==='rejected')console.error('従業員コアデータ読込失敗',i,r.reason)});
-  const optionalResults=await Promise.allSettled([loadCampaigns(false),loadStoreNews(false),loadStaffAwards(false),loadPayslipAcks(false)]);
-  optionalResults.forEach((r,i)=>{if(r.status==='rejected')console.warn('追加機能読込失敗',i,r.reason)});
-  try{await hydrateCurrentProfileVisuals()}catch(e){console.warn('プロフィール表示読込失敗',e)}
+  await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals()]);
+  await hydrateCurrentProfileVisuals();
   if(currentProfile && currentEmployee && !cleanAvatarUrl(currentEmployee.avatarUrl) && cleanAvatarUrl(currentProfile.avatar_url)) currentEmployee.avatarUrl=currentProfile.avatar_url;
-  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();renderCampaigns();renderStoreNews();renderStaffAwards();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
+  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
 }
 function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
@@ -5470,7 +5373,6 @@ async function loadEmployees(){const {data,error}=await sb.from('profiles').sele
 async function loadHistoryData(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadMyHistory(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadSettings(){const {data,error}=await sb.from('app_settings').select('*').eq('id',1).maybeSingle();if(error) throw error;if(data) settings={shop:data.shop_name,city:data.city_subtitle,logo:data.logo_text,prefix:data.slip_prefix,footer:data.footer_text}}
-function loadSettingsUI(){if($('settingShop'))$('settingShop').value=settings.shop||'';if($('settingCity'))$('settingCity').value=settings.city||'';if($('settingLogo'))$('settingLogo').value=settings.logo||'';if($('settingPrefix'))$('settingPrefix').value=settings.prefix||'';if($('settingFooter'))$('settingFooter').value=settings.footer||''}
 function stopRealtime(){
   if(realtimeChannel&&sb){try{sb.removeChannel(realtimeChannel)}catch{}}
   realtimeChannel=null;markRealtimeStatus(false);
@@ -5528,7 +5430,7 @@ function employeeGoPage(page){closeMobileMenu();
   if(page==='profile')loadMyProfileForm();
   if(page==='online')loadOnlinePresence(true);
   if(page==='community')loadCommunityProfiles(false);
-  if(page==='notifications')loadNotifications(false);if(page==='campaigns')loadCampaigns(false);if(page==='news')loadStoreNews(false);if(page==='payslips')loadPayslipAcks(false).then(renderEmployeePortal);
+  if(page==='notifications')loadNotifications(false);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function employeeRankingRows(){
@@ -5647,7 +5549,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history'){loadPayslipAcks(false).then(renderHistory)}if(n==='campaigns')loadCampaigns(false);if(n==='news')loadStoreNews(false);if(n==='awards')loadStaffAwards(false);window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -5815,7 +5717,25 @@ const avatar=e.avatarUrl?`<div class="admin-profile-avatar has-image" style="bac
 d.innerHTML=`<div class="admin-profile-head">${avatar}<div><h3>${esc(e.name)}</h3><p>${esc(e.role)} ・ ${esc(e.id)}</p></div></div><div class="admin-profile-bio">${esc(e.bio||'自己紹介はまだ設定されていません。')}</div><div class="admin-profile-meta"><span>Discord</span><strong>${esc(e.discordName||'未設定')}</strong><span>ひとこと</span><strong>${esc(e.statusMessage||'未設定')}</strong><span>出勤日数</span><strong>${days}日</strong><span>勤務記録</span><strong>${records.length}件</strong></div><button class="btn employee-attendance-button" onclick="openAttendanceDetail(${i})">出勤した日を確認</button><div class="card-actions"><button class="btn primary" onclick="useEmployee(${i})">明細作成</button><button class="btn" onclick="openEmployeeModal(${i})">編集</button><button class="btn danger" onclick="deleteEmployee(${i})">削除</button></div>`;c.appendChild(d)})}
 function useEmployee(i){goPage('create');$('employeeSelect').value=i;applyEmployee()}
 async function deleteEmployee(i){if(!confirm(`${employees[i].name} を削除しますか？`))return;try{await callEmployeeFunction({action:'delete',userId:employees[i].uid});await loadEmployees();refreshEmployeeSelect();renderEmployees()}catch(e){alert(e.message)}}
-function renderHistory(){const q=($('historySearch').value||'').toLowerCase(),b=$('historyList');b.innerHTML='';const list=historyData.filter(x=>`${x.employee} ${x.role} ${x.employeeId} ${x.periodStart} ${x.periodEnd}`.toLowerCase().includes(q));if(!list.length){b.innerHTML='<div class="empty">該当する履歴はありません。</div>';return}list.forEach(x=>{const i=historyData.indexOf(x),ack=payslipAckRows.find(a=>String(a.payslip_id)===String(x.dbId)),d=document.createElement('div');d.className='list-item';d.innerHTML=`<div class="list-main"><strong>${esc(x.employee)}</strong><span>${esc(x.slipNo)} ・ ${esc(x.employeeId)}</span></div><div>${jp(x.periodStart)}<br>〜 ${jp(x.periodEnd)}</div><div><strong style="font-size:14px;color:var(--ink)">${yen.format(x.net)}</strong><br>差引支給額<br><span class="payslip-ack ${ack?'done':'pending'}">${ack?'✓ 確認済み':'未確認'}</span></div><div class="list-actions"><button class="btn primary" onclick="loadHistory(${i})">開く</button><button class="btn danger" onclick="deleteHistory(${i})">削除</button></div>`;b.appendChild(d)})}
+function renderHistory(){const q=($('historySearch').value||'').toLowerCase(),b=$('historyList');b.innerHTML='';const list=historyData.filter(x=>`${x.employee} ${x.role} ${x.employeeId} ${x.periodStart} ${x.periodEnd}`.toLowerCase().includes(q));if(!list.length){b.innerHTML='<div class="empty">該当する履歴はありません。</div>';return}list.forEach(x=>{const i=historyData.indexOf(x),d=document.createElement('div');d.className='list-item';d.innerHTML=`<div class="list-main"><strong>${esc(x.employee)}</strong><span>${esc(x.slipNo)} ・ ${esc(x.employeeId)}</span></div><div>${jp(x.periodStart)}<br>〜 ${jp(x.periodEnd)}</div><div><strong style="font-size:14px;color:var(--ink)">${yen.format(x.net)}</strong><br>差引支給額</div><div class="list-actions"><button class="btn primary" onclick="loadHistory(${i})">開く</button><button class="btn danger" onclick="deleteHistory(${i})">削除</button></div>`;b.appendChild(d)})}
+function loadHistory(i){const d=historyData[i];goPage('create');$('employee').value=d.employee;$('role').value=d.role;$('employeeId').value=d.employeeId;$('issueDate').value=d.issueDate;$('periodStart').value=d.periodStart;$('periodEnd').value=d.periodEnd;$('salesAmount').value=d.salesAmount||0;$('salesRate').value=String(d.salesRate||0);$('note').value=d.note;$('earnings').innerHTML='';$('deductions').innerHTML='';(d.earnings||[]).filter(x=>!x.name.startsWith('売上歩合')).forEach(x=>addMoneyRow('earnings',x.name,x.amount));(d.deductions||[]).forEach(x=>addMoneyRow('deductions',x.name,x.amount));currentSlipNo=d.slipNo;update()}
+async function deleteHistory(i){if(!confirm('この履歴を削除しますか？'))return;const {error}=await sb.from('payslips').delete().eq('id',historyData[i].dbId);if(error){alert(error.message);return}await loadHistoryData();renderHistory()}
+async function clearHistory(){if(!confirm('履歴をすべて削除しますか？'))return;const {error}=await sb.from('payslips').delete().neq('id',0);if(error){alert(error.message);return}await loadHistoryData();renderHistory()}
+function loadSettingsUI(){$('settingShop').value=settings.shop;$('settingCity').value=settings.city;$('settingLogo').value=settings.logo;$('settingPrefix').value=settings.prefix;$('settingFooter').value=settings.footer}
+async function saveSettings(){const payload={id:1,shop_name:$('settingShop').value.trim()||'Lait Divin',city_subtitle:$('settingCity').value.trim(),logo_text:$('settingLogo').value.trim()||'🐄',slip_prefix:$('settingPrefix').value.trim()||'LD',footer_text:$('settingFooter').value};const {error}=await sb.from('app_settings').upsert(payload);if(error){alert(error.message);return}await loadSettings();applySettings();currentSlipNo=newSlipNo();update();await writeAudit('settings','店舗設定を更新',payload.shop_name);toast('サーバーへ設定を保存しました')}
+function exportBackup(){const data={version:3,employees,history:historyData,settings};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`LaitDivin_Backup_${iso(new Date())}.json`;a.click()}
+function importBackup(){alert('オンライン版では誤上書きを防ぐため、復元はSupabase管理画面またはSQLで行います。')}
+function renderEmployeePortal(){$('portalEmployeeName').textContent=`${currentEmployee.name}さん`;$('portalEmployeeMeta').textContent=`${currentEmployee.role} ・ ${currentEmployee.id}`;
+  const ms=startOfMonthISO(),month=myAttendance.filter(a=>dateKey(a.clockIn)>=ms),mins=month.reduce((s,a)=>s+attendanceDuration(a),0);
+  if($('portalMonthHours')){$('portalMonthHours').textContent=formatDuration(mins);$('portalMonthShifts').textContent=`${month.length}回`;$('portalLatestPay').textContent=historyData.length?yen.format(historyData[0].net):'¥0'}
+  const g=$('employeeSlipGrid');g.innerHTML='';if(!historyData.length){g.innerHTML='<div class="empty">まだ給料明細はありません。</div>';return}historyData.forEach(x=>{const i=historyData.indexOf(x),c=document.createElement('div');c.className='card';c.innerHTML=`<h3>${jp(x.periodStart)}〜${jp(x.periodEnd)}</h3><p>${esc(x.slipNo)}<br>差引支給額：${yen.format(x.net)}</p><div class="card-actions"><button class="btn primary" onclick="openEmployeeSlip(${i})">明細を見る</button></div>`;g.appendChild(c)})}
+function slipHTML(x){const er=(x.earnings||[]).map(a=>`<tr><td>${esc(a.name)}</td><td>${yen.format(a.amount)}</td></tr>`).join('')||'<tr><td colspan="2">項目なし</td></tr>';const dr=(x.deductions||[]).map(a=>`<tr><td>${esc(a.name)}</td><td>${yen.format(a.amount)}</td></tr>`).join('')||'<tr><td colspan="2">項目なし</td></tr>';return `<section class="sheet" id="viewedSheet" style="width:100%;min-height:auto"><div class="sheet-head"><div class="sheet-brand"><div><div class="sheet-name">${esc(settings.shop)}</div><div class="sheet-city">${esc(settings.city)}</div></div><div class="sheet-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div></div><div class="sheet-title"><strong>給料明細書</strong><div class="issue">明細番号<br>${esc(x.slipNo)}<br><br>発行日<br>${jp(x.issueDate)}</div></div></div><div class="sheet-body"><div class="person"><div><div class="meta-k">従業員名</div><div class="meta-v">${esc(x.employee)}</div></div><div><div class="meta-k">役職</div><div class="meta-v">${esc(x.role)}</div></div><div><div class="meta-k">従業員番号</div><div class="meta-v">${esc(x.employeeId)}</div></div><div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v">${jp(x.periodStart)} ～ ${jp(x.periodEnd)}</div></div></div><div class="summary"><div class="sum"><div class="k">支給合計</div><div class="v">${yen.format(x.gross)}</div></div><div class="sum"><div class="k">控除合計</div><div class="v">${yen.format(x.deduction)}</div></div><div class="sum net"><div class="k">差引支給額</div><div class="v">${yen.format(x.net)}</div></div></div><div class="table-title">支給内訳</div><table><tbody>${er}</tbody></table><div class="table-title">控除内訳</div><table><tbody>${dr}</tbody></table><div class="note">${esc(x.note)}</div></div></section>`}
+function openEmployeeSlip(i){const x=historyData[i];if(!currentEmployee||x.employeeId.toLowerCase()!==currentEmployee.id.toLowerCase())return;currentViewedSlip=x;$('viewedSlipContainer').innerHTML=slipHTML(x);$('slipModal').classList.remove('hidden')}
+function closeSlipModal(){$('slipModal').classList.add('hidden')}
+function attendanceDuration(a,endDate=new Date()){
+  const start=new Date(a.clockIn), end=a.clockOut?new Date(a.clockOut):endDate;
+  return Math.max(0,end-start);
+}
 function formatDuration(ms){const mins=Math.floor(ms/60000),h=Math.floor(mins/60),m=mins%60;return `${h}時間${String(m).padStart(2,'0')}分`}
 function dateKey(v){
   if(!v)return'';
@@ -6005,7 +5925,7 @@ async function deleteAttendanceIds(ids,message){
   await loadAttendanceData();
   renderAttendance();renderDashboard();renderRanking();renderEmployees();
   if(attendanceDetailEmployee)renderAttendanceDetail();
-  // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
+  await refreshDiscordStatusBoard(false);
   toast(`${clean.length}件の勤務記録を削除しました`);
 }
 async function deleteSelectedAttendance(){
@@ -6077,19 +5997,22 @@ async function deleteEmployeeMonthAttendance(){
 }
 
 async function refreshDiscordStatusBoard(showSuccess=false){
-  if(discordFunctionDisabled){
-    if(showSuccess) alert('Discord連携は現在停止中です。Supabase Edge Function「discord-staff-status」を認証なしで呼べる設定にする必要があります。');
-    return false;
-  }
   try{
-    const result=await invokePortalFunction('discord-staff-status',{});
+    const {data:{session}}=await sb.auth.getSession();
+    const headers={'Content-Type':'application/json','apikey':cfg.SUPABASE_ANON_KEY};
+    if(session?.access_token) headers['Authorization']=`Bearer ${session.access_token}`;
+    const res=await fetch(`${cfg.SUPABASE_URL}/functions/v1/discord-staff-status`,{
+      method:'POST',
+      headers,
+      body:'{}'
+    });
+    const result=await res.json().catch(()=>({}));
+    if(!res.ok) throw new Error(result.error||`HTTP ${res.status}`);
     if(showSuccess) toast(`Discord更新完了：${result.staff_online??0}名勤務中`);
     return true;
   }catch(e){
-    const message=String(e?.message||e||'');
-    if(/401|Unauthorized/i.test(message)) discordFunctionDisabled=true;
-    console.warn('Discord連携は利用できません:',message);
-    if(showSuccess) alert('Discordボード更新に失敗しました。\nEdge Function側の認証設定が必要です。');
+    console.error('Discord Staff Status Board update failed:',e);
+    if(showSuccess) alert('出退勤データは保存されていますが、Discordボード更新に失敗しました。\n'+(e.message||e));
     return false;
   }
 }
@@ -6223,7 +6146,7 @@ async function refreshAfterAdminAttendance(message){
   renderDashboard();
   renderRanking();
   renderEmployees();
-  // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
+  await refreshDiscordStatusBoard(false);
   toast(message);
 }
 async function adminQuickClockIn(uid){
@@ -6314,7 +6237,7 @@ async function clockIn(){
     renderEmployeeDashboard();
     renderEmployeeRanking();
     toast('出勤しました');
-    // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
+    await refreshDiscordStatusBoard(false);
   }catch(error){
     console.error('出勤登録エラー:',error,JSON.stringify(error));
     alert('出勤登録に失敗しました：'+(error.message||error));
@@ -6344,7 +6267,7 @@ async function clockOut(){
     renderEmployeeDashboard();
     renderEmployeeRanking();
     toast('退勤しました');
-    // Discord同期は手動実行時のみ（通常データ表示を401エラーで妨げない）
+    await refreshDiscordStatusBoard(false);
   }catch(error){
     console.error('退勤登録エラー:',error,JSON.stringify(error));
     alert('退勤登録に失敗しました：'+(error.message||error));
@@ -6580,8 +6503,8 @@ async function syncInventoryFromGoogleSheet(show=true){
   window.__inventorySyncRunning=true;
   setInventorySyncStatus('syncing','Google Sheetsから同期中…');
   try{
-    const data=await invokePortalFunction('sync-inventory-sheet',{});
-    const error=null;
+    const {data:{session}}=await sb.auth.getSession();
+    const {data,error}=await sb.functions.invoke('sync-inventory-sheet',{body:{},headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{}});
     if(error){
       let detail=error.message||String(error);
       try{
@@ -6628,8 +6551,6 @@ async function loadInventorySnapshot(show=false){
     if(!inventorySnapshot.length)inventorySnapshot=inventoryFallback.map(x=>({...x}));
     renderInventory(inventorySnapshot);
     renderEmployeeInventory(inventorySnapshot);
-    await loadInventoryAlerts(false);
-    await checkInventoryAlerts(inventorySnapshot);
     renderDashboard();
     const last=data?.[0]?.updated_at?new Date(data[0].updated_at):new Date();
     const label=last.toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
@@ -6641,8 +6562,6 @@ async function loadInventorySnapshot(show=false){
     inventorySnapshot=inventoryFallback.map(x=>({...x}));
     renderInventory(inventorySnapshot);
     renderEmployeeInventory(inventorySnapshot);
-    await loadInventoryAlerts(false);
-    await checkInventoryAlerts(inventorySnapshot);
     renderDashboard();
     if(show)alert('在庫を読み込めませんでした。\nVer.13.7のSQLを実行してください。\n'+(err.message||err));
   }
@@ -6650,32 +6569,11 @@ async function loadInventorySnapshot(show=false){
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
-function startLaitDivinPortal(){
-  try{
-    initTheme();
-    if($('issueDate'))$('issueDate').value=iso(new Date());
-    if($('attendanceDate'))$('attendanceDate').value=iso(new Date());
-    if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());
-    if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());
-    if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());
-    currentSlipNo=newSlipNo();
-    if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}
-    loadSettingsUI();
-    update();
-    updateClocks();
-    setInterval(updateClocks,1000);
-    showLoginScreen();
-  }catch(err){
-    console.error('Portal startup error',err);
-    try{showLoginScreen()}catch(_){}
-  }
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',startLaitDivinPortal,{once:true});
-else setTimeout(startLaitDivinPortal,0);
+initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
 window.addEventListener('focus',()=>refreshAllData(true));
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAllData(true)});
 window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('admin');if(appMode==='employee')subscribeRealtime('employee');refreshAllData(true)});
-verifyPortalConnection().finally(()=>restoreSession());
+restoreSession();
 
 
 /* ===== Ver.6 Supabase Farm Module ===== */
@@ -6705,8 +6603,11 @@ async function syncEmployeeFarmFromGoogleSheet(show=true){
   setEmployeeFarmSyncStatus('syncing','Google Sheetsから同期中…');
 
   try{
-    const data=await invokePortalFunction('sync-farm-sheet',{period_id:Number(currentFarmPeriod)});
-    const error=null;
+    const {data:{session}}=await sb.auth.getSession();
+    const {data,error}=await sb.functions.invoke('sync-farm-sheet',{
+      body:{period_id:Number(currentFarmPeriod)},
+      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
+    });
 
     if(error){
       let detail=error.message||String(error);
@@ -6766,7 +6667,22 @@ async function syncFarmFromGoogleSheet(show=true){
   window.__farmSyncRunning=true;
   setFarmSyncStatus('syncing','Google Sheetsから同期中…');
   try{
-    const data=await invokePortalFunction('sync-farm-sheet',{period_id:Number(currentFarmPeriod)});
+    const {data:{session}}=await sb.auth.getSession();
+    const {data,error}=await sb.functions.invoke('sync-farm-sheet',{
+      body:{period_id:Number(currentFarmPeriod)},
+      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
+    });
+    if(error){
+      let detail=error.message||String(error);
+      try{
+        if(error.context){
+          const cloned=error.context.clone();
+          const payload=await cloned.json();
+          detail=payload?.error||payload?.details||JSON.stringify(payload);
+        }
+      }catch(_){}
+      throw new Error(detail);
+    }
     if(!data?.ok)throw new Error(data?.error||data?.details||'同期に失敗しました');
     await loadFarmData(false);
     const now=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
@@ -6860,8 +6776,8 @@ async function createFarmPeriod(){
     .select().single();
   if(error)return alert(error.message);
   currentFarmPeriod=data.id;
-  await loadFarmData(false);
-  // Google Sheets同期は作成後に管理者がボタンから手動実行
+  await syncFarmFromGoogleSheet(false);
+  await loadFarmData();
   toast('期間を追加してGoogle Sheetsを同期しました');
 }
 
@@ -6967,18 +6883,11 @@ function renderOnlinePresence(){
   ['adminPresenceUpdated','employeePresenceUpdated'].forEach(id=>{if($(id))$(id).textContent=stamp});
 }
 async function sendPresenceHeartbeat(forceStatus){
-  if(!sb||!currentProfile?.id||appMode==='login'||presenceWriteDisabled)return;
+  if(!sb||!currentProfile?.id||appMode==='login')return;
   const status=forceStatus||(presenceIdle?'away':'online');
   const now=new Date().toISOString();
   const {error}=await sb.from('online_presence').upsert({user_id:currentProfile.id,status,last_seen_at:now,updated_at:now},{onConflict:'user_id'});
-  if(error){
-    if(error.code==='42501'||/row-level security|401|Unauthorized/i.test(String(error.message||''))){
-      presenceWriteDisabled=true;
-      console.warn('オンライン表示の書き込みを停止しました。SQL 10_VER18_ONLINE_PRESENCE_POLICY.sql を実行してください。');
-      return;
-    }
-    console.warn('オンライン状態更新エラー:',error.message||error);
-  }
+  if(error)console.warn('オンライン状態更新エラー:',error);
 }
 function recordPresenceActivity(){lastPresenceActivity=Date.now();if(presenceIdle){presenceIdle=false;sendPresenceHeartbeat('online')}}
 function startPresenceTracking(){
@@ -6993,7 +6902,7 @@ async function stopPresenceTracking(markOffline=true){
   presenceHeartbeatTimer=null;presenceRefreshTimer=null;
   ['pointerdown','keydown','touchstart','scroll'].forEach(type=>window.removeEventListener(type,recordPresenceActivity));
   if(markOffline&&sb&&currentProfile?.id){
-    try{await sendPresenceHeartbeat('offline')}catch{}
+    try{await sb.from('online_presence').upsert({user_id:currentProfile.id,status:'offline',last_seen_at:new Date().toISOString(),updated_at:new Date().toISOString()},{onConflict:'user_id'})}catch{}
   }
 }
 document.addEventListener('visibilitychange',()=>{if(appMode!=='login'){if(document.hidden){presenceIdle=true;sendPresenceHeartbeat('away')}else{recordPresenceActivity();loadOnlinePresence(false)}}});
@@ -7546,81 +7455,8 @@ async function sendSiteAndDiscordNotification(){
   }catch(error){console.error(error);alert(`送信に失敗しました：${error.message}\nサイト内だけ保存されている可能性があります。`);await loadNotifications(false)}finally{btn.disabled=false;btn.textContent='サイト内＋Discordへ送信'}
 }
 
-
-// ===== Ver.18.0.4 Feature Suite =====
-function featureDate(v){return v?new Date(v+'T00:00:00').toLocaleDateString('ja-JP'):'未設定'}
-function campaignStatusLabel(v){return v==='active'?'開催中':v==='ended'?'終了':'開催予定'}
-function campaignStatusIcon(v){return v==='active'?'🟢':v==='ended'?'⚫':'🟡'}
-async function loadCampaigns(show=false){if(!sb)return;const {data,error}=await sb.from('campaigns').select('*').order('start_date',{ascending:false});if(error){console.warn(error);return}campaignRows=data||[];renderCampaigns();if(show)toast('イベントを更新しました')}
-function renderCampaigns(){const html=campaignRows.length?campaignRows.map(x=>{const target=Number(x.target_sales)||0,current=Number(x.current_sales)||0,pct=target?Math.min(100,Math.round(current/target*100)):0;return `<article class="campaign-item"><div class="campaign-head"><div><h3>${campaignStatusIcon(x.status)} ${esc(x.title)}</h3><div class="campaign-meta">${featureDate(x.start_date)} ～ ${featureDate(x.end_date)} ・ ${campaignStatusLabel(x.status)}</div></div><span class="feature-badge">${pct}%</span></div><div class="campaign-desc">${esc(x.description||'説明はありません。')}</div><div class="campaign-progress"><span style="width:${pct}%"></span></div><div class="campaign-values"><span>${yen.format(current)}</span><span>目標 ${yen.format(target)}</span></div>${appMode==='admin'?`<div class="ops-actions"><button class="btn" onclick="editCampaign(${Number(x.id)})">編集</button><button class="btn danger" onclick="deleteCampaign(${Number(x.id)})">削除</button><button class="btn primary" onclick="announceCampaign(${Number(x.id)})">告知</button></div>`:''}</article>`}).join(''):'<div class="feature-empty">登録されたイベントはありません。</div>';if($('adminCampaignList'))$('adminCampaignList').innerHTML=html;if($('employeeCampaignList'))$('employeeCampaignList').innerHTML=html}
-let editingCampaignId=null;
-function editCampaign(id){const x=campaignRows.find(r=>Number(r.id)===Number(id));if(!x)return;editingCampaignId=id;$('campaignTitle').value=x.title||'';$('campaignStatus').value=x.status||'planned';$('campaignStart').value=x.start_date||'';$('campaignEnd').value=x.end_date||'';$('campaignTarget').value=x.target_sales||0;$('campaignCurrent').value=x.current_sales||0;$('campaignDescription').value=x.description||'';window.scrollTo({top:0,behavior:'smooth'})}
-async function saveCampaign(){const payload={title:$('campaignTitle').value.trim(),description:$('campaignDescription').value.trim(),start_date:$('campaignStart').value||null,end_date:$('campaignEnd').value||null,target_sales:Number($('campaignTarget').value)||0,current_sales:Number($('campaignCurrent').value)||0,status:$('campaignStatus').value,updated_at:new Date().toISOString()};if(!payload.title)return alert('イベント名を入力してください。');let result=editingCampaignId?await sb.from('campaigns').update(payload).eq('id',editingCampaignId).select().single():await sb.from('campaigns').insert({...payload,created_by:currentProfile?.id||null}).select().single();if(result.error)return alert(result.error.message);if($('campaignNotify').checked)await createFeatureNotification(`🎪 ${payload.title}`,`${campaignStatusLabel(payload.status)}：${featureDate(payload.start_date)}～${featureDate(payload.end_date)}\n${payload.description}`,'update');await writeAudit('campaign',editingCampaignId?'イベントを更新':'イベントを登録',payload.title);editingCampaignId=null;['campaignTitle','campaignDescription','campaignStart','campaignEnd','campaignTarget','campaignCurrent'].forEach(id=>{if($(id))$(id).value=''});await loadCampaigns(false);toast('イベントを保存しました')}
-async function deleteCampaign(id){if(!confirm('このイベントを削除しますか？'))return;const x=campaignRows.find(r=>Number(r.id)===Number(id));const {error}=await sb.from('campaigns').delete().eq('id',id);if(error)return alert(error.message);await writeAudit('campaign','イベントを削除',x?.title||String(id));await loadCampaigns(false)}
-async function announceCampaign(id){const x=campaignRows.find(r=>Number(r.id)===Number(id));if(!x)return;await createFeatureNotification(`🎪 ${x.title}`,`${campaignStatusLabel(x.status)}：${featureDate(x.start_date)}～${featureDate(x.end_date)}\n${x.description||''}`,'update');toast('通知センターへ告知しました')}
-async function loadStoreNews(show=false){if(!sb)return;const {data,error}=await sb.from('store_news').select('*').order('is_pinned',{ascending:false}).order('published_at',{ascending:false}).limit(100);if(error){console.warn(error);return}storeNewsRows=data||[];renderStoreNews();if(show)toast('店舗ニュースを更新しました')}
-function newsCategoryLabel(v){return ({general:'一般',product:'新商品',rule:'ルール',important:'重要',maintenance:'メンテナンス'})[v]||'一般'}
-function renderStoreNews(){const html=storeNewsRows.length?storeNewsRows.map(x=>`<article class="news-item ${x.is_pinned?'news-pinned':''}"><div class="news-head"><div><h3>${x.is_pinned?'📌 ':''}${esc(x.title)}</h3><div class="news-meta">${newsCategoryLabel(x.category)} ・ ${new Date(x.published_at||x.created_at).toLocaleString('ja-JP')}</div></div>${appMode==='admin'?`<button class="btn danger" onclick="deleteStoreNews(${Number(x.id)})">削除</button>`:''}</div><div class="news-body">${esc(x.body||'')}</div></article>`).join(''):'<div class="feature-empty">店舗ニュースはありません。</div>';if($('adminNewsList'))$('adminNewsList').innerHTML=html;if($('employeeNewsList'))$('employeeNewsList').innerHTML=html;const top=storeNewsRows.slice(0,2);const dash=top.length?top.map(x=>`<article class="news-item ${x.is_pinned?'news-pinned':''}"><div class="news-head"><h3>${x.is_pinned?'📌 ':''}${esc(x.title)}</h3><span class="feature-badge">${newsCategoryLabel(x.category)}</span></div><div class="news-body">${esc(x.body||'')}</div></article>`).join(''):'';if($('adminDashboardNews'))$('adminDashboardNews').innerHTML=dash;if($('employeeDashboardNews'))$('employeeDashboardNews').innerHTML=dash}
-async function saveStoreNews(){const payload={title:$('newsTitle').value.trim(),body:$('newsBody').value.trim(),category:$('newsCategory').value,is_pinned:$('newsPinned').checked,created_by:currentProfile?.id||null,created_by_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者',published_at:new Date().toISOString()};if(!payload.title||!payload.body)return alert('タイトルと本文を入力してください。');const {error}=await sb.from('store_news').insert(payload);if(error)return alert(error.message);if($('newsNotify').checked)await createFeatureNotification(`📰 ${payload.title}`,payload.body,payload.category==='important'?'important':'general');await writeAudit('news','店舗ニュースを投稿',payload.title);$('newsTitle').value='';$('newsBody').value='';$('newsPinned').checked=false;await loadStoreNews(false);toast('店舗ニュースを投稿しました')}
-async function deleteStoreNews(id){if(!confirm('このニュースを削除しますか？'))return;const x=storeNewsRows.find(r=>Number(r.id)===Number(id));const {error}=await sb.from('store_news').delete().eq('id',id);if(error)return alert(error.message);await writeAudit('news','店舗ニュースを削除',x?.title||String(id));await loadStoreNews(false)}
-async function loadStaffAwards(show=false){if(!sb)return;const {data,error}=await sb.from('staff_awards').select('*').order('award_month',{ascending:false}).order('created_at',{ascending:false});if(error){console.warn(error);return}staffAwardRows=data||[];renderStaffAwards();refreshAwardProfileSelect();if(show)toast('表彰を更新しました')}
-function refreshAwardProfileSelect(){const el=$('awardProfile');if(!el)return;el.innerHTML=employees.map(e=>`<option value="${esc(e.uid)}">${esc(e.name)} / ${esc(e.id||'-')}</option>`).join('');if($('awardMonth')&&!$('awardMonth').value)$('awardMonth').value=new Date().toISOString().slice(0,7)}
-function renderStaffAwards(){const html=staffAwardRows.length?staffAwardRows.map(x=>`<article class="award-item"><div class="award-icon">${esc(x.award_icon||'🏆')}</div><div><div class="award-head"><h3>${esc(x.award_name)}</h3><span class="feature-badge">${esc(x.award_month||'')}</span></div><div class="award-meta">${esc(x.profile_name||'スタッフ')}</div><div class="award-reason">${esc(x.reason||'')}</div></div>${appMode==='admin'?`<div class="ops-actions"><button class="btn danger" onclick="deleteStaffAward(${Number(x.id)})">解除</button></div>`:''}</article>`).join(''):'<div class="feature-empty">表彰はまだありません。</div>';if($('adminAwardList'))$('adminAwardList').innerHTML=html}
-async function saveStaffAward(){const uid=$('awardProfile').value,emp=employees.find(e=>e.uid===uid);if(!emp)return alert('スタッフを選択してください。');const payload={profile_id:uid,profile_name:emp.name,award_name:$('awardName').value,award_icon:$('awardIcon').value.trim()||'🏆',award_month:$('awardMonth').value,reason:$('awardReason').value.trim(),created_by:currentProfile?.id||null};const {error}=await sb.from('staff_awards').insert(payload);if(error)return alert(error.message);await createFeatureNotification(`${payload.award_icon} ${payload.award_name}`,`${emp.name}さんが「${payload.award_name}」を受賞しました！\n${payload.reason}`, 'success',uid,emp.name);await writeAudit('award','表彰を付与',payload.award_name,emp.name);$('awardReason').value='';await loadStaffAwards(false);toast('表彰を付与しました')}
-async function deleteStaffAward(id){if(!confirm('この表彰を解除しますか？'))return;const x=staffAwardRows.find(r=>Number(r.id)===Number(id));const {error}=await sb.from('staff_awards').delete().eq('id',id);if(error)return alert(error.message);await createFeatureNotification(`表彰解除：${x?.award_name||''}`,`${x?.profile_name||'スタッフ'}さんの表彰が解除されました。`,'important',x?.profile_id||null,x?.profile_name||'');await writeAudit('award','表彰を解除',x?.award_name||'',x?.profile_name||'');await loadStaffAwards(false)}
-async function loadPayslipAcks(show=false){if(!sb||!currentProfile)return;let q=sb.from('payslip_acknowledgements').select('*').order('acknowledged_at',{ascending:false});if(appMode==='employee')q=q.eq('profile_id',currentProfile.id);const {data,error}=await q;if(error){console.warn(error);return}payslipAckRows=data||[];if(show)toast('確認状況を更新しました')}
-async function confirmPayslip(i){const x=historyData[i];if(!x||!currentProfile)return;const payload={payslip_id:String(x.dbId),profile_id:currentProfile.id,employee_name:currentEmployee?.name||currentProfile.display_name||'',acknowledged_at:new Date().toISOString()};const {error}=await sb.from('payslip_acknowledgements').upsert(payload,{onConflict:'payslip_id,profile_id'});if(error)return alert(error.message);await loadPayslipAcks(false);renderEmployeePortal();toast('給与明細を確認済みにしました')}
-async function createFeatureNotification(title,body,type='general',targetProfileId=null,targetName=''){const payload={title,body,type,is_pinned:false,created_by:currentProfile?.id||null,created_by_name:currentProfile?.display_name||currentProfile?.employee_name||'管理者',target_profile_id:targetProfileId,target_name:targetName};const {error}=await sb.from('notifications').insert(payload);if(error)console.warn('通知保存エラー',error);await loadNotifications(false)}
-async function checkInventoryAlerts(items){
-  if(appMode!=='admin'||!Array.isArray(items))return;
-  // 独自ログイン環境ではinventory_alertsへの書込みRLSで401になるため、
-  // 画面表示用のアラートはローカル計算し、Supabase Authセッションがある時だけ保存する。
-  const localRows=items.filter(x=>Number(x.stock)<Number(x.min)).map(x=>({
-    item_name:String(x.name||'').trim(),current_stock:Number(x.stock)||0,
-    min_stock:Number(x.min)||0,is_active:true,last_triggered_at:new Date().toISOString()
-  })).filter(x=>x.item_name);
-  let session=null;
-  try{session=(await sb.auth.getSession())?.data?.session||null}catch(_){}
-  if(!session?.access_token){
-    inventoryAlertRows=localRows;
-    renderInventoryAlerts();
-    return;
-  }
-  try{
-    for(const x of items){
-      const low=Number(x.stock)<Number(x.min),name=String(x.name||'').trim();
-      if(!name)continue;
-      const prev=inventoryAlertRows.find(a=>a.item_name===name);
-      if(low&&(!prev||!prev.is_active)){
-        const {error}=await sb.from('inventory_alerts').upsert({item_name:name,current_stock:Number(x.stock)||0,min_stock:Number(x.min)||0,is_active:true,last_triggered_at:new Date().toISOString()},{onConflict:'item_name'});
-        if(!error)await createFeatureNotification(`⚠️ 在庫不足：${name}`,`現在庫 ${Number(x.stock).toLocaleString()} / 最低在庫 ${Number(x.min).toLocaleString()}`,'important');
-      }else if(!low&&prev?.is_active){
-        await sb.from('inventory_alerts').upsert({item_name:name,current_stock:Number(x.stock)||0,min_stock:Number(x.min)||0,is_active:false,resolved_at:new Date().toISOString()},{onConflict:'item_name'});
-      }
-    }
-    await loadInventoryAlerts(false);
-  }catch(error){
-    console.warn('在庫アラート保存をスキップしました:',error);
-    inventoryAlertRows=localRows;renderInventoryAlerts();
-  }
-}
-async function loadInventoryAlerts(show=false){
-  if(!sb)return;
-  try{
-    const {data,error}=await sb.from('inventory_alerts').select('*').order('is_active',{ascending:false}).order('last_triggered_at',{ascending:false});
-    if(error)throw error;
-    inventoryAlertRows=data||[];renderInventoryAlerts();if(show)toast('在庫アラートを更新しました');
-  }catch(error){
-    // RLS未設定でも既存画面全体を止めない。
-    console.warn('在庫アラートDB読込をスキップしました:',error?.message||error);
-    renderInventoryAlerts();
-  }
-}
-function renderInventoryAlerts(){const host=$('inventoryAlertList');if(!host)return;host.innerHTML=inventoryAlertRows.length?inventoryAlertRows.map(x=>`<article class="inventory-alert-item ${x.is_active?'low':'ok'}"><div class="inventory-alert-head"><h3>${x.is_active?'⚠️':'✅'} ${esc(x.item_name)}</h3><span class="feature-badge">${x.is_active?'要補充':'解消済み'}</span></div><div class="inventory-alert-meta">現在 ${Number(x.current_stock).toLocaleString()} / 最低 ${Number(x.min_stock).toLocaleString()}</div></article>`).join(''):'<div class="feature-empty">在庫アラートはありません。</div>'}
-setInterval(()=>{if(appMode!=='login'){loadCampaigns(false);loadStoreNews(false);loadStaffAwards(false);loadPayslipAcks(false)}},60000);
-
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.18.0.7 Auth Fallback Fix Build 2026-07-31</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.17 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
