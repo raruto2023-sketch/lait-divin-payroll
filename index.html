@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Ver.14.5 Dark Readable</title>
+<title>Lait Divin Ver.14.6 Café Dark</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -3410,6 +3410,284 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
 }
 </style>
 
+
+<style id="ver14-6-cafe-warm-sidebar-fix">
+/* ===== Ver.14.6 Café Warm Dark Theme ===== */
+body.dark{
+  --cafe-bg:#120e0c;
+  --cafe-bg-2:#171210;
+  --cafe-surface:#211916;
+  --cafe-surface-2:#2a201c;
+  --cafe-surface-3:#342823;
+  --cafe-line:#4b382f;
+  --cafe-line-soft:#3b2d27;
+  --cafe-text:#f7efe7;
+  --cafe-text-soft:#e8dccf;
+  --cafe-muted:#bca996;
+  --cafe-accent:#c89a62;
+  --cafe-accent-2:#e2b67f;
+  --cafe-accent-soft:#3b281b;
+  --cafe-olive:#7db785;
+  --cafe-red:#d4867d;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(200,154,98,.18), transparent 24%),
+    radial-gradient(circle at 100% 10%, rgba(104,71,49,.12), transparent 20%),
+    linear-gradient(180deg,#0f0c0a 0%, #15100d 42%, #110d0b 100%) !important;
+  color:var(--cafe-text) !important;
+}
+body.dark .v4-admin-layout,
+body.dark .v41-employee-layout,
+body.dark .employee-layout{background:transparent !important;}
+body.dark .v4-sidebar,
+body.dark .v41-employee-sidebar,
+body.dark .employee-sidebar{
+  background:linear-gradient(180deg,#17110f 0%, #1d1512 100%) !important;
+  border-right:1px solid rgba(236,208,178,.12) !important;
+  box-shadow:20px 0 40px rgba(0,0,0,.35) !important;
+}
+body.dark .v4-brand,
+body.dark .v41-employee-sidebar .brand,
+body.dark .employee-sidebar .brand{
+  background:linear-gradient(135deg,#2c201a 0%, #1f1714 100%) !important;
+  border:1px solid rgba(226,182,127,.16) !important;
+  border-radius:22px !important;
+  padding:18px 16px !important;
+}
+body.dark .v4-brand strong,
+body.dark .v4-brand span,
+body.dark .v4-brand small,
+body.dark .v41-employee-sidebar .brand strong,
+body.dark .v41-employee-sidebar .brand span,
+body.dark .v41-employee-sidebar .brand small,
+body.dark .employee-sidebar .brand strong,
+body.dark .employee-sidebar .brand span,
+body.dark .employee-sidebar .brand small{color:var(--cafe-text) !important;}
+body.dark .v4-brand small,
+body.dark .v41-employee-sidebar .brand small,
+body.dark .employee-sidebar .brand small{color:var(--cafe-muted) !important;}
+body.dark .nav,
+body.dark .v4-nav,
+body.dark .mobile-bottom-nav{
+  background:transparent !important;
+  border:none !important;
+}
+body.dark .nav button,
+body.dark .v4-sidebar nav button,
+body.dark .v41-employee-sidebar nav button,
+body.dark .employee-sidebar nav button,
+body.dark .mobile-bottom-nav button{
+  background:linear-gradient(180deg,#231a17 0%, #1b1512 100%) !important;
+  color:#f1e7dc !important;
+  border:1px solid #4a382e !important;
+  border-radius:18px !important;
+  min-height:50px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.02), 0 8px 18px rgba(0,0,0,.14) !important;
+}
+body.dark .nav button span,
+body.dark .nav button b,
+body.dark .v4-sidebar nav button span,
+body.dark .v4-sidebar nav button b,
+body.dark .v41-employee-sidebar nav button span,
+body.dark .v41-employee-sidebar nav button b,
+body.dark .employee-sidebar nav button span,
+body.dark .employee-sidebar nav button b{color:inherit !important;opacity:1 !important;}
+body.dark .nav button:hover,
+body.dark .v4-sidebar nav button:hover,
+body.dark .v41-employee-sidebar nav button:hover,
+body.dark .employee-sidebar nav button:hover,
+body.dark .mobile-bottom-nav button:hover{
+  background:linear-gradient(180deg,#2b211c 0%, #241b18 100%) !important;
+  border-color:#7a5a45 !important;
+  transform:translateY(-1px);
+}
+body.dark .nav button.active,
+body.dark .v4-sidebar nav button.active,
+body.dark .v41-employee-sidebar nav button.active,
+body.dark .employee-sidebar nav button.active,
+body.dark .mobile-bottom-nav button.active{
+  background:linear-gradient(135deg,#e3bc8a 0%, #c58f57 100%) !important;
+  color:#24160f !important;
+  border-color:#f0d1aa !important;
+  box-shadow:0 14px 30px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.28) !important;
+}
+body.dark .nav button.active b,
+body.dark .nav button.active span,
+body.dark .v4-sidebar nav button.active b,
+body.dark .v4-sidebar nav button.active span,
+body.dark .v41-employee-sidebar nav button.active b,
+body.dark .v41-employee-sidebar nav button.active span,
+body.dark .employee-sidebar nav button.active b,
+body.dark .employee-sidebar nav button.active span{color:#24160f !important;}
+body.dark .v4-sidebar-bottom button,
+body.dark .employee-sidebar-bottom button,
+body.dark .v41-employee-sidebar-bottom button{
+  background:#221916 !important;
+  color:#f2e7dc !important;
+  border:1px solid #4a382d !important;
+  border-radius:18px !important;
+}
+body.dark .v4-sidebar-bottom button:hover,
+body.dark .employee-sidebar-bottom button:hover,
+body.dark .v41-employee-sidebar-bottom button:hover{
+  background:#2a201b !important;
+  border-color:#8a674e !important;
+}
+body.dark .v4-topbar,
+body.dark .header,
+body.dark .v41-employee-topbar{
+  background:linear-gradient(180deg,rgba(30,22,18,.92),rgba(21,16,13,.92)) !important;
+  border:1px solid rgba(215,179,142,.12) !important;
+}
+body.dark .v4-greeting strong,
+body.dark .v4-greeting span,
+body.dark .v4-top-stat small,
+body.dark .v4-top-stat strong,
+body.dark .v4-profile strong,
+body.dark .v4-profile span,
+body.dark [data-realtime-status]{color:var(--cafe-text)!important;}
+body.dark .v4-open-pill{background:#e8f5e8 !important;color:#1a6a38 !important;}
+body.dark .v4-icon-btn{background:#241b17 !important;border:1px solid #4b382f !important;color:#f5eadf !important;}
+body.dark .v4-icon-btn:hover{background:#2c211c !important;border-color:#8a674e !important;}
+body.dark .v4-profile-avatar,
+body.dark .avatar{
+  background:linear-gradient(135deg,#d2a36f,#9e6b45) !important;
+  color:#fff7f0 !important;
+}
+body.dark .page-hero,
+body.dark .hero,
+body.dark .attendance-status,
+body.dark .dashboard-hero,
+body.dark .v4-page-hero,
+body.dark .page-title-card{
+  background:linear-gradient(135deg,#7b5236 0%, #4a2f22 38%, #251b16 100%) !important;
+  border:1px solid #674a39 !important;
+}
+body.dark .page-hero h1,
+body.dark .page-hero p,
+body.dark .dashboard-title h2,
+body.dark .dashboard-title p{color:#fff7ef !important;}
+body.dark .metric-card,
+body.dark .v4-kpi,
+body.dark .dashboard-panel,
+body.dark .sales-goal-card,
+body.dark .inventory-card,
+body.dark .notification-card,
+body.dark .community-card,
+body.dark .employee-history-row,
+body.dark .online-card,
+body.dark .v4-panel,
+body.dark .panel,
+body.dark .card,
+body.dark .section,
+body.dark .table-wrap,
+body.dark .attendance-table,
+body.dark .sheet-note,
+body.dark .info,
+body.dark .empty,
+body.dark .profile-card,
+body.dark .achievement-card{
+  background:linear-gradient(180deg,#201816 0%, #271d19 100%) !important;
+  border:1px solid #4a382e !important;
+  color:var(--cafe-text) !important;
+}
+body.dark .metric-card::before,
+body.dark .v4-kpi::before,
+body.dark .sales-goal-card::before{background:linear-gradient(90deg,#d2a36d,#f0cb95,transparent 85%) !important;height:3px !important;}
+body.dark .metric-card strong,
+body.dark .v4-kpi strong,
+body.dark .sales-goal-card strong,
+body.dark .sales-goal-head strong,
+body.dark .goal-numbers b,
+body.dark .stock-value,
+body.dark .community-card h3,
+body.dark .notification-head h3,
+body.dark .attendance-table th,
+body.dark .attendance-table td,
+body.dark .ranking-row strong,
+body.dark .employee-history-row strong{color:var(--cafe-text) !important;}
+body.dark .metric-card span,
+body.dark .v4-kpi span,
+body.dark .metric-card small,
+body.dark .v4-kpi small,
+body.dark p,
+body.dark small,
+body.dark label,
+body.dark .goal-meta,
+body.dark .goal-numbers small,
+body.dark .stock-min,
+body.dark .notification-meta,
+body.dark .notification-body,
+body.dark .community-card p,
+body.dark .employee-history-row span,
+body.dark .empty,
+body.dark .info,
+body.dark .sheet-note{color:var(--cafe-muted) !important;}
+body.dark .v4-kpi-icon,
+body.dark .metric-icon,
+body.dark .stat-icon{
+  background:linear-gradient(135deg,#3f2e25 0%, #594235 100%) !important;
+  color:#f4e7d8 !important;
+}
+body.dark .goal-track,
+body.dark .stock-bar{background:#16110f !important;border:1px solid #3a2b24 !important;}
+body.dark .goal-fill,
+body.dark .stock-bar span{background:linear-gradient(90deg,#b8824f,#e1b77d) !important;}
+body.dark .goal-fill.done{background:linear-gradient(90deg,#559667,#88d8a2) !important;}
+body.dark .badge,
+body.dark .chip,
+body.dark .pill,
+body.dark .stock-pill{background:#2c221d !important;border:1px solid #5a4538 !important;color:#efdcc7 !important;}
+body.dark .stock-pill.low{background:#3a2120 !important;color:#f5b0a7 !important;border-color:#6d3f3e !important;}
+body.dark input,
+body.dark select,
+body.dark textarea,
+body.dark .field input,
+body.dark .field select,
+body.dark .field textarea,
+body.dark .modal-content{
+  background:#181311 !important;
+  color:var(--cafe-text)!important;
+  border:1px solid #49372d !important;
+}
+body.dark input::placeholder,
+body.dark textarea::placeholder{color:#9d8876 !important;}
+body.dark input:focus,
+body.dark select:focus,
+body.dark textarea:focus{border-color:#d4a46e !important;box-shadow:0 0 0 4px rgba(212,164,110,.15) !important;}
+body.dark .btn.primary,
+body.dark button.primary,
+body.dark .btn.btn-primary,
+body.dark button.btn-primary{
+  background:linear-gradient(135deg,#d8ab74,#efc893) !important;
+  color:#24160f !important;
+  border:none !important;
+}
+body.dark .btn:not(.primary):not(.danger),
+body.dark button:not(.primary):not(.danger):not(.btn-primary){background:#241b17 !important;color:#f1e6db !important;border:1px solid #4a382e !important;}
+body.dark .positive,
+body.dark .metric-value-positive,
+body.dark .profit-up{color:#67d58f !important;}
+body.dark .negative,
+body.dark .profit-down{color:#ef8d83 !important;}
+body.dark .attendance-table table th{background:#1a1411 !important;}
+body.dark tr td{border-bottom:1px solid #3c2c25 !important;}
+body.dark .notification-card.unread,
+body.dark .notification-item.unread{border-left:4px solid #d9aa71 !important;}
+body.dark .online-user-dot{background:#68cc88 !important;box-shadow:0 0 0 4px rgba(104,204,136,.12) !important;}
+body.dark .theme-toggle,
+body.dark .mobile-theme-button,
+body.dark .v41-login-theme,
+body.dark button[onclick*="toggleTheme"]{display:none !important;}
+@media (max-width:760px){
+  body.dark .v4-sidebar,
+  body.dark .v41-employee-sidebar,
+  body.dark .employee-sidebar{box-shadow:24px 0 48px rgba(0,0,0,.45) !important;}
+  body.dark .mobile-bottom-nav{background:rgba(26,19,16,.96)!important;border-top:1px solid #4a382e !important;}
+  body.dark .mobile-bottom-nav button{background:transparent !important;border:none !important;color:#cbb8a8 !important;box-shadow:none !important;}
+  body.dark .mobile-bottom-nav button.active{background:transparent !important;color:#efc78c !important;}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -3460,7 +3738,7 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo">🐄</div>
-      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.3</small></div>
+      <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -3701,7 +3979,7 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
   </div>
   
 <div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.3</span></div>
+  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.14.6</span></div>
   <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
   <div class="farm-check-grid">
     <span>① Edge Function：sync-farm-sheet</span>
@@ -3852,7 +4130,7 @@ body.dark button[onclick*="toggleTheme"]{display:none !important;}
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo">🐄</div>
-        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.3</small></div>
+        <div><strong>Lait Divin</strong><span>STAFF PORTAL</span><small>Ver.14.6</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -6449,7 +6727,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.5 Dark Readable Build 2026-07-30</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Lait Divin Portal Ver.14.6 Dark Readable Build 2026-07-30</div>
 
 <script>
 (function(){
