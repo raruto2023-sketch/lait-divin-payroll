@@ -4266,6 +4266,10 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
 @media(max-width:760px){.v4-brand strong{font-size:17px!important}.v4-brand-logo{width:58px!important;height:58px!important}}
 </style>
 
+<style id="v172-campaign-style">
+/* ===== Ver.17.2 Campaign Manager ===== */
+.campaign-layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.8fr);gap:18px}.campaign-list{display:grid;gap:13px}.campaign-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:var(--shadow)}.campaign-card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.campaign-card h3{margin:5px 0 7px;font-size:18px}.campaign-card p{margin:0;color:var(--muted);line-height:1.75;white-space:pre-wrap}.campaign-status{padding:6px 10px;border-radius:999px;font-size:10px;font-weight:900;white-space:nowrap}.campaign-status.upcoming{background:#e8eef9;color:#48607e}.campaign-status.active{background:#e2f3e9;color:#28704a}.campaign-status.ended{background:#eee8e4;color:#745e52}.campaign-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px;font-size:11px;color:var(--muted)}.campaign-meta span{padding:6px 9px;border:1px solid var(--line);border-radius:999px}.campaign-progress{height:9px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:14px}.campaign-progress>i{display:block;height:100%;background:linear-gradient(90deg,#c8935d,#edc18d);border-radius:999px}.campaign-actions{display:flex;gap:8px;margin-top:14px}.campaign-empty{padding:42px 18px;text-align:center;border:1px dashed var(--line);border-radius:18px;color:var(--muted)}.campaign-form{position:sticky;top:95px}.campaign-form .field{margin-bottom:12px}.campaign-employee-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.campaign-employee-card{padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--card)}.campaign-employee-card h3{margin:7px 0}.campaign-employee-card p{color:var(--muted);line-height:1.7;white-space:pre-wrap}.campaign-badge-row{display:flex;justify-content:space-between;gap:8px;align-items:center}@media(max-width:900px){.campaign-layout{grid-template-columns:1fr}.campaign-form{position:static}.campaign-employee-grid{grid-template-columns:1fr}}
+</style>
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login">
@@ -4316,7 +4320,7 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17.2</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -4324,6 +4328,7 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
       <button data-page="employees" onclick="goPage('employees')"><span>♟</span><b>従業員管理</b></button>
       <button data-page="online" onclick="goPage('online')"><span>●</span><b>オンライン</b></button>
       <button data-page="notifications" onclick="goPage('notifications')"><span>🔔</span><b>通知センター</b><i id="adminNotificationBadge" class="notification-badge hidden">0</i></button>
+      <button data-page="campaigns" onclick="goPage('campaigns')"><span>🎪</span><b>イベント管理</b></button>
       <button data-page="community" onclick="goPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
       <button data-page="discord-report" onclick="goPage('discord-report')"><span>◈</span><b>Discordレポート</b></button>
       <button data-page="create" onclick="goPage('create')"><span>¥</span><b>給与・ボーナス</b></button>
@@ -4699,6 +4704,26 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
   </div>
 </section>
 
+
+<section id="page-campaigns" class="page">
+  <div class="page-hero compact"><div><span class="eyebrow">EVENT & CAMPAIGN</span><h1>イベント・キャンペーン管理</h1><p>期間限定商品や店舗イベントの開催期間・売上目標・進捗を管理できます。</p></div><button class="btn" onclick="loadCampaigns(true)">↻ 更新</button></div>
+  <div class="campaign-layout">
+    <div><div id="campaignAdminList" class="campaign-list"><div class="campaign-empty">イベントを読み込んでいます。</div></div></div>
+    <div class="panel campaign-form" style="padding:20px">
+      <div class="section-title">イベントを登録</div>
+      <input id="campaignId" type="hidden">
+      <div class="field"><label>イベント名</label><input id="campaignTitle" maxlength="80" placeholder="例：夏限定フェア"></div>
+      <div class="grid2"><div class="field"><label>開始日</label><input id="campaignStart" type="date"></div><div class="field"><label>終了日</label><input id="campaignEnd" type="date"></div></div>
+      <div class="field"><label>対象商品・内容</label><input id="campaignProducts" maxlength="160" placeholder="例：トロピカル・フォックス／限定パフェ"></div>
+      <div class="grid2"><div class="field"><label>目標売上</label><input id="campaignGoal" type="number" min="0" step="10000" placeholder="0"></div><div class="field"><label>現在売上</label><input id="campaignCurrent" type="number" min="0" step="10000" placeholder="0"></div></div>
+      <div class="field"><label>説明</label><textarea id="campaignDescription" maxlength="1000" placeholder="スタッフへ共有する内容"></textarea></div>
+      <label style="display:flex;gap:8px;align-items:center;margin:10px 0 16px"><input id="campaignPublished" type="checkbox" checked> 従業員画面に公開する</label>
+      <div class="toolbar"><button class="btn primary" onclick="saveCampaign()">保存</button><button class="btn" onclick="resetCampaignForm()">入力をクリア</button></div>
+      <div id="campaignDbNotice" class="info" style="margin-top:14px">初回のみ付属SQLの実行が必要です。SQL未実行でも既存機能には影響しません。</div>
+    </div>
+  </div>
+</section>
+
 <section id="page-settings" class="page"><div class="panel" style="padding:20px;max-width:760px"><div class="section-title" style="font-size:18px;margin-bottom:15px">店舗設定</div><div class="grid2"><div class="field"><label>店舗名</label><input id="settingShop"></div><div class="field"><label>街・サブタイトル</label><input id="settingCity"></div></div><div class="grid2"><div class="field"><label>ロゴ文字 / 絵文字</label><input id="settingLogo"></div><div class="field"><label>明細番号の接頭辞</label><input id="settingPrefix"></div></div><div class="field"><label>フッター文章</label><textarea id="settingFooter"></textarea></div><div class="toolbar"><button class="btn primary" onclick="saveSettings()">設定を保存</button><button class="btn" onclick="exportBackup()">バックアップ</button></div><div class="info">設定・従業員・給料明細はSupabaseへ保存され、ログインすればどの端末からでも同じデータを確認できます。</div></div></section>
 </div></div>
 
@@ -4708,12 +4733,13 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17.2</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
         <button data-employee-page="online" onclick="employeeGoPage('online')"><span>●</span><b>オンライン</b></button>
         <button data-employee-page="notifications" onclick="employeeGoPage('notifications')"><span>🔔</span><b>通知センター</b><i id="employeeNotificationBadge" class="notification-badge hidden">0</i></button>
+        <button data-employee-page="campaigns" onclick="employeeGoPage('campaigns')"><span>🎪</span><b>イベント</b></button>
         <button data-employee-page="community" onclick="employeeGoPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
         <button data-employee-page="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button>
         <button data-employee-page="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>ランキング</b></button>
@@ -4870,7 +4896,13 @@ body.dark .payroll-import .result strong{color:#f0bb86 !important;}
           <div id="employeeFarmViewRanking" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">選択期間</span></div><div id="employeeFarmRankingList"></div></div></div>
           </section>
 
-        <section id="employee-page-payslips" class="employee-page">
+        
+<section id="employee-page-campaigns" class="employee-page">
+  <div class="page-hero compact"><div><span class="eyebrow">EVENT & CAMPAIGN</span><h1>開催中のイベント</h1><p>Lait Divinの期間限定商品やキャンペーン情報を確認できます。</p></div><button class="btn" onclick="loadCampaigns(true)">↻ 更新</button></div>
+  <div id="campaignEmployeeList" class="campaign-employee-grid"><div class="campaign-empty">イベントを読み込んでいます。</div></div>
+</section>
+
+<section id="employee-page-payslips" class="employee-page">
           <div class="page-hero compact"><div><span class="eyebrow">MY PAYSLIPS</span><h1>給料明細</h1><p>あなたに発行された明細を確認・保存できます。</p></div></div>
           <div id="employeeSlipGrid" class="employee-slip-grid"></div>
         </section>
@@ -5430,7 +5462,7 @@ function employeeGoPage(page){closeMobileMenu();
   if(page==='profile')loadMyProfileForm();
   if(page==='online')loadOnlinePresence(true);
   if(page==='community')loadCommunityProfiles(false);
-  if(page==='notifications')loadNotifications(false);
+  if(page==='notifications')loadNotifications(false);if(page==='campaigns')loadCampaigns(false);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function employeeRankingRows(){
@@ -5549,7 +5581,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='campaigns')loadCampaigns(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -7516,6 +7548,59 @@ async function sendSiteAndDiscordNotification(){
     document.addEventListener('DOMContentLoaded', function(){ forceDarkMode(); setTimeout(forceDarkMode,100); setTimeout(forceDarkMode,800); });
   }else{ forceDarkMode(); setTimeout(forceDarkMode,100); }
 })();
+
+
+/* ===== Ver.17.2 Campaign Manager ===== */
+let campaignData=[];
+function campaignStatus(item){
+  const today=new Date();today.setHours(0,0,0,0);
+  const start=item.start_date?new Date(item.start_date+'T00:00:00'):null;
+  const end=item.end_date?new Date(item.end_date+'T23:59:59'):null;
+  if(start&&today<start)return {key:'upcoming',label:'開催予定'};
+  if(end&&today>end)return {key:'ended',label:'終了'};
+  return {key:'active',label:'開催中'};
+}
+function campaignPercent(item){const goal=Number(item.goal_sales)||0,current=Number(item.current_sales)||0;return goal>0?Math.max(0,Math.min(100,Math.round(current/goal*100))):0}
+function campaignDateRange(item){const s=item.start_date?jp(item.start_date):'未設定',e=item.end_date?jp(item.end_date):'未設定';return `${s} ～ ${e}`}
+async function loadCampaigns(showToast=false){
+  const adminList=$('campaignAdminList'),employeeList=$('campaignEmployeeList');
+  try{
+    if(!sb)throw new Error('Supabaseへ接続できていません');
+    const {data,error}=await sb.from('store_campaigns').select('*').order('start_date',{ascending:false}).order('created_at',{ascending:false});
+    if(error)throw error;
+    campaignData=data||[];renderCampaigns();if(showToast)toast('イベント情報を更新しました');
+  }catch(error){
+    console.warn('イベント読込エラー:',error);
+    const message=`イベント機能の準備が完了していません。付属SQLを実行してください。`;
+    if(adminList)adminList.innerHTML=`<div class="campaign-empty">${message}</div>`;
+    if(employeeList)employeeList.innerHTML=`<div class="campaign-empty">現在、イベント情報を取得できません。</div>`;
+    if(showToast)toast(message);
+  }
+}
+function renderCampaigns(){
+  const adminList=$('campaignAdminList'),employeeList=$('campaignEmployeeList');
+  if(adminList){
+    adminList.innerHTML=campaignData.length?campaignData.map(item=>{const s=campaignStatus(item),pct=campaignPercent(item);return `<article class="campaign-card"><div class="campaign-card-head"><div><small>${esc(item.products||'店舗イベント')}</small><h3>${esc(item.title)}</h3></div><span class="campaign-status ${s.key}">${s.label}</span></div><p>${esc(item.description||'説明はありません。')}</p><div class="campaign-meta"><span>📅 ${campaignDateRange(item)}</span><span>🎯 ${yen.format(Number(item.goal_sales)||0)}</span><span>💰 ${yen.format(Number(item.current_sales)||0)}</span><span>${item.is_published?'公開中':'非公開'}</span></div><div class="campaign-progress"><i style="width:${pct}%"></i></div><div class="campaign-meta"><span>達成率 ${pct}%</span></div><div class="campaign-actions"><button class="btn" onclick="editCampaign('${item.id}')">編集</button><button class="btn danger" onclick="deleteCampaign('${item.id}')">削除</button></div></article>`}).join(''):'<div class="campaign-empty">まだイベントは登録されていません。</div>';
+  }
+  if(employeeList){
+    const publicItems=campaignData.filter(x=>x.is_published);
+    employeeList.innerHTML=publicItems.length?publicItems.map(item=>{const s=campaignStatus(item),pct=campaignPercent(item);return `<article class="campaign-employee-card"><div class="campaign-badge-row"><small>${esc(item.products||'店舗イベント')}</small><span class="campaign-status ${s.key}">${s.label}</span></div><h3>${esc(item.title)}</h3><p>${esc(item.description||'詳細は管理者へご確認ください。')}</p><div class="campaign-meta"><span>📅 ${campaignDateRange(item)}</span><span>達成率 ${pct}%</span></div><div class="campaign-progress"><i style="width:${pct}%"></i></div></article>`}).join(''):'<div class="campaign-empty">現在公開中のイベントはありません。</div>';
+  }
+}
+function resetCampaignForm(){['campaignId','campaignTitle','campaignStart','campaignEnd','campaignProducts','campaignGoal','campaignCurrent','campaignDescription'].forEach(id=>{const el=$(id);if(el)el.value=''});if($('campaignPublished'))$('campaignPublished').checked=true}
+function editCampaign(id){const item=campaignData.find(x=>String(x.id)===String(id));if(!item)return;$('campaignId').value=item.id;$('campaignTitle').value=item.title||'';$('campaignStart').value=item.start_date||'';$('campaignEnd').value=item.end_date||'';$('campaignProducts').value=item.products||'';$('campaignGoal').value=Number(item.goal_sales)||0;$('campaignCurrent').value=Number(item.current_sales)||0;$('campaignDescription').value=item.description||'';$('campaignPublished').checked=!!item.is_published;window.scrollTo({top:0,behavior:'smooth'})}
+async function saveCampaign(){
+  const title=$('campaignTitle')?.value.trim();if(!title){alert('イベント名を入力してください');return}
+  const start=$('campaignStart')?.value||null,end=$('campaignEnd')?.value||null;if(start&&end&&end<start){alert('終了日は開始日以降にしてください');return}
+  const payload={title,start_date:start,end_date:end,products:$('campaignProducts')?.value.trim()||'',goal_sales:Number($('campaignGoal')?.value)||0,current_sales:Number($('campaignCurrent')?.value)||0,description:$('campaignDescription')?.value.trim()||'',is_published:!!$('campaignPublished')?.checked,updated_at:new Date().toISOString()};
+  try{
+    const id=$('campaignId')?.value;let result;
+    if(id)result=await sb.from('store_campaigns').update(payload).eq('id',id);else result=await sb.from('store_campaigns').insert(payload);
+    if(result.error)throw result.error;resetCampaignForm();await loadCampaigns(false);toast(id?'イベントを更新しました':'イベントを登録しました');
+  }catch(error){console.error('イベント保存エラー:',error);alert('保存できませんでした。付属SQLが実行済みか確認してください。\n'+(error.message||''))}
+}
+async function deleteCampaign(id){if(!confirm('このイベントを削除しますか？'))return;try{const {error}=await sb.from('store_campaigns').delete().eq('id',id);if(error)throw error;await loadCampaigns(false);toast('イベントを削除しました')}catch(error){console.error('イベント削除エラー:',error);alert('削除できませんでした。'+(error.message||''))}}
+
 </script>
 
 </body></html>
