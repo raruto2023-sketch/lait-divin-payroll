@@ -8770,7 +8770,7 @@ function inventoryKind(name){
 function inventoryVisual(name){
   const n=String(name||'');
   const kind=inventoryKind(n);
-  const units={milk:'ml',flour:'g',strawberry:'g',blueberry:'g',peach:'g',orange:'g',mango:'g',coffee:'g',egg:'個',butter:'g',cream:'ml',cherry:'g',alcohol:'ml',default:''};
+  const units={milk:'個',flour:'個',strawberry:'個',blueberry:'個',peach:'個',orange:'個',mango:'個',coffee:'個',egg:'個',butter:'個',cream:'個',cherry:'個',alcohol:'個',default:'個'};
   return {image:INVENTORY_IMAGE_DATA[kind]||INVENTORY_IMAGE_DATA.default,unit:units[kind]||''};
 }
 function inventoryPreviewMarkup(x){
@@ -8781,7 +8781,7 @@ function inventoryPreviewMarkup(x){
   return `<div class="v4-stock ${isLow?'low':''}">
     <div class="v4-stock-head">
       <div class="v4-stock-thumb"><img src="${visual.image}" alt="${esc(x.name)}" loading="lazy" onerror="this.onerror=null;this.src=INVENTORY_IMAGE_DATA.default"></div>
-      <div class="v4-stock-copy"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min||0).toLocaleString('ja-JP')}</span><b>${Number(x.stock||0).toLocaleString('ja-JP')} ${visual.unit||''}</b></div>
+      <div class="v4-stock-copy"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min||0).toLocaleString('ja-JP')} 個</span><b>${Number(x.stock||0).toLocaleString('ja-JP')} ${visual.unit||''}</b></div>
     </div>
   </div>`;
 }
@@ -8796,7 +8796,7 @@ function inventoryGridCardMarkup(x){
       <div class="inventory-card-content">
         <div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''} ${isCritical?'critical':''}">${isCritical?'緊急補充':esc(x.status||'在庫OK')}</span></div>
         <div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')} <small>${visual.unit}</small></div>
-        <div class="stock-meta"><span>最低 ${Number(x.min).toLocaleString('ja-JP')}</span><strong>${ratio}%</strong></div>
+        <div class="stock-meta"><span>最低 ${Number(x.min).toLocaleString('ja-JP')} 個</span><strong>${ratio}%</strong></div>
         <div class="stock-bar"><span style="width:${safeRatio}%"></span></div>
       </div>
     </div>`;
@@ -9141,20 +9141,53 @@ async function editInventoryDiscordMessage(){
 async function deleteInventoryDiscordMessage(){
   if(appMode!=='admin'){alert('管理者画面から消去してください。');return}
   if(!inventoryDiscordMessageId&&!inventorySiteNoticeId){alert('消去できる掲載内容がありません。');return}
-  if(!confirm('Discordメッセージとサイト内通知の両方から完全に消去しますか？'))return;
+  if(!confirm('在庫通知を消去しますか？\nDiscord側が既に削除済みでも、サイト内通知は消去されます。'))return;
   const button=$('inventoryDiscordDeleteButton'),resultBox=$('inventoryDiscordResult');
-  button.disabled=true;button.textContent='同時消去中…';
+  button.disabled=true;button.textContent='消去中…';
+
+  let discordDeleteFailed=false;
+  let discordErrorMessage='';
   try{
-    if(inventoryDiscordMessageId)await callInventoryDiscordFunction({action:'delete',message_id:inventoryDiscordMessageId});
+    if(inventoryDiscordMessageId){
+      try{
+        await callInventoryDiscordFunction({action:'delete',message_id:inventoryDiscordMessageId});
+      }catch(error){
+        discordDeleteFailed=true;
+        discordErrorMessage=error?.message||String(error);
+        console.warn('Inventory Discord delete failed; continuing site deletion.',error);
+      }
+    }
+
     await deleteInventorySiteNotice();
-    inventoryDiscordMessageId='';localStorage.removeItem(INVENTORY_DISCORD_MESSAGE_KEY);
+    inventoryDiscordMessageId='';
+    localStorage.removeItem(INVENTORY_DISCORD_MESSAGE_KEY);
     updateInventoryDiscordManager();
-    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`Discord＋サイトから消去しました：${new Date().toLocaleString('ja-JP')}`}
-    toast('Discordとサイト内通知から消去しました');
+
+    const now=new Date().toLocaleString('ja-JP');
+    if(discordDeleteFailed){
+      if(resultBox){
+        resultBox.className='inventory-discord-result success';
+        resultBox.textContent=`Discord側は削除済み・未検出のため、サイト内通知だけ消去しました：${now}`;
+      }
+      await writeAudit('inventory','在庫通知をサイトのみ削除','Discord削除失敗',discordErrorMessage);
+      toast('Discord側は見つからなかったため、サイト内通知だけ消去しました');
+    }else{
+      if(resultBox){
+        resultBox.className='inventory-discord-result success';
+        resultBox.textContent=`Discord＋サイトから消去しました：${now}`;
+      }
+      toast('Discordとサイト内通知から消去しました');
+    }
   }catch(error){
-    if(resultBox){resultBox.className='inventory-discord-result error';resultBox.textContent=`消去失敗：${error.message||error}`}
-    alert(`消去に失敗しました。\n${error.message||error}`);
-  }finally{button.disabled=false;button.textContent='🗑 Discordから消去'}
+    if(resultBox){
+      resultBox.className='inventory-discord-result error';
+      resultBox.textContent=`サイト内通知の消去失敗：${error.message||error}`;
+    }
+    alert(`サイト内通知を消去できませんでした。\n${error.message||error}`);
+  }finally{
+    button.disabled=false;
+    button.textContent='🗑 Discordから消去';
+  }
 }
 
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
@@ -10128,14 +10161,36 @@ async function deleteNotification(id,event){
   if(appMode!=='admin')return alert('通知を削除できるのは管理者のみです。');
   const target=notificationRows.find(n=>Number(n.id)===Number(id));
   if(!target)return;
-  if(!confirm(`「${target.title||'この通知'}」を完全に削除しますか？\nこの操作は元に戻せません。`))return;
-  try{await syncNotificationDiscord(target,'delete')}catch(error){return alert('Discordから削除できませんでした：'+error.message)}
+  if(!confirm(`「${target.title||'この通知'}」を削除しますか？\nDiscord側のメッセージが既に消えている場合でも、サイト内通知は削除されます。`))return;
+
+  let discordDeleteFailed=false;
+  let discordErrorMessage='';
+  try{
+    await syncNotificationDiscord(target,'delete');
+  }catch(error){
+    discordDeleteFailed=true;
+    discordErrorMessage=error?.message||String(error);
+    console.warn('Discord message delete skipped/failed; continuing site deletion.',error);
+  }
+
   const {error}=await sb.from('notifications').delete().eq('id',id);
-  if(error)return alert('通知を削除できませんでした：'+error.message+'\nSQLの削除権限追加が実行済みか確認してください。');
+  if(error)return alert('サイト内通知を削除できませんでした：'+error.message+'\nSQLの削除権限追加が実行済みか確認してください。');
+
   notificationRows=notificationRows.filter(n=>Number(n.id)!==Number(id));
   notificationReadIds.delete(String(id));
   renderNotifications();
-  await writeAudit('notification','通知を削除',target.title||'',target.title||'');toast('サイト内通知とDiscordから削除しました');
+  await writeAudit(
+    'notification',
+    '通知を削除',
+    target.title||'',
+    discordDeleteFailed?`Discord削除失敗後にサイトのみ削除：${discordErrorMessage}`:(target.title||'')
+  );
+
+  if(discordDeleteFailed){
+    toast('Discord側は見つからなかったため、サイト内通知だけ削除しました');
+  }else{
+    toast('サイト内通知とDiscordから削除しました');
+  }
 }
 
 async function callNotificationDiscordFunction(payload){
@@ -10239,7 +10294,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.0.1 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.0.2 Error Fix Build</div>
 
 <script>
 (function(){
