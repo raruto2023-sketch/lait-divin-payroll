@@ -5645,6 +5645,22 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 .inventory-site-notice-preview{margin-top:12px;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,rgba(70,118,82,.16),rgba(45,85,59,.08));border:1px solid rgba(101,166,119,.26)}
 .inventory-site-notice-preview.hidden{display:none!important}.inventory-site-notice-preview>span{display:block;color:#7fc998!important;font-size:8px;letter-spacing:.18em;font-weight:900}.inventory-site-notice-preview strong{display:block;color:#dff3e5!important;font-size:12px;margin:4px 0}.inventory-site-notice-preview p{margin:0;color:#b8d8c1!important;font-size:11px;line-height:1.7;white-space:pre-wrap}
 </style>
+<style id="ver17-8-11-notification-editor">
+.notification-admin-layout{grid-template-columns:minmax(0,1.45fr) minmax(340px,.55fr)!important}
+.notification-list-panel{min-height:620px}
+.notification-toolbar h2 small{font:700 11px system-ui;color:#c4a98f;margin-left:6px}
+.notification-list-controls{display:grid;grid-template-columns:minmax(0,1fr) 180px auto;gap:10px;align-items:end;margin-bottom:15px;padding:13px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(232,199,157,.08)}
+.notification-list-controls .field{margin:0!important}
+.notification-pinned-filter,.notification-pin-check{display:flex!important;align-items:center!important;gap:8px!important;min-height:44px!important;padding:0 12px!important;border-radius:12px!important;background:rgba(255,255,255,.04)!important;border:1px solid rgba(232,199,157,.08)!important;color:#dcc9b7!important}
+.notification-editor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.notification-editor-head>div>span{display:block;color:#d6aa7d;font-size:8px;letter-spacing:.20em;font-weight:900;margin-bottom:4px}
+.notification-edit-btn{margin-left:auto!important;background:rgba(215,164,107,.10)!important;color:#e8c295!important;border-color:rgba(215,164,107,.20)!important}
+.notification-card{background:linear-gradient(180deg,rgba(43,34,29,.96),rgba(27,22,20,.98))!important;border-color:rgba(232,199,157,.10)!important}
+.notification-head h3{color:#fff3e8!important}.notification-body{color:#dfcdbd!important;font-size:13px!important}.notification-meta{flex-wrap:wrap!important;color:#bda895!important}.notification-type{background:rgba(215,164,107,.10)!important;color:#e4bd91!important}.notification-actions{align-items:center!important;flex-wrap:wrap!important}.notification-actions .notification-delete-btn{margin-left:0!important}
+.notification-composer{position:sticky;top:114px;align-self:start}
+@media(max-width:1050px){.notification-admin-layout{grid-template-columns:1fr!important}.notification-composer{position:static!important;order:-1!important}}
+@media(max-width:700px){.notification-list-controls{grid-template-columns:1fr!important}}
+</style>
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6109,10 +6125,33 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 </section>
 
 <section id="page-notifications" class="page">
-  <div class="page-hero compact"><div><span class="eyebrow">NOTIFICATION CENTER</span><h1>通知センター</h1><p>サイト内通知と専用Discordチャンネルへ同時にお知らせを送信できます。</p></div><button class="btn" onclick="loadNotifications(true)">↻ 更新</button></div>
-  <div class="notification-layout">
-    <div class="panel" style="padding:20px"><div class="notification-toolbar"><h2>通知一覧</h2><button class="btn" onclick="markAllNotificationsRead()">すべて既読</button></div><div id="adminNotificationList" class="notification-list"></div></div>
-    <div class="panel notification-composer" style="padding:20px"><div class="section-title">新しい通知を送信</div><div class="field"><label>通知種類</label><select id="notificationType"><option value="general">🔔 一般通知</option><option value="update">📢 アップデート</option><option value="important">⚠️ 重要</option><option value="success">✅ 完了・報告</option></select></div><div class="field"><label>タイトル</label><input id="notificationTitle" maxlength="80" placeholder="例：Ver.13.7 アップデート"></div><div class="field"><label>本文</label><textarea id="notificationBody" maxlength="2000" placeholder="追加した機能や修正内容を入力してください"></textarea></div><label style="display:flex;gap:8px;align-items:center;margin:10px 0"><input id="notificationPinned" type="checkbox"> サイト内で上部に固定する</label><button id="notificationSendButton" class="btn primary full" onclick="sendSiteAndDiscordNotification()">サイト内＋Discordへ送信</button><div class="notification-discord-note">通知専用Webhook：NOTIFICATION_DISCORD_WEBHOOK_URL を使用します。</div></div>
+  <div class="page-hero compact"><div><span class="eyebrow">NOTIFICATION CENTER</span><h1>通知センター</h1><p>サイト内に掲載中の通知を一覧で確認・編集・削除できます。</p></div><button class="btn" onclick="loadNotifications(true)">↻ 更新</button></div>
+  <div class="notification-layout notification-admin-layout">
+    <div class="panel notification-list-panel" style="padding:20px">
+      <div class="notification-toolbar">
+        <div><span class="eyebrow">PUBLISHED NOTICES</span><h2>掲載中の通知一覧 <small id="adminNotificationCount">0件</small></h2></div>
+        <button class="btn" onclick="markAllNotificationsRead()">すべて既読</button>
+      </div>
+      <div class="notification-list-controls">
+        <div class="field"><label>キーワード検索</label><input id="notificationSearch" placeholder="タイトル・本文・投稿者で検索" oninput="renderNotifications()"></div>
+        <div class="field"><label>種類</label><select id="notificationFilterType" onchange="renderNotifications()"><option value="">すべて</option><option value="general">一般通知</option><option value="update">アップデート</option><option value="important">重要</option><option value="success">完了・報告</option></select></div>
+        <label class="notification-pinned-filter"><input id="notificationPinnedOnly" type="checkbox" onchange="renderNotifications()"> 固定中のみ</label>
+      </div>
+      <div id="adminNotificationList" class="notification-list"></div>
+    </div>
+    <div class="panel notification-composer" style="padding:20px">
+      <div class="notification-editor-head">
+        <div><span id="notificationEditorEyebrow">NEW NOTICE</span><div id="notificationEditorTitle" class="section-title">新しい通知を送信</div></div>
+        <button id="notificationCancelEditButton" class="btn hidden" onclick="cancelNotificationEdit()">編集をやめる</button>
+      </div>
+      <input id="notificationEditId" type="hidden">
+      <div class="field"><label>通知種類</label><select id="notificationType"><option value="general">🔔 一般通知</option><option value="update">📢 アップデート</option><option value="important">⚠️ 重要</option><option value="success">✅ 完了・報告</option></select></div>
+      <div class="field"><label>タイトル</label><input id="notificationTitle" maxlength="80" placeholder="例：在庫管理からのお知らせ"></div>
+      <div class="field"><label>本文</label><textarea id="notificationBody" maxlength="2000" placeholder="サイト内に掲載する内容を入力してください"></textarea></div>
+      <label class="notification-pin-check"><input id="notificationPinned" type="checkbox"> サイト内で上部に固定する</label>
+      <button id="notificationSendButton" class="btn primary full" onclick="saveNotificationFromEditor()">サイト内＋Discordへ新規送信</button>
+      <div id="notificationEditorNote" class="notification-discord-note">新規通知はサイト内とDiscordへ送信します。編集時はサイト内通知を更新します。</div>
+    </div>
   </div>
 </section>
 
@@ -9185,12 +9224,34 @@ function notificationTypeLabel(type){return type==='update'?'アップデート'
 function notificationIcon(type){return type==='update'?'📢':type==='important'?'⚠️':type==='success'?'✅':'🔔'}
 function formatNotificationDate(v){return v?new Date(v).toLocaleString('ja-JP',{year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'-'}
 function renderNotifications(){
-  const sorted=[...notificationRows].sort((a,b)=>(Number(b.is_pinned)-Number(a.is_pinned))||new Date(b.created_at)-new Date(a.created_at));
-  const unread=sorted.filter(n=>!notificationReadIds.has(String(n.id))).length;
+  const allSorted=[...notificationRows].sort((a,b)=>(Number(b.is_pinned)-Number(a.is_pinned))||new Date(b.created_at)-new Date(a.created_at));
+  const unread=allSorted.filter(n=>!notificationReadIds.has(String(n.id))).length;
   ['adminNotificationBadge','adminTopNotificationBadge','adminMobileNotificationBadge','employeeNotificationBadge','employeeTopNotificationBadge','employeeMobileNotificationBadge'].forEach(id=>{const el=$(id);if(!el)return;el.textContent=unread>99?'99+':String(unread);el.classList.toggle('hidden',unread===0)});
-  const html=sorted.length?sorted.map(n=>{const isUnread=!notificationReadIds.has(String(n.id));const adminDelete=appMode==='admin'?`<button class="btn danger notification-delete-btn" onclick="deleteNotification(${Number(n.id)}, event)">削除</button>`:'';return `<article class="notification-card ${esc(n.type||'general')} ${isUnread?'unread':''}"><div class="notification-head"><h3>${notificationIcon(n.type)} ${esc(n.title||'お知らせ')}${n.is_pinned?' 📌':''}</h3><small>${formatNotificationDate(n.created_at)}</small></div><div class="notification-body">${esc(n.body||'')}</div><div class="notification-meta"><span class="notification-type">${notificationTypeLabel(n.type)}</span><span>${esc(n.created_by_name||'Lait Divin')}</span>${n.target_profile_id?`<span>宛先：${esc(n.target_name||'あなた')}</span>`:''}</div><div class="notification-actions">${isUnread?`<button class="btn" onclick="markNotificationRead(${Number(n.id)})">既読にする</button>`:''}${adminDelete}</div></article>`}).join(''):'<div class="notification-empty">新しい通知はありません。</div>';
-  if($('adminNotificationList'))$('adminNotificationList').innerHTML=html;
-  if($('employeeNotificationList'))$('employeeNotificationList').innerHTML=html;
+
+  const q=($('notificationSearch')?.value||'').trim().toLowerCase();
+  const typeFilter=$('notificationFilterType')?.value||'';
+  const pinnedOnly=!!$('notificationPinnedOnly')?.checked;
+  const adminRows=allSorted.filter(n=>
+    (!typeFilter||String(n.type||'general')===typeFilter)&&
+    (!pinnedOnly||!!n.is_pinned)&&
+    (!q||`${n.title||''} ${n.body||''} ${n.created_by_name||''}`.toLowerCase().includes(q))
+  );
+
+  const makeHtml=(rows,isAdmin)=>rows.length?rows.map(n=>{
+    const numericId=Number(n.id),isLocal=numericId<0,isUnread=!notificationReadIds.has(String(n.id));
+    const editButton=isAdmin&&!isLocal?`<button class="btn notification-edit-btn" onclick="startNotificationEdit(${numericId}, event)">✎ 編集</button>`:'';
+    const deleteButton=isAdmin&&!isLocal?`<button class="btn danger notification-delete-btn" onclick="deleteNotification(${numericId}, event)">削除</button>`:'';
+    return `<article class="notification-card ${esc(n.type||'general')} ${isUnread?'unread':''}">
+      <div class="notification-head"><h3>${notificationIcon(n.type)} ${esc(n.title||'お知らせ')}${n.is_pinned?' 📌':''}</h3><small>${formatNotificationDate(n.updated_at||n.created_at)}${n.updated_at?'（編集済み）':''}</small></div>
+      <div class="notification-body">${esc(n.body||'')}</div>
+      <div class="notification-meta"><span class="notification-type">${notificationTypeLabel(n.type)}</span><span>投稿者：${esc(n.created_by_name||'Lait Divin')}</span></div>
+      <div class="notification-actions">${isUnread?`<button class="btn" onclick="markNotificationRead(${numericId})">既読にする</button>`:''}${editButton}${deleteButton}</div>
+    </article>`;
+  }).join(''):'<div class="notification-empty">条件に一致する通知はありません。</div>';
+
+  if($('adminNotificationList'))$('adminNotificationList').innerHTML=makeHtml(adminRows,true);
+  if($('adminNotificationCount'))$('adminNotificationCount').textContent=`${adminRows.length}件`;
+  if($('employeeNotificationList'))$('employeeNotificationList').innerHTML=makeHtml(allSorted,false);
 }
 async function loadNotifications(show=false){
   if(!sb||!currentProfile?.id)return;
@@ -9257,6 +9318,62 @@ async function deleteNotification(id,event){
   renderNotifications();
   await writeAudit('notification','通知を削除',target.title||'',target.title||'');toast('通知を削除しました');
 }
+
+function resetNotificationEditor(){
+  $('notificationEditId').value='';
+  $('notificationType').value='general';
+  $('notificationTitle').value='';
+  $('notificationBody').value='';
+  $('notificationPinned').checked=false;
+  $('notificationEditorEyebrow').textContent='NEW NOTICE';
+  $('notificationEditorTitle').textContent='新しい通知を送信';
+  $('notificationSendButton').textContent='サイト内＋Discordへ新規送信';
+  $('notificationCancelEditButton').classList.add('hidden');
+  $('notificationEditorNote').textContent='新規通知はサイト内とDiscordへ送信します。編集時はサイト内通知を更新します。';
+}
+function startNotificationEdit(id,event){
+  if(event)event.stopPropagation();
+  const target=notificationRows.find(n=>Number(n.id)===Number(id));
+  if(!target||Number(target.id)<0)return alert('この通知は編集できません。');
+  $('notificationEditId').value=String(target.id);
+  $('notificationType').value=target.type||'general';
+  $('notificationTitle').value=target.title||'';
+  $('notificationBody').value=target.body||'';
+  $('notificationPinned').checked=!!target.is_pinned;
+  $('notificationEditorEyebrow').textContent='EDIT NOTICE';
+  $('notificationEditorTitle').textContent='通知を編集';
+  $('notificationSendButton').textContent='変更内容をサイトへ保存';
+  $('notificationCancelEditButton').classList.remove('hidden');
+  $('notificationEditorNote').textContent='編集内容はサイト内通知へ即時反映されます。Discordの過去メッセージは変更されません。';
+  document.querySelector('.notification-composer')?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function cancelNotificationEdit(){resetNotificationEditor()}
+async function updateSiteNotification(){
+  const id=Number($('notificationEditId').value);
+  const title=$('notificationTitle').value.trim(),body=$('notificationBody').value.trim();
+  const type=$('notificationType').value||'general',isPinned=$('notificationPinned').checked;
+  if(!id||!title||!body)return alert('タイトルと本文を入力してください。');
+  const btn=$('notificationSendButton');btn.disabled=true;btn.textContent='保存中…';
+  try{
+    const {data,error}=await sb.from('notifications').update({title,body,type,is_pinned:isPinned,updated_at:new Date().toISOString()}).eq('id',id).select().single();
+    if(error)throw error;
+    notificationRows=notificationRows.map(n=>Number(n.id)===id?{...n,...data}:n);
+    renderNotifications();
+    await writeAudit('notification','通知を編集',title,title);
+    resetNotificationEditor();
+    toast('サイト内通知を更新しました');
+  }catch(error){
+    alert('通知を編集できませんでした：'+error.message);
+  }finally{
+    btn.disabled=false;
+    if(!$('notificationEditId').value)btn.textContent='サイト内＋Discordへ新規送信';
+  }
+}
+async function saveNotificationFromEditor(){
+  if(Number($('notificationEditId').value)>0)return updateSiteNotification();
+  return sendSiteAndDiscordNotification();
+}
+
 async function sendSiteAndDiscordNotification(){
   if(appMode!=='admin')return alert('管理者のみ送信できます。');
   const title=$('notificationTitle')?.value.trim(),body=$('notificationBody')?.value.trim(),type=$('notificationType')?.value||'general',isPinned=!!$('notificationPinned')?.checked;
@@ -9268,12 +9385,12 @@ async function sendSiteAndDiscordNotification(){
     const {data:{session}}=await sb.auth.getSession();if(!session)throw new Error('ログイン情報がありません。');
     const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/send-notification`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${session.access_token}`},body:JSON.stringify({notification_id:notice.id})});
     const result=await response.json().catch(()=>({}));if(!response.ok)throw new Error(result.error||`Discord送信 HTTP ${response.status}`);
-    $('notificationTitle').value='';$('notificationBody').value='';$('notificationPinned').checked=false;await loadNotifications(false);await writeAudit('notification','通知を送信',`${notificationTypeLabel(type)} / ${title}`,title);toast('サイト内＋Discordへ送信しました');
-  }catch(error){console.error(error);alert(`送信に失敗しました：${error.message}\nサイト内だけ保存されている可能性があります。`);await loadNotifications(false)}finally{btn.disabled=false;btn.textContent='サイト内＋Discordへ送信'}
+    resetNotificationEditor();await loadNotifications(false);await writeAudit('notification','通知を送信',`${notificationTypeLabel(type)} / ${title}`,title);toast('サイト内＋Discordへ送信しました');
+  }catch(error){console.error(error);alert(`送信に失敗しました：${error.message}\nサイト内だけ保存されている可能性があります。`);await loadNotifications(false)}finally{btn.disabled=false;if(!$('notificationEditId')?.value)btn.textContent='サイト内＋Discordへ新規送信'}
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.10 Notification Type Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.11 Notification List Editor Build</div>
 
 <script>
 (function(){
