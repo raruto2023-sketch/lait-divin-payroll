@@ -8251,7 +8251,6 @@ async function sendInventoryAlertToDiscord(){
   if(appMode!=='admin'){alert('管理者画面から送信してください。');return}
   const low=getInventoryDiscordLowItems();
   const comment=$('inventoryDiscordComment')?.value.trim()||'';
-  if(!low.length&&!comment){alert('在庫不足がない場合は、送信する管理者コメントを入力してください。');return}
   const preview=low.length?low.map(x=>`・${x.name}：現在 ${Number(x.stock).toLocaleString('ja-JP')} / 最低 ${Number(x.min).toLocaleString('ja-JP')}`).join('\n'):'現在、最低在庫を下回っている材料はありません。';
   if(!confirm(`Discordとサイト内通知へ新規送信しますか？\n\n${comment?`【管理者コメント】\n${comment}\n\n`:''}${preview}`))return;
   const button=$('inventoryDiscordButton'),resultBox=$('inventoryDiscordResult');
@@ -8278,7 +8277,6 @@ async function editInventoryDiscordMessage(){
   if(!inventoryDiscordMessageId){alert('編集できる送信済みメッセージがありません。');return}
   const low=getInventoryDiscordLowItems();
   const comment=$('inventoryDiscordComment')?.value.trim()||'';
-  if(!low.length&&!comment){alert('在庫不足がない場合は、掲載する管理者コメントを入力してください。');return}
   if(!confirm('Discordメッセージとサイト内通知を、現在の内容で同時に更新しますか？'))return;
   const button=$('inventoryDiscordEditButton'),resultBox=$('inventoryDiscordResult');
   button.disabled=true;button.textContent='同時編集中…';
@@ -9275,7 +9273,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.6 Inventory Notice Sync Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.7 Allow Empty Inventory Notice Build</div>
 
 <script>
 (function(){
