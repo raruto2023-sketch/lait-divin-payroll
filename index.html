@@ -5608,6 +5608,19 @@ body:not(.dark) textarea{
 body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}body.dark .clear-login-card h1,body.dark .clear-login-card h2,body.dark .clear-login-card strong,body.dark .clear-login-card b{color:#fff4e8!important}body.dark .clear-login-card p,body.dark .clear-login-card span,body.dark .clear-login-card small,body.dark .clear-login-card label{color:#d7c4b2!important}body.dark .clear-login-form input{color:#fff7f0!important}
 @media(max-width:620px){.clear-cow-login{padding:20px 10px!important;align-items:start!important}.clear-login-wrap{padding-top:135px!important}.clear-cow{width:330px!important;height:175px!important}.clear-login-card{padding:32px 18px 22px!important;border-radius:24px!important}.clear-login-brand img{width:58px!important;height:58px!important}.clear-login-brand h1{font-size:24px!important}.clear-login-tabs button{min-height:60px!important;padding:9px!important}.clear-login-tabs button>span{width:35px!important;height:35px!important}.clear-login-form{padding:18px!important}.clear-login-footer{flex-direction:column!important;text-align:center!important}}
 </style>
+<style id="ver17-8-4-admin-profile-editor">
+.community-admin-actions{display:flex;justify-content:flex-end;margin-top:14px;padding-top:13px;border-top:1px solid rgba(226,188,148,.12)}
+.community-admin-actions .btn{width:100%}
+.admin-profile-edit-modal{width:min(760px,100%)!important;max-height:92vh!important;overflow:auto!important}
+.admin-profile-edit-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:22px;padding-bottom:17px;border-bottom:1px solid var(--line)}
+.admin-profile-edit-head span{font-size:9px;letter-spacing:.20em;color:#d2ac82;font-weight:900}.admin-profile-edit-head h2{margin:5px 0;color:var(--text)}.admin-profile-edit-head p{margin:0;color:var(--muted);font-size:11px}
+.admin-profile-edit-layout{display:grid;grid-template-columns:180px minmax(0,1fr);gap:22px;align-items:start}
+.admin-profile-avatar-editor{display:grid;gap:9px;text-align:center;padding:17px;border-radius:20px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+.admin-edit-avatar-preview{width:132px;height:132px;margin:0 auto 8px;border-radius:32px;display:grid;place-items:center;overflow:hidden;background:linear-gradient(135deg,#d1a98c,#6a4938);color:#fff;font:900 40px Georgia;box-shadow:0 15px 32px rgba(0,0,0,.20)}
+.admin-edit-avatar-preview.has-image{color:transparent;background-size:cover;background-position:center}
+.admin-profile-edit-fields textarea{resize:vertical;min-height:120px}
+@media(max-width:680px){.admin-profile-edit-head{display:block}.admin-profile-edit-head>.btn{margin-top:12px;width:100%}.admin-profile-edit-layout{grid-template-columns:1fr}.admin-profile-avatar-editor{grid-template-columns:1fr 1fr}.admin-edit-avatar-preview{grid-column:1/-1}.admin-profile-edit-fields .grid2{grid-template-columns:1fr}}
+</style>
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6407,6 +6420,41 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 </div>
 
 <div id="employeeModal" class="modal-back hidden"><div class="modal"><h2 id="employeeModalTitle">従業員を登録</h2><input id="editEmployeeIndex" type="hidden"><div class="field"><label>名前</label><input id="modalName"></div><div class="grid2"><div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option><option>関係者</option></select></div><div class="field"><label>従業員番号</label><input id="modalId"></div></div><div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" type="password" placeholder="本人に伝えるパスワード"></div><div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div><div class="modal-actions"><button class="btn" onclick="closeEmployeeModal()">キャンセル</button><button class="btn primary" onclick="saveEmployee()">保存</button></div></div></div>
+
+<div id="adminProfileEditModal" class="modal-back hidden">
+  <div class="modal admin-profile-edit-modal">
+    <div class="admin-profile-edit-head">
+      <div>
+        <span>ADMIN PROFILE CONTROL</span>
+        <h2>従業員プロフィールを編集</h2>
+        <p>管理者権限で、選択した従業員の公開プロフィールを変更できます。</p>
+      </div>
+      <button class="btn" onclick="closeAdminProfileEditor()">閉じる</button>
+    </div>
+    <input id="adminEditProfileId" type="hidden">
+    <div class="admin-profile-edit-layout">
+      <div class="admin-profile-avatar-editor">
+        <div id="adminEditAvatarPreview" class="admin-edit-avatar-preview">従</div>
+        <input id="adminEditAvatarInput" type="file" accept="image/*" hidden onchange="handleAdminProfileAvatar(event)">
+        <button class="btn" onclick="$('adminEditAvatarInput').click()">画像を選択</button>
+        <button class="btn danger" onclick="removeAdminProfileAvatar()">画像を削除</button>
+      </div>
+      <div class="admin-profile-edit-fields">
+        <div class="field"><label for="adminEditDisplayName">表示名</label><input id="adminEditDisplayName" maxlength="60"></div>
+        <div class="grid2">
+          <div class="field"><label for="adminEditDiscordName">Discord名</label><input id="adminEditDiscordName" maxlength="100" placeholder="未設定"></div>
+          <div class="field"><label for="adminEditStatusMessage">ひとこと</label><input id="adminEditStatusMessage" maxlength="100" placeholder="今日もよろしくお願いします！"></div>
+        </div>
+        <div class="field"><label for="adminEditBio">自己紹介</label><textarea id="adminEditBio" rows="5" maxlength="300" oninput="updateAdminProfileCharCount()"></textarea><div id="adminEditBioCount" class="profile-char-count">0 / 300</div></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <span id="adminProfileEditStatus" class="profile-save-status"></span>
+      <button class="btn" onclick="closeAdminProfileEditor()">キャンセル</button>
+      <button id="adminProfileSaveButton" class="btn primary" onclick="saveAdminEditedProfile()">変更を保存</button>
+    </div>
+  </div>
+</div>
 
 <div id="slipModal" class="modal-back hidden"><div class="modal" style="width:min(850px,100%);max-height:92vh;overflow:auto"><div class="modal-actions" style="margin:0 0 12px"><button class="btn" onclick="closeSlipModal()">閉じる</button><button class="btn primary" onclick="downloadViewedSlip()">PNG保存</button></div><div id="viewedSlipContainer"></div></div></div>
 <div class="toast" id="toast"></div>
@@ -8679,6 +8727,79 @@ async function saveMyProfile(){
 
 
 
+
+let adminEditingProfile=null;
+let adminEditingAvatar='';
+
+function openAdminProfileEditor(profileId){
+  if(appMode!=='admin'){alert('管理者のみ編集できます。');return}
+  const employee=employees.find(e=>String(e.uid)===String(profileId));
+  if(!employee){alert('プロフィールが見つかりません。');return}
+  adminEditingProfile=employee;
+  adminEditingAvatar=employee.avatarUrl||'';
+  $('adminEditProfileId').value=employee.uid||'';
+  $('adminEditDisplayName').value=employee.name||employee.legalName||'';
+  $('adminEditDiscordName').value=employee.discordName||'';
+  $('adminEditStatusMessage').value=employee.statusMessage||'';
+  $('adminEditBio').value=employee.bio||'';
+  $('adminProfileEditStatus').textContent='';
+  updateAdminProfileCharCount();
+  previewAdminProfileAvatar();
+  $('adminProfileEditModal').classList.remove('hidden');
+  setTimeout(()=>$('adminEditDisplayName')?.focus(),80);
+}
+function closeAdminProfileEditor(){
+  $('adminProfileEditModal')?.classList.add('hidden');
+  adminEditingProfile=null;adminEditingAvatar='';
+}
+function updateAdminProfileCharCount(){
+  if($('adminEditBioCount'))$('adminEditBioCount').textContent=`${($('adminEditBio')?.value||'').length} / 300`;
+}
+function previewAdminProfileAvatar(){
+  const name=$('adminEditDisplayName')?.value.trim()||adminEditingProfile?.legalName||'従';
+  setAvatarElement($('adminEditAvatarPreview'),adminEditingAvatar,(name||'従').slice(0,1));
+}
+async function handleAdminProfileAvatar(event){
+  const file=event.target.files?.[0];if(!file)return;
+  if(!file.type.startsWith('image/')){alert('画像ファイルを選択してください。');return}
+  if(file.size>8*1024*1024){alert('画像は8MB以下にしてください。');return}
+  try{adminEditingAvatar=await compressProfileImage(file);previewAdminProfileAvatar()}
+  catch(error){console.error(error);alert('画像を読み込めませんでした。')}
+  event.target.value='';
+}
+function removeAdminProfileAvatar(){adminEditingAvatar='';previewAdminProfileAvatar()}
+async function saveAdminEditedProfile(){
+  if(appMode!=='admin'||!adminEditingProfile)return;
+  const displayName=$('adminEditDisplayName').value.trim();
+  if(!displayName){alert('表示名を入力してください。');return}
+  const button=$('adminProfileSaveButton'),status=$('adminProfileEditStatus');
+  button.disabled=true;status.textContent='保存中…';
+  const patch={
+    display_name:displayName,
+    avatar_url:adminEditingAvatar||null,
+    bio:$('adminEditBio').value.trim(),
+    discord_name:$('adminEditDiscordName').value.trim(),
+    status_message:$('adminEditStatusMessage').value.trim(),
+    updated_at:new Date().toISOString()
+  };
+  try{
+    const {data,error}=await sb.from('profiles').update(patch).eq('id',adminEditingProfile.uid).select('*').single();
+    if(error)throw error;
+    updateEmployeeCacheFromProfile(data);
+    await Promise.all([loadEmployees(),loadCommunityProfiles(false)]);
+    renderEmployees();renderCommunityProfiles();renderDashboard();renderOnlinePresence();
+    status.textContent='保存しました';
+    toast(`${displayName}さんのプロフィールを更新しました`);
+    await writeAudit('profile','従業員プロフィールを更新',`${displayName} / ${adminEditingProfile.id||''}`,displayName);
+    setTimeout(closeAdminProfileEditor,650);
+  }catch(error){
+    console.error('管理者プロフィール編集エラー:',error);
+    status.textContent='保存できませんでした';
+    alert(`プロフィールの保存に失敗しました：${error.message||error}`);
+  }finally{button.disabled=false}
+}
+document.addEventListener('input',event=>{if(event.target?.id==='adminEditDisplayName')previewAdminProfileAvatar()});
+
 // ===== Premium 1.5: Community profiles, achievements and Discord daily report =====
 let achievementCatalog=[];
 let profileAchievements=[];
@@ -8714,7 +8835,7 @@ function communityCard(profile,isAdmin){
   const avatar=person.avatarUrl?`<div class="community-avatar has-image" style="background-image:url('${esc(person.avatarUrl)}')">${esc(initial)}</div>`:`<div class="community-avatar">${esc(initial)}</div>`;
   const chips=awards.length?awards.map(x=>`<span class="achievement-chip ${isAdmin?'admin-removable':''}" title="${esc(x.item.description||'')}">${esc(x.item.icon||'🏆')} ${esc(x.item.name)}${isAdmin?`<button class="achievement-remove" type="button" title="実績を解除" aria-label="${esc(x.item.name)}を解除" onclick="revokeAchievement(${Number(x.award.id)},'${esc(profile.id)}','${esc(x.item.name)}')">×</button>`:''}</span>`).join(''):'<span class="achievement-empty">実績はまだありません</span>';
   const options=achievementCatalog.filter(a=>!awards.some(x=>x.item.id===a.id)).map(a=>`<option value="${esc(a.id)}">${esc(a.icon||'🏆')} ${esc(a.name)}</option>`).join('');
-  const admin=isAdmin?`<div class="achievement-admin"><select id="achievementSelect-${profile.id}"><option value="">付与する実績を選択</option>${options}</select><button class="btn" onclick="grantAchievement('${profile.id}')">実績を付与</button></div>`:'';
+  const admin=isAdmin?`<div class="community-admin-actions"><button class="btn primary" onclick="openAdminProfileEditor('${profile.id}')">✎ プロフィール編集</button></div><div class="achievement-admin"><select id="achievementSelect-${profile.id}"><option value="">付与する実績を選択</option>${options}</select><button class="btn" onclick="grantAchievement('${profile.id}')">実績を付与</button></div>`:'';
   return `<article class="community-card"><div class="community-head">${avatar}<div class="community-name"><h3>${esc(person.name||person.legalName||'スタッフ')}</h3><p>${esc(person.role||'Cast')} ・ ${esc(person.id||'-')}</p></div></div><div class="community-status">${presence.cls==='online'?'🟢':presence.cls==='away'?'🟡':'⚫'} ${esc(presence.label)}${person.statusMessage?' ・ '+esc(person.statusMessage):''}</div><div class="community-bio">${esc(person.bio||'自己紹介はまだ設定されていません。')}</div><div class="achievement-list">${chips}</div><div class="community-discord">Discord：<b>${esc(person.discordName||'未設定')}</b></div>${admin}</article>`;
 }
 function renderCommunityProfiles(){
@@ -9010,7 +9131,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.3 Related Role Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.4 Admin Profile Editor Build</div>
 
 <script>
 (function(){
