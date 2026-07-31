@@ -5661,6 +5661,17 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 @media(max-width:1050px){.notification-admin-layout{grid-template-columns:1fr!important}.notification-composer{position:static!important;order:-1!important}}
 @media(max-width:700px){.notification-list-controls{grid-template-columns:1fr!important}}
 </style>
+<style id="ver17-8-13-employee-notification-filters">
+.employee-notification-panel{min-height:560px}
+.employee-notification-panel .notification-toolbar>div:first-child{display:grid;gap:3px}
+.employee-notification-panel .notification-toolbar h2 small{font:700 11px system-ui;color:#c4a98f;margin-left:6px}
+.employee-notification-controls{margin-bottom:16px}
+@media(max-width:700px){
+  .employee-notification-panel{padding:15px!important}
+  .employee-notification-panel .notification-toolbar{align-items:flex-start;gap:10px}
+  .employee-notification-panel .notification-toolbar .btn{min-width:92px}
+}
+</style>
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6372,7 +6383,18 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 
 <section id="employee-page-notifications" class="employee-page">
   <div class="page-hero compact"><div><span class="eyebrow">NOTIFICATION CENTER</span><h1>通知センター</h1><p>Lait Divin Portalからの最新のお知らせを確認できます。</p></div><button class="btn" onclick="loadNotifications(true)">↻ 更新</button></div>
-  <div class="panel" style="padding:20px"><div class="notification-toolbar"><h2>お知らせ</h2><button class="btn" onclick="markAllNotificationsRead()">すべて既読</button></div><div id="employeeNotificationList" class="notification-list"></div></div>
+  <div class="panel employee-notification-panel" style="padding:20px">
+    <div class="notification-toolbar">
+      <div><span class="eyebrow">PUBLISHED NOTICES</span><h2>掲載中の通知一覧 <small id="employeeNotificationCount">0件</small></h2></div>
+      <button class="btn" onclick="markAllNotificationsRead()">すべて既読</button>
+    </div>
+    <div class="notification-list-controls employee-notification-controls">
+      <div class="field"><label>キーワード検索</label><input id="employeeNotificationSearch" placeholder="タイトル・本文・投稿者で検索" oninput="renderNotifications()"></div>
+      <div class="field"><label>種類</label><select id="employeeNotificationFilterType" onchange="renderNotifications()"><option value="">すべて</option><option value="general">一般通知</option><option value="update">アップデート</option><option value="important">重要</option><option value="success">完了・報告</option></select></div>
+      <label class="notification-pinned-filter"><input id="employeeNotificationPinnedOnly" type="checkbox" onchange="renderNotifications()"> 固定中のみ</label>
+    </div>
+    <div id="employeeNotificationList" class="notification-list"></div>
+  </div>
 </section>
 
 <section id="employee-page-profile" class="employee-page">
@@ -9249,9 +9271,19 @@ function renderNotifications(){
     </article>`;
   }).join(''):'<div class="notification-empty">条件に一致する通知はありません。</div>';
 
+  const employeeQ=($('employeeNotificationSearch')?.value||'').trim().toLowerCase();
+  const employeeType=$('employeeNotificationFilterType')?.value||'';
+  const employeePinnedOnly=!!$('employeeNotificationPinnedOnly')?.checked;
+  const employeeRows=allSorted.filter(n=>
+    (!employeeType||String(n.type||'general')===employeeType)&&
+    (!employeePinnedOnly||!!n.is_pinned)&&
+    (!employeeQ||`${n.title||''} ${n.body||''} ${n.created_by_name||''}`.toLowerCase().includes(employeeQ))
+  );
+
   if($('adminNotificationList'))$('adminNotificationList').innerHTML=makeHtml(adminRows,true);
   if($('adminNotificationCount'))$('adminNotificationCount').textContent=`${adminRows.length}件`;
-  if($('employeeNotificationList'))$('employeeNotificationList').innerHTML=makeHtml(allSorted,false);
+  if($('employeeNotificationList'))$('employeeNotificationList').innerHTML=makeHtml(employeeRows,false);
+  if($('employeeNotificationCount'))$('employeeNotificationCount').textContent=`${employeeRows.length}件`;
 }
 async function loadNotifications(show=false){
   if(!sb||!currentProfile?.id)return;
@@ -9421,7 +9453,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.12 Notification Discord Sync Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.13 Employee Notification Filters Build</div>
 
 <script>
 (function(){
