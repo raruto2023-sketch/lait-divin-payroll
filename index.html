@@ -5672,6 +5672,41 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
   .employee-notification-panel .notification-toolbar .btn{min-width:92px}
 }
 </style>
+
+<style id="ver17-9-job-account-expenses">
+.job-account-hero{background:radial-gradient(circle at 90% 12%,rgba(220,172,111,.16),transparent 30%),linear-gradient(135deg,#34251e,#191310)!important}
+.job-account-summary,.expense-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}
+.expense-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+.job-balance-card{border-color:rgba(224,173,109,.28)!important;background:radial-gradient(circle at 100% 0%,rgba(224,173,109,.15),transparent 35%),linear-gradient(180deg,rgba(46,35,30,.98),rgba(25,20,18,.98))!important}
+.job-account-layout{display:grid;grid-template-columns:1.25fr .75fr .75fr;gap:14px;margin-bottom:16px}
+.job-auto-panel{grid-row:span 1}
+.job-rate-picker{display:grid;gap:10px;padding:15px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(232,199,157,.08)}
+.job-rate-picker label{font-size:11px;font-weight:900}
+.job-rate-control{display:grid;grid-template-columns:minmax(0,1fr) 130px;gap:14px;align-items:center}
+.job-rate-control input{accent-color:#d39a61}
+.job-rate-control strong{padding:10px 12px;border-radius:12px;text-align:center;background:rgba(211,154,97,.12);color:#edc89f!important}
+.job-calculation-box{display:grid;grid-template-columns:1fr auto 1fr auto 1.25fr;gap:10px;align-items:center;margin:14px 0;padding:16px;border-radius:17px;background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.025));border:1px solid rgba(232,199,157,.09)}
+.job-calculation-box>div{display:grid;gap:5px}.job-calculation-box span{font-size:10px;color:#bda895!important}.job-calculation-box strong{font-size:20px!important}.job-calculation-box .result{padding:12px;border-radius:13px;background:rgba(211,154,97,.11)}
+.job-auto-actions{display:flex;gap:10px;justify-content:flex-end}.job-help{font-size:10px;margin:12px 0 0}
+.job-history-tools,.expense-filters{display:flex;gap:8px;flex-wrap:wrap}.job-history-tools input,.job-history-tools select,.expense-filters input,.expense-filters select{width:auto;min-width:170px}
+.job-history-list,.expense-card-list{display:grid;gap:10px}
+.job-transaction{display:grid;grid-template-columns:58px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:14px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(232,199,157,.08)}
+.job-transaction-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:rgba(211,154,97,.12);font-size:20px}
+.job-transaction-main strong{display:block}.job-transaction-main span{display:block;font-size:10px;margin-top:4px}.job-transaction-date{font-size:10px}.job-transaction-amount{font:700 18px Georgia,serif}.job-transaction-amount.plus{color:#86c99c!important}.job-transaction-amount.minus{color:#ef9a8d!important}
+.employee-expense-layout{display:grid;grid-template-columns:minmax(320px,.72fr) minmax(0,1.28fr);gap:14px}.expense-submit-panel{align-self:start;position:sticky;top:112px}
+.expense-card{padding:15px;border-radius:17px;background:rgba(255,255,255,.035);border:1px solid rgba(232,199,157,.08)}
+.expense-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.expense-card-head h3{margin:0;font-size:14px}.expense-amount{font:700 20px Georgia,serif;color:#f2c895!important}
+.expense-meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}.expense-meta span{padding:5px 8px;border-radius:999px;background:rgba(255,255,255,.05);font-size:9px}
+.expense-description{padding:11px;border-radius:12px;background:rgba(0,0,0,.10);font-size:12px;line-height:1.7;color:#dfcdbd}
+.expense-review{margin-top:9px;padding:10px;border-left:3px solid rgba(211,154,97,.45);font-size:10px;color:#cdb6a4}
+.expense-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+.expense-status{padding:6px 10px;border-radius:999px;font-size:10px;font-weight:900}.expense-status.pending{background:rgba(211,154,97,.14);color:#efc58f}.expense-status.approved{background:rgba(80,139,98,.16);color:#a9dbb8}.expense-status.rejected{background:rgba(173,79,66,.16);color:#efaaa0}
+.notification-badge{pointer-events:none}
+@media(max-width:1180px){.job-account-layout{grid-template-columns:1fr 1fr}.job-auto-panel{grid-column:1/-1}.job-account-summary{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.employee-expense-layout{grid-template-columns:1fr}.expense-submit-panel{position:static}.job-account-layout{grid-template-columns:1fr}.job-auto-panel{grid-column:auto}}
+@media(max-width:680px){.job-account-summary,.expense-summary{grid-template-columns:1fr}.job-calculation-box{grid-template-columns:1fr}.job-calculation-box>span{display:none}.job-auto-actions{flex-direction:column}.job-auto-actions .btn{width:100%}.job-transaction{grid-template-columns:48px minmax(0,1fr);}.job-transaction-date,.job-transaction-amount{grid-column:2}.job-history-tools,.expense-filters{width:100%}.job-history-tools input,.job-history-tools select,.expense-filters input,.expense-filters select{width:100%}}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -5764,6 +5799,8 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
       <button data-page="inventory" onclick="goPage('inventory')"><span>◇</span><b>在庫管理</b></button>
       <button data-page="farm" onclick="goPage('farm')"><span>🌾</span><b>Farm管理</b></button>
       <button data-page="sales" onclick="goPage('sales')"><span>▥</span><b>売上入力</b></button>
+      <button data-page="job-account" onclick="goPage('job-account')"><span>🏦</span><b>ジョブ口座</b></button>
+      <button data-page="expenses" onclick="goPage('expenses')"><span>🧾</span><b>経費申請</b><i id="adminExpenseBadge" class="notification-badge hidden">0</i></button>
       <button data-page="ranking" onclick="goPage('ranking')"><span>♛</span><b>ランキング</b></button>
       <button data-page="audit" onclick="goPage('audit')"><span>▦</span><b>管理履歴</b></button>
       <button data-page="settings" onclick="goPage('settings')"><span>⚙</span><b>設定</b></button>
@@ -5881,6 +5918,121 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 
 
 
+
+
+<section id="page-job-account" class="page">
+  <div class="page-hero compact job-account-hero">
+    <div>
+      <span class="eyebrow">JOB ACCOUNT</span>
+      <h1>ジョブ口座</h1>
+      <p>店舗資金を手入力・売上連動・履歴で安全に管理します。管理者のみ閲覧できます。</p>
+    </div>
+    <button class="btn" onclick="loadJobAccountData(true)">↻ 最新情報</button>
+  </div>
+
+  <div class="job-account-summary">
+    <article class="metric-card job-balance-card">
+      <div class="metric-label">CURRENT BALANCE</div>
+      <div id="jobAccountBalance" class="metric-value">¥0</div>
+      <div class="metric-sub">現在のジョブ口座残高</div>
+    </article>
+    <article class="metric-card">
+      <div class="metric-label">TODAY SALES</div>
+      <div id="jobTodaySales" class="metric-value">¥0</div>
+      <div class="metric-sub">本日の売上合計</div>
+    </article>
+    <article class="metric-card">
+      <div class="metric-label">AUTO TRANSFER</div>
+      <div id="jobTodayAutoAmount" class="metric-value">¥0</div>
+      <div id="jobAutoRateSummary" class="metric-sub">売上の10割</div>
+    </article>
+    <article class="metric-card warning">
+      <div class="metric-label">PENDING EXPENSES</div>
+      <div id="jobPendingExpenseTotal" class="metric-value">¥0</div>
+      <div id="jobPendingExpenseCount" class="metric-sub">申請 0件</div>
+    </article>
+  </div>
+
+  <div class="job-account-layout">
+    <section class="dashboard-panel job-auto-panel">
+      <div class="dashboard-title">
+        <div><h2>本日の売上から自動計算</h2><p>本日の売上の1〜10割をジョブ口座へ反映します。</p></div>
+        <span id="jobAutoStatusBadge" class="badge">未反映</span>
+      </div>
+      <div class="job-rate-picker">
+        <label for="jobAutoRate">反映割合</label>
+        <div class="job-rate-control">
+          <input id="jobAutoRate" type="range" min="1" max="10" step="1" value="10" oninput="previewJobAutoTransfer()">
+          <strong id="jobAutoRateValue">10割（100%）</strong>
+        </div>
+      </div>
+      <div class="job-calculation-box">
+        <div><span>本日の売上</span><strong id="jobCalcSales">¥0</strong></div>
+        <span>×</span>
+        <div><span>反映割合</span><strong id="jobCalcRate">100%</strong></div>
+        <span>=</span>
+        <div class="result"><span>口座へ反映</span><strong id="jobCalcResult">¥0</strong></div>
+      </div>
+      <div class="job-auto-actions">
+        <button class="btn" onclick="saveJobAutoRate()">割合だけ保存</button>
+        <button class="btn primary" onclick="applyTodaySalesToJobAccount()">割合を保存して本日分を反映</button>
+      </div>
+      <p class="job-help">同じ日付で再反映すると、重複追加せず最新の売上と割合で金額を更新します。</p>
+    </section>
+
+    <section class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>残高を手入力で設定</h2><p>現在残高を指定した金額へ調整します。</p></div></div>
+      <div class="field"><label>設定後の残高</label><input id="jobManualBalance" type="number" min="0" step="10000" placeholder="例：10000000"></div>
+      <div class="field"><label>変更理由</label><textarea id="jobManualBalanceNote" maxlength="300" placeholder="例：ゲーム内ジョブ口座の残高に合わせて調整"></textarea></div>
+      <button class="btn primary full" onclick="setJobAccountBalance()">この残高に設定</button>
+    </section>
+
+    <section class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>手動入出金・ボーナス</h2><p>ボーナス支給やその他の入出金を履歴に残します。</p></div></div>
+      <div class="grid2">
+        <div class="field"><label>種類</label><select id="jobManualType"><option value="bonus">ボーナス・支給</option><option value="deposit">入金</option><option value="withdrawal">出金</option><option value="adjustment">その他調整</option></select></div>
+        <div class="field"><label>金額</label><input id="jobManualAmount" type="number" min="1" step="1000" placeholder="例：500000"></div>
+      </div>
+      <div class="field"><label>内容・対象者</label><textarea id="jobManualDescription" maxlength="300" placeholder="例：今月MVPボーナス／○○さんへ支給"></textarea></div>
+      <button class="btn primary full" onclick="addManualJobTransaction()">履歴へ登録</button>
+    </section>
+  </div>
+
+  <section class="dashboard-panel job-history-panel">
+    <div class="dashboard-title">
+      <div><h2>ジョブ口座履歴</h2><p>自動反映・手入力・ボーナス・承認済み経費を記録します。</p></div>
+      <div class="job-history-tools">
+        <input id="jobHistoryMonth" type="month" onchange="renderJobAccount()">
+        <select id="jobHistoryType" onchange="renderJobAccount()"><option value="">すべての種類</option><option value="auto_sales">売上自動反映</option><option value="manual_balance">残高調整</option><option value="bonus">ボーナス</option><option value="deposit">入金</option><option value="withdrawal">出金</option><option value="expense">経費</option><option value="adjustment">その他調整</option></select>
+      </div>
+    </div>
+    <div id="jobAccountHistory" class="job-history-list"></div>
+  </section>
+</section>
+
+<section id="page-expenses" class="page">
+  <div class="page-hero compact">
+    <div><span class="eyebrow">EXPENSE APPROVAL</span><h1>経費申請管理</h1><p>従業員から届いた経費申請を確認し、承認または却下します。</p></div>
+    <button class="btn" onclick="loadExpenseRequests(true)">↻ 更新</button>
+  </div>
+
+  <div class="expense-summary">
+    <article class="metric-card warning"><div class="metric-label">PENDING</div><div id="expensePendingCount" class="metric-value">0件</div><div id="expensePendingTotal" class="metric-sub">合計 ¥0</div></article>
+    <article class="metric-card"><div class="metric-label">APPROVED</div><div id="expenseApprovedCount" class="metric-value">0件</div><div id="expenseApprovedTotal" class="metric-sub">合計 ¥0</div></article>
+    <article class="metric-card"><div class="metric-label">REJECTED</div><div id="expenseRejectedCount" class="metric-value">0件</div><div class="metric-sub">却下済み</div></article>
+  </div>
+
+  <section class="dashboard-panel">
+    <div class="dashboard-title">
+      <div><h2>申請一覧</h2><p>承認するとジョブ口座から自動で差し引き、履歴へ記録します。</p></div>
+      <div class="expense-filters">
+        <select id="expenseAdminStatus" onchange="renderAdminExpenses()"><option value="">すべて</option><option value="pending">申請中</option><option value="approved">承認済み</option><option value="rejected">却下</option></select>
+        <input id="expenseAdminSearch" placeholder="名前・内容・カテゴリで検索" oninput="renderAdminExpenses()">
+      </div>
+    </div>
+    <div id="adminExpenseList" class="expense-card-list"></div>
+  </section>
+</section>
 
 <section id="page-sales" class="page">
   <div class="page-hero compact">
@@ -6207,6 +6359,7 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
         <button data-employee-page="online" onclick="employeeGoPage('online')"><span>●</span><b>オンライン</b></button>
         <button data-employee-page="notifications" onclick="employeeGoPage('notifications')"><span>🔔</span><b>通知センター</b><i id="employeeNotificationBadge" class="notification-badge hidden">0</i></button>
+        <button data-employee-page="expenses" onclick="employeeGoPage('expenses')"><span>🧾</span><b>経費申請</b></button>
         <button data-employee-page="campaigns" onclick="employeeGoPage('campaigns')"><span>🎪</span><b>イベント</b></button>
         <button data-employee-page="community" onclick="employeeGoPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
         <button data-employee-page="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button>
@@ -6394,6 +6547,32 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
       <label class="notification-pinned-filter"><input id="employeeNotificationPinnedOnly" type="checkbox" onchange="renderNotifications()"> 固定中のみ</label>
     </div>
     <div id="employeeNotificationList" class="notification-list"></div>
+  </div>
+</section>
+
+
+<section id="employee-page-expenses" class="employee-page">
+  <div class="page-hero compact">
+    <div><span class="eyebrow">EXPENSE REQUEST</span><h1>経費申請</h1><p>業務で使用した費用を申請し、管理者の確認状況を確認できます。</p></div>
+    <button class="btn" onclick="loadExpenseRequests(true)">↻ 更新</button>
+  </div>
+
+  <div class="employee-expense-layout">
+    <section class="dashboard-panel expense-submit-panel">
+      <div class="dashboard-title"><div><h2>新しい経費申請</h2><p>内容が分かるように詳しく入力してください。</p></div></div>
+      <div class="grid2">
+        <div class="field"><label>カテゴリ</label><select id="expenseCategory"><option value="燃料費">燃料費</option><option value="仕入れ">仕入れ</option><option value="備品">備品</option><option value="イベント">イベント</option><option value="その他">その他</option></select></div>
+        <div class="field"><label>申請金額</label><input id="expenseAmount" type="number" min="1" step="1000" placeholder="例：500000"></div>
+      </div>
+      <div class="field"><label>申請内容</label><textarea id="expenseDescription" maxlength="500" placeholder="何に使用した経費か、管理者が判断できるように入力してください。"></textarea></div>
+      <div class="field"><label>証拠・レシートURL（任意）</label><input id="expenseReceiptUrl" type="url" placeholder="Discord画像URL、Google Driveなど"></div>
+      <button class="btn primary full" onclick="submitExpenseRequest()">経費を申請する</button>
+    </section>
+
+    <section class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>自分の申請履歴</h2><p>申請中・承認済み・却下を確認できます。</p></div><select id="employeeExpenseStatus" onchange="renderEmployeeExpenses()"><option value="">すべて</option><option value="pending">申請中</option><option value="approved">承認済み</option><option value="rejected">却下</option></select></div>
+      <div id="employeeExpenseList" class="expense-card-list"></div>
+    </section>
   </div>
 </section>
 
@@ -6587,6 +6766,9 @@ let syncTimer=null;
 let employeeRankingMode='sales';
 let rankingMode='hours';
 let salesData=[];
+let jobAccountSettings={autoRate:10,updatedAt:null};
+let jobAccountTransactions=[];
+let expenseRequests=[];
 let myHistory=[];
 let appMode='login';
 let refreshInProgress=false;
@@ -6613,11 +6795,11 @@ async function refreshAllData(silent=false){
   refreshInProgress=true;
   try{
     if(appMode==='admin'){
-      await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadAuditLogs(false)]);
+      await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadAuditLogs(false),loadJobAccountData(false),loadExpenseRequests(false)]);
       refreshEmployeeSelect();refreshSalesEmployeeSelect();
-      renderDashboard();renderAttendance();renderEmployees();renderRanking();renderSalesPage();
+      renderDashboard();renderAttendance();renderEmployees();renderRanking();renderSalesPage();renderJobAccount();renderAdminExpenses();
     }else{
-      await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals()]);
+      await Promise.all([loadSettings(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadOnlinePresence(false),loadNotifications(false),loadSalesGoals(),loadExpenseRequests(false)]);
       renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();
     }
     if(!silent)toast('最新データに更新しました');
@@ -6675,6 +6857,8 @@ function ensureMobileNavs(){
           <button onclick="mobileAdminPage('inventory')"><span>◇</span><b>在庫管理</b></button>
           <button onclick="mobileAdminPage('farm')"><span>🌾</span><b>Farm管理</b></button>
           <button onclick="mobileAdminPage('sales')"><span>▥</span><b>売上入力</b></button>
+          <button onclick="mobileAdminPage('job-account')"><span>🏦</span><b>ジョブ口座</b></button>
+          <button onclick="mobileAdminPage('expenses')"><span>🧾</span><b>経費申請</b></button>
           <button onclick="mobileAdminPage('ranking')"><span>♛</span><b>ランキング</b></button>
           <button onclick="mobileAdminPage('online')"><span>●</span><b>オンライン</b></button>
           <button onclick="mobileAdminPage('community')"><span>♙</span><b>プロフィール一覧</b></button>
@@ -6690,6 +6874,7 @@ function ensureMobileNavs(){
           <button onclick="mobileEmployeePage('inventory')"><span>◇</span><b>在庫表</b></button>
           <button onclick="mobileEmployeePage('farm')"><span>🌾</span><b>Farm</b></button>
           <button onclick="mobileEmployeePage('payslips')"><span>¥</span><b>給料明細</b></button>
+          <button onclick="mobileEmployeePage('expenses')"><span>🧾</span><b>経費申請</b></button>
           <button onclick="mobileEmployeePage('profile')"><span>♙</span><b>プロフィール</b></button>
           <button onclick="mobileEmployeePage('online')"><span>●</span><b>オンライン</b></button>
           <button onclick="mobileEmployeePage('community')"><span>♙</span><b>プロフィール一覧</b></button>
@@ -6854,7 +7039,7 @@ async function logout(){
   await stopPresenceTracking();
   stopRealtime();
   if(typeof syncTimer!=='undefined'&&syncTimer){clearInterval(syncTimer);syncTimer=null}
-  currentEmployee=null;currentProfile=null;employees=[];historyData=[];attendanceData=[];salesData=[];myHistory=[];myAttendance=[];
+  currentEmployee=null;currentProfile=null;employees=[];historyData=[];attendanceData=[];salesData=[];jobAccountTransactions=[];expenseRequests=[];myHistory=[];myAttendance=[];
   selectedAttendanceIds.clear();
   showLoginScreen();switchLogin('employee');showError('');
   ['loginAdminPassword','loginEmployeeId','loginEmployeePassword'].forEach(id=>{if($(id))$(id).value=''});
@@ -6869,14 +7054,14 @@ async function logout(){
 }
 async function openAdmin(){
   showAdminApp();
-  await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false)]);
+  await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false),loadJobAccountData(false),loadExpenseRequests(false)]);
   await hydrateCurrentProfileVisuals();
   applyAdminProfileEverywhere();syncAllCurrentAvatarElements();
   refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
 }
 async function openEmployee(){
   showEmployeeApp();
-  await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals()]);
+  await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadExpenseRequests(false)]);
   await hydrateCurrentProfileVisuals();
   if(currentProfile && currentEmployee && !cleanAvatarUrl(currentEmployee.avatarUrl) && cleanAvatarUrl(currentProfile.avatar_url)) currentEmployee.avatarUrl=currentProfile.avatar_url;
   renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
@@ -6957,6 +7142,9 @@ function subscribeRealtime(mode){
   realtimeChannel=sb.channel(`ld-live-${mode}-${Date.now()}`)
     .on('postgres_changes',{event:'*',schema:'public',table:'attendance_records'},()=>refreshTable('attendance_records'))
     .on('postgres_changes',{event:'*',schema:'public',table:'sales_records'},()=>refreshTable('sales_records'))
+    .on('postgres_changes',{event:'*',schema:'public',table:'job_account_transactions'},()=>loadJobAccountData(false))
+    .on('postgres_changes',{event:'*',schema:'public',table:'job_account_settings'},()=>loadJobAccountData(false))
+    .on('postgres_changes',{event:'*',schema:'public',table:'expense_requests'},()=>loadExpenseRequests(false))
     .on('postgres_changes',{event:'*',schema:'public',table:'payslips'},()=>refreshTable('payslips'))
     .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},()=>refreshTable('profiles'))
     .on('postgres_changes',{event:'*',schema:'public',table:'online_presence'},()=>loadOnlinePresence(false))
@@ -6985,7 +7173,7 @@ function employeeGoPage(page){closeMobileMenu();
   if(page==='profile')loadMyProfileForm();
   if(page==='online')loadOnlinePresence(true);
   if(page==='community')loadCommunityProfiles(false);
-  if(page==='notifications')loadNotifications(false);if(page==='campaigns')loadCampaigns(false);
+  if(page==='notifications')loadNotifications(false);if(page==='expenses')loadExpenseRequests(false);if(page==='campaigns')loadCampaigns(false);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function employeeRankingRows(){
@@ -7104,7 +7292,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='campaigns')loadCampaigns(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='job-account')loadJobAccountData(false);if(n==='expenses')loadExpenseRequests(false);if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='campaigns')loadCampaigns(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -9453,7 +9641,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.13 Employee Notification Filters Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.9 Job Account Expenses Build</div>
 
 <script>
 (function(){
@@ -9565,6 +9753,215 @@ async function saveCampaign(){
   }catch(error){console.error('イベント保存エラー:',error);alert('保存できませんでした。付属SQLが実行済みか確認してください。\n'+(error.message||''))}
 }
 async function deleteCampaign(id){if(!confirm('このイベントを削除しますか？'))return;try{const {error}=await sb.from('store_campaigns').delete().eq('id',id);if(error)throw error;await loadCampaigns(false);toast('イベントを削除しました')}catch(error){console.error('イベント削除エラー:',error);alert('削除できませんでした。'+(error.message||''))}}
+
+
+
+function jobTransactionTypeLabel(type){
+  return ({auto_sales:'売上自動反映',manual_balance:'残高調整',bonus:'ボーナス・支給',deposit:'入金',withdrawal:'出金',expense:'承認済み経費',adjustment:'その他調整'})[type]||type||'取引';
+}
+function jobTransactionIcon(type){
+  return ({auto_sales:'📈',manual_balance:'⚖',bonus:'🎁',deposit:'＋',withdrawal:'－',expense:'🧾',adjustment:'✎'})[type]||'¥';
+}
+function expenseStatusLabel(status){return ({pending:'申請中',approved:'承認済み',rejected:'却下'})[status]||status}
+function jobAccountBalance(){return jobAccountTransactions.reduce((sum,row)=>sum+(Number(row.amount)||0),0)}
+function todaySalesAmount(){
+  const start=new Date();start.setHours(0,0,0,0);
+  return sumSalesRange(start,addDaysDate(start,1));
+}
+function previewJobAutoTransfer(){
+  const rate=Math.max(1,Math.min(10,Number($('jobAutoRate')?.value||jobAccountSettings.autoRate||10)));
+  const sales=todaySalesAmount(),amount=Math.round(sales*rate/10);
+  if($('jobAutoRateValue'))$('jobAutoRateValue').textContent=`${rate}割（${rate*10}%）`;
+  if($('jobCalcSales'))$('jobCalcSales').textContent=yen.format(sales);
+  if($('jobCalcRate'))$('jobCalcRate').textContent=`${rate*10}%`;
+  if($('jobCalcResult'))$('jobCalcResult').textContent=yen.format(amount);
+  if($('jobTodayAutoAmount'))$('jobTodayAutoAmount').textContent=yen.format(amount);
+  if($('jobAutoRateSummary'))$('jobAutoRateSummary').textContent=`売上の${rate}割`;
+}
+async function loadJobAccountData(showToast=false){
+  if(!sb||appMode!=='admin')return;
+  try{
+    const [settingsResult,transactionsResult]=await Promise.all([
+      sb.from('job_account_settings').select('*').eq('id',1).maybeSingle(),
+      sb.from('job_account_transactions').select('*').order('transaction_date',{ascending:false}).order('created_at',{ascending:false})
+    ]);
+    if(settingsResult.error)throw settingsResult.error;
+    if(transactionsResult.error)throw transactionsResult.error;
+    const s=settingsResult.data;
+    jobAccountSettings={autoRate:Number(s?.auto_sales_rate)||10,updatedAt:s?.updated_at||null};
+    jobAccountTransactions=(transactionsResult.data||[]).map(x=>({
+      id:x.id,date:x.transaction_date,type:x.transaction_type,amount:Number(x.amount)||0,
+      description:x.description||'',sourceDate:x.source_date||'',expenseRequestId:x.expense_request_id,
+      createdBy:x.created_by_name||'管理者',createdAt:x.created_at
+    }));
+    renderJobAccount();
+    if(showToast)toast('ジョブ口座を更新しました');
+  }catch(error){
+    console.error('Job account load error',error);
+    if(showToast)alert('ジョブ口座を取得できませんでした。SQLの実行状況を確認してください。\n'+error.message);
+  }
+}
+function renderJobAccount(){
+  if(!$('jobAccountBalance'))return;
+  const balance=jobAccountBalance(),sales=todaySalesAmount(),rate=jobAccountSettings.autoRate||10;
+  $('jobAccountBalance').textContent=yen.format(balance);
+  $('jobTodaySales').textContent=yen.format(sales);
+  $('jobAutoRate').value=String(rate);
+  $('jobManualBalance').placeholder=`現在 ${yen.format(balance)}`;
+  previewJobAutoTransfer();
+
+  const today=iso(new Date());
+  const todayAuto=jobAccountTransactions.find(x=>x.type==='auto_sales'&&x.sourceDate===today);
+  $('jobAutoStatusBadge').textContent=todayAuto?`反映済み ${yen.format(todayAuto.amount)}`:'未反映';
+  $('jobAutoStatusBadge').classList.toggle('success',!!todayAuto);
+
+  const pending=expenseRequests.filter(x=>x.status==='pending');
+  const pendingTotal=pending.reduce((s,x)=>s+x.amount,0);
+  $('jobPendingExpenseTotal').textContent=yen.format(pendingTotal);
+  $('jobPendingExpenseCount').textContent=`申請 ${pending.length}件`;
+
+  if(!$('jobHistoryMonth').value)$('jobHistoryMonth').value=monthKeyLocal(new Date());
+  const month=$('jobHistoryMonth').value,type=$('jobHistoryType').value;
+  const rows=jobAccountTransactions.filter(x=>(!month||String(x.date||'').startsWith(month))&&(!type||x.type===type));
+  $('jobAccountHistory').innerHTML=rows.length?rows.map(x=>`<article class="job-transaction">
+    <div class="job-transaction-icon">${jobTransactionIcon(x.type)}</div>
+    <div class="job-transaction-main"><strong>${esc(jobTransactionTypeLabel(x.type))}</strong><span>${esc(x.description||'内容なし')} ・ 登録者：${esc(x.createdBy)}</span></div>
+    <div class="job-transaction-date">${jp(x.date)}</div>
+    <div class="job-transaction-amount ${x.amount>=0?'plus':'minus'}">${x.amount>=0?'+':'−'}${yen.format(Math.abs(x.amount))}</div>
+  </article>`).join(''):'<div class="empty">条件に一致する履歴はありません。</div>';
+}
+async function saveJobAutoRate(){
+  const rate=Math.max(1,Math.min(10,Number($('jobAutoRate').value||10)));
+  const payload={id:1,auto_sales_rate:rate,updated_at:new Date().toISOString(),updated_by_name:currentProfile?.display_name||'管理者'};
+  const {error}=await sb.from('job_account_settings').upsert(payload);
+  if(error)return alert('割合を保存できませんでした：'+error.message);
+  jobAccountSettings.autoRate=rate;renderJobAccount();toast(`${rate}割で保存しました`);
+}
+async function applyTodaySalesToJobAccount(){
+  const rate=Math.max(1,Math.min(10,Number($('jobAutoRate').value||10))),sales=todaySalesAmount(),amount=Math.round(sales*rate/10),date=iso(new Date());
+  if(!confirm(`本日の売上 ${yen.format(sales)} の${rate}割（${yen.format(amount)}）をジョブ口座へ反映しますか？`))return;
+  const settingsPayload={id:1,auto_sales_rate:rate,updated_at:new Date().toISOString(),updated_by_name:currentProfile?.display_name||'管理者'};
+  const transactionPayload={transaction_date:date,transaction_type:'auto_sales',amount,description:`本日の売上 ${yen.format(sales)} × ${rate}割`,source_date:date,created_by_uid:currentProfile?.id||null,created_by_name:currentProfile?.display_name||'管理者'};
+  try{
+    let existing=jobAccountTransactions.find(x=>x.type==='auto_sales'&&x.sourceDate===date);
+    const settingsPromise=sb.from('job_account_settings').upsert(settingsPayload);
+    const transactionPromise=existing
+      ?sb.from('job_account_transactions').update(transactionPayload).eq('id',existing.id)
+      :sb.from('job_account_transactions').insert(transactionPayload);
+    const [sr,tr]=await Promise.all([settingsPromise,transactionPromise]);
+    if(sr.error)throw sr.error;if(tr.error)throw tr.error;
+    await loadJobAccountData(false);await writeAudit('job_account','本日の売上をジョブ口座へ反映',`${rate}割 / ${yen.format(amount)}`,date);
+    toast('本日分をジョブ口座へ反映しました');
+  }catch(error){alert('反映できませんでした：'+error.message)}
+}
+async function setJobAccountBalance(){
+  const target=Number($('jobManualBalance').value),note=$('jobManualBalanceNote').value.trim();
+  if(!Number.isFinite(target)||target<0)return alert('設定後の残高を入力してください。');
+  if(!note)return alert('変更理由を入力してください。');
+  const current=jobAccountBalance(),delta=Math.round(target-current);
+  if(delta===0)return alert('現在残高と同じ金額です。');
+  if(!confirm(`${yen.format(current)} から ${yen.format(target)} に変更しますか？\n調整額：${delta>=0?'+':''}${yen.format(delta)}`))return;
+  const payload={transaction_date:iso(new Date()),transaction_type:'manual_balance',amount:delta,description:`残高設定：${note}`,created_by_uid:currentProfile?.id||null,created_by_name:currentProfile?.display_name||'管理者'};
+  const {error}=await sb.from('job_account_transactions').insert(payload);
+  if(error)return alert('残高を設定できませんでした：'+error.message);
+  $('jobManualBalance').value='';$('jobManualBalanceNote').value='';
+  await loadJobAccountData(false);await writeAudit('job_account','ジョブ口座残高を手動設定',`${yen.format(current)} → ${yen.format(target)}`,note);toast('残高を設定しました');
+}
+async function addManualJobTransaction(){
+  const type=$('jobManualType').value,raw=Math.round(Number($('jobManualAmount').value)),description=$('jobManualDescription').value.trim();
+  if(!raw||raw<1)return alert('金額を入力してください。');
+  if(!description)return alert('内容・対象者を入力してください。');
+  const negative=['withdrawal'].includes(type),amount=negative?-raw:raw;
+  if(!confirm(`${jobTransactionTypeLabel(type)}として ${amount>=0?'+':'−'}${yen.format(Math.abs(amount))} を登録しますか？`))return;
+  const payload={transaction_date:iso(new Date()),transaction_type:type,amount,description,created_by_uid:currentProfile?.id||null,created_by_name:currentProfile?.display_name||'管理者'};
+  const {error}=await sb.from('job_account_transactions').insert(payload);
+  if(error)return alert('登録できませんでした：'+error.message);
+  $('jobManualAmount').value='';$('jobManualDescription').value='';
+  await loadJobAccountData(false);await writeAudit('job_account',`${jobTransactionTypeLabel(type)}を登録`,yen.format(amount),description);toast('ジョブ口座履歴へ登録しました');
+}
+
+async function loadExpenseRequests(showToast=false){
+  if(!sb||appMode==='login')return;
+  try{
+    let query=sb.from('expense_requests').select('*').order('created_at',{ascending:false});
+    if(appMode==='employee'&&currentEmployee?.uid)query=query.eq('employee_uid',currentEmployee.uid);
+    const {data,error}=await query;if(error)throw error;
+    expenseRequests=(data||[]).map(x=>({id:x.id,employeeUid:x.employee_uid,employeeId:x.employee_id,employeeName:x.employee_name,amount:Number(x.amount)||0,category:x.category||'その他',description:x.description||'',receiptUrl:x.receipt_url||'',status:x.status||'pending',reviewNote:x.review_note||'',reviewedBy:x.reviewed_by_name||'',reviewedAt:x.reviewed_at||'',createdAt:x.created_at,updatedAt:x.updated_at}));
+    renderAdminExpenses();renderEmployeeExpenses();renderJobAccount();updateExpenseBadge();
+    if(showToast)toast('経費申請を更新しました');
+  }catch(error){
+    console.error('Expense requests load error',error);
+    if(showToast)alert('経費申請を取得できませんでした。SQLの実行状況を確認してください。\n'+error.message);
+  }
+}
+function updateExpenseBadge(){
+  const count=expenseRequests.filter(x=>x.status==='pending').length,el=$('adminExpenseBadge');
+  if(el){el.textContent=String(count);el.classList.toggle('hidden',count===0)}
+}
+function renderAdminExpenses(){
+  if(!$('adminExpenseList'))return;
+  const status=$('expenseAdminStatus')?.value||'',q=($('expenseAdminSearch')?.value||'').trim().toLowerCase();
+  const rows=expenseRequests.filter(x=>(!status||x.status===status)&&(!q||`${x.employeeName} ${x.employeeId} ${x.category} ${x.description}`.toLowerCase().includes(q)));
+  const pending=expenseRequests.filter(x=>x.status==='pending'),approved=expenseRequests.filter(x=>x.status==='approved'),rejected=expenseRequests.filter(x=>x.status==='rejected');
+  $('expensePendingCount').textContent=`${pending.length}件`;$('expensePendingTotal').textContent=`合計 ${yen.format(pending.reduce((s,x)=>s+x.amount,0))}`;
+  $('expenseApprovedCount').textContent=`${approved.length}件`;$('expenseApprovedTotal').textContent=`合計 ${yen.format(approved.reduce((s,x)=>s+x.amount,0))}`;
+  $('expenseRejectedCount').textContent=`${rejected.length}件`;
+  $('adminExpenseList').innerHTML=rows.length?rows.map(x=>expenseCardHtml(x,true)).join(''):'<div class="empty">条件に一致する申請はありません。</div>';
+}
+function renderEmployeeExpenses(){
+  if(!$('employeeExpenseList'))return;
+  const status=$('employeeExpenseStatus')?.value||'',rows=expenseRequests.filter(x=>!status||x.status===status);
+  $('employeeExpenseList').innerHTML=rows.length?rows.map(x=>expenseCardHtml(x,false)).join(''):'<div class="empty">経費申請はまだありません。</div>';
+}
+function expenseCardHtml(x,isAdmin){
+  const receipt=x.receiptUrl?`<a class="btn" href="${esc(x.receiptUrl)}" target="_blank" rel="noopener">証拠を開く ↗</a>`:'';
+  const review=x.reviewNote?`<div class="expense-review"><strong>管理者コメント</strong><br>${esc(x.reviewNote)}${x.reviewedBy?`<br>— ${esc(x.reviewedBy)}`:''}</div>`:'';
+  const adminActions=isAdmin&&x.status==='pending'?`<button class="btn success" onclick="reviewExpenseRequest(${x.id},'approved')">✓ 承認</button><button class="btn danger" onclick="reviewExpenseRequest(${x.id},'rejected')">却下</button>`:'';
+  const employeeCancel=!isAdmin&&x.status==='pending'?`<button class="btn danger" onclick="cancelExpenseRequest(${x.id})">申請を取り消す</button>`:'';
+  return `<article class="expense-card">
+    <div class="expense-card-head"><div><h3>${esc(x.category)} ｜ ${esc(x.employeeName)} <small>${esc(x.employeeId)}</small></h3><div class="expense-meta"><span>${new Date(x.createdAt).toLocaleString('ja-JP')}</span><span class="expense-status ${x.status}">${expenseStatusLabel(x.status)}</span></div></div><div class="expense-amount">${yen.format(x.amount)}</div></div>
+    <div class="expense-description">${esc(x.description)}</div>${review}
+    <div class="expense-actions">${receipt}${adminActions}${employeeCancel}</div>
+  </article>`;
+}
+async function submitExpenseRequest(){
+  if(!currentEmployee?.uid)return alert('従業員情報を確認できません。');
+  const amount=Math.round(Number($('expenseAmount').value)),category=$('expenseCategory').value,description=$('expenseDescription').value.trim(),receipt_url=$('expenseReceiptUrl').value.trim();
+  if(!amount||amount<1)return alert('申請金額を入力してください。');
+  if(!description)return alert('申請内容を入力してください。');
+  if(!confirm(`${yen.format(amount)}の経費を申請しますか？`))return;
+  const payload={employee_uid:currentEmployee.uid,employee_id:currentEmployee.id,employee_name:currentEmployee.name,amount,category,description,receipt_url:receipt_url||null,status:'pending',updated_at:new Date().toISOString()};
+  const {error}=await sb.from('expense_requests').insert(payload);
+  if(error)return alert('申請できませんでした：'+error.message);
+  $('expenseAmount').value='';$('expenseDescription').value='';$('expenseReceiptUrl').value='';
+  await loadExpenseRequests(false);toast('経費を申請しました');
+}
+async function cancelExpenseRequest(id){
+  if(!confirm('この経費申請を取り消しますか？'))return;
+  const {error}=await sb.from('expense_requests').delete().eq('id',id).eq('status','pending');
+  if(error)return alert('取り消せませんでした：'+error.message);
+  await loadExpenseRequests(false);toast('申請を取り消しました');
+}
+async function reviewExpenseRequest(id,status){
+  const target=expenseRequests.find(x=>Number(x.id)===Number(id));if(!target)return;
+  const verb=status==='approved'?'承認':'却下';
+  const note=prompt(`${target.employeeName}さんの ${yen.format(target.amount)} の申請を${verb}します。\n管理者コメントを入力してください（任意）`,'') ;
+  if(note===null)return;
+  if(!confirm(`この申請を${verb}しますか？`))return;
+  try{
+    const reviewPayload={status,review_note:note.trim()||null,reviewed_by_uid:currentProfile?.id||null,reviewed_by_name:currentProfile?.display_name||'管理者',reviewed_at:new Date().toISOString(),updated_at:new Date().toISOString()};
+    const {error:updateError}=await sb.from('expense_requests').update(reviewPayload).eq('id',id).eq('status','pending');
+    if(updateError)throw updateError;
+    if(status==='approved'){
+      const transaction={transaction_date:iso(new Date()),transaction_type:'expense',amount:-Math.abs(target.amount),description:`経費承認：${target.category} / ${target.employeeName} / ${target.description}`,expense_request_id:id,created_by_uid:currentProfile?.id||null,created_by_name:currentProfile?.display_name||'管理者'};
+      const {error:transactionError}=await sb.from('job_account_transactions').upsert(transaction,{onConflict:'expense_request_id'});
+      if(transactionError)throw transactionError;
+    }
+    await Promise.all([loadExpenseRequests(false),loadJobAccountData(false)]);
+    await writeAudit('expense',`経費申請を${verb}`,`${target.employeeName} / ${yen.format(target.amount)}`,note||target.description);
+    toast(`経費申請を${verb}しました`);
+  }catch(error){alert(`経費申請を${verb}できませんでした：`+error.message)}
+}
 
 </script>
 
