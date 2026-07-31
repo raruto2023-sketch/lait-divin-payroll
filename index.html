@@ -5621,6 +5621,26 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 .admin-profile-edit-fields textarea{resize:vertical;min-height:120px}
 @media(max-width:680px){.admin-profile-edit-head{display:block}.admin-profile-edit-head>.btn{margin-top:12px;width:100%}.admin-profile-edit-layout{grid-template-columns:1fr}.admin-profile-avatar-editor{grid-template-columns:1fr 1fr}.admin-edit-avatar-preview{grid-column:1/-1}.admin-profile-edit-fields .grid2{grid-template-columns:1fr}}
 </style>
+<style id="ver17-8-5-inventory-discord-manager">
+.inventory-discord-manager{margin-top:14px;padding:18px;border-radius:17px;background:linear-gradient(180deg,rgba(23,18,16,.92),rgba(16,13,12,.96));border:1px solid rgba(220,171,112,.16)}
+.inventory-discord-manager-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.inventory-discord-manager-head span:first-child{display:block;font-size:8px;letter-spacing:.18em;color:#c99a69;font-weight:900}
+.inventory-discord-manager-head h4{margin:3px 0 0;color:#f4e5d4;font-size:15px}
+.inventory-message-state{padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#bca796!important;font-size:9px!important;font-weight:900}
+.inventory-message-state.sent{background:rgba(72,137,91,.16);border-color:rgba(72,137,91,.30);color:#93d4a5!important}
+.inventory-discord-manager label{display:block;margin-bottom:7px;color:#ead8c6!important;font-size:10px;font-weight:900}
+.inventory-discord-manager textarea{width:100%;min-height:86px;resize:vertical;background:#100d0b!important;color:#fff4e9!important;border:1px solid rgba(220,171,112,.17)!important;border-radius:13px!important;padding:12px!important;line-height:1.7}
+.inventory-discord-manager textarea::placeholder{color:#9f8876!important}
+.inventory-comment-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:7px}
+.inventory-comment-meta span{font-size:9px!important;color:#a79281!important}
+.inventory-comment-meta button{border:0;background:transparent;color:#d5a26b!important;font-size:9px;cursor:pointer;padding:4px}
+.inventory-discord-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:14px}
+.inventory-discord-controls .btn{min-height:43px!important;padding:0 10px!important;font-size:10px!important}
+.inventory-discord-edit{background:linear-gradient(135deg,#755438,#4c3425)!important;color:#fff2e4!important;border-color:rgba(222,177,122,.22)!important}
+.inventory-discord-delete{background:linear-gradient(135deg,#793f36,#472521)!important;color:#ffe9e5!important;border-color:rgba(203,91,78,.25)!important}
+.inventory-discord-controls button:disabled{opacity:.38!important;cursor:not-allowed!important;transform:none!important}
+@media(max-width:720px){.inventory-discord-controls{grid-template-columns:1fr}.inventory-comment-meta{align-items:flex-start;flex-direction:column}}
+</style>
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -5906,12 +5926,26 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 <section id="page-inventory" class="page inventory-redesign">
   <div class="page-hero compact inventory-hero">
     <div><span class="eyebrow">GOOGLE SHEETS SYNC</span><h1>在庫ダッシュボード</h1><p>Google Sheets「在庫表」の材料シートをSupabaseへ同期して表示します。</p><div class="inventory-live-status"><i id="inventorySyncDot"></i><span id="inventorySyncStatus">同期待機中</span></div></div>
-    <div class="inventory-actions"><button class="btn primary" id="inventorySyncButton" onclick="syncInventoryFromGoogleSheet(true)">Google Sheets同期</button><button class="btn" onclick="loadInventorySnapshot(true)">表示を再読込</button><button class="btn" onclick="openInventorySheet()">原本を開く</button><button class="btn inventory-discord-button" id="inventoryDiscordButton" onclick="sendInventoryAlertToDiscord()">⚠ Discordへ送信</button></div>
+    <div class="inventory-actions"><button class="btn primary" id="inventorySyncButton" onclick="syncInventoryFromGoogleSheet(true)">Google Sheets同期</button><button class="btn" onclick="loadInventorySnapshot(true)">表示を再読込</button><button class="btn" onclick="openInventorySheet()">原本を開く</button></div>
   </div>
   <div id="inventoryAlertPanel" class="inventory-alert-panel">
     <div class="inventory-alert-head"><h3>⚠ 在庫アラート</h3><span id="inventoryAlertCount" class="inventory-alert-count">0</span></div>
     <div id="inventoryAlertList" class="inventory-alert-empty">在庫データを読み込んでいます。</div>
-    <div id="inventoryDiscordResult" class="inventory-discord-result">在庫アラート専用チャンネルへ、ボタンを押した時だけ送信します。</div>
+    <div class="inventory-discord-manager">
+      <div class="inventory-discord-manager-head">
+        <div><span>DISCORD MESSAGE</span><h4>在庫アラート送信管理</h4></div>
+        <span id="inventoryDiscordMessageState" class="inventory-message-state">未送信</span>
+      </div>
+      <label for="inventoryDiscordComment">管理者コメント</label>
+      <textarea id="inventoryDiscordComment" rows="3" maxlength="900" placeholder="例：牛乳と生クリームを優先して補充してください。"></textarea>
+      <div class="inventory-comment-meta"><span>コメントはDiscordの在庫アラートに追加されます。</span><button type="button" onclick="clearInventoryDiscordComment()">入力を消去</button></div>
+      <div class="inventory-discord-controls">
+        <button class="btn inventory-discord-button" id="inventoryDiscordButton" onclick="sendInventoryAlertToDiscord()">⚠ 新規送信</button>
+        <button class="btn inventory-discord-edit" id="inventoryDiscordEditButton" onclick="editInventoryDiscordMessage()" disabled>✎ 送信内容を編集</button>
+        <button class="btn inventory-discord-delete" id="inventoryDiscordDeleteButton" onclick="deleteInventoryDiscordMessage()" disabled>🗑 Discordから消去</button>
+      </div>
+      <div id="inventoryDiscordResult" class="inventory-discord-result">在庫アラート専用チャンネルへ、管理者が確認してから送信します。</div>
+    </div>
   </div>
   <div class="inventory-overview">
     <div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="inventoryItems">9</div><div class="metric-sub">管理材料数</div></div>
@@ -8088,15 +8122,11 @@ async function loadInventorySnapshot(show=false){
   }
 }
 
-async function sendInventoryAlertToDiscord(){
-  if(appMode!=='admin'){
-    alert('管理者画面から送信してください。');
-    return;
-  }
+const INVENTORY_DISCORD_MESSAGE_KEY='lait_divin_inventory_discord_message';
+let inventoryDiscordMessageId=localStorage.getItem(INVENTORY_DISCORD_MESSAGE_KEY)||'';
 
-  const button=$('inventoryDiscordButton');
-  const resultBox=$('inventoryDiscordResult');
-  const low=(inventorySnapshot||[]).filter(x=>{
+function getInventoryDiscordLowItems(){
+  return (inventorySnapshot||[]).filter(x=>{
     const stock=Number(x.stock||0),min=Number(x.min||0);
     return stock<min||Boolean(x.status);
   }).sort((a,b)=>{
@@ -8104,74 +8134,121 @@ async function sendInventoryAlertToDiscord(){
     const br=Number(b.min||0)?Number(b.stock||0)/Number(b.min):999;
     return ar-br;
   });
+}
 
-  if(!low.length){
-    alert('現在、最低在庫を下回っている材料はありません。');
-    return;
+function inventoryDiscordPayload(action,messageId=''){
+  const low=getInventoryDiscordLowItems();
+  return {
+    action,
+    message_id:messageId,
+    sent_at:new Date().toISOString(),
+    sent_by:currentEmployee?.name||currentProfile?.display_name||currentProfile?.employee_name||'管理者',
+    admin_comment:$('inventoryDiscordComment')?.value.trim()||'',
+    item_count:low.length,
+    items:low.map(x=>({
+      name:String(x.name||'材料'),
+      stock:Number(x.stock||0),
+      min:Number(x.min||0),
+      shortage:Math.max(0,Number(x.min||0)-Number(x.stock||0)),
+      critical:Number(x.min||0)>0&&Number(x.stock||0)<Number(x.min||0)*0.5
+    }))
+  };
+}
+
+function updateInventoryDiscordManager(){
+  const hasMessage=Boolean(inventoryDiscordMessageId);
+  const state=$('inventoryDiscordMessageState');
+  if(state){
+    state.textContent=hasMessage?'送信済み・編集可能':'未送信';
+    state.classList.toggle('sent',hasMessage);
   }
+  if($('inventoryDiscordEditButton'))$('inventoryDiscordEditButton').disabled=!hasMessage;
+  if($('inventoryDiscordDeleteButton'))$('inventoryDiscordDeleteButton').disabled=!hasMessage;
+}
 
-  const preview=low.map(x=>{
-    const stock=Number(x.stock||0),min=Number(x.min||0);
-    return `・${x.name}：現在 ${stock.toLocaleString('ja-JP')} / 最低 ${min.toLocaleString('ja-JP')}（不足 ${Math.max(0,min-stock).toLocaleString('ja-JP')}）`;
-  }).join('\n');
+function clearInventoryDiscordComment(){
+  if($('inventoryDiscordComment'))$('inventoryDiscordComment').value='';
+  $('inventoryDiscordComment')?.focus();
+}
 
-  if(!confirm(`在庫アラート専用Discordチャンネルへ送信しますか？\n\n${preview}`))return;
+async function callInventoryDiscordFunction(payload){
+  const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/inventory-alert-discord`,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=UTF-8'},
+    body:JSON.stringify(payload)
+  });
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok||!data?.ok)throw new Error(data?.error||`HTTP ${response.status}`);
+  return data;
+}
 
-  button.disabled=true;
-  button.textContent='送信中…';
-  if(resultBox){
-    resultBox.className='inventory-discord-result';
-    resultBox.textContent='Discordへ送信しています…';
-  }
+async function sendInventoryAlertToDiscord(){
+  if(appMode!=='admin'){alert('管理者画面から送信してください。');return}
+  const low=getInventoryDiscordLowItems();
+  if(!low.length){alert('現在、最低在庫を下回っている材料はありません。');return}
+  const comment=$('inventoryDiscordComment')?.value.trim()||'';
+  const preview=low.map(x=>`・${x.name}：現在 ${Number(x.stock).toLocaleString('ja-JP')} / 最低 ${Number(x.min).toLocaleString('ja-JP')}`).join('\n');
+  if(!confirm(`在庫アラートを新規送信しますか？\n\n${comment?`【管理者コメント】\n${comment}\n\n`:''}${preview}`))return;
 
+  const button=$('inventoryDiscordButton'),resultBox=$('inventoryDiscordResult');
+  button.disabled=true;button.textContent='送信中…';
+  if(resultBox){resultBox.className='inventory-discord-result';resultBox.textContent='Discordへ送信しています…'}
   try{
-    const payload={
-      sent_at:new Date().toISOString(),
-      sent_by:currentEmployee?.name||currentProfile?.display_name||currentProfile?.employee_name||'管理者',
-      item_count:low.length,
-      items:low.map(x=>({
-        name:String(x.name||'材料'),
-        stock:Number(x.stock||0),
-        min:Number(x.min||0),
-        shortage:Math.max(0,Number(x.min||0)-Number(x.stock||0)),
-        critical:Number(x.min||0)>0&&Number(x.stock||0)<Number(x.min||0)*0.5
-      }))
-    };
-
-    const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/inventory-alert-discord`,{
-      method:'POST',
-      headers:{
-        'Content-Type':'text/plain;charset=UTF-8'
-      },
-      body:JSON.stringify(payload)
-    });
-
-    const data=await response.json().catch(()=>({}));
-    if(!response.ok||!data?.ok)throw new Error(data?.error||`HTTP ${response.status}`);
-
+    const data=await callInventoryDiscordFunction(inventoryDiscordPayload('send'));
+    inventoryDiscordMessageId=String(data.message_id||'');
+    if(inventoryDiscordMessageId)localStorage.setItem(INVENTORY_DISCORD_MESSAGE_KEY,inventoryDiscordMessageId);
+    updateInventoryDiscordManager();
     const now=new Date().toLocaleString('ja-JP');
-    if(resultBox){
-      resultBox.className='inventory-discord-result success';
-      resultBox.textContent=`最終送信：${now}（${low.length}品目）`;
-    }
+    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`最終送信：${now}（${low.length}品目）`}
     toast(`在庫アラートをDiscordへ送信しました（${low.length}品目）`);
   }catch(error){
-    console.error('Inventory alert Discord send error',error);
-    if(resultBox){
-      resultBox.className='inventory-discord-result error';
-      resultBox.textContent=`送信失敗：${error.message||error}`;
-    }
+    console.error('Inventory Discord send error',error);
+    if(resultBox){resultBox.className='inventory-discord-result error';resultBox.textContent=`送信失敗：${error.message||error}`}
     alert(`Discordへの送信に失敗しました。\n${error.message||error}`);
-  }finally{
-    button.disabled=false;
-    button.textContent='⚠ Discordへ送信';
-  }
+  }finally{button.disabled=false;button.textContent='⚠ 新規送信'}
+}
+
+async function editInventoryDiscordMessage(){
+  if(appMode!=='admin'){alert('管理者画面から編集してください。');return}
+  if(!inventoryDiscordMessageId){alert('編集できる送信済みメッセージがありません。');return}
+  const low=getInventoryDiscordLowItems();
+  if(!low.length){alert('現在、最低在庫を下回っている材料はありません。');return}
+  if(!confirm('最後に送信したDiscord在庫アラートを、現在の在庫とコメントで上書きしますか？'))return;
+  const button=$('inventoryDiscordEditButton'),resultBox=$('inventoryDiscordResult');
+  button.disabled=true;button.textContent='編集中…';
+  try{
+    await callInventoryDiscordFunction(inventoryDiscordPayload('edit',inventoryDiscordMessageId));
+    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`最終編集：${new Date().toLocaleString('ja-JP')}（${low.length}品目）`}
+    toast('Discordの在庫アラートを編集しました');
+  }catch(error){
+    if(resultBox){resultBox.className='inventory-discord-result error';resultBox.textContent=`編集失敗：${error.message||error}`}
+    alert(`Discordメッセージの編集に失敗しました。\n${error.message||error}`);
+  }finally{button.disabled=false;button.textContent='✎ 送信内容を編集'}
+}
+
+async function deleteInventoryDiscordMessage(){
+  if(appMode!=='admin'){alert('管理者画面から消去してください。');return}
+  if(!inventoryDiscordMessageId){alert('消去できる送信済みメッセージがありません。');return}
+  if(!confirm('最後に送信した在庫アラートをDiscordから完全に消去しますか？'))return;
+  const button=$('inventoryDiscordDeleteButton'),resultBox=$('inventoryDiscordResult');
+  button.disabled=true;button.textContent='消去中…';
+  try{
+    await callInventoryDiscordFunction({action:'delete',message_id:inventoryDiscordMessageId});
+    inventoryDiscordMessageId='';
+    localStorage.removeItem(INVENTORY_DISCORD_MESSAGE_KEY);
+    updateInventoryDiscordManager();
+    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`Discordから消去しました：${new Date().toLocaleString('ja-JP')}`}
+    toast('Discordの在庫アラートを消去しました');
+  }catch(error){
+    if(resultBox){resultBox.className='inventory-discord-result error';resultBox.textContent=`消去失敗：${error.message||error}`}
+    alert(`Discordメッセージの消去に失敗しました。\n${error.message||error}`);
+  }finally{button.disabled=false;button.textContent='🗑 Discordから消去'}
 }
 
 function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener')}
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
-initTheme();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
+initTheme();updateInventoryDiscordManager();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
 window.addEventListener('focus',()=>refreshAllData(true));
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAllData(true)});
 window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('admin');if(appMode==='employee')subscribeRealtime('employee');refreshAllData(true)});
@@ -9131,7 +9208,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.4 Admin Profile Editor Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.5 Inventory Discord Manager Build</div>
 
 <script>
 (function(){
