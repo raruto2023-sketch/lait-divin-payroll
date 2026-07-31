@@ -5937,6 +5937,163 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 }
 </style>
 
+
+<style id="ver17-9-2-jobdate-inventoryvisual-fix">
+:root{
+  --ld-soft-outline: rgba(230,194,153,.10);
+  --ld-soft-panel: rgba(255,255,255,.028);
+}
+.job-auto-filters{
+  display:grid!important;
+  grid-template-columns:minmax(260px,1.7fr) minmax(180px,.9fr)!important;
+  gap:14px!important;
+  align-items:end!important;
+}
+.job-date-field{
+  margin:0!important;
+  padding:14px 16px!important;
+  border-radius:18px!important;
+  background:rgba(255,255,255,.03)!important;
+  border:1px solid var(--ld-soft-outline)!important;
+}
+.job-date-field input{margin-top:8px!important}
+.inventory-product-visual img,
+.v4-stock-thumb img{
+  width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;
+}
+.inventory-redesign .inventory-product-visual,
+.inventory-product-visual{
+  overflow:hidden!important;
+  width:88px!important;height:88px!important;flex:0 0 88px!important;
+}
+.v4-stock-head{
+  display:flex!important;align-items:center!important;gap:10px!important;
+}
+.v4-stock-thumb{
+  width:54px!important;height:54px!important;border-radius:16px!important;overflow:hidden!important;
+  flex:0 0 54px!important;border:1px solid rgba(233,203,173,.14)!important;
+  background:rgba(255,255,255,.03)!important;
+}
+.v4-stock-copy{min-width:0!important}
+.v4-stock-copy strong{display:block!important}
+.v4-stock-copy span{display:block!important}
+.v4-stock-copy b{display:block!important;margin-top:6px!important}
+body.dark .v4-stock,
+body.dark .inventory-card,
+body.dark .dashboard-panel,
+body.dark .metric-card,
+body.dark .job-calculation-box,
+body.dark .job-rate-picker,
+body.dark .job-date-field,
+body.dark .sheet-note{
+  box-shadow:none!important;
+}
+body.dark .dashboard-panel>.dashboard-title,
+body.dark .dashboard-title.sales-toolbar-title,
+body.dark .sales-toolbar-title,
+body.dark .inventory-material-panel .dashboard-title,
+body.dark .job-auto-panel .dashboard-title,
+body.dark .job-history-panel .dashboard-title,
+body.dark .farm-troubleshoot .dashboard-title,
+body.dark .farm-view .dashboard-title{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0 0 14px!important;
+  margin:0 0 14px!important;
+  border-bottom:1px solid var(--ld-soft-outline)!important;
+}
+body.dark .dashboard-title>div,
+body.dark .sales-toolbar-title>div{
+  background:transparent!important;
+}
+body.dark .job-rate-picker,
+body.dark .job-calculation-box,
+body.dark .expense-filters,
+body.dark .job-history-tools,
+body.dark .sales-filter-tools,
+body.dark .inventory-actions,
+body.dark .employee-tools,
+body.dark .farm-period-card{
+  background:rgba(255,255,255,.022)!important;
+  border:1px solid var(--ld-soft-outline)!important;
+  border-radius:20px!important;
+}
+body.dark .job-calculation-box{padding:16px!important}
+body.dark .sales-filter-tools{
+  padding:10px!important;
+  border-radius:20px!important;
+}
+body.dark .sales-filter-tools input,
+body.dark .sales-filter-tools .btn,
+body.dark .sales-filter-tools button{
+  margin:0!important;
+}
+body.dark .farm-check-grid{
+  gap:10px!important;
+}
+body.dark .farm-check-grid span{
+  border-radius:16px!important;
+  padding:12px 14px!important;
+  background:rgba(255,255,255,.025)!important;
+  border:1px solid var(--ld-soft-outline)!important;
+}
+body.dark .farm-tabs{
+  background:transparent!important;
+  border:0!important;
+  padding:0!important;
+  gap:10px!important;
+}
+body.dark .farm-tabs button{
+  background:rgba(255,255,255,.03)!important;
+  border:1px solid var(--ld-soft-outline)!important;
+  border-radius:18px!important;
+}
+body.dark .sheet-note{
+  background:rgba(255,255,255,.025)!important;
+  border:1px solid var(--ld-soft-outline)!important;
+}
+body.dark .inventory-card{
+  background:linear-gradient(180deg,rgba(47,31,28,.96),rgba(30,21,19,.96))!important;
+  border:1px solid rgba(231,201,171,.14)!important;
+}
+body.dark .inventory-card.low{
+  background:linear-gradient(180deg,rgba(60,36,31,.97),rgba(38,24,21,.98))!important;
+  border-color:rgba(214,138,112,.42)!important;
+}
+body.dark .inventory-redesign .inventory-product-visual,
+body.dark .inventory-product-visual,
+body.dark .v4-stock-thumb{
+  background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.03))!important;
+  border-color:rgba(231,201,171,.16)!important;
+}
+body.dark .v4-stock{
+  background:linear-gradient(180deg,rgba(49,33,29,.94),rgba(31,23,21,.94))!important;
+  border:1px solid rgba(231,201,171,.12)!important;
+}
+body.dark .v4-stock.low{
+  background:linear-gradient(180deg,rgba(66,40,33,.96),rgba(43,28,24,.96))!important;
+  border-color:rgba(214,138,112,.35)!important;
+}
+body.dark .inventory-card-content .stock-meta,
+body.dark .inventory-card .stock-min,
+body.dark .v4-stock-copy span{
+  color:rgba(239,231,224,.70)!important;
+}
+body.dark .inventory-card-content h3,
+body.dark .v4-stock-copy strong{
+  color:#f7ede5!important;
+}
+body.dark .inventory-card .stock-value,
+body.dark .v4-stock-copy b{
+  color:#f2d6b3!important;
+}
+@media (max-width:860px){
+  .job-auto-filters{grid-template-columns:1fr!important}
+  .inventory-product-visual,.inventory-redesign .inventory-product-visual{width:78px!important;height:78px!important;flex-basis:78px!important}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6167,9 +6324,9 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
       <div class="metric-sub">現在のジョブ口座残高</div>
     </article>
     <article class="metric-card">
-      <div class="metric-label">TODAY SALES</div>
+      <div class="metric-label">SELECTED SALES</div>
       <div id="jobTodaySales" class="metric-value">¥0</div>
-      <div class="metric-sub">売上履歴とリアルタイム連携</div>
+      <div id="jobSelectedSalesLabel" class="metric-sub">選択日の売上履歴と連携</div>
     </article>
     <article class="metric-card">
       <div class="metric-label">AUTO TRANSFER</div>
@@ -6186,18 +6343,24 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
   <div class="job-account-layout">
     <section class="dashboard-panel job-auto-panel">
       <div class="dashboard-title">
-        <div><h2>本日の売上から自動計算</h2><p>売上入力ページの「本日の売上履歴」から、1〜10割をジョブ口座へ反映します。</p></div>
+        <div><h2>選択日の売上から自動計算</h2><p>売上入力ページの売上履歴から、選択した日付の売上を1〜10割でジョブ口座へ反映します。</p></div>
         <span id="jobAutoStatusBadge" class="badge">未反映</span>
       </div>
-      <div class="job-rate-picker">
-        <label for="jobAutoRate">反映割合</label>
-        <div class="job-rate-control">
-          <input id="jobAutoRate" type="range" min="1" max="10" step="1" value="10" oninput="previewJobAutoTransfer()">
-          <strong id="jobAutoRateValue">10割（100%）</strong>
+      <div class="job-auto-filters">
+        <div class="job-rate-picker">
+          <label for="jobAutoRate">反映割合</label>
+          <div class="job-rate-control">
+            <input id="jobAutoRate" type="range" min="1" max="10" step="1" value="10" oninput="previewJobAutoTransfer()">
+            <strong id="jobAutoRateValue">10割（100%）</strong>
+          </div>
+        </div>
+        <div class="field job-date-field">
+          <label for="jobAutoSourceDate">対象日</label>
+          <input id="jobAutoSourceDate" type="date" onchange="previewJobAutoTransfer()">
         </div>
       </div>
       <div class="job-calculation-box">
-        <div><span>本日の売上</span><strong id="jobCalcSales">¥0</strong></div>
+        <div><span id="jobCalcDateLabel">選択日の売上</span><strong id="jobCalcSales">¥0</strong></div>
         <span>×</span>
         <div><span>反映割合</span><strong id="jobCalcRate">100%</strong></div>
         <span>=</span>
@@ -6205,9 +6368,9 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
       </div>
       <div class="job-auto-actions">
         <button class="btn" onclick="saveJobAutoRate()">割合だけ保存</button>
-        <button class="btn primary" onclick="applyTodaySalesToJobAccount()">割合を保存して本日分を反映</button>
+        <button class="btn primary" onclick="applyTodaySalesToJobAccount()">割合を保存して選択日分を反映</button>
       </div>
-      <p class="job-help">売上入力ページで本日の売上を追加・編集・削除すると、この金額にも反映されます。同じ日付で再反映しても重複せず、最新金額へ更新します。</p>
+      <p class="job-help">対象日を切り替えると、前日や過去日の売上も反映できます。売上入力ページで追加・編集・削除した金額にあわせて、同じ日付の自動反映金額も更新できます。</p>
     </section>
 
     <section class="dashboard-panel">
@@ -7480,7 +7643,7 @@ function renderEmployeeDashboard(){
     return `<div class="working-person">${avatar}<div><strong>${esc(displayName)}</strong><span>${esc(a.employeeId)} ・ ${new Date(a.clockIn).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}から</span></div><div class="duration">${formatDuration(attendanceDuration(a))}</div></div>`;
   }).join(''):'<div class="empty">現在勤務中のスタッフはいません。</div>';
   const items=(inventorySnapshot&&inventorySnapshot.length?inventorySnapshot:inventoryFallback).slice(0,6);
-  $('employeeInventoryPreview').innerHTML=items.map(x=>`<div class="v4-stock ${x.stock<x.min||x.status?'low':''}"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min).toLocaleString()}</span><b>${Number(x.stock).toLocaleString()}</b></div>`).join('');
+  $('employeeInventoryPreview').innerHTML=items.map(x=>inventoryPreviewMarkup(x)).join('');
   renderBusinessDashboard('empBiz');renderSalesGoals();
   const mine=myAttendance.find(a=>!a.clockOut),state=$('employeeStatusPillHome');
   state.textContent=mine?'● 勤務中':'退勤中';state.classList.toggle('working',!!mine);
@@ -7517,8 +7680,10 @@ function renderEmployeeRanking(){
 }
 function renderEmployeeInventory(items){
   const low=items.filter(x=>x.stock<x.min||x.status).length;
-  $('employeeInventoryItems').textContent=items.length;$('employeeInventoryLow').textContent=low;$('employeeInventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-  $('employeeInventoryGrid').innerHTML=items.map(x=>{const ratio=x.min?Math.round(x.stock/x.min*100):100,isLow=x.stock<x.min||x.status;return `<div class="inventory-card ${isLow?'low':''}"><div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''}">${esc(x.status||'在庫OK')}</span></div><div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')}</div><div class="stock-min">最低数量 ${Number(x.min).toLocaleString('ja-JP')} ・ ${ratio}%</div><div class="stock-bar"><span style="width:${Math.min(100,Math.max(3,ratio))}%"></span></div></div>`}).join('');
+  $('employeeInventoryItems').textContent=items.length;
+  $('employeeInventoryLow').textContent=low;
+  $('employeeInventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+  $('employeeInventoryGrid').innerHTML=items.map(x=>inventoryGridCardMarkup(x)).join('');
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
@@ -8299,7 +8464,7 @@ function renderV4Extras(){
   if($('v4InventoryPreview')){
     const liveItems=(typeof inventorySnapshot!=='undefined'&&Array.isArray(inventorySnapshot)&&inventorySnapshot.length)?inventorySnapshot:inventoryFallback;
     const data=(liveItems||[]).slice(0,6);
-    $('v4InventoryPreview').innerHTML=data.length?data.map(x=>`<div class="v4-stock ${(Number(x.stock)<Number(x.min)||x.status)?'low':''}"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min||0).toLocaleString()}</span><b>${Number(x.stock||0).toLocaleString()}</b></div>`).join(''):'<div class="empty">在庫データがありません。</div>'
+    $('v4InventoryPreview').innerHTML=data.length?data.map(x=>inventoryPreviewMarkup(x)).join(''):'<div class="empty">在庫データがありません。</div>'
   }
 }
 
@@ -8418,35 +8583,40 @@ function renderInventoryAlerts(items){
   }).join('');
 }
 
+function inventoryAssetPath(name){return `inventory_assets/${name}.svg`;}
 function inventoryVisual(name){
   const n=String(name||'');
-  if(/牛乳|ミルク/.test(n))return {icon:'🥛',unit:'ml'};
-  if(/小麦|粉|砂糖/.test(n))return {icon:'🌾',unit:'g'};
-  if(/いちご|苺/.test(n))return {icon:'🍓',unit:'g'};
-  if(/ブルーベリー/.test(n))return {icon:'🫐',unit:'g'};
-  if(/桃|ピーチ/.test(n))return {icon:'🍑',unit:'g'};
-  if(/オレンジ|みかん/.test(n))return {icon:'🍊',unit:'g'};
-  if(/マンゴー/.test(n))return {icon:'🥭',unit:'g'};
-  if(/コーヒー|豆/.test(n))return {icon:'☕',unit:'g'};
-  if(/卵|たまご/.test(n))return {icon:'🥚',unit:'個'};
-  if(/バター/.test(n))return {icon:'🧈',unit:'g'};
-  if(/クリーム/.test(n))return {icon:'🍨',unit:'ml'};
-  return {icon:'📦',unit:''};
+  if(/牛乳|ミルク/.test(n))return {image:inventoryAssetPath('milk'),unit:'ml'};
+  if(/小麦|粉|砂糖/.test(n))return {image:inventoryAssetPath('flour'),unit:'g'};
+  if(/いちご|苺/.test(n))return {image:inventoryAssetPath('strawberry'),unit:'g'};
+  if(/ブルーベリー/.test(n))return {image:inventoryAssetPath('blueberry'),unit:'g'};
+  if(/桃|ピーチ/.test(n))return {image:inventoryAssetPath('peach'),unit:'g'};
+  if(/オレンジ|みかん/.test(n))return {image:inventoryAssetPath('orange'),unit:'g'};
+  if(/マンゴー/.test(n))return {image:inventoryAssetPath('mango'),unit:'g'};
+  if(/コーヒー|豆/.test(n))return {image:inventoryAssetPath('coffee'),unit:'g'};
+  if(/卵|たまご/.test(n))return {image:inventoryAssetPath('egg'),unit:'個'};
+  if(/バター/.test(n))return {image:inventoryAssetPath('butter'),unit:'g'};
+  if(/クリーム/.test(n))return {image:inventoryAssetPath('cream'),unit:'ml'};
+  return {image:inventoryAssetPath('default'),unit:''};
 }
-function renderInventory(items){
-  const low=items.filter(x=>x.stock<x.min||x.status).length;
-  $('inventoryItems').textContent=items.length;
-  $('inventoryLow').textContent=low;
-  $('inventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-  renderInventoryAlerts(items);
-  $('inventoryGrid').innerHTML=items.map(x=>{
-    const ratio=x.min?Math.round(x.stock/x.min*100):100;
-    const isLow=x.stock<x.min||x.status;
-    const isCritical=x.min&&Number(x.stock)<Number(x.min)*0.5;
-    const visual=inventoryVisual(x.name);
-    const safeRatio=Math.min(100,Math.max(3,ratio));
-    return `<div class="inventory-card ${isLow?'low':''} ${isCritical?'critical':''}">
-      <div class="inventory-product-visual"><span>${visual.icon}</span></div>
+function inventoryPreviewMarkup(x){
+  const visual=inventoryVisual(x.name);
+  const isLow=Number(x.stock)<Number(x.min)||x.status;
+  return `<div class="v4-stock ${isLow?'low':''}">
+    <div class="v4-stock-head">
+      <div class="v4-stock-thumb"><img src="${visual.image}" alt="${esc(x.name)}" loading="lazy"></div>
+      <div class="v4-stock-copy"><strong>${esc(x.name)}</strong><span>最低 ${Number(x.min||0).toLocaleString('ja-JP')}</span><b>${Number(x.stock||0).toLocaleString('ja-JP')} ${visual.unit||''}</b></div>
+    </div>
+  </div>`;
+}
+function inventoryGridCardMarkup(x){
+  const ratio=x.min?Math.round(x.stock/x.min*100):100;
+  const isLow=x.stock<x.min||x.status;
+  const isCritical=x.min&&Number(x.stock)<Number(x.min)*0.5;
+  const visual=inventoryVisual(x.name);
+  const safeRatio=Math.min(100,Math.max(3,ratio));
+  return `<div class="inventory-card ${isLow?'low':''} ${isCritical?'critical':''}">
+      <div class="inventory-product-visual"><img src="${visual.image}" alt="${esc(x.name)}" loading="lazy"></div>
       <div class="inventory-card-content">
         <div class="inventory-card-head"><h3>${esc(x.name)}</h3><span class="stock-pill ${isLow?'low':''} ${isCritical?'critical':''}">${isCritical?'緊急補充':esc(x.status||'在庫OK')}</span></div>
         <div class="stock-value">${Number(x.stock).toLocaleString('ja-JP')} <small>${visual.unit}</small></div>
@@ -8454,7 +8624,14 @@ function renderInventory(items){
         <div class="stock-bar"><span style="width:${safeRatio}%"></span></div>
       </div>
     </div>`;
-  }).join('');
+}
+function renderInventory(items){
+  const low=items.filter(x=>x.stock<x.min||x.status).length;
+  $('inventoryItems').textContent=items.length;
+  $('inventoryLow').textContent=low;
+  $('inventoryUpdated').textContent=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
+  renderInventoryAlerts(items);
+  $('inventoryGrid').innerHTML=items.map(x=>inventoryGridCardMarkup(x)).join('');
 }
 
 
@@ -9871,7 +10048,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.9.1 Design Sales Mobile Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.9.2 Job Date Inventory Visual Fix Build</div>
 
 <script>
 (function(){
@@ -9994,22 +10171,32 @@ function jobTransactionIcon(type){
 }
 function expenseStatusLabel(status){return ({pending:'申請中',approved:'承認済み',rejected:'却下'})[status]||status}
 function jobAccountBalance(){return jobAccountTransactions.reduce((sum,row)=>sum+(Number(row.amount)||0),0)}
-function todaySalesAmount(){
-  // 売上入力ページの売上履歴（sales_records）のうち、本日分だけを集計します。
-  const today=iso(new Date());
+function getJobSelectedSalesDate(){
+  return $('jobAutoSourceDate')?.value||iso(new Date());
+}
+function todaySalesAmount(targetDate=null){
+  const selectedDate=targetDate||getJobSelectedSalesDate();
   return (salesData||[])
-    .filter(row=>String(row.salesDate||'')===today)
+    .filter(row=>String(row.salesDate||'')===String(selectedDate))
     .reduce((sum,row)=>sum+(Number(row.amount)||0),0);
 }
 function previewJobAutoTransfer(){
   const rate=Math.max(1,Math.min(10,Number($('jobAutoRate')?.value||jobAccountSettings.autoRate||10)));
-  const sales=todaySalesAmount(),amount=Math.round(sales*rate/10);
+  const selectedDate=getJobSelectedSalesDate();
+  const sales=todaySalesAmount(selectedDate),amount=Math.round(sales*rate/10);
   if($('jobAutoRateValue'))$('jobAutoRateValue').textContent=`${rate}割（${rate*10}%）`;
   if($('jobCalcSales'))$('jobCalcSales').textContent=yen.format(sales);
   if($('jobCalcRate'))$('jobCalcRate').textContent=`${rate*10}%`;
   if($('jobCalcResult'))$('jobCalcResult').textContent=yen.format(amount);
   if($('jobTodayAutoAmount'))$('jobTodayAutoAmount').textContent=yen.format(amount);
-  if($('jobAutoRateSummary'))$('jobAutoRateSummary').textContent=`売上の${rate}割`;
+  if($('jobAutoRateSummary'))$('jobAutoRateSummary').textContent=`${jp(selectedDate)}の売上 ${rate}割`;
+  if($('jobSelectedSalesLabel'))$('jobSelectedSalesLabel').textContent=`${jp(selectedDate)} の売上履歴と連携`;
+  if($('jobCalcDateLabel'))$('jobCalcDateLabel').textContent=`${jp(selectedDate)} の売上`;
+  const selectedAuto=jobAccountTransactions.find(x=>x.type==='auto_sales'&&x.sourceDate===selectedDate);
+  if($('jobAutoStatusBadge')){
+    $('jobAutoStatusBadge').textContent=selectedAuto?`反映済み ${yen.format(selectedAuto.amount)}`:'未反映';
+    $('jobAutoStatusBadge').classList.toggle('success',!!selectedAuto);
+  }
 }
 async function loadJobAccountData(showToast=false){
   if(!sb||appMode!=='admin')return;
@@ -10036,17 +10223,14 @@ async function loadJobAccountData(showToast=false){
 }
 function renderJobAccount(){
   if(!$('jobAccountBalance'))return;
-  const balance=jobAccountBalance(),sales=todaySalesAmount(),rate=jobAccountSettings.autoRate||10;
+  if($('jobAutoSourceDate')&&!$('jobAutoSourceDate').value)$('jobAutoSourceDate').value=iso(new Date());
+  const selectedDate=getJobSelectedSalesDate();
+  const balance=jobAccountBalance(),sales=todaySalesAmount(selectedDate),rate=jobAccountSettings.autoRate||10;
   $('jobAccountBalance').textContent=yen.format(balance);
   $('jobTodaySales').textContent=yen.format(sales);
   $('jobAutoRate').value=String(rate);
   $('jobManualBalance').placeholder=`現在 ${yen.format(balance)}`;
   previewJobAutoTransfer();
-
-  const today=iso(new Date());
-  const todayAuto=jobAccountTransactions.find(x=>x.type==='auto_sales'&&x.sourceDate===today);
-  $('jobAutoStatusBadge').textContent=todayAuto?`反映済み ${yen.format(todayAuto.amount)}`:'未反映';
-  $('jobAutoStatusBadge').classList.toggle('success',!!todayAuto);
 
   const pending=expenseRequests.filter(x=>x.status==='pending');
   const pendingTotal=pending.reduce((s,x)=>s+x.amount,0);
@@ -10071,10 +10255,12 @@ async function saveJobAutoRate(){
   jobAccountSettings.autoRate=rate;renderJobAccount();toast(`${rate}割で保存しました`);
 }
 async function applyTodaySalesToJobAccount(){
-  const rate=Math.max(1,Math.min(10,Number($('jobAutoRate').value||10))),sales=todaySalesAmount(),amount=Math.round(sales*rate/10),date=iso(new Date());
-  if(!confirm(`本日の売上 ${yen.format(sales)} の${rate}割（${yen.format(amount)}）をジョブ口座へ反映しますか？`))return;
+  const rate=Math.max(1,Math.min(10,Number($('jobAutoRate').value||10)));
+  const date=getJobSelectedSalesDate();
+  const sales=todaySalesAmount(date),amount=Math.round(sales*rate/10);
+  if(!confirm(`${jp(date)} の売上 ${yen.format(sales)} の${rate}割（${yen.format(amount)}）をジョブ口座へ反映しますか？`))return;
   const settingsPayload={id:1,auto_sales_rate:rate,updated_at:new Date().toISOString(),updated_by_name:currentProfile?.display_name||'管理者'};
-  const transactionPayload={transaction_date:date,transaction_type:'auto_sales',amount,description:`本日の売上 ${yen.format(sales)} × ${rate}割`,source_date:date,created_by_uid:currentProfile?.id||null,created_by_name:currentProfile?.display_name||'管理者'};
+  const transactionPayload={transaction_date:date,transaction_type:'auto_sales',amount,description:`${jp(date)} の売上 ${yen.format(sales)} × ${rate}割`,source_date:date,created_by_uid:currentProfile?.id||null,created_by_name:currentProfile?.display_name||'管理者'};
   try{
     let existing=jobAccountTransactions.find(x=>x.type==='auto_sales'&&x.sourceDate===date);
     const settingsPromise=sb.from('job_account_settings').upsert(settingsPayload);
@@ -10083,8 +10269,8 @@ async function applyTodaySalesToJobAccount(){
       :sb.from('job_account_transactions').insert(transactionPayload);
     const [sr,tr]=await Promise.all([settingsPromise,transactionPromise]);
     if(sr.error)throw sr.error;if(tr.error)throw tr.error;
-    await loadJobAccountData(false);await writeAudit('job_account','本日の売上をジョブ口座へ反映',`${rate}割 / ${yen.format(amount)}`,date);
-    toast('本日分をジョブ口座へ反映しました');
+    await loadJobAccountData(false);await writeAudit('job_account','選択日の売上をジョブ口座へ反映',`${jp(date)} / ${rate}割 / ${yen.format(amount)}`,date);
+    toast('選択日分をジョブ口座へ反映しました');
   }catch(error){alert('反映できませんでした：'+error.message)}
 }
 async function setJobAccountBalance(){

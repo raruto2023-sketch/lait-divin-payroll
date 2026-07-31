@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff9f1"/><stop offset="1" stop-color="#ecd5b4"/>
+  </linearGradient>
+  <radialGradient id="fruit" cx=".33" cy=".25" r=".8">
+    <stop offset="0" stop-color="#ffd49c"/><stop offset=".62" stop-color="#ff9f3c"/><stop offset="1" stop-color="#d86a11"/>
+  </radialGradient>
+</defs>
+<rect width="240" height="240" rx="34" fill="url(#bg)"/>
+<ellipse cx="120" cy="199" rx="58" ry="12" fill="#815945" opacity=".13"/>
+<circle cx="120" cy="125" r="58" fill="url(#fruit)" stroke="#c56d1e" stroke-width="4"/>
+<circle cx="100" cy="95" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="118" cy="90" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="139" cy="98" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="91" cy="118" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="111" cy="108" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="132" cy="112" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="152" cy="120" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="101" cy="138" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="124" cy="135" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="145" cy="146" r="1.6" fill="#fce0a8" opacity=".85"/><circle cx="120" cy="154" r="1.6" fill="#fce0a8" opacity=".85"/>
+<path d="M120 62c7-10 18-14 31-12-11 6-17 12-21 24-3-3-6-7-10-12z" fill="#6ba64a"/>
+<path d="M116 69c-3-8-10-15-21-18 8 7 12 13 14 21" fill="#5d8e41"/>
+</svg>

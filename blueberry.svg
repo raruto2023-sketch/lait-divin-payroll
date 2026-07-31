@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#fff7f2"/><stop offset="1" stop-color="#efd0bc"/>
+  </linearGradient>
+  <radialGradient id="fruit" cx=".36" cy=".25" r=".8">
+    <stop offset="0" stop-color="#ffd7bd"/><stop offset=".62" stop-color="#f6a17b"/><stop offset="1" stop-color="#d56a5e"/>
+  </radialGradient>
+</defs>
+<rect width="240" height="240" rx="34" fill="url(#bg)"/>
+<ellipse cx="120" cy="199" rx="60" ry="12" fill="#82564f" opacity=".13"/>
+<path d="M120 66c34 0 60 31 60 63 0 31-23 55-60 55s-60-24-60-55c0-32 26-63 60-63z" fill="url(#fruit)" stroke="#c96e59" stroke-width="4"/>
+<path d="M120 70c11 13 14 28 12 47-2 23-1 42 8 60" stroke="#d78270" stroke-width="4" opacity=".55"/>
+<path d="M122 70c11-16 29-19 46-8-15 2-25 7-32 18-8-4-12-7-14-10z" fill="#7ba850"/>
+<path d="M119 69c-8-16-25-22-42-15 13 4 24 11 31 22 4-2 8-4 11-7z" fill="#5f9344"/>
+</svg>
