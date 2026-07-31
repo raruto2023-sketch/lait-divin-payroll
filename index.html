@@ -5963,7 +5963,7 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 <div class="section"><div class="section-head"><div class="section-title">基本情報</div><span class="badge">STEP 1</span></div>
 <div class="field"><label>登録済み従業員</label><select id="employeeSelect" onchange="applyEmployee()"><option value="">直接入力する</option></select></div>
 <div class="field"><label>従業員名</label><input id="employee" placeholder="例：神崎 結城"></div>
-<div class="grid2"><div class="field"><label>役職</label><select id="role"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option selected>Cast</option><option>Trainee</option></select></div><div class="field"><label>従業員番号</label><input id="employeeId" placeholder="例：LD-001"></div></div>
+<div class="grid2"><div class="field"><label>役職</label><select id="role"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option selected>Cast</option><option>Trainee</option><option>関係者</option></select></div><div class="field"><label>従業員番号</label><input id="employeeId" placeholder="例：LD-001"></div></div>
 <div class="field"><label>発行日</label><input id="issueDate" type="date"></div></div>
 
 <div class="section"><div class="section-head"><div class="section-title">支給対象期間</div><span class="badge">STEP 2</span></div><div class="quick"><button class="chip" onclick="setThisMonth()">今月</button><button class="chip" onclick="setLastMonth()">先月</button></div><div class="grid2"><div class="field"><label>開始日</label><input id="periodStart" type="date"></div><div class="field"><label>終了日</label><input id="periodEnd" type="date"></div></div></div>
@@ -5997,7 +5997,7 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 </section></div></main></div></section>
 
 <section id="page-employees" class="page">
-<div class="employee-tools"><button class="btn primary" onclick="openEmployeeModal()">＋ 従業員を登録</button><input id="employeeSearch" placeholder="名前・番号で検索" oninput="renderEmployees()"><select id="employeeRoleFilter" onchange="renderEmployees()"><option value="">すべての役職</option><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option></select><button class="btn" onclick="exportEmployeesCsv()">従業員CSV</button></div>
+<div class="employee-tools"><button class="btn primary" onclick="openEmployeeModal()">＋ 従業員を登録</button><input id="employeeSearch" placeholder="名前・番号で検索" oninput="renderEmployees()"><select id="employeeRoleFilter" onchange="renderEmployees()"><option value="">すべての役職</option><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option><option>関係者</option></select><button class="btn" onclick="exportEmployeesCsv()">従業員CSV</button></div>
 <div id="employeeCards" class="cards"></div></section>
 <section id="page-attendance" class="page">
 <div class="attendance-hero">
@@ -6406,7 +6406,7 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
   </div>
 </div>
 
-<div id="employeeModal" class="modal-back hidden"><div class="modal"><h2 id="employeeModalTitle">従業員を登録</h2><input id="editEmployeeIndex" type="hidden"><div class="field"><label>名前</label><input id="modalName"></div><div class="grid2"><div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option></select></div><div class="field"><label>従業員番号</label><input id="modalId"></div></div><div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" type="password" placeholder="本人に伝えるパスワード"></div><div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div><div class="modal-actions"><button class="btn" onclick="closeEmployeeModal()">キャンセル</button><button class="btn primary" onclick="saveEmployee()">保存</button></div></div></div>
+<div id="employeeModal" class="modal-back hidden"><div class="modal"><h2 id="employeeModalTitle">従業員を登録</h2><input id="editEmployeeIndex" type="hidden"><div class="field"><label>名前</label><input id="modalName"></div><div class="grid2"><div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option><option>関係者</option></select></div><div class="field"><label>従業員番号</label><input id="modalId"></div></div><div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" type="password" placeholder="本人に伝えるパスワード"></div><div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div><div class="modal-actions"><button class="btn" onclick="closeEmployeeModal()">キャンセル</button><button class="btn primary" onclick="saveEmployee()">保存</button></div></div></div>
 
 <div id="slipModal" class="modal-back hidden"><div class="modal" style="width:min(850px,100%);max-height:92vh;overflow:auto"><div class="modal-actions" style="margin:0 0 12px"><button class="btn" onclick="closeSlipModal()">閉じる</button><button class="btn primary" onclick="downloadViewedSlip()">PNG保存</button></div><div id="viewedSlipContainer"></div></div></div>
 <div class="toast" id="toast"></div>
@@ -9010,7 +9010,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.2 Dark Readable Login Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.3 Related Role Build</div>
 
 <script>
 (function(){
