@@ -5641,6 +5641,10 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
 .inventory-discord-controls button:disabled{opacity:.38!important;cursor:not-allowed!important;transform:none!important}
 @media(max-width:720px){.inventory-discord-controls{grid-template-columns:1fr}.inventory-comment-meta{align-items:flex-start;flex-direction:column}}
 </style>
+<style id="ver17-8-6-inventory-notice-sync">
+.inventory-site-notice-preview{margin-top:12px;padding:14px 16px;border-radius:14px;background:linear-gradient(135deg,rgba(70,118,82,.16),rgba(45,85,59,.08));border:1px solid rgba(101,166,119,.26)}
+.inventory-site-notice-preview.hidden{display:none!important}.inventory-site-notice-preview>span{display:block;color:#7fc998!important;font-size:8px;letter-spacing:.18em;font-weight:900}.inventory-site-notice-preview strong{display:block;color:#dff3e5!important;font-size:12px;margin:4px 0}.inventory-site-notice-preview p{margin:0;color:#b8d8c1!important;font-size:11px;line-height:1.7;white-space:pre-wrap}
+</style>
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -5938,13 +5942,14 @@ body.dark .clear-login-card,body.dark .clear-login-form{color:#fff4e8!important}
       </div>
       <label for="inventoryDiscordComment">管理者コメント</label>
       <textarea id="inventoryDiscordComment" rows="3" maxlength="900" placeholder="例：牛乳と生クリームを優先して補充してください。"></textarea>
-      <div class="inventory-comment-meta"><span>コメントはDiscordの在庫アラートに追加されます。</span><button type="button" onclick="clearInventoryDiscordComment()">入力を消去</button></div>
+      <div class="inventory-comment-meta"><span>コメントはDiscordとサイト内通知の両方に反映されます。在庫不足がなくても送信できます。</span><button type="button" onclick="clearInventoryDiscordComment()">入力を消去</button></div>
       <div class="inventory-discord-controls">
         <button class="btn inventory-discord-button" id="inventoryDiscordButton" onclick="sendInventoryAlertToDiscord()">⚠ 新規送信</button>
         <button class="btn inventory-discord-edit" id="inventoryDiscordEditButton" onclick="editInventoryDiscordMessage()" disabled>✎ 送信内容を編集</button>
         <button class="btn inventory-discord-delete" id="inventoryDiscordDeleteButton" onclick="deleteInventoryDiscordMessage()" disabled>🗑 Discordから消去</button>
       </div>
-      <div id="inventoryDiscordResult" class="inventory-discord-result">在庫アラート専用チャンネルへ、管理者が確認してから送信します。</div>
+      <div id="inventoryDiscordResult" class="inventory-discord-result">Discord専用チャンネルとサイト内通知へ、管理者が確認してから同時送信します。</div>
+      <div id="inventorySiteNoticePreview" class="inventory-site-notice-preview hidden"><span>SITE NOTICE</span><strong>サイト掲載中</strong><p id="inventorySiteNoticeText"></p></div>
     </div>
   </div>
   <div class="inventory-overview">
@@ -8123,7 +8128,9 @@ async function loadInventorySnapshot(show=false){
 }
 
 const INVENTORY_DISCORD_MESSAGE_KEY='lait_divin_inventory_discord_message';
+const INVENTORY_SITE_NOTICE_KEY='lait_divin_inventory_site_notice';
 let inventoryDiscordMessageId=localStorage.getItem(INVENTORY_DISCORD_MESSAGE_KEY)||'';
+let inventorySiteNoticeId=localStorage.getItem(INVENTORY_SITE_NOTICE_KEY)||'';
 
 function getInventoryDiscordLowItems(){
   return (inventorySnapshot||[]).filter(x=>{
@@ -8138,12 +8145,13 @@ function getInventoryDiscordLowItems(){
 
 function inventoryDiscordPayload(action,messageId=''){
   const low=getInventoryDiscordLowItems();
+  const comment=$('inventoryDiscordComment')?.value.trim()||'';
   return {
     action,
     message_id:messageId,
     sent_at:new Date().toISOString(),
     sent_by:currentEmployee?.name||currentProfile?.display_name||currentProfile?.employee_name||'管理者',
-    admin_comment:$('inventoryDiscordComment')?.value.trim()||'',
+    admin_comment:comment,
     item_count:low.length,
     items:low.map(x=>({
       name:String(x.name||'材料'),
@@ -8155,11 +8163,34 @@ function inventoryDiscordPayload(action,messageId=''){
   };
 }
 
+function buildInventorySiteNoticeBody(){
+  const low=getInventoryDiscordLowItems();
+  const comment=$('inventoryDiscordComment')?.value.trim()||'';
+  const lines=[];
+  if(comment)lines.push(comment);
+  if(low.length){
+    if(comment)lines.push('');
+    lines.push('【在庫状況】');
+    low.forEach(x=>lines.push(`・${x.name}：現在 ${Number(x.stock).toLocaleString('ja-JP')} / 最低 ${Number(x.min).toLocaleString('ja-JP')}`));
+  }else{
+    if(comment)lines.push('');
+    lines.push('現在、最低在庫を下回っている材料はありません。');
+  }
+  return lines.join('\n');
+}
+
+function renderInventorySiteNoticePreview(body=''){
+  const box=$('inventorySiteNoticePreview'),textEl=$('inventorySiteNoticeText');
+  if(!box||!textEl)return;
+  box.classList.toggle('hidden',!body);
+  textEl.textContent=body;
+}
+
 function updateInventoryDiscordManager(){
   const hasMessage=Boolean(inventoryDiscordMessageId);
   const state=$('inventoryDiscordMessageState');
   if(state){
-    state.textContent=hasMessage?'送信済み・編集可能':'未送信';
+    state.textContent=hasMessage?'Discord＋サイト掲載中':'未送信';
     state.classList.toggle('sent',hasMessage);
   }
   if($('inventoryDiscordEditButton'))$('inventoryDiscordEditButton').disabled=!hasMessage;
@@ -8173,38 +8204,72 @@ function clearInventoryDiscordComment(){
 
 async function callInventoryDiscordFunction(payload){
   const response=await fetch(`${cfg.SUPABASE_URL}/functions/v1/inventory-alert-discord`,{
-    method:'POST',
-    headers:{'Content-Type':'text/plain;charset=UTF-8'},
-    body:JSON.stringify(payload)
+    method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(payload)
   });
   const data=await response.json().catch(()=>({}));
   if(!response.ok||!data?.ok)throw new Error(data?.error||`HTTP ${response.status}`);
   return data;
 }
 
+async function createInventorySiteNotice(){
+  const body=buildInventorySiteNoticeBody();
+  const payload={
+    title:'在庫管理からのお知らせ',body,type:'inventory',is_pinned:true,
+    created_by:currentProfile?.id||null,
+    created_by_name:currentProfile?.display_name||currentProfile?.employee_name||currentEmployee?.name||'管理者'
+  };
+  const {data,error}=await sb.from('notifications').insert(payload).select().single();
+  if(error)throw error;
+  inventorySiteNoticeId=String(data.id||'');
+  if(inventorySiteNoticeId)localStorage.setItem(INVENTORY_SITE_NOTICE_KEY,inventorySiteNoticeId);
+  renderInventorySiteNoticePreview(body);
+  await loadNotifications(false).catch(()=>{});
+  return data;
+}
+
+async function updateInventorySiteNotice(){
+  const body=buildInventorySiteNoticeBody();
+  if(!inventorySiteNoticeId)return createInventorySiteNotice();
+  const {error}=await sb.from('notifications').update({body,is_pinned:true,updated_at:new Date().toISOString()}).eq('id',inventorySiteNoticeId);
+  if(error)throw error;
+  renderInventorySiteNoticePreview(body);
+  await loadNotifications(false).catch(()=>{});
+}
+
+async function deleteInventorySiteNotice(){
+  if(inventorySiteNoticeId){
+    const {error}=await sb.from('notifications').delete().eq('id',inventorySiteNoticeId);
+    if(error)throw error;
+  }
+  inventorySiteNoticeId='';
+  localStorage.removeItem(INVENTORY_SITE_NOTICE_KEY);
+  renderInventorySiteNoticePreview('');
+  await loadNotifications(false).catch(()=>{});
+}
+
 async function sendInventoryAlertToDiscord(){
   if(appMode!=='admin'){alert('管理者画面から送信してください。');return}
   const low=getInventoryDiscordLowItems();
-  if(!low.length){alert('現在、最低在庫を下回っている材料はありません。');return}
   const comment=$('inventoryDiscordComment')?.value.trim()||'';
-  const preview=low.map(x=>`・${x.name}：現在 ${Number(x.stock).toLocaleString('ja-JP')} / 最低 ${Number(x.min).toLocaleString('ja-JP')}`).join('\n');
-  if(!confirm(`在庫アラートを新規送信しますか？\n\n${comment?`【管理者コメント】\n${comment}\n\n`:''}${preview}`))return;
-
+  if(!low.length&&!comment){alert('在庫不足がない場合は、送信する管理者コメントを入力してください。');return}
+  const preview=low.length?low.map(x=>`・${x.name}：現在 ${Number(x.stock).toLocaleString('ja-JP')} / 最低 ${Number(x.min).toLocaleString('ja-JP')}`).join('\n'):'現在、最低在庫を下回っている材料はありません。';
+  if(!confirm(`Discordとサイト内通知へ新規送信しますか？\n\n${comment?`【管理者コメント】\n${comment}\n\n`:''}${preview}`))return;
   const button=$('inventoryDiscordButton'),resultBox=$('inventoryDiscordResult');
-  button.disabled=true;button.textContent='送信中…';
-  if(resultBox){resultBox.className='inventory-discord-result';resultBox.textContent='Discordへ送信しています…'}
+  button.disabled=true;button.textContent='同時送信中…';
+  if(resultBox){resultBox.className='inventory-discord-result';resultBox.textContent='Discordとサイトへ送信しています…'}
   try{
     const data=await callInventoryDiscordFunction(inventoryDiscordPayload('send'));
     inventoryDiscordMessageId=String(data.message_id||'');
     if(inventoryDiscordMessageId)localStorage.setItem(INVENTORY_DISCORD_MESSAGE_KEY,inventoryDiscordMessageId);
+    await createInventorySiteNotice();
     updateInventoryDiscordManager();
     const now=new Date().toLocaleString('ja-JP');
-    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`最終送信：${now}（${low.length}品目）`}
-    toast(`在庫アラートをDiscordへ送信しました（${low.length}品目）`);
+    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`Discord＋サイト最終送信：${now}（在庫注意 ${low.length}品目）`}
+    toast('Discordとサイト内通知へ反映しました');
   }catch(error){
-    console.error('Inventory Discord send error',error);
+    console.error('Inventory notice send error',error);
     if(resultBox){resultBox.className='inventory-discord-result error';resultBox.textContent=`送信失敗：${error.message||error}`}
-    alert(`Discordへの送信に失敗しました。\n${error.message||error}`);
+    alert(`送信に失敗しました。\n${error.message||error}`);
   }finally{button.disabled=false;button.textContent='⚠ 新規送信'}
 }
 
@@ -8212,36 +8277,38 @@ async function editInventoryDiscordMessage(){
   if(appMode!=='admin'){alert('管理者画面から編集してください。');return}
   if(!inventoryDiscordMessageId){alert('編集できる送信済みメッセージがありません。');return}
   const low=getInventoryDiscordLowItems();
-  if(!low.length){alert('現在、最低在庫を下回っている材料はありません。');return}
-  if(!confirm('最後に送信したDiscord在庫アラートを、現在の在庫とコメントで上書きしますか？'))return;
+  const comment=$('inventoryDiscordComment')?.value.trim()||'';
+  if(!low.length&&!comment){alert('在庫不足がない場合は、掲載する管理者コメントを入力してください。');return}
+  if(!confirm('Discordメッセージとサイト内通知を、現在の内容で同時に更新しますか？'))return;
   const button=$('inventoryDiscordEditButton'),resultBox=$('inventoryDiscordResult');
-  button.disabled=true;button.textContent='編集中…';
+  button.disabled=true;button.textContent='同時編集中…';
   try{
     await callInventoryDiscordFunction(inventoryDiscordPayload('edit',inventoryDiscordMessageId));
-    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`最終編集：${new Date().toLocaleString('ja-JP')}（${low.length}品目）`}
-    toast('Discordの在庫アラートを編集しました');
+    await updateInventorySiteNotice();
+    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`Discord＋サイト最終編集：${new Date().toLocaleString('ja-JP')}`}
+    toast('Discordとサイト内通知を編集しました');
   }catch(error){
     if(resultBox){resultBox.className='inventory-discord-result error';resultBox.textContent=`編集失敗：${error.message||error}`}
-    alert(`Discordメッセージの編集に失敗しました。\n${error.message||error}`);
+    alert(`編集に失敗しました。\n${error.message||error}`);
   }finally{button.disabled=false;button.textContent='✎ 送信内容を編集'}
 }
 
 async function deleteInventoryDiscordMessage(){
   if(appMode!=='admin'){alert('管理者画面から消去してください。');return}
-  if(!inventoryDiscordMessageId){alert('消去できる送信済みメッセージがありません。');return}
-  if(!confirm('最後に送信した在庫アラートをDiscordから完全に消去しますか？'))return;
+  if(!inventoryDiscordMessageId&&!inventorySiteNoticeId){alert('消去できる掲載内容がありません。');return}
+  if(!confirm('Discordメッセージとサイト内通知の両方から完全に消去しますか？'))return;
   const button=$('inventoryDiscordDeleteButton'),resultBox=$('inventoryDiscordResult');
-  button.disabled=true;button.textContent='消去中…';
+  button.disabled=true;button.textContent='同時消去中…';
   try{
-    await callInventoryDiscordFunction({action:'delete',message_id:inventoryDiscordMessageId});
-    inventoryDiscordMessageId='';
-    localStorage.removeItem(INVENTORY_DISCORD_MESSAGE_KEY);
+    if(inventoryDiscordMessageId)await callInventoryDiscordFunction({action:'delete',message_id:inventoryDiscordMessageId});
+    await deleteInventorySiteNotice();
+    inventoryDiscordMessageId='';localStorage.removeItem(INVENTORY_DISCORD_MESSAGE_KEY);
     updateInventoryDiscordManager();
-    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`Discordから消去しました：${new Date().toLocaleString('ja-JP')}`}
-    toast('Discordの在庫アラートを消去しました');
+    if(resultBox){resultBox.className='inventory-discord-result success';resultBox.textContent=`Discord＋サイトから消去しました：${new Date().toLocaleString('ja-JP')}`}
+    toast('Discordとサイト内通知から消去しました');
   }catch(error){
     if(resultBox){resultBox.className='inventory-discord-result error';resultBox.textContent=`消去失敗：${error.message||error}`}
-    alert(`Discordメッセージの消去に失敗しました。\n${error.message||error}`);
+    alert(`消去に失敗しました。\n${error.message||error}`);
   }finally{button.disabled=false;button.textContent='🗑 Discordから消去'}
 }
 
@@ -9208,7 +9275,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.5 Inventory Discord Manager Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.8.6 Inventory Notice Sync Build</div>
 
 <script>
 (function(){
