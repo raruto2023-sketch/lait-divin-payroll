@@ -8583,23 +8583,56 @@ function renderInventoryAlerts(items){
   }).join('');
 }
 
-function inventoryAssetPath(name){return `inventory_assets/${name}.svg`;}
+
+function svgDataUri(svg){
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+function inventorySvg(kind,label){
+  const frameStart = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fffaf6"/><stop offset="1" stop-color="#d7bea7"/></linearGradient><linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eadbcb"/></linearGradient><linearGradient id="brown" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6f4a35"/><stop offset="1" stop-color="#3e281f"/></linearGradient><filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#5a3d2d" flood-opacity="0.22"/></filter></defs><rect x="0" y="0" width="240" height="240" rx="34" fill="url(#bg)"/><ellipse cx="120" cy="198" rx="62" ry="13" fill="#6b4e3c" opacity="0.12"/>`;
+  const frameEnd = `<text x="120" y="217" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#7a5842">${label}</text></svg>`;
+  const art = {
+    milk: `<g filter="url(#shadow)"><path d="M88 44h64l10 26v88c0 25-18 44-43 44h-12c-25 0-43-19-43-44V70z" fill="url(#glass)" stroke="#b89475" stroke-width="4"/><path d="M97 44h46l-6 15h-34z" fill="#f8eee4" stroke="#b89475" stroke-width="3"/><rect x="98" y="92" width="54" height="58" rx="12" fill="#fbf5ee" stroke="#dcc3ae" stroke-width="3"/><path d="M107 108c8-12 23-16 34-8 6 4 10 10 11 17-10-4-18-2-25 3-7 6-13 14-19 27-6-15-7-28-1-39z" fill="#f1d0c5"/><path d="M118 97c8 0 14 3 20 9-6-1-10 1-13 5-3 4-5 10-7 18-4-9-5-16-4-22 1-6 2-10 4-10z" fill="#fff"/></g>`,
+    flour: `<g filter="url(#shadow)"><path d="M78 52h84l16 108c3 23-14 42-37 42H99c-23 0-40-19-37-42z" fill="#f7f0e8" stroke="#bc9575" stroke-width="4"/><path d="M88 52h64l10 23H78z" fill="#ecddce" stroke="#bc9575" stroke-width="3"/><circle cx="120" cy="122" r="34" fill="#fff8ef" stroke="#ddc8b4" stroke-width="3"/><path d="M100 132c6-18 13-27 20-27 8 0 15 9 20 27-8-5-14-8-20-8-5 0-11 3-20 8z" fill="#d3ad79"/><path d="M115 99c2-6 6-9 10-9 5 0 9 3 11 9-5-2-8-3-11-3-2 0-6 1-10 3z" fill="#b78555"/></g>`,
+    strawberry: `<g filter="url(#shadow)"><path d="M84 96c0-31 24-54 36-54s36 23 36 54c0 36-25 90-36 90S84 132 84 96z" fill="#d5485f" stroke="#aa2d41" stroke-width="4"/><path d="M120 48c-15 0-28 8-38 22 14-4 25-2 38 4 13-6 24-8 38-4-10-14-23-22-38-22z" fill="#73ad52"/><path d="M93 58l16 22M120 52v28M147 58l-16 22" stroke="#73ad52" stroke-width="7" stroke-linecap="round"/>${[[103,98],[122,94],[136,101],[112,112],[131,119],[99,128],[143,132],[111,145],[128,150],[119,163]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.2" fill="#ffd89d"/>`).join('')}</g>`,
+    blueberry: `<g filter="url(#shadow)"><ellipse cx="120" cy="162" rx="62" ry="18" fill="#eadfd5"/>${[[92,130,23],[122,119,25],[151,132,22],[108,153,23],[139,156,24]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#3f4db3"/><circle cx="${x-5}" cy="${y-6}" r="4" fill="#91a8ff" opacity="0.45"/><circle cx="${x}" cy="${y}" r="4" fill="#dce4ff"/>`).join('')}<path d="M122 113l7-9 7 9-7 4z" fill="#7fc46b"/></g>`,
+    peach: `<g filter="url(#shadow)"><path d="M120 66c34 0 60 31 60 63 0 31-23 55-60 55s-60-24-60-55c0-32 26-63 60-63z" fill="#f3a17f" stroke="#ce725e" stroke-width="4"/><path d="M121 70c10 13 13 27 11 47-2 22-1 41 8 60" stroke="#d68270" stroke-width="4" opacity="0.5"/><path d="M122 71c11-16 29-19 46-8-15 2-25 8-32 18-8-4-12-7-14-10z" fill="#75a44e"/><path d="M118 70c-8-15-24-21-41-15 13 4 23 11 31 22 4-2 7-4 10-7z" fill="#5d9443"/></g>`,
+    orange: `<g filter="url(#shadow)"><circle cx="120" cy="125" r="58" fill="#f39b36" stroke="#cc6e1b" stroke-width="4"/>${[[100,95],[118,91],[139,98],[92,118],[111,109],[132,112],[152,121],[102,138],[124,136],[145,146],[120,154]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="1.8" fill="#fce0a8" opacity="0.9"/>`).join('')}<path d="M120 62c7-10 18-14 31-12-11 6-17 12-21 24-3-3-6-7-10-12z" fill="#6aa34a"/><path d="M116 69c-4-8-10-15-21-18 8 7 12 13 14 21" fill="#5d8e41"/></g>`,
+    mango: `<g filter="url(#shadow)"><path d="M93 74c16-12 41-13 58 0 19 14 26 39 20 63-8 31-35 53-60 53-23 0-46-18-49-42-3-22 11-62 31-74z" fill="#f4b941" stroke="#cb7720" stroke-width="4"/><path d="M104 67c10-16 28-22 46-14-14 3-25 10-33 21-4-2-8-4-13-7z" fill="#6ea64a"/><path d="M153 85c-10 4-17 12-23 21" stroke="#e98d29" stroke-width="5" opacity="0.35"/></g>`,
+    coffee: `<g filter="url(#shadow)"><path d="M77 95h82v25c0 28-19 50-44 50h-6c-25 0-32-21-32-50z" fill="#f4dfcb" stroke="#b68665" stroke-width="4"/><path d="M159 103h14c15 0 23 10 23 23 0 14-10 25-23 25h-8" fill="none" stroke="#b68665" stroke-width="8" stroke-linecap="round"/><ellipse cx="118" cy="96" rx="41" ry="12" fill="#472a1c"/><ellipse cx="118" cy="98" rx="32" ry="7" fill="#6a4431" opacity="0.7"/><path d="M100 56c-7 10-8 19-2 28M120 49c-8 12-9 22-2 34M140 56c-7 10-8 19-2 28" stroke="#d3b39e" stroke-width="5" stroke-linecap="round"/></g>`,
+    egg: `<g filter="url(#shadow)"><ellipse cx="120" cy="125" rx="48" ry="61" fill="#fff7ef" stroke="#d8c1ab" stroke-width="4"/><ellipse cx="121" cy="140" rx="18" ry="20" fill="#ffd37b"/><ellipse cx="116" cy="133" rx="8" ry="8" fill="#fff0b7" opacity="0.6"/></g>`,
+    butter: `<g filter="url(#shadow)"><path d="M70 135h100l-12 40H58z" fill="#f1e1cb" stroke="#c39a6d" stroke-width="4"/><rect x="82" y="96" width="94" height="44" rx="12" fill="#ffd96d" stroke="#d1a943" stroke-width="4"/><rect x="95" y="106" width="44" height="8" rx="4" fill="#fff1b7" opacity="0.55"/></g>`,
+    cream: `<g filter="url(#shadow)"><path d="M82 153h78l-12 30H94z" fill="#e8d8c7" stroke="#bea289" stroke-width="4"/><path d="M92 153c8-33 22-58 30-58 9 0 22 25 30 58z" fill="#fff9f5" stroke="#d8cabd" stroke-width="4"/><path d="M103 153c4-17 10-30 19-36 9 6 16 19 20 36z" fill="#fff" opacity="0.96"/><circle cx="107" cy="106" r="9" fill="#fff"/><circle cx="131" cy="97" r="11" fill="#fff"/><circle cx="145" cy="114" r="8" fill="#fff"/></g>`,
+    cherry: `<g filter="url(#shadow)"><circle cx="102" cy="138" r="28" fill="#b72d43" stroke="#8e1d32" stroke-width="4"/><circle cx="140" cy="138" r="28" fill="#c4354d" stroke="#952339" stroke-width="4"/><path d="M120 70c-18 9-26 26-30 47" stroke="#75a44d" stroke-width="6" stroke-linecap="round"/><path d="M120 70c18 9 26 26 30 47" stroke="#75a44d" stroke-width="6" stroke-linecap="round"/><path d="M120 69c5-14 14-22 29-27" stroke="#5f8d40" stroke-width="5" stroke-linecap="round"/></g>`,
+    alcohol: `<g filter="url(#shadow)"><path d="M95 58h50v34l-6 12v56c0 21-17 38-38 38h-8c-21 0-38-17-38-38v-56l-6-12V58h46z" fill="#95c8a8" opacity="0.35" stroke="#9f8a73" stroke-width="4"/><path d="M95 58h50v16H95z" fill="#e9d7c4" stroke="#9f8a73" stroke-width="4"/><rect x="74" y="104" width="92" height="62" rx="14" fill="#c89756" opacity="0.85"/><text x="120" y="142" text-anchor="middle" font-family="Georgia, serif" font-size="20" fill="#fff7ef">BAR</text></g>`,
+    default: `<g filter="url(#shadow)"><rect x="72" y="78" width="96" height="88" rx="20" fill="#fffaf5" stroke="#c1a387" stroke-width="4"/><path d="M96 104h48M96 125h48M96 146h32" stroke="#c7ad95" stroke-width="6" stroke-linecap="round"/></g>`
+  };
+  return svgDataUri(frameStart + (art[kind]||art.default) + frameEnd);
+}
+function inventoryKind(name){
+  const n=String(name||'');
+  if(/牛乳|ミルク/.test(n))return 'milk';
+  if(/小麦|粉|砂糖/.test(n))return 'flour';
+  if(/いちご|苺/.test(n))return 'strawberry';
+  if(/ブルーベリー/.test(n))return 'blueberry';
+  if(/桃|ピーチ/.test(n))return 'peach';
+  if(/オレンジ|みかん/.test(n))return 'orange';
+  if(/マンゴー/.test(n))return 'mango';
+  if(/コーヒー|豆/.test(n))return 'coffee';
+  if(/卵|たまご/.test(n))return 'egg';
+  if(/バター/.test(n))return 'butter';
+  if(/クリーム/.test(n))return 'cream';
+  if(/チェリー|さくらんぼ/.test(n))return 'cherry';
+  if(/アルコール|酒|お酒/.test(n))return 'alcohol';
+  return 'default';
+}
 function inventoryVisual(name){
   const n=String(name||'');
-  if(/牛乳|ミルク/.test(n))return {image:inventoryAssetPath('milk'),unit:'ml'};
-  if(/小麦|粉|砂糖/.test(n))return {image:inventoryAssetPath('flour'),unit:'g'};
-  if(/いちご|苺/.test(n))return {image:inventoryAssetPath('strawberry'),unit:'g'};
-  if(/ブルーベリー/.test(n))return {image:inventoryAssetPath('blueberry'),unit:'g'};
-  if(/桃|ピーチ/.test(n))return {image:inventoryAssetPath('peach'),unit:'g'};
-  if(/オレンジ|みかん/.test(n))return {image:inventoryAssetPath('orange'),unit:'g'};
-  if(/マンゴー/.test(n))return {image:inventoryAssetPath('mango'),unit:'g'};
-  if(/コーヒー|豆/.test(n))return {image:inventoryAssetPath('coffee'),unit:'g'};
-  if(/卵|たまご/.test(n))return {image:inventoryAssetPath('egg'),unit:'個'};
-  if(/バター/.test(n))return {image:inventoryAssetPath('butter'),unit:'g'};
-  if(/クリーム/.test(n))return {image:inventoryAssetPath('cream'),unit:'ml'};
-  return {image:inventoryAssetPath('default'),unit:''};
+  const kind=inventoryKind(n);
+  const units={milk:'ml',flour:'g',strawberry:'g',blueberry:'g',peach:'g',orange:'g',mango:'g',coffee:'g',egg:'個',butter:'g',cream:'ml',cherry:'g',alcohol:'ml',default:''};
+  return {image:inventorySvg(kind,n),unit:units[kind]||''};
 }
 function inventoryPreviewMarkup(x){
+
   const visual=inventoryVisual(x.name);
   const isLow=Number(x.stock)<Number(x.min)||x.status;
   return `<div class="v4-stock ${isLow?'low':''}">
@@ -10048,7 +10081,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.9.2 Job Date Inventory Visual Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.17.9.3 Inline Inventory Visual Fix Build</div>
 
 <script>
 (function(){
