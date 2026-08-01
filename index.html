@@ -6338,6 +6338,25 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver18-2-full-realtime">
+.realtime-status,.v4-realtime-status{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:6px!important;
+  white-space:nowrap!important
+}
+.realtime-status::before,.v4-realtime-status::before{
+  content:"";
+  width:7px;height:7px;border-radius:999px;
+  background:#68b47a;
+  box-shadow:0 0 0 4px rgba(104,180,122,.10)
+}
+@media(max-width:760px){
+  .realtime-status,.v4-realtime-status{font-size:8px!important}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -7593,7 +7612,7 @@ let selectedAttendanceIds=new Set();
 function markRealtimeStatus(ok){
   realtimeHealthy=ok;
   document.querySelectorAll('[data-realtime-status]').forEach(el=>{
-    el.textContent=ok?'● リアルタイム同期中':'● 再接続中';
+    el.textContent=ok?'● 全機能全機能リアルタイム同期中':'● 再接続中';
     el.classList.toggle('sync-ok',ok);
     el.classList.toggle('sync-warn',!ok);
   });
@@ -7869,14 +7888,14 @@ async function openAdmin(){
   await Promise.all([loadSettings(),loadEmployees(),loadHistoryData(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadAuditLogs(false),loadJobAccountData(false),loadExpenseRequests(false)]);
   await hydrateCurrentProfileVisuals();
   applyAdminProfileEverywhere();syncAllCurrentAvatarElements();
-  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');
+  refreshEmployeeSelect();loadSettingsUI();currentSlipNo=newSlipNo();update();renderDashboard();renderEmployees();renderOnlinePresence();applyAdminProfileEverywhere();setTimeout(applyAdminProfileEverywhere,300);setTimeout(applyAdminProfileEverywhere,1200);startPresenceTracking();subscribeRealtime('admin');startRealtimeFallback();
 }
 async function openEmployee(){
   showEmployeeApp();
   await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadExpenseRequests(false)]);
   await hydrateCurrentProfileVisuals();
   if(currentProfile && currentEmployee && !cleanAvatarUrl(currentEmployee.avatarUrl) && cleanAvatarUrl(currentProfile.avatar_url)) currentEmployee.avatarUrl=currentProfile.avatar_url;
-  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');
+  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');startRealtimeFallback();
 }
 function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
@@ -7927,50 +7946,271 @@ async function loadMyHistory(){const {data,error}=await sb.from('payslips').sele
 async function loadSettings(){const {data,error}=await sb.from('app_settings').select('*').eq('id',1).maybeSingle();if(error) throw error;if(data) settings={shop:data.shop_name,city:data.city_subtitle,logo:data.logo_text,prefix:data.slip_prefix,footer:data.footer_text}}
 function stopRealtime(){
   if(realtimeChannel&&sb){try{sb.removeChannel(realtimeChannel)}catch{}}
-  realtimeChannel=null;markRealtimeStatus(false);
+  realtimeChannel=null;
+  markRealtimeStatus(false);
 }
+
+const realtimeRefreshTimers=new Map();
+let realtimeFallbackTimer=null;
+let realtimeReconnectTimer=null;
+
+function queueRealtimeRefresh(key,callback,delay=220){
+  clearTimeout(realtimeRefreshTimers.get(key));
+  const timer=setTimeout(async()=>{
+    realtimeRefreshTimers.delete(key);
+    try{await callback()}catch(error){console.error(`Realtime ${key} 更新エラー:`,error)}
+  },delay);
+  realtimeRefreshTimers.set(key,timer);
+}
+
+function currentInputShouldBePreserved(){
+  const active=document.activeElement;
+  return !!active&&['INPUT','TEXTAREA','SELECT'].includes(active.tagName);
+}
+
+async function realtimeRefreshCore(mode,table){
+  if(!sb||appMode!==mode)return;
+
+  if(table==='attendance_records'){
+    if(mode==='admin'){
+      await loadAttendanceData();
+      renderAttendance();renderDashboard();renderRanking();renderEmployees();
+    }else{
+      await Promise.all([loadMyAttendance(),loadAttendanceData()]);
+      renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();
+    }
+    return;
+  }
+
+  if(table==='sales_records'){
+    await loadSalesData();
+    if(mode==='admin'){
+      renderSalesPage();renderRanking();renderDashboard();renderJobAccount();
+    }else{
+      renderEmployeeRanking();renderEmployeeDashboard();
+    }
+    return;
+  }
+
+  if(table==='payslips'){
+    if(mode==='admin'){
+      await loadHistoryData();renderHistory();renderDashboard();
+    }else{
+      await loadMyHistory();renderEmployeePortal();renderEmployeeDashboard();
+    }
+    return;
+  }
+
+  if(table==='profiles'){
+    await loadEmployees();
+    if(mode==='admin'){
+      refreshEmployeeSelect();refreshSalesEmployeeSelect();
+      renderEmployees();renderRanking();renderDashboard();
+    }else{
+      renderEmployeeRanking();renderEmployeeDashboard();
+    }
+    await loadCommunityProfiles(false);
+    applyProfileEverywhere?.();
+    applyAdminProfileEverywhere?.();
+    return;
+  }
+
+  if(table==='app_settings'){
+    await loadSettings();applySettings();loadSettingsUI?.();
+    return;
+  }
+
+  if(table==='sales_goals'){
+    await loadSalesGoals();
+    renderDashboard?.();renderEmployeeDashboard?.();
+    return;
+  }
+
+  if(table==='online_presence'){
+    await loadOnlinePresence(false);
+    renderOnlinePresence?.();
+    return;
+  }
+
+  if(table==='notifications'||table==='notification_reads'){
+    await loadNotifications(false);
+    return;
+  }
+
+  if(table==='audit_logs'){
+    if(mode==='admin')await loadAuditLogs(false);
+    return;
+  }
+
+  if(table==='job_account_transactions'||table==='job_account_settings'){
+    if(mode==='admin')await loadJobAccountData(false);
+    return;
+  }
+
+  if(table==='expense_requests'){
+    await loadExpenseRequests(false);
+    return;
+  }
+
+  if(table==='inventory_items'){
+    // 入力中の在庫確認はlocalStorage下書きから復元されるため安全に更新できます。
+    await loadInventorySnapshot(false);
+    renderInventorySpreadsheet?.();
+    renderEmployeeInventoryCountSheet?.();
+    return;
+  }
+
+  if(table==='inventory_count_requests'){
+    await loadInventoryRequests(false);
+    return;
+  }
+
+  if(['farm_periods','farm_items','farm_entries','farm_staff_totals'].includes(table)){
+    await loadFarmData(false);
+    renderRanking?.();renderEmployeeRanking?.();
+    return;
+  }
+
+  if(table==='farm_submission_requests'){
+    await loadFarmRequests(false);
+    return;
+  }
+
+  if(table==='store_campaigns'){
+    await loadCampaigns(false);
+    return;
+  }
+
+  if(table==='achievement_catalog'||table==='profile_achievements'){
+    await loadCommunityProfiles(false);
+    return;
+  }
+}
+
 function subscribeRealtime(mode){
-  stopRealtime();if(!sb)return;
-  const refreshTable=async table=>{
-    try{
-      if(table==='attendance_records'){
-        if(mode==='admin'){await loadAttendanceData();renderAttendance();renderDashboard();renderRanking();renderEmployees()}
-        else{await Promise.all([loadMyAttendance(),loadAttendanceData()]);renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking()}
-      }else if(table==='sales_records'){
-        await loadSalesData();
-        if(mode==='admin'){renderSalesPage();renderRanking();renderDashboard();renderJobAccount()}else{renderEmployeeRanking();renderEmployeeDashboard()}
-      }else if(table==='payslips'){
-        if(mode==='admin'){await loadHistoryData();renderHistory();renderDashboard()}else{await loadMyHistory();renderEmployeePortal();renderEmployeeDashboard()}
-      }else if(table==='profiles'){
-        await loadEmployees();
-        if(mode==='admin'){
-          refreshEmployeeSelect();refreshSalesEmployeeSelect();renderEmployees();renderRanking();renderDashboard();
-        }else{
-          renderEmployeeRanking();renderEmployeeDashboard();
-        }
-      }else if(table==='app_settings'){await loadSettings();applySettings()}
-    }catch(error){console.error('Realtime更新エラー:',error)}
-  };
-  realtimeChannel=sb.channel(`ld-live-${mode}-${Date.now()}`)
-    .on('postgres_changes',{event:'*',schema:'public',table:'attendance_records'},()=>refreshTable('attendance_records'))
-    .on('postgres_changes',{event:'*',schema:'public',table:'sales_records'},()=>refreshTable('sales_records'))
-    .on('postgres_changes',{event:'*',schema:'public',table:'job_account_transactions'},()=>loadJobAccountData(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'job_account_settings'},()=>loadJobAccountData(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'expense_requests'},()=>loadExpenseRequests(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'inventory_count_requests'},()=>loadInventoryRequests(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'farm_submission_requests'},()=>loadFarmRequests(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'payslips'},()=>refreshTable('payslips'))
-    .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},()=>refreshTable('profiles'))
-    .on('postgres_changes',{event:'*',schema:'public',table:'online_presence'},()=>loadOnlinePresence(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'notifications'},()=>loadNotifications(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'notification_reads'},()=>loadNotifications(false))
-    .on('postgres_changes',{event:'*',schema:'public',table:'sales_goals'},()=>loadSalesGoals())
-    .on('postgres_changes',{event:'*',schema:'public',table:'audit_logs'},()=>{if(mode==='admin')loadAuditLogs(false)})
-    .on('postgres_changes',{event:'*',schema:'public',table:'app_settings'},()=>refreshTable('app_settings'))
-    .subscribe(status=>{
-      markRealtimeStatus(status==='SUBSCRIBED');
-      if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(status))setTimeout(()=>{if(appMode===mode)subscribeRealtime(mode)},2500);
-    });
+  stopRealtime();
+  if(!sb)return;
+
+  const tables=[
+    'profiles',
+    'app_settings',
+    'attendance_records',
+    'payslips',
+    'sales_records',
+    'sales_goals',
+    'online_presence',
+    'notifications',
+    'notification_reads',
+    'audit_logs',
+    'job_account_settings',
+    'job_account_transactions',
+    'expense_requests',
+    'inventory_items',
+    'inventory_count_requests',
+    'farm_periods',
+    'farm_items',
+    'farm_entries',
+    'farm_staff_totals',
+    'farm_submission_requests',
+    'store_campaigns',
+    'achievement_catalog',
+    'profile_achievements'
+  ];
+
+  let channel=sb.channel(`ld-full-live-${mode}-${Date.now()}`);
+
+  tables.forEach(table=>{
+    channel=channel.on(
+      'postgres_changes',
+      {event:'*',schema:'public',table},
+      payload=>{
+        queueRealtimeRefresh(table,()=>realtimeRefreshCore(mode,table));
+      }
+    );
+  });
+
+  realtimeChannel=channel.subscribe(status=>{
+    const connected=status==='SUBSCRIBED';
+    markRealtimeStatus(connected);
+
+    if(connected){
+      clearTimeout(realtimeReconnectTimer);
+      realtimeReconnectTimer=null;
+    }
+
+    if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(status)){
+      clearTimeout(realtimeReconnectTimer);
+      realtimeReconnectTimer=setTimeout(()=>{
+        if(appMode===mode&&navigator.onLine)subscribeRealtime(mode);
+      },2200);
+    }
+  });
+}
+
+async function refreshVisibleSiteData(showToast=false){
+  if(!sb||appMode==='login'||!currentProfile?.id)return;
+  try{
+    if(appMode==='admin'){
+      await Promise.allSettled([
+        loadSettings(),
+        loadEmployees(),
+        loadAttendanceData(),
+        loadHistoryData(),
+        loadSalesData(),
+        loadSalesGoals(),
+        loadOnlinePresence(false),
+        loadNotifications(false),
+        loadAuditLogs(false),
+        loadJobAccountData(false),
+        loadExpenseRequests(false),
+        loadInventorySnapshot(false),
+        loadInventoryRequests(false),
+        loadFarmData(false),
+        loadFarmRequests(false),
+        loadCampaigns(false),
+        loadCommunityProfiles(false)
+      ]);
+      applySettings();
+      renderDashboard();renderAttendance();renderEmployees();renderHistory();
+      renderSalesPage();renderRanking();renderOnlinePresence();
+      renderInventorySpreadsheet?.();renderFarmItemSettings?.();
+    }else{
+      await Promise.allSettled([
+        loadSettings(),
+        loadEmployees(),
+        loadMyHistory(),
+        loadMyAttendance(),
+        loadAttendanceData(),
+        loadSalesData(),
+        loadSalesGoals(),
+        loadOnlinePresence(false),
+        loadNotifications(false),
+        loadExpenseRequests(false),
+        loadInventorySnapshot(false),
+        loadInventoryRequests(false),
+        loadFarmData(false),
+        loadFarmRequests(false),
+        loadCampaigns(false),
+        loadCommunityProfiles(false)
+      ]);
+      applySettings();
+      renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();
+      renderEmployeeRanking();renderOnlinePresence();
+      renderEmployeeInventoryCountSheet?.();renderFarmEntrySheet?.();
+    }
+    if(showToast)toast('サイト全体を最新状態へ更新しました');
+  }catch(error){
+    console.error('サイト全体更新エラー:',error);
+  }
+}
+
+function startRealtimeFallback(){
+  clearInterval(realtimeFallbackTimer);
+  realtimeFallbackTimer=setInterval(()=>{
+    if(document.visibilityState!=='visible'||appMode==='login'||!navigator.onLine)return;
+    // Realtime取りこぼし対策。入力下書きはlocalStorageで保持されます。
+    refreshVisibleSiteData(false);
+  },15000);
 }
 
 function toggleEmployeeSidebar(){if(window.matchMedia('(max-width:760px)').matches){openMobileMenu('employee');return}document.getElementById('employeeSidebar')?.classList.toggle('open')}
@@ -9479,9 +9719,21 @@ function openInventorySheet(){window.open(INVENTORY_SHEET_URL,'_blank','noopener
 
 ['employee','role','employeeId','issueDate','periodStart','periodEnd','salesAmount','salesRate','note','hourlyRate','payRounding'].forEach(id=>$(id)?.addEventListener('input',update));
 initTheme();updateInventoryDiscordManager();$('issueDate').value=iso(new Date());$('attendanceDate').value=iso(new Date());if($('rankingMonth'))$('rankingMonth').value=monthKeyLocal(new Date());if($('employeeRankingMonth'))$('employeeRankingMonth').value=monthKeyLocal(new Date());if($('salesFilterMonth'))$('salesFilterMonth').value=monthKeyLocal(new Date());currentSlipNo=newSlipNo();if(!loadDraft()){setThisMonth();addMoneyRow('deductions','その他控除',0)}loadSettingsUI();update();updateClocks();setInterval(updateClocks,1000);showLoginScreen();
-window.addEventListener('focus',()=>refreshAllData(true));
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')refreshAllData(true)});
-window.addEventListener('online',()=>{if(appMode==='admin')subscribeRealtime('admin');if(appMode==='employee')subscribeRealtime('employee');refreshAllData(true)});
+window.addEventListener('focus',()=>refreshVisibleSiteData(false));
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'){
+    if(appMode==='admin')subscribeRealtime('admin');
+    if(appMode==='employee')subscribeRealtime('employee');
+    refreshVisibleSiteData(false);
+  }
+});
+window.addEventListener('online',()=>{
+  if(appMode==='admin')subscribeRealtime('admin');
+  if(appMode==='employee')subscribeRealtime('employee');
+  refreshVisibleSiteData(true);
+});
+window.addEventListener('offline',()=>markRealtimeStatus(false));
+startRealtimeFallback();
 restoreSession();
 
 
@@ -10141,15 +10393,12 @@ async function revokeAchievement(awardId,profileId,achievementName){
   await Promise.all([loadCommunityProfiles(false),loadNotifications(false),loadAuditLogs(false)]);
   toast(`${targetName}さんの実績を解除し、通知しました`);
 }
-// Realtime publication未設定時でも通知・管理履歴を素早く同期する安全な補助更新
+// 通知は重要度が高いため、Realtimeに加えて軽量な補助同期を残します。
 setInterval(()=>{
-  if(!currentProfile?.id||document.visibilityState!=='visible')return;
+  if(!currentProfile?.id||document.visibilityState!=='visible'||!navigator.onLine)return;
   loadNotifications(false);
   if(appMode==='admin')loadAuditLogs(false);
-},5000);
-document.addEventListener('visibilitychange',()=>{
-  if(document.visibilityState==='visible'&&currentProfile?.id){loadNotifications(false);if(appMode==='admin')loadAuditLogs(false)}
-});
+},10000);
 
 function selectedDiscordReportDate(){
   const input=$('discordReportDateInput');
@@ -10551,7 +10800,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.8 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.0 Error Fix Build</div>
 
 <script>
 (function(){
