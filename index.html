@@ -6318,6 +6318,16 @@ body.dark .job-calculation-box{
 #employeeFarmEntryPurchaseAmount{color:#a9dbb8!important;font-weight:900}
 </style>
 
+
+<style id="ver18-1-6-farm-ranking-integrated">
+.ranking-mode-tabs{flex-wrap:wrap}
+#rankingFarmPeriodPicker select,#employeeRankingFarmPeriodPicker select{min-width:190px}
+@media(max-width:700px){
+  .ranking-mode-tabs{display:grid!important;grid-template-columns:repeat(3,1fr)!important}
+  .ranking-mode-tabs button{padding:0 8px!important;font-size:10px!important}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6699,12 +6709,14 @@ body.dark .job-calculation-box{
 <section id="page-ranking" class="page">
   <div class="page-hero compact">
     <div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1 id="rankingPageTitle">勤務時間ランキング</h1><p id="rankingPageDescription">月ごとの勤務時間と出勤回数を自動集計します。</p></div>
-    <div class="month-picker"><label>対象月</label><input id="rankingMonth" type="month" onchange="renderRanking()"></div>
+    <div class="month-picker" id="rankingMonthPicker"><label>対象月</label><input id="rankingMonth" type="month" onchange="renderRanking()"></div>
+    <div class="month-picker hidden" id="rankingFarmPeriodPicker"><label>Farm期間</label><select id="rankingFarmPeriod" onchange="changeRankingFarmPeriod(this.value)"><option>読込中</option></select></div>
   </div>
   
   <div class="ranking-mode-tabs">
     <button id="rankingModeHours" class="active" onclick="setRankingMode('hours')">◷ 勤務時間</button>
     <button id="rankingModeSales" onclick="setRankingMode('sales')">¥ 売上</button>
+    <button id="rankingModeFarm" onclick="setRankingMode('farm')">🌾 Farm</button>
   </div>
 <div class="ranking-summary">
     <div class="metric-card"><div class="metric-label">TOTAL HOURS</div><div class="metric-value" id="rankTotalHours">0時間</div><div class="metric-sub">全スタッフ合計</div></div>
@@ -7170,11 +7182,12 @@ body.dark .job-calculation-box{
         </section>
 
         <section id="employee-page-ranking" class="employee-page">
-          <div class="page-hero compact"><div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1>勤務時間ランキング</h1><p>スタッフ全体の月間勤務時間と出勤回数です。</p></div><div class="month-picker"><label>対象月</label><input id="employeeRankingMonth" type="month" onchange="renderEmployeeRanking()"></div></div>
+          <div class="page-hero compact"><div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1 id="employeeRankingPageTitle">勤務時間ランキング</h1><p id="employeeRankingPageDescription">スタッフ全体の月間勤務時間と出勤回数です。</p></div><div class="month-picker" id="employeeRankingMonthPicker"><label>対象月</label><input id="employeeRankingMonth" type="month" onchange="renderEmployeeRanking()"></div><div class="month-picker hidden" id="employeeRankingFarmPeriodPicker"><label>Farm期間</label><select id="employeeRankingFarmPeriod" onchange="changeEmployeeRankingFarmPeriod(this.value)"><option>読込中</option></select></div></div>
           
           <div class="ranking-mode-tabs employee-ranking-tabs">
             <button id="employeeRankingModeHours" class="active" onclick="setEmployeeRankingMode('hours')">◷ 勤務時間</button>
             <button id="employeeRankingModeSales" onclick="setEmployeeRankingMode('sales')">¥ 売上</button>
+            <button id="employeeRankingModeFarm" onclick="setEmployeeRankingMode('farm')">🌾 Farm</button>
           </div>
 <div class="ranking-summary">
             <div class="metric-card"><div class="metric-label">TOTAL HOURS</div><div class="metric-value" id="employeeRankTotalHours">0時間</div><div class="metric-sub">全スタッフ合計</div></div>
@@ -8051,14 +8064,36 @@ function setEmployeeRankingMode(mode){
   employeeRankingMode=mode;
   $('employeeRankingModeHours').classList.toggle('active',mode==='hours');
   $('employeeRankingModeSales').classList.toggle('active',mode==='sales');
-  renderEmployeeRanking();
+  $('employeeRankingModeFarm').classList.toggle('active',mode==='farm');
+  $('employeeRankingMonthPicker')?.classList.toggle('hidden',mode==='farm');
+  $('employeeRankingFarmPeriodPicker')?.classList.toggle('hidden',mode!=='farm');
+  if(mode==='farm'){
+    renderEmployeeRankingFarmPeriodOptions();
+    loadFarmData(false).then(()=>renderEmployeeRanking());
+  }else{
+    renderEmployeeRanking();
+  }
 }
 
 function renderEmployeeRanking(){
   if(!$('employeeRankingList')||!currentEmployee)return;
   if(!$('employeeRankingMonth').value)$('employeeRankingMonth').value=monthKeyLocal(new Date());
   const month=$('employeeRankingMonth').value;
-  if(employeeRankingMode==='sales'){
+  if(employeeRankingMode==='farm'){
+    const rows=integratedFarmRankingRows();
+    const total=rows.reduce((s,r)=>s+farmN(r.total),0);
+    const ranking=farmRankingListHtml(rows,currentEmployee.uid,currentEmployee.id);
+    const mine=ranking.mineIndex>=0?rows[ranking.mineIndex]:null;
+    if($('employeeRankingPageTitle'))$('employeeRankingPageTitle').textContent='Farmランキング';
+    if($('employeeRankingPageDescription'))$('employeeRankingPageDescription').textContent='選択期間の承認済みFarm採取数・査定・仕入れ金額です。';
+    $('employeeRankTotalHours').textContent=`${total.toLocaleString('ja-JP')}個`;
+    $('employeeMyRank').textContent=ranking.mineIndex>=0?`${ranking.mineIndex+1}位`:'-';
+    $('employeeMyHours').textContent=mine?`${farmN(mine.total).toLocaleString('ja-JP')}個`:'0個';
+    $('employeeRankingPodium').innerHTML=farmRankingPodiumHtml(rows,'この期間のFarm記録はありません。');
+    $('employeeRankingList').innerHTML=ranking.html;
+  }else if(employeeRankingMode==='sales'){
+    if($('employeeRankingPageTitle'))$('employeeRankingPageTitle').textContent='売上ランキング';
+    if($('employeeRankingPageDescription'))$('employeeRankingPageDescription').textContent='スタッフ全体の月間売上ランキングです。';
     const rows=salesRankingRows(month),total=rows.reduce((s,r)=>s+r.amount,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentEmployee.uid)||String(r.id).toLowerCase()===String(currentEmployee.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
     $('employeeRankTotalHours').textContent=yen.format(total);
     $('employeeMyRank').textContent=mineIndex>=0?`${mineIndex+1}位`:'-';
@@ -8067,6 +8102,8 @@ function renderEmployeeRanking(){
     $('employeeRankingPodium').innerHTML=order.map((r,i)=>r?`<div class="podium-item ${classes[i]}">${rankingAvatar(r,'podium-avatar')}<div class="podium-name">${esc(rankingDisplayName(r))}</div><div class="podium-hours">${yen.format(r.amount)}</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||'<div class="empty">この月の売上記録はありません。</div>';
     $('employeeRankingList').innerHTML=rows.length?rows.map((r,i)=>`<div class="ranking-row ${mineIndex===i?'my-ranking-row':''}"><div class="ranking-position">${i+1}</div>${rankingAvatar(r)}<div class="ranking-person"><strong>${esc(rankingDisplayName(r))}${mineIndex===i?'（あなた）':''}</strong><span>${esc(r.id||'-')}</span></div><div class="ranking-hours">${yen.format(r.amount)}</div><div class="ranking-shifts">${r.entries}件</div></div>`).join(''):'<div class="empty">売上記録はありません。</div>';
   }else{
+    if($('employeeRankingPageTitle'))$('employeeRankingPageTitle').textContent='勤務時間ランキング';
+    if($('employeeRankingPageDescription'))$('employeeRankingPageDescription').textContent='スタッフ全体の月間勤務時間と出勤回数です。';
     const rows=employeeRankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentEmployee.uid)||String(r.id).toLowerCase()===String(currentEmployee.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
     $('employeeRankTotalHours').textContent=formatDuration(total);
     $('employeeMyRank').textContent=mineIndex>=0?`${mineIndex+1}位`:'-';
@@ -8385,7 +8422,15 @@ function setRankingMode(mode){
   rankingMode=mode;
   $('rankingModeHours').classList.toggle('active',mode==='hours');
   $('rankingModeSales').classList.toggle('active',mode==='sales');
-  renderRanking();
+  $('rankingModeFarm').classList.toggle('active',mode==='farm');
+  $('rankingMonthPicker')?.classList.toggle('hidden',mode==='farm');
+  $('rankingFarmPeriodPicker')?.classList.toggle('hidden',mode!=='farm');
+  if(mode==='farm'){
+    renderRankingFarmPeriodOptions();
+    loadFarmData(false).then(()=>renderRanking());
+  }else{
+    renderRanking();
+  }
 }
 
 function attendanceFilteredList(){
@@ -8913,11 +8958,62 @@ function rankingRows(){
   employees.forEach(e=>{if(!grouped.has(e.uid))grouped.set(e.uid,{uid:e.uid,id:e.id,name:e.name,ms:0,shifts:0})});
   return [...grouped.values()].sort((a,b)=>b.ms-a.ms||b.shifts-a.shifts||a.name.localeCompare(b.name,'ja'));
 }
+
+function renderRankingFarmPeriodOptions(){
+  const select=$('rankingFarmPeriod');if(!select)return;
+  select.innerHTML=(farmPeriods||[]).map(p=>`<option value="${p.id}" ${String(p.id)===String(currentFarmPeriod)?'selected':''}>${esc(p.label)}</option>`).join('')||'<option value="">期間なし</option>';
+}
+function renderEmployeeRankingFarmPeriodOptions(){
+  const select=$('employeeRankingFarmPeriod');if(!select)return;
+  select.innerHTML=(farmPeriods||[]).map(p=>`<option value="${p.id}" ${String(p.id)===String(currentFarmPeriod)?'selected':''}>${esc(p.label)}</option>`).join('')||'<option value="">期間なし</option>';
+}
+async function changeRankingFarmPeriod(value){
+  currentFarmPeriod=value||null;
+  await loadFarmData(false);
+  renderRankingFarmPeriodOptions();
+  renderEmployeeRankingFarmPeriodOptions();
+  renderRanking();
+}
+async function changeEmployeeRankingFarmPeriod(value){
+  currentFarmPeriod=value||null;
+  await loadFarmData(false);
+  renderRankingFarmPeriodOptions();
+  renderEmployeeRankingFarmPeriodOptions();
+  renderEmployeeRanking();
+}
+function integratedFarmRankingRows(){
+  return [...(farmData?.staff||[])].sort((a,b)=>farmN(b.total)-farmN(a.total)||farmN(b.assessment)-farmN(a.assessment)||String(a.name).localeCompare(String(b.name),'ja'));
+}
+function farmRankingPodiumHtml(rows,emptyText){
+  const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
+  return order.map((r,i)=>r?`<div class="podium-item ${classes[i]}">${rankingAvatar(r,'podium-avatar')}<div class="podium-name">${esc(rankingDisplayName(r))}</div><div class="podium-hours">${farmN(r.total).toLocaleString('ja-JP')}個</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||`<div class="empty">${emptyText}</div>`;
+}
+function farmRankingListHtml(rows,currentUid='',currentId=''){
+  const mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentUid)||(r.id&&String(r.id).toLowerCase()===String(currentId).toLowerCase())||(!r.uid&&!r.id&&r.name===currentEmployee?.name));
+  return {
+    mineIndex,
+    html:rows.length?rows.map((r,i)=>`<div class="ranking-row ${mineIndex===i?'my-ranking-row':''}"><div class="ranking-position">${i+1}</div>${rankingAvatar(r)}<div class="ranking-person"><strong>${esc(rankingDisplayName(r))}${mineIndex===i?'（あなた）':''}</strong><span>査定 ${farmN(r.assessment).toLocaleString('ja-JP',{maximumFractionDigits:4})}</span></div><div class="ranking-hours">${farmN(r.total).toLocaleString('ja-JP')}個</div><div class="ranking-shifts">${yen.format(farmN(r.payment))}</div></div>`).join(''):'<div class="empty">Farmランキングデータがありません。</div>'
+  };
+}
+
 function renderRanking(){
   if(!$('rankingList'))return;
   if(!$('rankingMonth').value)$('rankingMonth').value=monthKeyLocal(new Date());
   const month=$('rankingMonth').value;
-  if(rankingMode==='sales'){
+  if(rankingMode==='farm'){
+    const rows=integratedFarmRankingRows();
+    const total=rows.reduce((s,r)=>s+farmN(r.total),0);
+    const assessment=rows.reduce((s,r)=>s+farmN(r.assessment),0);
+    $('rankingPageTitle').textContent='Farmランキング';
+    $('rankingPageDescription').textContent='選択期間の承認済みFarm採取数・査定・仕入れ金額を集計します。';
+    $('rankTotalHours').textContent=`${total.toLocaleString('ja-JP')}個`;
+    $('rankTotalShifts').textContent=assessment.toLocaleString('ja-JP',{maximumFractionDigits:4});
+    $('rankTopStaff').textContent=rows[0]?rankingDisplayName(rows[0]):'-';
+    document.querySelector('#rankTotalHours')?.previousElementSibling&&(document.querySelector('#rankTotalHours').previousElementSibling.textContent='TOTAL FARM');
+    document.querySelector('#rankTotalShifts')?.previousElementSibling&&(document.querySelector('#rankTotalShifts').previousElementSibling.textContent='TOTAL ASSESSMENT');
+    $('rankingPodium').innerHTML=farmRankingPodiumHtml(rows,'この期間のFarm記録はありません。');
+    $('rankingList').innerHTML=farmRankingListHtml(rows).html;
+  }else if(rankingMode==='sales'){
     const rows=salesRankingRows(month),total=rows.reduce((s,r)=>s+r.amount,0),entries=rows.reduce((s,r)=>s+r.entries,0);
     $('rankingPageTitle').textContent='売上ランキング';
     $('rankingPageDescription').textContent='月ごとのスタッフ別売上を自動集計します。';
@@ -8942,9 +9038,25 @@ function renderRanking(){
   }
 }
 function exportRankingCsv(){
-  const rows=rankingRows(),month=$('rankingMonth').value,table=[['順位','従業員名','従業員番号','勤務時間(分)','出勤回数'],...rows.map((r,i)=>[i+1,r.name,r.id,Math.floor(r.ms/60000),r.shifts])];
-  const csv='\ufeff'+table.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`勤務時間ランキング_${month}.csv`;a.click();URL.revokeObjectURL(a.href)
+  let rows,table,filename;
+  if(rankingMode==='farm'){
+    rows=integratedFarmRankingRows();
+    const label=farmPeriods.find(p=>String(p.id)===String(currentFarmPeriod))?.label||'Farm';
+    table=[['順位','従業員名','採取数','査定','仕入れ金額'],...rows.map((r,i)=>[i+1,rankingDisplayName(r),farmN(r.total),farmN(r.assessment),farmN(r.payment)])];
+    filename=`Farmランキング_${label}.csv`;
+  }else if(rankingMode==='sales'){
+    const month=$('rankingMonth').value;
+    rows=salesRankingRows(month);
+    table=[['順位','従業員名','従業員番号','売上金額','件数'],...rows.map((r,i)=>[i+1,rankingDisplayName(r),r.id,r.amount,r.entries])];
+    filename=`売上ランキング_${month}.csv`;
+  }else{
+    const month=$('rankingMonth').value;
+    rows=rankingRows();
+    table=[['順位','従業員名','従業員番号','勤務時間(分)','出勤回数'],...rows.map((r,i)=>[i+1,r.name,r.id,Math.floor(r.ms/60000),r.shifts])];
+    filename=`勤務時間ランキング_${month}.csv`;
+  }
+  const csv='\ufeff'+table.map(r=>r.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href)
 }
 function parseCsv(text){
   const rows=[];let row=[],cell='',quoted=false;
@@ -10427,7 +10539,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.5 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.6 Error Fix Build</div>
 
 <script>
 (function(){
