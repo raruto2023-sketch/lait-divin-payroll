@@ -7194,12 +7194,12 @@ body.dark .job-calculation-box{
   </div>
 
   <div class="employee-site-tabs">
-    <button class="active" data-employee-inventory-tab="count" onclick="setEmployeeInventoryTab('count')">在庫を数えて申請</button>
-    <button data-employee-inventory-tab="view" onclick="setEmployeeInventoryTab('view')">現在の在庫</button>
+    <button class="active" data-employee-inventory-tab="view" onclick="setEmployeeInventoryTab('view')">現在の在庫</button>
+    <button data-employee-inventory-tab="count" onclick="setEmployeeInventoryTab('count')">在庫確認を申請</button>
     <button data-employee-inventory-tab="history" onclick="setEmployeeInventoryTab('history')">申請履歴</button>
   </div>
 
-  <div id="employeeInventoryViewCount" class="employee-site-view active">
+  <div id="employeeInventoryViewCount" class="employee-site-view">
     <div class="dashboard-panel">
       <div class="dashboard-title"><div><h2>在庫確認シート</h2><p>確認した材料だけ入力してください。空欄の材料は変更されません。</p></div></div>
       <div class="site-spreadsheet-wrap">
@@ -7213,8 +7213,14 @@ body.dark .job-calculation-box{
     </div>
   </div>
 
-  <div id="employeeInventoryViewView" class="employee-site-view">
-    <div class="dashboard-panel"><div class="dashboard-title"><h2>現在の材料在庫</h2><span class="badge">承認済みデータ</span></div><div id="employeeInventoryGrid" class="inventory-grid"></div></div>
+  <div id="employeeInventoryViewView" class="employee-site-view active">
+    <div class="dashboard-panel">
+      <div class="dashboard-title">
+        <div><h2>現在の材料在庫</h2><p>管理者が承認した最新の在庫数です。</p></div>
+        <button class="btn primary" onclick="setEmployeeInventoryTab('count')">＋ 在庫確認を申請</button>
+      </div>
+      <div id="employeeInventoryGrid" class="inventory-grid"></div>
+    </div>
   </div>
 
   <div id="employeeInventoryViewHistory" class="employee-site-view">
@@ -7942,7 +7948,7 @@ function employeeGoPage(page){closeMobileMenu();
   if(page==='profile')loadMyProfileForm();
   if(page==='online')loadOnlinePresence(true);
   if(page==='community')loadCommunityProfiles(false);
-  if(page==='notifications')loadNotifications(false);if(page==='expenses')loadExpenseRequests(false);if(page==='inventory')loadInventoryRequests(false);if(page==='farm')loadFarmRequests(false);if(page==='campaigns')loadCampaigns(false);
+  if(page==='notifications')loadNotifications(false);if(page==='expenses')loadExpenseRequests(false);if(page==='inventory'){loadInventoryRequests(false);setEmployeeInventoryTab('view')}if(page==='farm')loadFarmRequests(false);if(page==='campaigns')loadCampaigns(false);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function employeeRankingRows(){
@@ -10404,7 +10410,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.0 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.4 Error Fix Build</div>
 
 <script>
 (function(){
@@ -10808,21 +10814,45 @@ async function deleteInventoryItemRow(button){
 async function saveInventorySpreadsheet(){
   const rows=[...document.querySelectorAll('#inventorySpreadsheetBody tr[data-inventory-sheet-id]')];
   if(!rows.length)return alert('保存する材料がありません。');
-  const payload=rows.map((row,i)=>({
-    id:row.dataset.inventorySheetId?Number(row.dataset.inventorySheetId):undefined,
+
+  const records=rows.map((row,i)=>({
+    id:row.dataset.inventorySheetId?Number(row.dataset.inventorySheetId):null,
     name:row.querySelector('.inv-sheet-name').value.trim(),
     stock:Math.max(0,Math.round(Number(row.querySelector('.inv-sheet-stock').value)||0)),
     min_stock:Math.max(0,Math.round(Number(row.querySelector('.inv-sheet-min').value)||0)),
     status:'',
-    sort_order:Math.max(0,Math.round(Number(row.querySelector('.inv-sheet-sort').value)||i+1)),
-    updated_at:new Date().toISOString()
+    sort_order:Math.max(0,Math.round(Number(row.querySelector('.inv-sheet-sort').value)||i+1))
   })).filter(x=>x.name);
-  if(!payload.length)return alert('材料名を入力してください。');
-  const {error}=await sb.from('inventory_items').upsert(payload);
-  if(error)return alert('在庫表を保存できませんでした：'+error.message);
-  await loadInventorySnapshot(false);
-  await writeAudit('inventory','在庫表を一括保存',`${payload.length}品目`,'サイト内在庫表');
-  toast('在庫表を保存しました');
+
+  if(!records.length)return alert('材料名を入力してください。');
+  const duplicates=records.map(x=>x.name).filter((v,i,a)=>a.indexOf(v)!==i);
+  if(duplicates.length)return alert('同じ材料名が重複しています：'+[...new Set(duplicates)].join('、'));
+
+  try{
+    for(const record of records){
+      const payload={
+        name:record.name,
+        stock:record.stock,
+        min_stock:record.min_stock,
+        status:'',
+        sort_order:record.sort_order,
+        updated_at:new Date().toISOString()
+      };
+      let result;
+      if(record.id){
+        result=await sb.from('inventory_items').update(payload).eq('id',record.id);
+      }else{
+        result=await sb.from('inventory_items').upsert(payload,{onConflict:'name'});
+      }
+      if(result.error)throw new Error(`${record.name}：${result.error.message}`);
+    }
+    await loadInventorySnapshot(false);
+    await writeAudit('inventory','在庫表を一括保存',`${records.length}品目`,'サイト内在庫表');
+    toast('在庫表を保存しました');
+  }catch(error){
+    console.error('Inventory save error',error);
+    alert('在庫表を保存できませんでした。\n'+(error?.message||error)+'\n\n修復SQLを実行してください。');
+  }
 }
 
 function renderEmployeeInventoryCountSheet(){
@@ -11062,15 +11092,42 @@ async function deleteFarmItemSetting(button){
 }
 async function saveFarmItemSettings(){
   const rows=[...document.querySelectorAll('#farmItemSettingsBody tr[data-farm-item-setting]')];
-  const payload=rows.map((row,i)=>({
-    id:row.dataset.farmItemSetting?Number(row.dataset.farmItemSetting):undefined,
+  const records=rows.map((row,i)=>({
+    id:row.dataset.farmItemSetting?Number(row.dataset.farmItemSetting):null,
     name:row.querySelector('.farm-setting-name').value.trim(),
     unit_value:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-value').value)||0)),
     sort_order:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-sort').value)||i+1)),
     is_active:row.querySelector('.farm-setting-active').checked
   })).filter(x=>x.name);
-  const {error}=await sb.from('farm_items').upsert(payload);if(error)return alert('品目設定を保存できませんでした：'+error.message);
-  await loadFarmData(false);toast('Farm品目設定を保存しました');
+
+  if(!records.length)return alert('Farm品目を1つ以上入力してください。');
+  const duplicates=records.map(x=>x.name).filter((v,i,a)=>a.indexOf(v)!==i);
+  if(duplicates.length)return alert('同じ品目名が重複しています：'+[...new Set(duplicates)].join('、'));
+
+  try{
+    for(const record of records){
+      const payload={
+        name:record.name,
+        unit_value:record.unit_value,
+        sort_order:record.sort_order,
+        is_active:record.is_active
+      };
+      let result;
+      if(record.id){
+        result=await sb.from('farm_items').update(payload).eq('id',record.id);
+      }else{
+        result=await sb.from('farm_items').upsert(payload,{onConflict:'name'});
+      }
+      if(result.error)throw new Error(`${record.name}：${result.error.message}`);
+    }
+    await loadFarmData(false);
+    renderFarmItemSettings();
+    renderFarmEntrySheet();
+    toast('Farm品目設定を保存しました');
+  }catch(error){
+    console.error('Farm item save error',error);
+    alert('Farm品目設定を保存できませんでした。\n'+(error?.message||error)+'\n\n修復SQLを実行してください。');
+  }
 }
 
 /* Existing rendering hooks */
