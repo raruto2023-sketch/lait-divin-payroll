@@ -6328,6 +6328,16 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver18-1-8-inventory-draft-fix">
+#employeeInventoryViewCount .dashboard-title{align-items:center}
+#employeeInventoryViewCount .dashboard-title .btn.danger{white-space:nowrap}
+@media(max-width:700px){
+  #employeeInventoryViewCount .dashboard-title{align-items:flex-start}
+  #employeeInventoryViewCount .dashboard-title .btn.danger{width:100%}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -7227,14 +7237,14 @@ body.dark .job-calculation-box{
 
   <div id="employeeInventoryViewCount" class="employee-site-view">
     <div class="dashboard-panel">
-      <div class="dashboard-title"><div><h2>在庫確認シート</h2><p>確認した材料だけ入力してください。空欄の材料は変更されません。</p></div></div>
+      <div class="dashboard-title"><div><h2>在庫確認シート</h2><p>確認した材料だけ入力してください。入力内容は端末内へ自動保存され、時間が経っても消えません。</p></div><button class="btn danger" onclick="clearInventoryCountDraft(true)">入力をすべて消す</button></div>
       <div class="site-spreadsheet-wrap">
         <table class="site-spreadsheet">
           <thead><tr><th>材料</th><th>現在の登録数</th><th>確認した現在数</th><th>差</th></tr></thead>
           <tbody id="employeeInventoryCountBody"></tbody>
         </table>
       </div>
-      <div class="field"><label>申請メモ</label><textarea id="employeeInventoryRequestNote" maxlength="500" placeholder="例：閉店後に倉庫を確認しました。"></textarea></div>
+      <div class="field"><label>申請メモ</label><textarea id="employeeInventoryRequestNote" maxlength="500" placeholder="例：閉店後に倉庫を確認しました。" oninput="saveInventoryCountNoteDraft(this.value)"></textarea></div>
       <button class="btn primary full" onclick="submitInventoryCountRequest()">管理者へ申請する</button>
     </div>
   </div>
@@ -9481,6 +9491,8 @@ let inventoryCountRequests=[];
 let farmSubmissionRequests=[];
 let inventorySpreadsheetRows=[];
 let farmEntryDraft={};
+let inventoryCountDraft={};
+let inventoryCountNoteDraft='';
 function farmN(v){return Number(v)||0} function farmNorm(v){return String(v||'').replace(/[\s　]/g,'').toLowerCase()}
 async function loadFarmPeriods(){const {data,error}=await sb.from('farm_periods').select('*').order('start_date',{ascending:false});if(error)throw error;farmPeriods=data||[];if((!currentFarmPeriod||!farmPeriods.some(x=>String(x.id)===String(currentFarmPeriod)))&&farmPeriods.length)currentFarmPeriod=(farmPeriods.find(x=>x.is_active)||farmPeriods[0]).id;renderFarmPeriodOptions()}
 function renderFarmPeriodOptions(){const opts=farmPeriods.length?farmPeriods.map(p=>`<option value="${p.id}">${esc(p.label)}${p.is_active?'（最新）':''}</option>`).join(''):'<option value="">期間なし</option>';[$('farmPeriodSelect'),$('employeeFarmPeriodSelect')].forEach(x=>{if(x){x.innerHTML=opts;x.value=currentFarmPeriod||''}});const p=farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod));const label=p?.label||'期間を追加してください';if($('farmPeriodLabel'))$('farmPeriodLabel').textContent=label;if($('employeeFarmPeriodLabel'))$('employeeFarmPeriodLabel').textContent=label;if($('farmSheetLabel'))$('farmSheetLabel').textContent='Site Farm Database';if($('employeeFarmSheetLabel'))$('employeeFarmSheetLabel').textContent='Site Farm Database'}
@@ -10539,7 +10551,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.7 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.8 Error Fix Build</div>
 
 <script>
 (function(){
@@ -10894,6 +10906,7 @@ function setEmployeeInventoryTab(tab){
   document.querySelectorAll('[data-employee-inventory-tab]').forEach(b=>b.classList.toggle('active',b.dataset.employeeInventoryTab===tab));
   document.querySelectorAll('#employee-page-inventory .employee-site-view').forEach(v=>v.classList.remove('active'));
   $('employeeInventoryView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');
+  if(tab==='count')renderEmployeeInventoryCountSheet();
   if(tab==='history')loadInventoryRequests(false);
 }
 function setEmployeeFarmMainTab(tab){
@@ -10984,14 +10997,75 @@ async function saveInventorySpreadsheet(){
   }
 }
 
+function inventoryCountDraftKey(){
+  const uid=currentEmployee?.uid||currentEmployee?.id||'guest';
+  return `lait_divin_inventory_count_draft_${uid}`;
+}
+function loadInventoryCountDraft(){
+  try{
+    const saved=JSON.parse(localStorage.getItem(inventoryCountDraftKey())||'{}');
+    inventoryCountDraft=saved?.counts&&typeof saved.counts==='object'?saved.counts:{};
+    inventoryCountNoteDraft=String(saved?.note||'');
+  }catch(error){
+    console.warn('Inventory draft load failed',error);
+    inventoryCountDraft={};
+    inventoryCountNoteDraft='';
+  }
+}
+function persistInventoryCountDraft(){
+  try{
+    localStorage.setItem(inventoryCountDraftKey(),JSON.stringify({
+      counts:inventoryCountDraft,
+      note:inventoryCountNoteDraft,
+      saved_at:new Date().toISOString()
+    }));
+  }catch(error){
+    console.warn('Inventory draft save failed',error);
+  }
+}
+function saveInventoryCountNoteDraft(value){
+  inventoryCountNoteDraft=String(value||'');
+  persistInventoryCountDraft();
+}
+function clearInventoryCountDraft(ask=false){
+  if(ask&&!confirm('入力中の在庫数とメモをすべて消しますか？'))return;
+  inventoryCountDraft={};
+  inventoryCountNoteDraft='';
+  localStorage.removeItem(inventoryCountDraftKey());
+  document.querySelectorAll('.employee-inventory-count').forEach(x=>x.value='');
+  document.querySelectorAll('.inventory-difference').forEach(x=>{x.textContent='－';x.className='inventory-difference'});
+  if($('employeeInventoryRequestNote'))$('employeeInventoryRequestNote').value='';
+  if(ask)toast('在庫入力の下書きを消去しました');
+}
+function saveInventoryCountInputDraft(input){
+  const row=input.closest('tr');
+  if(!row)return;
+  const name=row.dataset.inventoryCountName;
+  if(input.value===''){
+    delete inventoryCountDraft[name];
+  }else{
+    inventoryCountDraft[name]=String(input.value);
+  }
+  persistInventoryCountDraft();
+  updateEmployeeInventoryDifference(input);
+}
 function renderEmployeeInventoryCountSheet(){
   const body=$('employeeInventoryCountBody');if(!body)return;
-  body.innerHTML=(inventorySnapshot||[]).map(x=>`<tr data-inventory-count-name="${esc(x.name)}">
-    <td><strong>${esc(x.name)}</strong></td>
-    <td>${Number(x.stock).toLocaleString('ja-JP')}個</td>
-    <td><input class="employee-inventory-count" type="number" min="0" step="1" placeholder="確認した数" oninput="updateEmployeeInventoryDifference(this)"></td>
-    <td class="inventory-difference">－</td>
-  </tr>`).join('');
+  loadInventoryCountDraft();
+  body.innerHTML=(inventorySnapshot||[]).map(x=>{
+    const saved=Object.prototype.hasOwnProperty.call(inventoryCountDraft,x.name)?inventoryCountDraft[x.name]:'';
+    return `<tr data-inventory-count-name="${esc(x.name)}">
+      <td><strong>${esc(x.name)}</strong></td>
+      <td>${Number(x.stock).toLocaleString('ja-JP')}個</td>
+      <td><input class="employee-inventory-count" type="number" min="0" step="1" value="${esc(saved)}" placeholder="確認した数" oninput="saveInventoryCountInputDraft(this)"></td>
+      <td class="inventory-difference">－</td>
+    </tr>`;
+  }).join('');
+
+  document.querySelectorAll('#employeeInventoryCountBody .employee-inventory-count').forEach(input=>{
+    if(input.value!=='')updateEmployeeInventoryDifference(input);
+  });
+  if($('employeeInventoryRequestNote'))$('employeeInventoryRequestNote').value=inventoryCountNoteDraft;
 }
 function updateEmployeeInventoryDifference(input){
   const row=input.closest('tr'),name=row.dataset.inventoryCountName;
@@ -11011,18 +11085,27 @@ async function submitInventoryCountRequest(){
     return {name,count:Math.max(0,Math.round(Number(input.value)||0)),previous:Number(current)||0};
   }).filter(Boolean);
   if(!entries.length)return alert('確認した材料の現在数を1つ以上入力してください。');
+
   const note=$('employeeInventoryRequestNote')?.value.trim()||'';
+  inventoryCountNoteDraft=note;
+  persistInventoryCountDraft();
+
   if(!confirm(`${entries.length}品目の在庫確認を管理者へ申請しますか？`))return;
+
   const payload={
     employee_uid:currentEmployee.uid,employee_id:currentEmployee.id,employee_name:currentEmployee.name,
     counts:entries,note,status:'pending',updated_at:new Date().toISOString()
   };
   const {error}=await sb.from('inventory_count_requests').insert(payload);
-  if(error)return alert('申請できませんでした：'+error.message);
-  document.querySelectorAll('.employee-inventory-count').forEach(x=>x.value='');
-  document.querySelectorAll('.inventory-difference').forEach(x=>{x.textContent='－';x.className='inventory-difference'});
-  if($('employeeInventoryRequestNote'))$('employeeInventoryRequestNote').value='';
-  await loadInventoryRequests(false);setEmployeeInventoryTab('history');toast('在庫確認を申請しました');
+  if(error){
+    persistInventoryCountDraft();
+    return alert('申請できませんでした：'+error.message+'\n入力内容は保存されているため、再入力は不要です。');
+  }
+
+  clearInventoryCountDraft(false);
+  await loadInventoryRequests(false);
+  setEmployeeInventoryTab('history');
+  toast('在庫確認を申請しました');
 }
 async function loadInventoryRequests(show=false){
   if(!sb||appMode==='login')return;
