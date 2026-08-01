@@ -9077,7 +9077,7 @@ async function createInventorySiteNotice(discordMessageId=""){
 async function updateInventorySiteNotice(){
   const body=buildInventorySiteNoticeBody();
   if(!inventorySiteNoticeId)return createInventorySiteNotice();
-  const {error}=await sb.from('notifications').update({body,is_pinned:true,updated_at:new Date().toISOString()}).eq('id',inventorySiteNoticeId);
+  const {error}=await sb.from('notifications').update({body,is_pinned:true}).eq('id',inventorySiteNoticeId);
   if(error)throw error;
   renderInventorySiteNoticePreview(body);
   await loadNotifications(false).catch(()=>{});
@@ -10254,25 +10254,86 @@ function cancelNotificationEdit(){resetNotificationEditor()}
 async function updateSiteNotification(){
   const id=Number($('notificationEditId').value);
   const title=$('notificationTitle').value.trim(),body=$('notificationBody').value.trim();
-  const type=$('notificationType').value||'general',isPinned=$('notificationPinned').checked;
+  const type=$('notificationType').value||'general',isPinned=!!$('notificationPinned').checked;
   if(!id||!title||!body)return alert('タイトルと本文を入力してください。');
-  const btn=$('notificationSendButton');btn.disabled=true;btn.textContent='保存中…';
+
+  const btn=$('notificationSendButton');
+  btn.disabled=true;
+  btn.textContent='保存中…';
+
   try{
     const target=notificationRows.find(n=>Number(n.id)===id);
     if(!target)throw new Error('編集対象の通知が見つかりません。');
-    await syncNotificationDiscord(target,'edit',{title,body,type});
-    const {data,error}=await sb.from('notifications').update({title,body,type,is_pinned:isPinned,updated_at:new Date().toISOString()}).eq('id',id).select().single();
+
+    // updated_at列が存在しない環境でも保存できるよう、
+    // 通知テーブルに確実に存在する項目だけを更新します。
+    const updatePayload={
+      title,
+      body,
+      type,
+      is_pinned:isPinned
+    };
+
+    const {error}=await sb
+      .from('notifications')
+      .update(updatePayload)
+      .eq('id',id);
+
     if(error)throw error;
-    notificationRows=notificationRows.map(n=>Number(n.id)===id?{...n,...data}:n);
+
+    // 保存直後に管理者側・従業員側の両方へ同じ内容を描画します。
+    const clientUpdatedAt=new Date().toISOString();
+    notificationRows=notificationRows.map(n=>
+      Number(n.id)===id
+        ?{...n,...updatePayload,updated_at:clientUpdatedAt}
+        :n
+    );
     renderNotifications();
-    await writeAudit('notification','通知を編集',title,title);
+
+    // Discord側の編集に失敗しても、サイト内の保存は取り消しません。
+    let discordUpdated=true;
+    let discordErrorMessage='';
+    try{
+      await syncNotificationDiscord(target,'edit',{title,body,type});
+    }catch(discordError){
+      discordUpdated=false;
+      discordErrorMessage=discordError?.message||String(discordError);
+      console.warn('Discord notification edit failed; site update was kept.',discordError);
+    }
+
+    // DBの最新状態を再取得。Realtimeでも他の管理者・従業員へ反映されます。
+    await loadNotifications(false);
+
+    await writeAudit(
+      'notification',
+      '通知を編集',
+      `${title} / 固定：${isPinned?'ON':'OFF'}`,
+      discordUpdated?title:`サイト保存済み・Discord編集失敗：${discordErrorMessage}`
+    );
+
     resetNotificationEditor();
-    toast('サイト内通知とDiscordを更新しました');
+
+    if(discordUpdated){
+      toast(isPinned
+        ?'通知を保存し、固定しました'
+        :'通知を保存し、固定を解除しました'
+      );
+    }else{
+      toast(isPinned
+        ?'サイト内通知を保存・固定しました（Discord編集は失敗）'
+        :'サイト内通知を保存・固定解除しました（Discord編集は失敗）'
+      );
+    }
   }catch(error){
-    alert('通知を編集できませんでした：'+error.message);
+    console.error('Notification update error',error);
+    alert('通知を保存できませんでした：'+(error?.message||error));
   }finally{
     btn.disabled=false;
-    if(!$('notificationEditId').value)btn.textContent='サイト内＋Discordへ新規送信';
+    if(!$('notificationEditId').value){
+      btn.textContent='サイト内＋Discordへ新規送信';
+    }else{
+      btn.textContent='変更内容をサイトへ保存';
+    }
   }
 }
 async function saveNotificationFromEditor(){
@@ -10294,7 +10355,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.0.2 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.0.3 Error Fix Build</div>
 
 <script>
 (function(){
