@@ -6357,6 +6357,16 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver18-2-1-ranking-visibility">
+.ranking-access-note{
+  margin:0 0 14px;padding:11px 14px;border-radius:15px;
+  border:1px solid rgba(229,190,147,.12);
+  background:rgba(255,255,255,.025);
+  font-size:10px;color:#cbb7a6
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -7940,7 +7950,18 @@ async function loadMyAttendance(){
   if(error) throw error;
   myAttendance=(data||[]).map(mapAttendance);
 }
-async function loadEmployees(){const {data,error}=await sb.from('profiles').select('*').eq('account_type','employee').order('employee_name');if(error) throw error;employees=(data||[]).map(mapProfile)}
+async function loadEmployees(){
+  const {data,error}=await sb
+    .from('profiles')
+    .select('*')
+    .eq('is_active',true)
+    .order('employee_name');
+  if(error){
+    console.error('ランキング用プロフィール取得エラー:',error);
+    throw error;
+  }
+  employees=(data||[]).map(mapProfile);
+}
 async function loadHistoryData(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadMyHistory(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadSettings(){const {data,error}=await sb.from('app_settings').select('*').eq('id',1).maybeSingle();if(error) throw error;if(data) settings={shop:data.shop_name,city:data.city_subtitle,logo:data.logo_text,prefix:data.slip_prefix,footer:data.footer_text}}
@@ -8221,7 +8242,7 @@ function employeeGoPage(page){closeMobileMenu();
   document.getElementById('employeeSidebar')?.classList.remove('open');
   if(page==='home')renderEmployeeDashboard();
   if(page==='attendance')renderEmployeeAttendance();
-  if(page==='ranking')renderEmployeeRanking();
+  if(page==='ranking')loadRankingData(false);
   if(page==='inventory')loadEmployeeInventory();if(page==='farm')loadFarmData();
   if(page==='payslips')renderEmployeePortal();
   if(page==='profile')loadMyProfileForm();
@@ -8310,6 +8331,29 @@ function renderEmployeeDashboard(){
   state.textContent=mine?'● 勤務中':'退勤中';state.classList.toggle('working',!!mine);
 }
 
+
+async function loadRankingData(showError=false){
+  const errors=[];
+  const tasks=[
+    loadEmployees().catch(error=>errors.push(`プロフィール：${error.message}`)),
+    loadAttendanceData().catch(error=>errors.push(`勤務記録：${error.message}`)),
+    loadSalesData().catch(error=>errors.push(`売上記録：${error.message}`)),
+    loadFarmData(false).catch(error=>errors.push(`Farm記録：${error.message}`))
+  ];
+  await Promise.allSettled(tasks);
+  renderRanking?.();
+  renderEmployeeRanking?.();
+
+  if(errors.length){
+    console.warn('ランキングデータの一部を取得できませんでした',errors);
+    if(showError)alert(
+      'ランキングの一部を取得できませんでした。\n'+
+      errors.join('\n')+
+      '\n\nVer.18.2.1のランキング権限SQLを実行してください。'
+    );
+  }
+}
+
 function setEmployeeRankingMode(mode){
   employeeRankingMode=mode;
   $('employeeRankingModeHours').classList.toggle('active',mode==='hours');
@@ -8319,20 +8363,20 @@ function setEmployeeRankingMode(mode){
   $('employeeRankingFarmPeriodPicker')?.classList.toggle('hidden',mode!=='farm');
   if(mode==='farm'){
     renderEmployeeRankingFarmPeriodOptions();
-    loadFarmData(false).then(()=>renderEmployeeRanking());
-  }else{
-    renderEmployeeRanking();
   }
+  loadRankingData(false);
 }
 
 function renderEmployeeRanking(){
-  if(!$('employeeRankingList')||!currentEmployee)return;
+  if(!$('employeeRankingList'))return;
+  const viewer=currentEmployee||mapProfile(currentProfile||{});
+  if(!viewer?.uid&&currentProfile?.id)viewer.uid=currentProfile.id;
   if(!$('employeeRankingMonth').value)$('employeeRankingMonth').value=monthKeyLocal(new Date());
   const month=$('employeeRankingMonth').value;
   if(employeeRankingMode==='farm'){
     const rows=integratedFarmRankingRows();
     const total=rows.reduce((s,r)=>s+farmN(r.total),0);
-    const ranking=farmRankingListHtml(rows,currentEmployee.uid,currentEmployee.id);
+    const ranking=farmRankingListHtml(rows,viewer.uid,viewer.id,viewer.name);
     const mine=ranking.mineIndex>=0?rows[ranking.mineIndex]:null;
     if($('employeeRankingPageTitle'))$('employeeRankingPageTitle').textContent='Farmランキング';
     if($('employeeRankingPageDescription'))$('employeeRankingPageDescription').textContent='選択期間の承認済みFarm採取数・査定・仕入れ金額です。';
@@ -8344,7 +8388,7 @@ function renderEmployeeRanking(){
   }else if(employeeRankingMode==='sales'){
     if($('employeeRankingPageTitle'))$('employeeRankingPageTitle').textContent='売上ランキング';
     if($('employeeRankingPageDescription'))$('employeeRankingPageDescription').textContent='スタッフ全体の月間売上ランキングです。';
-    const rows=salesRankingRows(month),total=rows.reduce((s,r)=>s+r.amount,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentEmployee.uid)||String(r.id).toLowerCase()===String(currentEmployee.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
+    const rows=salesRankingRows(month),total=rows.reduce((s,r)=>s+r.amount,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===viewer.uid)||String(r.id).toLowerCase()===String(viewer.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
     $('employeeRankTotalHours').textContent=yen.format(total);
     $('employeeMyRank').textContent=mineIndex>=0?`${mineIndex+1}位`:'-';
     $('employeeMyHours').textContent=mine?yen.format(mine.amount):'¥0';
@@ -8354,7 +8398,7 @@ function renderEmployeeRanking(){
   }else{
     if($('employeeRankingPageTitle'))$('employeeRankingPageTitle').textContent='勤務時間ランキング';
     if($('employeeRankingPageDescription'))$('employeeRankingPageDescription').textContent='スタッフ全体の月間勤務時間と出勤回数です。';
-    const rows=employeeRankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentEmployee.uid)||String(r.id).toLowerCase()===String(currentEmployee.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
+    const rows=employeeRankingRows(),total=rows.reduce((s,r)=>s+r.ms,0),mineIndex=rows.findIndex(r=>(r.uid&&r.uid===viewer.uid)||String(r.id).toLowerCase()===String(viewer.id).toLowerCase()),mine=mineIndex>=0?rows[mineIndex]:null;
     $('employeeRankTotalHours').textContent=formatDuration(total);
     $('employeeMyRank').textContent=mineIndex>=0?`${mineIndex+1}位`:'-';
     $('employeeMyHours').textContent=mine?formatDuration(mine.ms):'0時間00分';
@@ -8372,7 +8416,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='job-account')loadJobAccountData(false);if(n==='expenses')loadExpenseRequests(false);if(n==='inventory')loadInventoryRequests(false);if(n==='farm')loadFarmRequests(false);if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='campaigns')loadCampaigns(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='job-account')loadJobAccountData(false);if(n==='expenses')loadExpenseRequests(false);if(n==='inventory')loadInventoryRequests(false);if(n==='farm')loadFarmRequests(false);if(n==='ranking')loadRankingData(false);if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='campaigns')loadCampaigns(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -8677,10 +8721,8 @@ function setRankingMode(mode){
   $('rankingFarmPeriodPicker')?.classList.toggle('hidden',mode!=='farm');
   if(mode==='farm'){
     renderRankingFarmPeriodOptions();
-    loadFarmData(false).then(()=>renderRanking());
-  }else{
-    renderRanking();
   }
+  loadRankingData(false);
 }
 
 function attendanceFilteredList(){
@@ -9238,8 +9280,12 @@ function farmRankingPodiumHtml(rows,emptyText){
   const top=rows.slice(0,3),order=[top[1],top[0],top[2]],classes=['second','first','third'],places=[2,1,3];
   return order.map((r,i)=>r?`<div class="podium-item ${classes[i]}">${rankingAvatar(r,'podium-avatar')}<div class="podium-name">${esc(rankingDisplayName(r))}</div><div class="podium-hours">${farmN(r.total).toLocaleString('ja-JP')}個</div><div class="podium-block">${places[i]}位</div></div>`:'').join('')||`<div class="empty">${emptyText}</div>`;
 }
-function farmRankingListHtml(rows,currentUid='',currentId=''){
-  const mineIndex=rows.findIndex(r=>(r.uid&&r.uid===currentUid)||(r.id&&String(r.id).toLowerCase()===String(currentId).toLowerCase())||(!r.uid&&!r.id&&r.name===currentEmployee?.name));
+function farmRankingListHtml(rows,currentUid='',currentId='',currentName=''){
+  const mineIndex=rows.findIndex(r=>
+    (r.uid&&r.uid===currentUid)||
+    (r.id&&String(r.id).toLowerCase()===String(currentId).toLowerCase())||
+    (!r.uid&&!r.id&&currentName&&r.name===currentName)
+  );
   return {
     mineIndex,
     html:rows.length?rows.map((r,i)=>`<div class="ranking-row ${mineIndex===i?'my-ranking-row':''}"><div class="ranking-position">${i+1}</div>${rankingAvatar(r)}<div class="ranking-person"><strong>${esc(rankingDisplayName(r))}${mineIndex===i?'（あなた）':''}</strong><span>査定 ${farmN(r.assessment).toLocaleString('ja-JP',{maximumFractionDigits:4})}</span></div><div class="ranking-hours">${farmN(r.total).toLocaleString('ja-JP')}個</div><div class="ranking-shifts">${yen.format(farmN(r.payment))}</div></div>`).join(''):'<div class="empty">Farmランキングデータがありません。</div>'
@@ -10800,7 +10846,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.0 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.1 Error Fix Build</div>
 
 <script>
 (function(){
