@@ -7622,7 +7622,7 @@ let selectedAttendanceIds=new Set();
 function markRealtimeStatus(ok){
   realtimeHealthy=ok;
   document.querySelectorAll('[data-realtime-status]').forEach(el=>{
-    el.textContent=ok?'● 全機能全機能リアルタイム同期中':'● 再接続中';
+    el.textContent=ok?'● 同期中':'● 再接続中';
     el.classList.toggle('sync-ok',ok);
     el.classList.toggle('sync-warn',!ok);
   });
@@ -7951,16 +7951,17 @@ async function loadMyAttendance(){
   myAttendance=(data||[]).map(mapAttendance);
 }
 async function loadEmployees(){
-  const {data,error}=await sb
-    .from('profiles')
-    .select('*')
-    .eq('is_active',true)
-    .order('employee_name');
+  const {data,error}=await sb.from('profiles').select('*');
   if(error){
     console.error('ランキング用プロフィール取得エラー:',error);
     throw error;
   }
-  employees=(data||[]).map(mapProfile);
+  employees=(data||[])
+    .filter(row=>row.is_active!==false)
+    .map(mapProfile)
+    .sort((a,b)=>String(a.name||a.displayName||a.id||'').localeCompare(
+      String(b.name||b.displayName||b.id||''),'ja'
+    ));
 }
 async function loadHistoryData(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadMyHistory(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
@@ -8349,7 +8350,7 @@ async function loadRankingData(showError=false){
     if(showError)alert(
       'ランキングの一部を取得できませんでした。\n'+
       errors.join('\n')+
-      '\n\nVer.18.2.1のランキング権限SQLを実行してください。'
+      '\n\nVer.18.2.2の修復SQLを実行してください。'
     );
   }
 }
@@ -10004,8 +10005,20 @@ async function sendPresenceHeartbeat(forceStatus){
   if(!sb||!currentProfile?.id||appMode==='login')return;
   const status=forceStatus||(presenceIdle?'away':'online');
   const now=new Date().toISOString();
-  const {error}=await sb.from('online_presence').upsert({user_id:currentProfile.id,status,last_seen_at:now,updated_at:now},{onConflict:'user_id'});
-  if(error)console.warn('オンライン状態更新エラー:',error);
+  const payload={user_id:currentProfile.id,status,last_seen_at:now,updated_at:now};
+  try{
+    const {data,error}=await sb.from('online_presence')
+      .update(payload)
+      .eq('user_id',currentProfile.id)
+      .select('user_id');
+    if(error)throw error;
+    if(!data?.length){
+      const {error:insertError}=await sb.from('online_presence').insert(payload);
+      if(insertError&&insertError.code!=='23505')throw insertError;
+    }
+  }catch(error){
+    console.warn('オンライン状態更新エラー:',error);
+  }
 }
 function recordPresenceActivity(){lastPresenceActivity=Date.now();if(presenceIdle){presenceIdle=false;sendPresenceHeartbeat('online')}}
 function startPresenceTracking(){
@@ -10020,7 +10033,12 @@ async function stopPresenceTracking(markOffline=true){
   presenceHeartbeatTimer=null;presenceRefreshTimer=null;
   ['pointerdown','keydown','touchstart','scroll'].forEach(type=>window.removeEventListener(type,recordPresenceActivity));
   if(markOffline&&sb&&currentProfile?.id){
-    try{await sb.from('online_presence').upsert({user_id:currentProfile.id,status:'offline',last_seen_at:new Date().toISOString(),updated_at:new Date().toISOString()},{onConflict:'user_id'})}catch{}
+    try{
+      const now=new Date().toISOString();
+      await sb.from('online_presence')
+        .update({status:'offline',last_seen_at:now,updated_at:now})
+        .eq('user_id',currentProfile.id);
+    }catch{}
   }
 }
 document.addEventListener('visibilitychange',()=>{if(appMode!=='login'){if(document.hidden){presenceIdle=true;sendPresenceHeartbeat('away')}else{recordPresenceActivity();loadOnlinePresence(false)}}});
@@ -10846,7 +10864,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.1 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.2 Error Fix Build</div>
 
 <script>
 (function(){
