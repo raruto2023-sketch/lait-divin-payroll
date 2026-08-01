@@ -6243,6 +6243,68 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver18-1-site-inventory-farm">
+.site-db-tabs,.employee-site-tabs{
+  display:flex;gap:9px;flex-wrap:wrap;margin:0 0 16px;padding:7px;
+  border:1px solid rgba(229,190,147,.11);border-radius:20px;
+  background:rgba(255,255,255,.025)
+}
+.site-db-tabs button,.employee-site-tabs button{
+  border:1px solid transparent;background:transparent;color:#cbb7a6;
+  min-height:44px;padding:0 18px;border-radius:14px;font-weight:800;cursor:pointer
+}
+.site-db-tabs button.active,.employee-site-tabs button.active{
+  color:#2b1a12;background:linear-gradient(135deg,#f2cea4,#dca267);
+  box-shadow:0 9px 24px rgba(191,128,73,.18)
+}
+.site-db-view,.employee-site-view{display:none}.site-db-view.active,.employee-site-view.active{display:block}
+.site-spreadsheet-wrap{width:100%;overflow:auto;border:1px solid rgba(229,190,147,.10);border-radius:20px;background:rgba(12,9,8,.20)}
+.site-spreadsheet{width:100%;min-width:760px;border-collapse:separate;border-spacing:0;font-size:12px}
+.site-spreadsheet th{position:sticky;top:0;z-index:2;padding:13px 12px;text-align:left;background:#2d201b;color:#e9caa7;border-bottom:1px solid rgba(229,190,147,.16);white-space:nowrap}
+.site-spreadsheet td{padding:9px 10px;border-bottom:1px solid rgba(229,190,147,.07);vertical-align:middle}
+.site-spreadsheet tbody tr:hover{background:rgba(229,190,147,.035)}
+.site-spreadsheet input,.site-spreadsheet select{
+  width:100%;min-height:40px;border-radius:11px!important;padding:8px 10px!important;
+  background:rgba(255,255,255,.035)!important
+}
+.site-spreadsheet input[type=number]{min-width:105px}
+.spreadsheet-status{display:inline-flex;align-items:center;padding:6px 9px;border-radius:999px;font-size:9px;font-weight:900;background:rgba(72,137,87,.14);color:#9bd3a8}
+.spreadsheet-status.low{background:rgba(185,76,65,.15);color:#efaaa0}
+.inventory-sheet-tools,.request-filter-tools{display:flex;gap:8px;flex-wrap:wrap}
+.inventory-sheet-tools input,.request-filter-tools input{min-width:220px}
+.inventory-sheet-tools select,.request-filter-tools select{min-width:145px}
+.approval-request-list{display:grid;gap:12px}
+.approval-card{
+  border:1px solid rgba(229,190,147,.10);border-radius:21px;padding:17px;
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015))
+}
+.approval-card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.approval-card-head h3{margin:0 0 5px;font-size:15px}.approval-card-head small{color:#af9987}
+.approval-status{padding:7px 10px;border-radius:999px;font-size:9px;font-weight:900}
+.approval-status.pending{background:rgba(211,154,97,.14);color:#efc58f}
+.approval-status.approved{background:rgba(72,137,87,.16);color:#a9dbb8}
+.approval-status.rejected{background:rgba(173,79,66,.16);color:#efaaa0}
+.approval-summary{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}
+.approval-summary span{padding:7px 10px;border-radius:11px;background:rgba(255,255,255,.035);font-size:10px}
+.approval-detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:7px;margin:10px 0}
+.approval-detail-grid div{padding:10px 12px;border-radius:13px;background:rgba(0,0,0,.12);display:flex;justify-content:space-between;gap:10px}
+.approval-note{margin-top:9px;padding:11px 13px;border-left:3px solid #dca267;background:rgba(255,255,255,.025);font-size:11px;line-height:1.6}
+.approval-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px;flex-wrap:wrap}
+.request-review-input{width:100%;margin-top:10px}
+.period-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.compact-tabs{margin-bottom:12px!important}
+#employeeFarmEntryAssessment{color:#efc58f;font-size:15px}
+.inventory-difference{font-weight:900}.inventory-difference.plus{color:#9bd3a8}.inventory-difference.minus{color:#efaaa0}
+@media(max-width:720px){
+ .site-db-tabs,.employee-site-tabs{display:grid;grid-template-columns:1fr 1fr}
+ .site-db-tabs button,.employee-site-tabs button{padding:0 8px;font-size:10px}
+ .inventory-sheet-tools,.request-filter-tools{width:100%;display:grid;grid-template-columns:1fr}
+ .inventory-sheet-tools input,.request-filter-tools input,.inventory-sheet-tools select,.request-filter-tools select{width:100%;min-width:0}
+ .approval-card-head{flex-direction:column}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6648,82 +6710,175 @@ body.dark .job-calculation-box{
   </div>
 </section>
 
+
 <section id="page-inventory" class="page inventory-redesign">
   <div class="page-hero compact inventory-hero">
-    <div><span class="eyebrow">GOOGLE SHEETS SYNC</span><h1>在庫ダッシュボード</h1><p>Google Sheets「在庫表」の材料シートをSupabaseへ同期して表示します。</p><div class="inventory-live-status"><i id="inventorySyncDot"></i><span id="inventorySyncStatus">同期待機中</span></div></div>
-    <div class="inventory-actions"><button class="btn primary" id="inventorySyncButton" onclick="syncInventoryFromGoogleSheet(true)">Google Sheets同期</button><button class="btn" onclick="loadInventorySnapshot(true)">表示を再読込</button><button class="btn" onclick="openInventorySheet()">原本を開く</button></div>
-  </div>
-  <div id="inventoryAlertPanel" class="inventory-alert-panel">
-    <div class="inventory-alert-head"><h3>⚠ 在庫アラート</h3><span id="inventoryAlertCount" class="inventory-alert-count">0</span></div>
-    <div id="inventoryAlertList" class="inventory-alert-empty">在庫データを読み込んでいます。</div>
-    <div class="inventory-discord-manager">
-      <div class="inventory-discord-manager-head">
-        <div><span>DISCORD MESSAGE</span><h4>在庫アラート送信管理</h4></div>
-        <span id="inventoryDiscordMessageState" class="inventory-message-state">未送信</span>
-      </div>
-      <label for="inventoryDiscordComment">管理者コメント</label>
-      <textarea id="inventoryDiscordComment" rows="3" maxlength="900" placeholder="例：牛乳と生クリームを優先して補充してください。"></textarea>
-      <div class="inventory-comment-meta"><span>コメントはDiscordとサイト内通知の両方に反映されます。在庫不足がなくても送信できます。</span><button type="button" onclick="clearInventoryDiscordComment()">入力を消去</button></div>
-      <div class="inventory-discord-controls">
-        <button class="btn inventory-discord-button" id="inventoryDiscordButton" onclick="sendInventoryAlertToDiscord()">⚠ 新規送信</button>
-      </div>
-      <div id="inventoryDiscordResult" class="inventory-discord-result">Discord専用チャンネルとサイト内通知へ、管理者が確認してから同時送信します。</div>
-      <div id="inventorySiteNoticePreview" class="inventory-site-notice-preview hidden"><span>SITE NOTICE</span><strong>サイト掲載中</strong><p id="inventorySiteNoticeText"></p></div>
+    <div>
+      <span class="eyebrow">SITE INVENTORY DATABASE</span>
+      <h1>在庫管理</h1>
+      <p>材料の現在数をサイト上で直接管理します。Googleスプレッドシートは使用しません。</p>
+      <div class="inventory-live-status"><i id="inventorySyncDot" class="ok"></i><span id="inventorySyncStatus">サイト内データベース接続中</span></div>
+    </div>
+    <div class="inventory-actions">
+      <button class="btn primary" onclick="saveInventorySpreadsheet()">変更を一括保存</button>
+      <button class="btn" onclick="loadInventorySnapshot(true)">最新情報</button>
+      <button class="btn" onclick="addInventoryItemRow()">＋材料を追加</button>
     </div>
   </div>
+
   <div class="inventory-overview">
-    <div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="inventoryItems">9</div><div class="metric-sub">管理材料数</div></div>
-    <div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="inventoryLow">5</div><div class="metric-sub">在庫注意</div></div>
-    <div class="metric-card"><div class="metric-label">LAST CHECK</div><div class="metric-value small" id="inventoryUpdated">読込前</div><div class="metric-sub">表示更新時刻</div></div>
+    <div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="inventoryItems">0</div><div class="metric-sub">管理材料数</div></div>
+    <div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="inventoryLow">0</div><div class="metric-sub">最低在庫未満</div></div>
+    <div class="metric-card"><div class="metric-label">PENDING</div><div class="metric-value" id="inventoryRequestCount">0</div><div class="metric-sub">確認待ち申請</div></div>
+    <div class="metric-card"><div class="metric-label">LAST SAVE</div><div class="metric-value small" id="inventoryUpdated">読込前</div><div class="metric-sub">最終更新時刻</div></div>
   </div>
-  <div class="dashboard-panel inventory-material-panel">
-    <div class="dashboard-title"><h2><span class="inventory-section-icon">▣</span> 材料在庫</h2><span class="badge">Supabase同期</span></div>
-    <div id="inventoryGrid" class="inventory-grid"></div>
-    <div class="sheet-note">Google Sheetsの「材料」シートから同期した最新データを表示します。</div>
+
+  <div class="site-db-tabs">
+    <button class="active" data-inventory-admin-tab="sheet" onclick="setInventoryAdminTab('sheet')">在庫表</button>
+    <button data-inventory-admin-tab="requests" onclick="setInventoryAdminTab('requests')">従業員申請 <span id="inventoryRequestTabBadge">0</span></button>
+    <button data-inventory-admin-tab="alerts" onclick="setInventoryAdminTab('alerts')">在庫アラート・Discord</button>
+  </div>
+
+  <div id="inventoryAdminViewSheet" class="site-db-view active">
+    <div class="dashboard-panel inventory-sheet-panel">
+      <div class="dashboard-title">
+        <div><h2>材料在庫表</h2><p>表の入力欄を変更し、「変更を一括保存」を押してください。</p></div>
+        <div class="inventory-sheet-tools">
+          <input id="inventoryTableSearch" placeholder="材料名で検索" oninput="renderInventorySpreadsheet()">
+          <select id="inventoryTableFilter" onchange="renderInventorySpreadsheet()">
+            <option value="">すべて</option>
+            <option value="low">在庫注意のみ</option>
+          </select>
+        </div>
+      </div>
+      <div class="site-spreadsheet-wrap">
+        <table class="site-spreadsheet inventory-spreadsheet">
+          <thead><tr><th>#</th><th>材料名</th><th>現在数</th><th>最低在庫</th><th>状態</th><th>並び順</th><th>操作</th></tr></thead>
+          <tbody id="inventorySpreadsheetBody"></tbody>
+        </table>
+      </div>
+      <div class="sheet-note">すべての単位は「個」です。管理者はこの表から直接在庫数を変更できます。</div>
+    </div>
+
+    <div class="dashboard-panel inventory-material-panel">
+      <div class="dashboard-title"><h2><span class="inventory-section-icon">▣</span> 在庫カード</h2><span class="badge">リアルタイム表示</span></div>
+      <div id="inventoryGrid" class="inventory-grid"></div>
+    </div>
+  </div>
+
+  <div id="inventoryAdminViewRequests" class="site-db-view">
+    <div class="dashboard-panel">
+      <div class="dashboard-title">
+        <div><h2>従業員からの在庫確認申請</h2><p>従業員が数えた現在数を確認し、承認すると在庫表へ反映します。</p></div>
+        <div class="request-filter-tools">
+          <select id="inventoryRequestStatusFilter" onchange="renderInventoryRequestsAdmin()">
+            <option value="pending">確認待ち</option>
+            <option value="">すべて</option>
+            <option value="approved">承認済み</option>
+            <option value="rejected">却下</option>
+          </select>
+          <input id="inventoryRequestSearch" placeholder="従業員名・材料名で検索" oninput="renderInventoryRequestsAdmin()">
+        </div>
+      </div>
+      <div id="inventoryAdminRequestList" class="approval-request-list"></div>
+    </div>
+  </div>
+
+  <div id="inventoryAdminViewAlerts" class="site-db-view">
+    <div id="inventoryAlertPanel" class="inventory-alert-panel">
+      <div class="inventory-alert-head"><h3>⚠ 在庫アラート</h3><span id="inventoryAlertCount" class="inventory-alert-count">0</span></div>
+      <div id="inventoryAlertList" class="inventory-alert-empty">在庫データを読み込んでいます。</div>
+      <div class="inventory-discord-manager">
+        <div class="inventory-discord-manager-head">
+          <div><span>DISCORD MESSAGE</span><h4>在庫アラート送信管理</h4></div>
+          <span id="inventoryDiscordMessageState" class="inventory-message-state">未送信</span>
+        </div>
+        <label for="inventoryDiscordComment">管理者コメント</label>
+        <textarea id="inventoryDiscordComment" rows="3" maxlength="900" placeholder="例：牛乳といちごを優先して補充してください。"></textarea>
+        <div class="inventory-comment-meta"><span>Discordとサイト内通知へ送信します。</span><button type="button" onclick="clearInventoryDiscordComment()">入力を消去</button></div>
+        <div class="inventory-discord-controls"><button class="btn inventory-discord-button" id="inventoryDiscordButton" onclick="sendInventoryAlertToDiscord()">⚠ 新規送信</button></div>
+        <div id="inventoryDiscordResult" class="inventory-discord-result">管理者が内容を確認してから送信します。</div>
+        <div id="inventorySiteNoticePreview" class="inventory-site-notice-preview hidden"><span>SITE NOTICE</span><strong>サイト掲載中</strong><p id="inventorySiteNoticeText"></p></div>
+      </div>
+    </div>
   </div>
 </section>
 
 
 <section id="page-farm" class="page">
   <div class="page-hero compact inventory-hero">
-    <div><span class="eyebrow">FARM MANAGEMENT</span><h1>Farm管理</h1><p>Google Sheetsの内容をSupabaseへ同期し、採取量・ランキング・査定を表示します。</p><div class="farm-live-status"><i id="farmSyncDot"></i><span id="farmSyncStatus">同期待機中</span></div></div>
-    <div class="inventory-actions"><button class="btn primary" id="farmSyncButton" onclick="syncFarmFromGoogleSheet(true)">Google Sheets同期</button><button class="btn" onclick="loadFarmData(true)">表示を再読込</button></div>
+    <div>
+      <span class="eyebrow">SITE FARM DATABASE</span>
+      <h1>Farm管理</h1>
+      <p>従業員が入力した採取数を確認・承認し、サイト内で集計します。</p>
+      <div class="farm-live-status"><i id="farmSyncDot" class="ok"></i><span id="farmSyncStatus">サイト内データベース接続中</span></div>
+    </div>
+    <div class="inventory-actions">
+      <button class="btn" onclick="loadFarmData(true)">最新情報</button>
+      <button class="btn primary" onclick="setFarmTab('requests')">申請を確認</button>
+    </div>
   </div>
-  <div class="farm-period-card">
-    <div><span>集計期間</span><strong id="farmPeriodLabel">7月27日〜8月2日</strong><span id="farmSheetLabel">Supabase Farm Database</span></div>
-    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><select id="farmPeriodSelect" onchange="changeFarmPeriod(this.value)"><option>読込中</option></select><button class="btn" onclick="createFarmPeriod()">＋期間追加</button><button class="btn danger" id="deleteFarmPeriodButton" onclick="deleteFarmPeriod()">期間削除</button></div>
-  </div>
-  <div class="farm-summary">
-    <div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="farmGrandTotal">0</div><div class="metric-sub">選択期間の総採取数</div></div>
-    <div class="metric-card"><div class="metric-label">TOP FARM</div><div class="metric-value small" id="farmTopStaff">-</div><div class="metric-sub">採取数ランキング1位</div></div>
-    <div class="metric-card"><div class="metric-label">TOTAL ASSESSMENT</div><div class="metric-value small" id="farmTotalAssessment">0</div><div class="metric-sub">選択期間の査定合計</div></div>
-    <div class="metric-card"><div class="metric-label">TOTAL PAYMENT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">選択期間の支給金額</div></div>
-  </div>
-  
-<div id="farmTroubleshoot" class="dashboard-panel farm-troubleshoot">
-  <div class="dashboard-title"><h2>同期チェック</h2><span class="badge">Ver.17</span></div>
-  <p>最初に「Google Sheets同期」を1回押してください。成功後のみ1分ごとの自動同期が始まります。</p>
-  <div class="farm-check-grid">
-    <span>① Edge Function：sync-farm-sheet</span>
-    <span>② シート共有：リンク閲覧可</span>
-    <span>③ シート名：集計期間と一致</span>
-  </div>
-</div>
 
-<div class="farm-tabs">
+  <div class="farm-period-card">
+    <div><span>集計期間</span><strong id="farmPeriodLabel">期間を読み込み中</strong><span id="farmSheetLabel">Site Farm Database</span></div>
+    <div class="period-actions">
+      <select id="farmPeriodSelect" onchange="changeFarmPeriod(this.value)"><option>読込中</option></select>
+      <button class="btn" onclick="createFarmPeriod()">＋期間追加</button>
+      <button class="btn danger" id="deleteFarmPeriodButton" onclick="deleteFarmPeriod()">期間削除</button>
+    </div>
+  </div>
+
+  <div class="farm-summary">
+    <div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="farmGrandTotal">0</div><div class="metric-sub">承認済み総採取数</div></div>
+    <div class="metric-card"><div class="metric-label">TOP FARM</div><div class="metric-value small" id="farmTopStaff">-</div><div class="metric-sub">ランキング1位</div></div>
+    <div class="metric-card warning"><div class="metric-label">PENDING</div><div class="metric-value" id="farmPendingRequestCount">0</div><div class="metric-sub">確認待ち申請</div></div>
+    <div class="metric-card"><div class="metric-label">TOTAL PAYMENT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">承認済み支給金額</div></div>
+    <div class="metric-card hidden"><div class="metric-label">TOTAL ASSESSMENT</div><div class="metric-value small" id="farmTotalAssessment">0</div></div>
+  </div>
+
+  <div class="farm-tabs">
     <button class="active" data-farm-tab="items" onclick="setFarmTab('items')">品目別</button>
     <button data-farm-tab="staff" onclick="setFarmTab('staff')">スタッフ別</button>
     <button data-farm-tab="ranking" onclick="setFarmTab('ranking')">ランキング</button>
-    <button data-farm-tab="manage" onclick="setFarmTab('manage')">データ入力</button>
+    <button data-farm-tab="requests" onclick="setFarmTab('requests')">申請承認 <span id="farmRequestTabBadge">0</span></button>
+    <button data-farm-tab="itemsmanage" onclick="setFarmTab('itemsmanage')">品目設定</button>
   </div>
-  <div id="farmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2><span class="badge">期間合計</span></div><div id="farmItemGrid" class="farm-grid"></div></div></div>
-  <div id="farmViewStaff" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別Farm実績</h2><span class="badge">誰がどれだけ取ったか</span></div><div id="farmStaffGrid" class="farm-staff-grid"></div></div></div>
-  <div id="farmViewRanking" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">採取数・査定・金額</span></div><div id="farmRankingList"></div></div></div>
-  <div id="farmViewManage" class="farm-view">
+
+  <div id="farmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2><span class="badge">承認済み合計</span></div><div id="farmItemGrid" class="farm-grid"></div></div></div>
+  <div id="farmViewStaff" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別Farm実績</h2><span class="badge">承認済み</span></div><div id="farmStaffGrid" class="farm-staff-grid"></div></div></div>
+  <div id="farmViewRanking" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">承認済み採取数</span></div><div id="farmRankingList"></div></div></div>
+
+  <div id="farmViewRequests" class="farm-view">
     <div class="dashboard-panel">
-      <div class="dashboard-title"><div><h2>Farmデータ入力</h2><p>スタッフごとの採取数・査定・支給金額をSupabaseへ保存します。</p></div><button class="btn" onclick="addFarmStaffRow()">＋スタッフ追加</button></div>
-      <div id="farmManageRows" class="farm-manage-rows"></div>
-      <div class="sheet-note">従業員番号はログインIDとして使用されます。パスワードは6文字以上で設定してください。</div><div class="modal-actions"><button class="btn primary" onclick="saveFarmManageData()">この期間を保存</button></div>
+      <div class="dashboard-title">
+        <div><h2>従業員からのFarm申請</h2><p>採取内容を確認して承認・却下します。承認後にランキングへ反映されます。</p></div>
+        <div class="request-filter-tools">
+          <select id="farmRequestStatusFilter" onchange="renderFarmRequestsAdmin()">
+            <option value="pending">確認待ち</option>
+            <option value="">すべて</option>
+            <option value="approved">承認済み</option>
+            <option value="rejected">却下</option>
+          </select>
+          <input id="farmRequestSearch" placeholder="従業員名・品目で検索" oninput="renderFarmRequestsAdmin()">
+        </div>
+      </div>
+      <div id="farmAdminRequestList" class="approval-request-list"></div>
+    </div>
+  </div>
+
+  <div id="farmViewItemsmanage" class="farm-view">
+    <div class="dashboard-panel">
+      <div class="dashboard-title">
+        <div><h2>Farm品目設定</h2><p>従業員が入力する品目と、1個あたりの査定額を設定します。</p></div>
+        <button class="btn" onclick="addFarmItemSettingRow()">＋品目追加</button>
+      </div>
+      <div class="site-spreadsheet-wrap">
+        <table class="site-spreadsheet">
+          <thead><tr><th>#</th><th>品目名</th><th>1個あたり査定</th><th>並び順</th><th>有効</th><th>操作</th></tr></thead>
+          <tbody id="farmItemSettingsBody"></tbody>
+        </table>
+      </div>
+      <div class="modal-actions"><button class="btn primary" onclick="saveFarmItemSettings()">品目設定を保存</button></div>
     </div>
   </div>
 </section>
@@ -7016,49 +7171,119 @@ body.dark .job-calculation-box{
           <div class="ranking-layout"><div class="dashboard-panel podium-panel"><div class="dashboard-title"><h2>🏆 Top 3</h2><span class="badge">勤務時間</span></div><div id="employeeRankingPodium" class="podium"></div></div><div class="dashboard-panel"><div class="dashboard-title"><h2>全スタッフ</h2></div><div id="employeeRankingList" class="ranking-list"></div></div></div>
         </section>
 
-        <section id="employee-page-inventory" class="employee-page">
-          <div class="page-hero compact inventory-hero"><div><span class="eyebrow">GOOGLE SHEETS</span><h1>在庫表</h1><p>Lait Divin Portalで材料在庫を確認できます。</p><div class="inventory-live-status">
-              <i id="employeeInventorySyncDot"></i>
-              <span id="employeeInventorySyncStatus">同期待機中</span>
-            </div>
-          </div>
-          <div class="inventory-actions">
-            <button class="btn primary" id="employeeInventorySyncButton" onclick="syncEmployeeInventoryFromGoogleSheet(true)">Google Sheets同期</button>
-            <button class="btn" onclick="loadInventorySnapshot(true)">表示を再読込</button>
-          </div>
-        </div>
-          <div class="inventory-overview"><div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="employeeInventoryItems">0</div><div class="metric-sub">管理材料数</div></div><div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="employeeInventoryLow">0</div><div class="metric-sub">在庫注意</div></div><div class="metric-card"><div class="metric-label">LAST CHECK</div><div class="metric-value small" id="employeeInventoryUpdated">未読込</div><div class="metric-sub">表示更新時刻</div></div></div>
-          <div class="dashboard-panel"><div class="dashboard-title"><h2>材料在庫</h2><span class="badge">閲覧専用</span></div><div id="employeeInventoryGrid" class="inventory-grid"></div></div>
-        </section>
-
         
-        <section id="employee-page-farm" class="employee-page">
-          <div class="page-hero compact inventory-hero"><div><span class="eyebrow">GOOGLE SHEETS FARM</span><h1>Farm</h1><p>Google Sheetsから最新の採取量・ランキングを同期して確認できます。</p><div class="farm-live-status"><i id="employeeFarmSyncDot"></i><span id="employeeFarmSyncStatus">同期待機中</span></div></div><div class="inventory-actions"><button class="btn primary" id="employeeFarmSyncButton" onclick="syncEmployeeFarmFromGoogleSheet(true)">Google Sheets同期</button><button class="btn" onclick="loadFarmData(true)">表示を再読込</button></div></div>
-          <div class="farm-period-card">
-            <div><span>集計期間</span><strong id="employeeFarmPeriodLabel">7月27日〜8月2日</strong><span id="employeeFarmSheetLabel">Supabase Farm Database</span></div>
-            <select id="employeeFarmPeriodSelect" onchange="changeEmployeeFarmPeriod(this.value)"><option>読込中</option></select>
-          </div>
-          <div class="farm-summary">
-            <div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="employeeFarmGrandTotal">0</div><div class="metric-sub">選択期間の総採取数</div></div>
-            <div class="metric-card"><div class="metric-label">TOP FARM</div><div class="metric-value small" id="employeeFarmTopStaff">-</div><div class="metric-sub">採取数ランキング1位</div></div>
-            <div class="metric-card"><div class="metric-label">TOTAL ASSESSMENT</div><div class="metric-value small" id="employeeFarmTotalAssessment">0</div><div class="metric-sub">選択期間の査定合計</div></div>
-            <div class="metric-card"><div class="metric-label">TOTAL PAYMENT</div><div class="metric-value small" id="employeeFarmTotalPayment">¥0</div><div class="metric-sub">選択期間の支給金額</div></div>
-          </div>
-          <div class="farm-personal-summary">
-            <div><span>MY FARM</span><strong id="employeeMyFarm">0</strong><small>自分の採取数</small></div>
-            <div><span>MY RANK</span><strong id="employeeMyFarmRank">-</strong><small>自分の順位</small></div>
-          </div>
-          <div class="farm-tabs">
-            <button class="active" data-employee-farm-tab="items" onclick="setEmployeeFarmTab('items')">品目別採取数</button>
-            <button data-employee-farm-tab="staff" onclick="setEmployeeFarmTab('staff')">スタッフ別採取数</button>
-            <button data-employee-farm-tab="ranking" onclick="setEmployeeFarmTab('ranking')">Farmランキング</button>
-          </div>
-          <div id="employeeFarmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取数</h2><span class="badge">期間合計</span></div><div id="employeeFarmItemGrid" class="farm-grid"></div></div></div>
-          <div id="employeeFarmViewStaff" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別採取数</h2><span class="badge">採取・査定・支給</span></div><div id="employeeFarmStaffGrid" class="farm-staff-grid"></div></div></div>
-          <div id="employeeFarmViewRanking" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">選択期間</span></div><div id="employeeFarmRankingList"></div></div></div>
-          </section>
+<section id="employee-page-inventory" class="employee-page">
+  <div class="page-hero compact inventory-hero">
+    <div>
+      <span class="eyebrow">INVENTORY COUNT</span>
+      <h1>在庫確認・申請</h1>
+      <p>材料の現在数を入力して管理者へ申請します。承認後に在庫表へ反映されます。</p>
+      <div class="inventory-live-status"><i id="employeeInventorySyncDot" class="ok"></i><span id="employeeInventorySyncStatus">サイト内データベース接続中</span></div>
+    </div>
+    <div class="inventory-actions">
+      <button class="btn" onclick="loadInventorySnapshot(true)">最新情報</button>
+      <button class="btn primary" onclick="submitInventoryCountRequest()">入力内容を申請</button>
+    </div>
+  </div>
 
-        
+  <div class="inventory-overview">
+    <div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="employeeInventoryItems">0</div><div class="metric-sub">管理材料数</div></div>
+    <div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="employeeInventoryLow">0</div><div class="metric-sub">在庫注意</div></div>
+    <div class="metric-card"><div class="metric-label">MY PENDING</div><div class="metric-value" id="employeeInventoryPending">0</div><div class="metric-sub">確認待ち申請</div></div>
+    <div class="metric-card"><div class="metric-label">LAST CHECK</div><div class="metric-value small" id="employeeInventoryUpdated">未読込</div><div class="metric-sub">表示更新時刻</div></div>
+  </div>
+
+  <div class="employee-site-tabs">
+    <button class="active" data-employee-inventory-tab="count" onclick="setEmployeeInventoryTab('count')">在庫を数えて申請</button>
+    <button data-employee-inventory-tab="view" onclick="setEmployeeInventoryTab('view')">現在の在庫</button>
+    <button data-employee-inventory-tab="history" onclick="setEmployeeInventoryTab('history')">申請履歴</button>
+  </div>
+
+  <div id="employeeInventoryViewCount" class="employee-site-view active">
+    <div class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>在庫確認シート</h2><p>確認した材料だけ入力してください。空欄の材料は変更されません。</p></div></div>
+      <div class="site-spreadsheet-wrap">
+        <table class="site-spreadsheet">
+          <thead><tr><th>材料</th><th>現在の登録数</th><th>確認した現在数</th><th>差</th></tr></thead>
+          <tbody id="employeeInventoryCountBody"></tbody>
+        </table>
+      </div>
+      <div class="field"><label>申請メモ</label><textarea id="employeeInventoryRequestNote" maxlength="500" placeholder="例：閉店後に倉庫を確認しました。"></textarea></div>
+      <button class="btn primary full" onclick="submitInventoryCountRequest()">管理者へ申請する</button>
+    </div>
+  </div>
+
+  <div id="employeeInventoryViewView" class="employee-site-view">
+    <div class="dashboard-panel"><div class="dashboard-title"><h2>現在の材料在庫</h2><span class="badge">承認済みデータ</span></div><div id="employeeInventoryGrid" class="inventory-grid"></div></div>
+  </div>
+
+  <div id="employeeInventoryViewHistory" class="employee-site-view">
+    <div class="dashboard-panel"><div class="dashboard-title"><h2>自分の在庫申請履歴</h2><button class="btn" onclick="loadInventoryRequests(true)">更新</button></div><div id="employeeInventoryRequestHistory" class="approval-request-list"></div></div>
+  </div>
+</section>
+
+
+<section id="employee-page-farm" class="employee-page">
+  <div class="page-hero compact inventory-hero">
+    <div>
+      <span class="eyebrow">FARM ENTRY REQUEST</span>
+      <h1>Farm入力・申請</h1>
+      <p>自分の採取数を入力すると合計と査定額を自動計算します。管理者承認後に反映されます。</p>
+      <div class="farm-live-status"><i id="employeeFarmSyncDot" class="ok"></i><span id="employeeFarmSyncStatus">サイト内データベース接続中</span></div>
+    </div>
+    <div class="inventory-actions"><button class="btn" onclick="loadFarmData(true)">最新情報</button><button class="btn primary" onclick="submitFarmRequest()">入力内容を申請</button></div>
+  </div>
+
+  <div class="farm-period-card">
+    <div><span>申請する集計期間</span><strong id="employeeFarmPeriodLabel">期間を読み込み中</strong><span id="employeeFarmSheetLabel">Site Farm Database</span></div>
+    <select id="employeeFarmPeriodSelect" onchange="changeEmployeeFarmPeriod(this.value)"><option>読込中</option></select>
+  </div>
+
+  <div class="farm-summary">
+    <div class="metric-card"><div class="metric-label">MY APPROVED</div><div class="metric-value" id="employeeMyFarm">0</div><div class="metric-sub">承認済み採取数</div></div>
+    <div class="metric-card"><div class="metric-label">MY RANK</div><div class="metric-value" id="employeeMyFarmRank">-</div><div class="metric-sub">承認済み順位</div></div>
+    <div class="metric-card warning"><div class="metric-label">MY PENDING</div><div class="metric-value" id="employeeFarmPending">0</div><div class="metric-sub">確認待ち申請</div></div>
+    <div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="employeeFarmGrandTotal">0</div><div class="metric-sub">全員の承認済み合計</div></div>
+    <div class="metric-card hidden"><div id="employeeFarmTopStaff"></div><div id="employeeFarmTotalAssessment"></div><div id="employeeFarmTotalPayment"></div></div>
+  </div>
+
+  <div class="employee-site-tabs">
+    <button class="active" data-employee-farm-main-tab="entry" onclick="setEmployeeFarmMainTab('entry')">採取数を入力</button>
+    <button data-employee-farm-main-tab="results" onclick="setEmployeeFarmMainTab('results')">承認済み実績</button>
+    <button data-employee-farm-main-tab="history" onclick="setEmployeeFarmMainTab('history')">申請履歴</button>
+  </div>
+
+  <div id="employeeFarmMainViewEntry" class="employee-site-view active">
+    <div class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>Farm入力シート</h2><p>各品目の採取数を入力すると、自動で合計と査定額を計算します。</p></div></div>
+      <div class="site-spreadsheet-wrap">
+        <table class="site-spreadsheet">
+          <thead><tr><th>品目</th><th>採取数</th><th>1個あたり査定</th><th>小計</th></tr></thead>
+          <tbody id="employeeFarmEntryBody"></tbody>
+          <tfoot><tr><th>合計</th><th id="employeeFarmEntryTotal">0個</th><th></th><th id="employeeFarmEntryAssessment">¥0</th></tr></tfoot>
+        </table>
+      </div>
+      <div class="field"><label>申請メモ</label><textarea id="employeeFarmRequestNote" maxlength="500" placeholder="例：北Farmで採取しました。"></textarea></div>
+      <button class="btn primary full" onclick="submitFarmRequest()">管理者へ申請する</button>
+    </div>
+  </div>
+
+  <div id="employeeFarmMainViewResults" class="employee-site-view">
+    <div class="farm-tabs compact-tabs">
+      <button class="active" data-employee-farm-tab="items" onclick="setEmployeeFarmTab('items')">品目別</button>
+      <button data-employee-farm-tab="staff" onclick="setEmployeeFarmTab('staff')">スタッフ別</button>
+      <button data-employee-farm-tab="ranking" onclick="setEmployeeFarmTab('ranking')">ランキング</button>
+    </div>
+    <div id="employeeFarmViewItems" class="farm-view active"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取数</h2><span class="badge">承認済み</span></div><div id="employeeFarmItemGrid" class="farm-grid"></div></div></div>
+    <div id="employeeFarmViewStaff" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別採取数</h2><span class="badge">承認済み</span></div><div id="employeeFarmStaffGrid" class="farm-staff-grid"></div></div></div>
+    <div id="employeeFarmViewRanking" class="farm-view"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">選択期間</span></div><div id="employeeFarmRankingList"></div></div></div>
+  </div>
+
+  <div id="employeeFarmMainViewHistory" class="employee-site-view">
+    <div class="dashboard-panel"><div class="dashboard-title"><h2>自分のFarm申請履歴</h2><button class="btn" onclick="loadFarmRequests(true)">更新</button></div><div id="employeeFarmRequestHistory" class="approval-request-list"></div></div>
+  </div>
+</section>
+
 <section id="employee-page-campaigns" class="employee-page">
   <div class="page-hero compact"><div><span class="eyebrow">EVENT & CAMPAIGN</span><h1>開催中のイベント</h1><p>Lait Divinの期間限定商品やキャンペーン情報を確認できます。</p></div><button class="btn" onclick="loadCampaigns(true)">↻ 更新</button></div>
   <div id="campaignEmployeeList" class="campaign-employee-grid"><div class="campaign-empty">イベントを読み込んでいます。</div></div>
@@ -7687,6 +7912,8 @@ function subscribeRealtime(mode){
     .on('postgres_changes',{event:'*',schema:'public',table:'job_account_transactions'},()=>loadJobAccountData(false))
     .on('postgres_changes',{event:'*',schema:'public',table:'job_account_settings'},()=>loadJobAccountData(false))
     .on('postgres_changes',{event:'*',schema:'public',table:'expense_requests'},()=>loadExpenseRequests(false))
+    .on('postgres_changes',{event:'*',schema:'public',table:'inventory_count_requests'},()=>loadInventoryRequests(false))
+    .on('postgres_changes',{event:'*',schema:'public',table:'farm_submission_requests'},()=>loadFarmRequests(false))
     .on('postgres_changes',{event:'*',schema:'public',table:'payslips'},()=>refreshTable('payslips'))
     .on('postgres_changes',{event:'*',schema:'public',table:'profiles'},()=>refreshTable('profiles'))
     .on('postgres_changes',{event:'*',schema:'public',table:'online_presence'},()=>loadOnlinePresence(false))
@@ -7715,7 +7942,7 @@ function employeeGoPage(page){closeMobileMenu();
   if(page==='profile')loadMyProfileForm();
   if(page==='online')loadOnlinePresence(true);
   if(page==='community')loadCommunityProfiles(false);
-  if(page==='notifications')loadNotifications(false);if(page==='expenses')loadExpenseRequests(false);if(page==='campaigns')loadCampaigns(false);
+  if(page==='notifications')loadNotifications(false);if(page==='expenses')loadExpenseRequests(false);if(page==='inventory')loadInventoryRequests(false);if(page==='farm')loadFarmRequests(false);if(page==='campaigns')loadCampaigns(false);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function employeeRankingRows(){
@@ -7836,7 +8063,7 @@ function renderEmployeeInventory(items){
 }
 async function loadEmployeeInventory(){await loadInventorySnapshot()}
 
-function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='job-account')loadJobAccountData(false);if(n==='expenses')loadExpenseRequests(false);if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='campaigns')loadCampaigns(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
+function goPage(n){closeMobileMenu();document.querySelectorAll('#adminApp .page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===n));document.querySelectorAll('[data-mobile-admin]').forEach(x=>x.classList.toggle('active',x.dataset.mobileAdmin===n));$('page-'+n).classList.add('active');if(n==='dashboard')renderDashboard();if(n==='sales')renderSalesPage();if(n==='job-account')loadJobAccountData(false);if(n==='expenses')loadExpenseRequests(false);if(n==='inventory')loadInventoryRequests(false);if(n==='farm')loadFarmRequests(false);if(n==='ranking')renderRanking();if(n==='inventory')loadInventorySnapshot(false);if(n==='farm')loadFarmData();if(n==='employees')renderEmployees();if(n==='online')loadOnlinePresence(true);if(n==='community')loadCommunityProfiles(false);if(n==='notifications')loadNotifications(false);if(n==='campaigns')loadCampaigns(false);if(n==='audit')loadAuditLogs(false);if(n==='discord-report')renderDiscordReportPreview();if(n==='attendance')renderAttendance();if(n==='history')renderHistory();window.scrollTo({top:0,behavior:'smooth'})}
 
 function startOfMonthISO(){
   const d=new Date();return iso(new Date(d.getFullYear(),d.getMonth(),1));
@@ -8822,63 +9049,8 @@ function setEmployeeInventorySyncStatus(state,text){
 }
 
 async function syncEmployeeInventoryFromGoogleSheet(show=true){
-  if(window.__employeeInventorySyncRunning)return;
-
-  window.__employeeInventorySyncRunning=true;
-  setEmployeeInventorySyncStatus('syncing','Google Sheetsから同期中…');
-
-  try{
-    const {data:{session}}=await sb.auth.getSession();
-    const {data,error}=await sb.functions.invoke('sync-inventory-sheet',{
-      body:{},
-      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
-    });
-
-    if(error){
-      let detail=error.message||String(error);
-
-      try{
-        if(error.context){
-          const payload=await error.context.clone().json();
-          detail=payload?.error||payload?.details||JSON.stringify(payload);
-        }
-      }catch(_){}
-
-      throw new Error(detail);
-    }
-
-    if(!data?.ok){
-      throw new Error(data?.error||data?.details||'同期に失敗しました');
-    }
-
-    await loadInventorySnapshot(false);
-
-    const now=new Date().toLocaleTimeString('ja-JP',{
-      hour:'2-digit',
-      minute:'2-digit'
-    });
-
-    setEmployeeInventorySyncStatus(
-      'ok',
-      `${now} 同期完了・${data.item_count||0}品目`
-    );
-
-    if(show)toast('在庫表を即時反映しました');
-  }catch(err){
-    console.error('Employee Inventory sync error',err);
-    const message=err?.message||String(err);
-
-    setEmployeeInventorySyncStatus('error',`同期失敗：${message}`);
-
-    if(show){
-      alert(
-        '在庫表の同期に失敗しました。\n\n'+message+
-        '\n\nEdge Function「sync-inventory-sheet」をVer.13.7へ更新してください。'
-      );
-    }
-  }finally{
-    window.__employeeInventorySyncRunning=false;
-  }
+  await Promise.all([loadInventorySnapshot(show),loadInventoryRequests(false)]);
+  setEmployeeInventorySyncStatus('ok','サイト内データベース更新済み');
 }
 
 function setInventorySyncStatus(state,text){
@@ -8888,55 +9060,24 @@ function setInventorySyncStatus(state,text){
   if(button)button.disabled=state==='syncing';
 }
 async function syncInventoryFromGoogleSheet(show=true){
-  if(appMode!=='admin'){await loadInventorySnapshot(show);return}
-  if(window.__inventorySyncRunning)return;
-  window.__inventorySyncRunning=true;
-  setInventorySyncStatus('syncing','Google Sheetsから同期中…');
-  try{
-    const {data:{session}}=await sb.auth.getSession();
-    const {data,error}=await sb.functions.invoke('sync-inventory-sheet',{body:{},headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{}});
-    if(error){
-      let detail=error.message||String(error);
-      try{
-        if(error.context){
-          const payload=await error.context.clone().json();
-          detail=payload?.error||payload?.details||JSON.stringify(payload);
-        }
-      }catch(_){}
-      throw new Error(detail);
-    }
-    if(!data?.ok)throw new Error(data?.error||'同期に失敗しました');
-    await loadInventorySnapshot(false);
-    const now=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-    setInventorySyncStatus('ok',`${now} 同期完了・${data.item_count||0}品目`);
-    window.__inventorySyncEnabled=true;
-    if(show)toast('在庫表を即時反映しました');
-  }catch(err){
-    console.error('Inventory sync error',err);
-    const message=err?.message||String(err);
-    setInventorySyncStatus('error',`同期失敗：${message}`);
-    window.__inventorySyncEnabled=false;
-    if(show)alert(
-      '在庫表の同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・sync-inventory-sheetをDeploy済み\n・在庫表がリンク閲覧可\n・Ver.13.7のSQLを実行済み'
-    );
-  }finally{
-    window.__inventorySyncRunning=false;
-  }
+  await Promise.all([loadInventorySnapshot(show),loadInventoryRequests(false)]);
+  setInventorySyncStatus('ok','サイト内データベース更新済み');
 }
 
 async function loadInventorySnapshot(show=false){
   try{
     const {data,error}=await sb.from('inventory_items')
-      .select('name,min_stock,stock,status,sort_order,updated_at')
+      .select('id,name,min_stock,stock,status,sort_order,updated_at')
       .order('sort_order')
       .order('name');
     if(error)throw error;
     inventorySnapshot=(data||[]).map(x=>({
+      id:x.id,
       name:x.name,
       min:Number(x.min_stock)||0,
       stock:Number(x.stock)||0,
-      status:x.status||''
+      status:x.status||'',
+      sort_order:Number(x.sort_order)||0
     }));
     if(!inventorySnapshot.length)inventorySnapshot=inventoryFallback.map(x=>({...x}));
     renderInventory(inventorySnapshot);
@@ -9202,9 +9343,12 @@ restoreSession();
 
 /* ===== Ver.6 Supabase Farm Module ===== */
 let farmPeriods=[],farmItems=[],farmData={period:null,items:[],staff:[]},currentFarmPeriod=null;
+let inventoryCountRequests=[];
+let farmSubmissionRequests=[];
+let inventorySpreadsheetRows=[];
 function farmN(v){return Number(v)||0} function farmNorm(v){return String(v||'').replace(/[\s　]/g,'').toLowerCase()}
 async function loadFarmPeriods(){const {data,error}=await sb.from('farm_periods').select('*').order('start_date',{ascending:false});if(error)throw error;farmPeriods=data||[];if((!currentFarmPeriod||!farmPeriods.some(x=>String(x.id)===String(currentFarmPeriod)))&&farmPeriods.length)currentFarmPeriod=(farmPeriods.find(x=>x.is_active)||farmPeriods[0]).id;renderFarmPeriodOptions()}
-function renderFarmPeriodOptions(){const opts=farmPeriods.length?farmPeriods.map(p=>`<option value="${p.id}">${esc(p.label)}${p.is_active?'（最新）':''}</option>`).join(''):'<option value="">期間なし</option>';[$('farmPeriodSelect'),$('employeeFarmPeriodSelect')].forEach(x=>{if(x){x.innerHTML=opts;x.value=currentFarmPeriod||''}});const p=farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod));const label=p?.label||'期間を追加してください';if($('farmPeriodLabel'))$('farmPeriodLabel').textContent=label;if($('employeeFarmPeriodLabel'))$('employeeFarmPeriodLabel').textContent=label;if($('farmSheetLabel'))$('farmSheetLabel').textContent=p?.sheet_name?`Google Sheets：${p.sheet_name}`:'Google Sheets未設定';if($('employeeFarmSheetLabel'))$('employeeFarmSheetLabel').textContent=p?.sheet_name?`Google Sheets：${p.sheet_name}`:'Supabase Farm Database'}
+function renderFarmPeriodOptions(){const opts=farmPeriods.length?farmPeriods.map(p=>`<option value="${p.id}">${esc(p.label)}${p.is_active?'（最新）':''}</option>`).join(''):'<option value="">期間なし</option>';[$('farmPeriodSelect'),$('employeeFarmPeriodSelect')].forEach(x=>{if(x){x.innerHTML=opts;x.value=currentFarmPeriod||''}});const p=farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod));const label=p?.label||'期間を追加してください';if($('farmPeriodLabel'))$('farmPeriodLabel').textContent=label;if($('employeeFarmPeriodLabel'))$('employeeFarmPeriodLabel').textContent=label;if($('farmSheetLabel'))$('farmSheetLabel').textContent='Site Farm Database';if($('employeeFarmSheetLabel'))$('employeeFarmSheetLabel').textContent='Site Farm Database'}
 
 
 function setEmployeeFarmSyncStatus(state,text){
@@ -9217,65 +9361,8 @@ function setEmployeeFarmSyncStatus(state,text){
 }
 
 async function syncEmployeeFarmFromGoogleSheet(show=true){
-  if(!currentFarmPeriod){
-    if(show)alert('同期する集計期間を選択してください。');
-    return;
-  }
-  if(window.__employeeFarmSyncRunning)return;
-
-  window.__employeeFarmSyncRunning=true;
-  setEmployeeFarmSyncStatus('syncing','Google Sheetsから同期中…');
-
-  try{
-    const {data:{session}}=await sb.auth.getSession();
-    const {data,error}=await sb.functions.invoke('sync-farm-sheet',{
-      body:{period_id:Number(currentFarmPeriod)},
-      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
-    });
-
-    if(error){
-      let detail=error.message||String(error);
-      try{
-        if(error.context){
-          const payload=await error.context.clone().json();
-          detail=payload?.error||payload?.details||JSON.stringify(payload);
-        }
-      }catch(_){}
-      throw new Error(detail);
-    }
-
-    if(!data?.ok){
-      throw new Error(data?.error||data?.details||'同期に失敗しました');
-    }
-
-    await loadFarmData(false);
-
-    const now=new Date().toLocaleTimeString('ja-JP',{
-      hour:'2-digit',
-      minute:'2-digit'
-    });
-
-    setEmployeeFarmSyncStatus(
-      'ok',
-      `${now} 同期完了・${data.staff_count||0}名・${data.entry_count||0}件`
-    );
-
-    if(show)toast('Google Sheetsを即時反映しました');
-  }catch(err){
-    console.error('Employee Farm sync error',err);
-    const message=err?.message||String(err);
-
-    setEmployeeFarmSyncStatus('error',`同期失敗：${message}`);
-
-    if(show){
-      alert(
-        'Google Sheets同期に失敗しました。\n\n'+message+
-        '\n\nEdge FunctionをVer.13.7へ更新してください。'
-      );
-    }
-  }finally{
-    window.__employeeFarmSyncRunning=false;
-  }
+  await Promise.all([loadFarmData(show),loadFarmRequests(false)]);
+  setEmployeeFarmSyncStatus('ok','サイト内データベース更新済み');
 }
 
 function setFarmSyncStatus(state,text){
@@ -9285,49 +9372,11 @@ function setFarmSyncStatus(state,text){
   if(button)button.disabled=state==='syncing';
 }
 async function syncFarmFromGoogleSheet(show=true){
-  if(appMode!=='admin'){await loadFarmData(show);return}
-  if(!currentFarmPeriod){if(show)alert('同期する集計期間を選択してください。');return}
-  if(window.__farmSyncRunning)return;
-  window.__farmSyncRunning=true;
-  setFarmSyncStatus('syncing','Google Sheetsから同期中…');
-  try{
-    const {data:{session}}=await sb.auth.getSession();
-    const {data,error}=await sb.functions.invoke('sync-farm-sheet',{
-      body:{period_id:Number(currentFarmPeriod)},
-      headers:session?.access_token?{Authorization:`Bearer ${session.access_token}`}:{ }
-    });
-    if(error){
-      let detail=error.message||String(error);
-      try{
-        if(error.context){
-          const cloned=error.context.clone();
-          const payload=await cloned.json();
-          detail=payload?.error||payload?.details||JSON.stringify(payload);
-        }
-      }catch(_){}
-      throw new Error(detail);
-    }
-    if(!data?.ok)throw new Error(data?.error||data?.details||'同期に失敗しました');
-    await loadFarmData(false);
-    const now=new Date().toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-    setFarmSyncStatus('ok',`${now} 同期完了・${data.staff_count||0}名・${data.entry_count||0}件`);
-    window.__farmSyncEnabled=true;
-    if(show)toast('Google Sheetsを即時反映しました');
-  }catch(err){
-    console.error('Farm sync error',err);
-    const message=err?.message||String(err);
-    setFarmSyncStatus('error',`同期失敗：${message}`);
-    window.__farmSyncEnabled=false;
-    if(show)alert(
-      'Google Sheets同期に失敗しました。\n\n'+message+
-      '\n\n確認項目：\n・Google Sheetsが「リンクを知っている全員が閲覧可」\n・集計期間のシート名が正しい\n・Edge FunctionをVer.13.7へ更新済み'
-    );
-  }finally{
-    window.__farmSyncRunning=false;
-  }
+  await Promise.all([loadFarmData(show),loadFarmRequests(false)]);
+  setFarmSyncStatus('ok','サイト内データベース更新済み');
 }
 
-async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.13.7完全SQLをSupabaseで実行してください。\n'+err.message)}}
+async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');renderFarmEntrySheet?.();renderFarmItemSettings?.();if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.13.7完全SQLをSupabaseで実行してください。\n'+err.message)}}
 function renderFarm(d){const grand=d.items.reduce((s,x)=>s+farmN(x.total),0),rank=[...d.staff].sort((a,b)=>b.total-a.total),ass=d.staff.reduce((s,x)=>s+farmN(x.assessment),0),pay=d.staff.reduce((s,x)=>s+farmN(x.payment),0);renderFarmPeriodOptions();if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');if($('farmTopStaff'))$('farmTopStaff').textContent=rank[0]?.name||'-';if($('farmTotalAssessment'))$('farmTotalAssessment').textContent=ass.toLocaleString('ja-JP',{maximumFractionDigits:1});if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(pay);if($('farmItemGrid'))$('farmItemGrid').innerHTML=d.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${farmN(x.total).toLocaleString('ja-JP')}</div><div class="farm-average">期間合計</div></article>`).join('')||'<div class="farm-empty">品目なし</div>';if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=rank.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${farmN(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>記録なし</span>'}</div><div class="sheet-note">査定 ${x.assessment.toLocaleString('ja-JP')} ／ ${yen.format(x.payment)}</div></article>`).join('')||'<div class="farm-empty">スタッフなし</div>';if($('farmRankingList'))$('farmRankingList').innerHTML=rank.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div>${rankingAvatar(x)}<div><strong>${esc(rankingDisplayName(x))}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('')||'<div class="farm-empty">ランキングなし</div>';renderFarmManage();renderEmployeeFarm(d)}
 function renderEmployeeFarm(d){
   const grand=d.items.reduce((s,x)=>s+farmN(x.total),0);
@@ -10355,7 +10404,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.0.3 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.0 Error Fix Build</div>
 
 <script>
 (function(){
@@ -10693,6 +10742,357 @@ async function reviewExpenseRequest(id,status){
     toast(`経費申請を${verb}しました`);
   }catch(error){alert(`経費申請を${verb}できませんでした：`+error.message)}
 }
+
+
+
+/* ===== Ver.18.1 Site Inventory & Farm Approval Module ===== */
+function requestStatusLabel(status){return ({pending:'確認待ち',approved:'承認済み',rejected:'却下'})[status]||status||'確認待ち'}
+function requestDate(value){return value?new Date(value).toLocaleString('ja-JP'):'-'}
+
+function setInventoryAdminTab(tab){
+  document.querySelectorAll('[data-inventory-admin-tab]').forEach(b=>b.classList.toggle('active',b.dataset.inventoryAdminTab===tab));
+  document.querySelectorAll('#page-inventory .site-db-view').forEach(v=>v.classList.remove('active'));
+  $('inventoryAdminView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');
+  if(tab==='requests')loadInventoryRequests(false);
+}
+function setEmployeeInventoryTab(tab){
+  document.querySelectorAll('[data-employee-inventory-tab]').forEach(b=>b.classList.toggle('active',b.dataset.employeeInventoryTab===tab));
+  document.querySelectorAll('#employee-page-inventory .employee-site-view').forEach(v=>v.classList.remove('active'));
+  $('employeeInventoryView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');
+  if(tab==='history')loadInventoryRequests(false);
+}
+function setEmployeeFarmMainTab(tab){
+  document.querySelectorAll('[data-employee-farm-main-tab]').forEach(b=>b.classList.toggle('active',b.dataset.employeeFarmMainTab===tab));
+  document.querySelectorAll('#employee-page-farm>.employee-site-view').forEach(v=>v.classList.remove('active'));
+  $('employeeFarmMainView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');
+  if(tab==='history')loadFarmRequests(false);
+}
+
+function renderInventorySpreadsheet(){
+  const body=$('inventorySpreadsheetBody');if(!body)return;
+  const q=($('inventoryTableSearch')?.value||'').trim().toLowerCase();
+  const filter=$('inventoryTableFilter')?.value||'';
+  const rows=(inventorySpreadsheetRows.length?inventorySpreadsheetRows:inventorySnapshot.map((x,i)=>({
+    id:x.id||null,name:x.name,stock:x.stock,min_stock:x.min,status:x.status||'',sort_order:x.sort_order??i+1
+  }))).filter(x=>(!q||String(x.name).toLowerCase().includes(q))&&(!filter||(filter==='low'&&Number(x.stock)<Number(x.min_stock))));
+  body.innerHTML=rows.length?rows.map((x,i)=>{
+    const low=Number(x.stock)<Number(x.min_stock);
+    return `<tr data-inventory-sheet-id="${x.id??''}" data-inventory-original-name="${esc(x.name)}">
+      <td>${i+1}</td>
+      <td><input class="inv-sheet-name" value="${esc(x.name)}" maxlength="80"></td>
+      <td><input class="inv-sheet-stock" type="number" min="0" step="1" value="${Number(x.stock)||0}"></td>
+      <td><input class="inv-sheet-min" type="number" min="0" step="1" value="${Number(x.min_stock)||0}"></td>
+      <td><span class="spreadsheet-status ${low?'low':''}">${low?'要補充':'在庫OK'}</span></td>
+      <td><input class="inv-sheet-sort" type="number" min="0" step="1" value="${Number(x.sort_order)||i+1}"></td>
+      <td><button class="btn danger" onclick="deleteInventoryItemRow(this)">削除</button></td>
+    </tr>`;
+  }).join(''):'<tr><td colspan="7">材料がありません。</td></tr>';
+}
+function addInventoryItemRow(){
+  inventorySpreadsheetRows.push({id:null,name:'新しい材料',stock:0,min_stock:0,status:'',sort_order:inventorySpreadsheetRows.length+1});
+  renderInventorySpreadsheet();
+  setInventoryAdminTab('sheet');
+}
+async function deleteInventoryItemRow(button){
+  const row=button.closest('tr'),id=row?.dataset.inventorySheetId,name=row?.dataset.inventoryOriginalName||'この材料';
+  if(!confirm(`「${name}」を在庫表から削除しますか？`))return;
+  if(id){
+    const {error}=await sb.from('inventory_items').delete().eq('id',id);
+    if(error)return alert('削除できませんでした：'+error.message);
+  }
+  inventorySpreadsheetRows=inventorySpreadsheetRows.filter(x=>String(x.id||'')!==String(id||'')||x.name!==name);
+  row?.remove();
+  await loadInventorySnapshot(false);
+  toast('材料を削除しました');
+}
+async function saveInventorySpreadsheet(){
+  const rows=[...document.querySelectorAll('#inventorySpreadsheetBody tr[data-inventory-sheet-id]')];
+  if(!rows.length)return alert('保存する材料がありません。');
+  const payload=rows.map((row,i)=>({
+    id:row.dataset.inventorySheetId?Number(row.dataset.inventorySheetId):undefined,
+    name:row.querySelector('.inv-sheet-name').value.trim(),
+    stock:Math.max(0,Math.round(Number(row.querySelector('.inv-sheet-stock').value)||0)),
+    min_stock:Math.max(0,Math.round(Number(row.querySelector('.inv-sheet-min').value)||0)),
+    status:'',
+    sort_order:Math.max(0,Math.round(Number(row.querySelector('.inv-sheet-sort').value)||i+1)),
+    updated_at:new Date().toISOString()
+  })).filter(x=>x.name);
+  if(!payload.length)return alert('材料名を入力してください。');
+  const {error}=await sb.from('inventory_items').upsert(payload);
+  if(error)return alert('在庫表を保存できませんでした：'+error.message);
+  await loadInventorySnapshot(false);
+  await writeAudit('inventory','在庫表を一括保存',`${payload.length}品目`,'サイト内在庫表');
+  toast('在庫表を保存しました');
+}
+
+function renderEmployeeInventoryCountSheet(){
+  const body=$('employeeInventoryCountBody');if(!body)return;
+  body.innerHTML=(inventorySnapshot||[]).map(x=>`<tr data-inventory-count-name="${esc(x.name)}">
+    <td><strong>${esc(x.name)}</strong></td>
+    <td>${Number(x.stock).toLocaleString('ja-JP')}個</td>
+    <td><input class="employee-inventory-count" type="number" min="0" step="1" placeholder="確認した数" oninput="updateEmployeeInventoryDifference(this)"></td>
+    <td class="inventory-difference">－</td>
+  </tr>`).join('');
+}
+function updateEmployeeInventoryDifference(input){
+  const row=input.closest('tr'),name=row.dataset.inventoryCountName;
+  const current=inventorySnapshot.find(x=>x.name===name)?.stock||0;
+  const cell=row.querySelector('.inventory-difference');
+  if(input.value===''){cell.textContent='－';cell.className='inventory-difference';return}
+  const diff=Math.round(Number(input.value)||0)-Number(current);
+  cell.textContent=`${diff>0?'+':''}${diff}個`;
+  cell.className=`inventory-difference ${diff>0?'plus':diff<0?'minus':''}`;
+}
+async function submitInventoryCountRequest(){
+  if(!currentEmployee?.uid)return alert('従業員情報を確認できません。');
+  const entries=[...document.querySelectorAll('#employeeInventoryCountBody tr')].map(row=>{
+    const input=row.querySelector('.employee-inventory-count');
+    if(!input||input.value==='')return null;
+    const name=row.dataset.inventoryCountName,current=inventorySnapshot.find(x=>x.name===name)?.stock||0;
+    return {name,count:Math.max(0,Math.round(Number(input.value)||0)),previous:Number(current)||0};
+  }).filter(Boolean);
+  if(!entries.length)return alert('確認した材料の現在数を1つ以上入力してください。');
+  const note=$('employeeInventoryRequestNote')?.value.trim()||'';
+  if(!confirm(`${entries.length}品目の在庫確認を管理者へ申請しますか？`))return;
+  const payload={
+    employee_uid:currentEmployee.uid,employee_id:currentEmployee.id,employee_name:currentEmployee.name,
+    counts:entries,note,status:'pending',updated_at:new Date().toISOString()
+  };
+  const {error}=await sb.from('inventory_count_requests').insert(payload);
+  if(error)return alert('申請できませんでした：'+error.message);
+  document.querySelectorAll('.employee-inventory-count').forEach(x=>x.value='');
+  document.querySelectorAll('.inventory-difference').forEach(x=>{x.textContent='－';x.className='inventory-difference'});
+  if($('employeeInventoryRequestNote'))$('employeeInventoryRequestNote').value='';
+  await loadInventoryRequests(false);setEmployeeInventoryTab('history');toast('在庫確認を申請しました');
+}
+async function loadInventoryRequests(show=false){
+  if(!sb||appMode==='login')return;
+  try{
+    let query=sb.from('inventory_count_requests').select('*').order('created_at',{ascending:false});
+    if(appMode==='employee'&&currentEmployee?.uid)query=query.eq('employee_uid',currentEmployee.uid);
+    const {data,error}=await query;if(error)throw error;
+    inventoryCountRequests=(data||[]).map(x=>({...x,counts:Array.isArray(x.counts)?x.counts:[]}));
+    renderInventoryRequestsAdmin();renderInventoryRequestsEmployee();updateInventoryRequestBadges();
+    if(show)toast('在庫申請を更新しました');
+  }catch(error){console.error('Inventory request load error',error);if(show)alert('在庫申請を取得できませんでした：'+error.message)}
+}
+function updateInventoryRequestBadges(){
+  const pending=inventoryCountRequests.filter(x=>x.status==='pending').length;
+  ['inventoryRequestCount','inventoryRequestTabBadge'].forEach(id=>{if($(id))$(id).textContent=String(pending)});
+  if($('employeeInventoryPending'))$('employeeInventoryPending').textContent=String(inventoryCountRequests.filter(x=>x.status==='pending').length);
+}
+function inventoryRequestCard(x,isAdmin){
+  const counts=(x.counts||[]);
+  const detail=counts.map(c=>`<div><span>${esc(c.name)}</span><strong>${Number(c.previous||0).toLocaleString()} → ${Number(c.count||0).toLocaleString()}個</strong></div>`).join('');
+  const review=x.review_note?`<div class="approval-note">管理者コメント：${esc(x.review_note)}</div>`:'';
+  const actions=isAdmin&&x.status==='pending'?`<div class="approval-actions"><button class="btn success" onclick="reviewInventoryRequest(${x.id},'approved')">✓ 承認して反映</button><button class="btn danger" onclick="reviewInventoryRequest(${x.id},'rejected')">却下</button></div>`:'';
+  return `<article class="approval-card">
+    <div class="approval-card-head"><div><h3>${esc(x.employee_name)} <small>${esc(x.employee_id)}</small></h3><small>${requestDate(x.created_at)}</small></div><span class="approval-status ${x.status}">${requestStatusLabel(x.status)}</span></div>
+    <div class="approval-summary"><span>${counts.length}品目</span><span>申請番号 #${x.id}</span></div>
+    <div class="approval-detail-grid">${detail}</div>
+    ${x.note?`<div class="approval-note">申請メモ：${esc(x.note)}</div>`:''}${review}${actions}
+  </article>`;
+}
+function renderInventoryRequestsAdmin(){
+  const box=$('inventoryAdminRequestList');if(!box)return;
+  const status=$('inventoryRequestStatusFilter')?.value??'pending',q=($('inventoryRequestSearch')?.value||'').trim().toLowerCase();
+  const rows=inventoryCountRequests.filter(x=>(!status||x.status===status)&&(!q||`${x.employee_name} ${(x.counts||[]).map(c=>c.name).join(' ')}`.toLowerCase().includes(q)));
+  box.innerHTML=rows.length?rows.map(x=>inventoryRequestCard(x,true)).join(''):'<div class="empty">該当する申請はありません。</div>';
+}
+function renderInventoryRequestsEmployee(){
+  const box=$('employeeInventoryRequestHistory');if(!box)return;
+  box.innerHTML=inventoryCountRequests.length?inventoryCountRequests.map(x=>inventoryRequestCard(x,false)).join(''):'<div class="empty">申請履歴はありません。</div>';
+}
+async function reviewInventoryRequest(id,status){
+  const target=inventoryCountRequests.find(x=>Number(x.id)===Number(id));if(!target)return;
+  const verb=status==='approved'?'承認':'却下';
+  const note=prompt(`この在庫申請を${verb}します。\n管理者コメント（任意）`,'');if(note===null)return;
+  if(!confirm(`申請 #${id} を${verb}しますか？`))return;
+  try{
+    if(status==='approved'){
+      for(const count of target.counts||[]){
+        const {error}=await sb.from('inventory_items').update({stock:Number(count.count)||0,status:'',updated_at:new Date().toISOString()}).eq('name',count.name);
+        if(error)throw error;
+      }
+    }
+    const {error}=await sb.from('inventory_count_requests').update({
+      status,review_note:note.trim()||null,reviewed_by_uid:currentProfile?.id||null,
+      reviewed_by_name:currentProfile?.display_name||'管理者',reviewed_at:new Date().toISOString(),updated_at:new Date().toISOString()
+    }).eq('id',id).eq('status','pending');
+    if(error)throw error;
+    await Promise.all([loadInventorySnapshot(false),loadInventoryRequests(false)]);
+    await writeAudit('inventory',`在庫申請を${verb}`,`${target.employee_name} / ${target.counts.length}品目`,note||'');
+    toast(`在庫申請を${verb}しました`);
+  }catch(error){alert(`在庫申請を${verb}できませんでした：`+error.message)}
+}
+
+function renderFarmEntrySheet(){
+  const body=$('employeeFarmEntryBody');if(!body)return;
+  const active=farmItems.filter(x=>x.is_active!==false);
+  body.innerHTML=active.map(x=>`<tr data-farm-entry-item="${x.id}" data-farm-entry-name="${esc(x.name)}" data-farm-entry-rate="${farmN(x.unit_value)}">
+    <td><strong>${esc(x.name)}</strong></td>
+    <td><input class="employee-farm-entry-qty" type="number" min="0" step="1" value="0" oninput="calculateEmployeeFarmEntry()"></td>
+    <td>${yen.format(farmN(x.unit_value))}</td>
+    <td class="employee-farm-entry-subtotal">¥0</td>
+  </tr>`).join('')||'<tr><td colspan="4">管理者がFarm品目を設定してください。</td></tr>';
+  calculateEmployeeFarmEntry();
+}
+function calculateEmployeeFarmEntry(){
+  let total=0,assessment=0;
+  document.querySelectorAll('#employeeFarmEntryBody tr[data-farm-entry-item]').forEach(row=>{
+    const qty=Math.max(0,Math.round(Number(row.querySelector('.employee-farm-entry-qty').value)||0));
+    const rate=Number(row.dataset.farmEntryRate)||0,subtotal=qty*rate;
+    total+=qty;assessment+=subtotal;row.querySelector('.employee-farm-entry-subtotal').textContent=yen.format(subtotal);
+  });
+  if($('employeeFarmEntryTotal'))$('employeeFarmEntryTotal').textContent=`${total.toLocaleString()}個`;
+  if($('employeeFarmEntryAssessment'))$('employeeFarmEntryAssessment').textContent=yen.format(assessment);
+  return {total,assessment};
+}
+async function submitFarmRequest(){
+  if(!currentEmployee?.uid)return alert('従業員情報を確認できません。');
+  if(!currentFarmPeriod)return alert('申請する集計期間を選択してください。');
+  const entries=[...document.querySelectorAll('#employeeFarmEntryBody tr[data-farm-entry-item]')].map(row=>{
+    const quantity=Math.max(0,Math.round(Number(row.querySelector('.employee-farm-entry-qty').value)||0));
+    return {item_id:Number(row.dataset.farmEntryItem),name:row.dataset.farmEntryName,quantity,unit_value:Number(row.dataset.farmEntryRate)||0,subtotal:quantity*(Number(row.dataset.farmEntryRate)||0)};
+  }).filter(x=>x.quantity>0);
+  if(!entries.length)return alert('採取数を1つ以上入力してください。');
+  const total=entries.reduce((s,x)=>s+x.quantity,0),assessment=entries.reduce((s,x)=>s+x.subtotal,0);
+  const note=$('employeeFarmRequestNote')?.value.trim()||'';
+  if(!confirm(`採取数 ${total.toLocaleString()}個・査定 ${yen.format(assessment)} を申請しますか？`))return;
+  const payload={
+    period_id:Number(currentFarmPeriod),employee_uid:currentEmployee.uid,employee_id:currentEmployee.id,
+    employee_name:currentEmployee.name,entries,total_quantity:total,assessment_amount:assessment,
+    note,status:'pending',updated_at:new Date().toISOString()
+  };
+  const {error}=await sb.from('farm_submission_requests').insert(payload);
+  if(error)return alert('Farm申請を送信できませんでした：'+error.message);
+  document.querySelectorAll('.employee-farm-entry-qty').forEach(x=>x.value='0');
+  if($('employeeFarmRequestNote'))$('employeeFarmRequestNote').value='';
+  calculateEmployeeFarmEntry();await loadFarmRequests(false);setEmployeeFarmMainTab('history');toast('Farm実績を申請しました');
+}
+async function loadFarmRequests(show=false){
+  if(!sb||appMode==='login')return;
+  try{
+    let query=sb.from('farm_submission_requests').select('*').order('created_at',{ascending:false});
+    if(currentFarmPeriod)query=query.eq('period_id',Number(currentFarmPeriod));
+    if(appMode==='employee'&&currentEmployee?.uid)query=query.eq('employee_uid',currentEmployee.uid);
+    const {data,error}=await query;if(error)throw error;
+    farmSubmissionRequests=(data||[]).map(x=>({...x,entries:Array.isArray(x.entries)?x.entries:[]}));
+    renderFarmRequestsAdmin();renderFarmRequestsEmployee();updateFarmRequestBadges();
+    if(show)toast('Farm申請を更新しました');
+  }catch(error){console.error('Farm request load error',error);if(show)alert('Farm申請を取得できませんでした：'+error.message)}
+}
+function updateFarmRequestBadges(){
+  const pending=farmSubmissionRequests.filter(x=>x.status==='pending').length;
+  ['farmPendingRequestCount','farmRequestTabBadge'].forEach(id=>{if($(id))$(id).textContent=String(pending)});
+  if($('employeeFarmPending'))$('employeeFarmPending').textContent=String(farmSubmissionRequests.filter(x=>x.status==='pending').length);
+}
+function farmRequestCard(x,isAdmin){
+  const detail=(x.entries||[]).map(e=>`<div><span>${esc(e.name)}</span><strong>${Number(e.quantity).toLocaleString()}個 / ${yen.format(Number(e.subtotal)||0)}</strong></div>`).join('');
+  const review=x.review_note?`<div class="approval-note">管理者コメント：${esc(x.review_note)}</div>`:'';
+  const actions=isAdmin&&x.status==='pending'?`<div class="approval-actions"><button class="btn success" onclick="reviewFarmRequest(${x.id},'approved')">✓ 承認して反映</button><button class="btn danger" onclick="reviewFarmRequest(${x.id},'rejected')">却下</button></div>`:'';
+  return `<article class="approval-card">
+    <div class="approval-card-head"><div><h3>${esc(x.employee_name)} <small>${esc(x.employee_id)}</small></h3><small>${requestDate(x.created_at)}</small></div><span class="approval-status ${x.status}">${requestStatusLabel(x.status)}</span></div>
+    <div class="approval-summary"><span>合計 ${Number(x.total_quantity).toLocaleString()}個</span><span>査定 ${yen.format(Number(x.assessment_amount)||0)}</span><span>申請番号 #${x.id}</span></div>
+    <div class="approval-detail-grid">${detail}</div>${x.note?`<div class="approval-note">申請メモ：${esc(x.note)}</div>`:''}${review}${actions}
+  </article>`;
+}
+function renderFarmRequestsAdmin(){
+  const box=$('farmAdminRequestList');if(!box)return;
+  const status=$('farmRequestStatusFilter')?.value??'pending',q=($('farmRequestSearch')?.value||'').trim().toLowerCase();
+  const rows=farmSubmissionRequests.filter(x=>(!status||x.status===status)&&(!q||`${x.employee_name} ${(x.entries||[]).map(e=>e.name).join(' ')}`.toLowerCase().includes(q)));
+  box.innerHTML=rows.length?rows.map(x=>farmRequestCard(x,true)).join(''):'<div class="empty">該当する申請はありません。</div>';
+}
+function renderFarmRequestsEmployee(){
+  const box=$('employeeFarmRequestHistory');if(!box)return;
+  box.innerHTML=farmSubmissionRequests.length?farmSubmissionRequests.map(x=>farmRequestCard(x,false)).join(''):'<div class="empty">申請履歴はありません。</div>';
+}
+async function reviewFarmRequest(id,status){
+  const target=farmSubmissionRequests.find(x=>Number(x.id)===Number(id));if(!target)return;
+  const verb=status==='approved'?'承認':'却下';
+  const note=prompt(`このFarm申請を${verb}します。\n管理者コメント（任意）`,'');if(note===null)return;
+  if(!confirm(`申請 #${id} を${verb}しますか？`))return;
+  try{
+    if(status==='approved'){
+      for(const entry of target.entries||[]){
+        const {data:existing,error:readError}=await sb.from('farm_entries').select('quantity').eq('period_id',target.period_id).eq('staff_name',target.employee_name).eq('item_id',entry.item_id).maybeSingle();
+        if(readError)throw readError;
+        const quantity=(Number(existing?.quantity)||0)+(Number(entry.quantity)||0);
+        const {error:entryError}=await sb.from('farm_entries').upsert({period_id:target.period_id,staff_name:target.employee_name,item_id:entry.item_id,quantity},{onConflict:'period_id,staff_name,item_id'});
+        if(entryError)throw entryError;
+      }
+      const {data:currentTotal,error:totalReadError}=await sb.from('farm_staff_totals').select('assessment,payment').eq('period_id',target.period_id).eq('staff_name',target.employee_name).maybeSingle();
+      if(totalReadError)throw totalReadError;
+      const assessment=(Number(currentTotal?.assessment)||0)+(Number(target.assessment_amount)||0);
+      const payment=(Number(currentTotal?.payment)||0)+(Number(target.assessment_amount)||0);
+      const {error:totalError}=await sb.from('farm_staff_totals').upsert({period_id:target.period_id,staff_name:target.employee_name,assessment,payment},{onConflict:'period_id,staff_name'});
+      if(totalError)throw totalError;
+    }
+    const {error}=await sb.from('farm_submission_requests').update({
+      status,review_note:note.trim()||null,reviewed_by_uid:currentProfile?.id||null,
+      reviewed_by_name:currentProfile?.display_name||'管理者',reviewed_at:new Date().toISOString(),updated_at:new Date().toISOString()
+    }).eq('id',id).eq('status','pending');
+    if(error)throw error;
+    await Promise.all([loadFarmData(false),loadFarmRequests(false)]);
+    await writeAudit('farm',`Farm申請を${verb}`,`${target.employee_name} / ${target.total_quantity}個`,note||'');
+    toast(`Farm申請を${verb}しました`);
+  }catch(error){alert(`Farm申請を${verb}できませんでした：`+error.message)}
+}
+
+function renderFarmItemSettings(){
+  const body=$('farmItemSettingsBody');if(!body)return;
+  body.innerHTML=(farmItems||[]).map((x,i)=>`<tr data-farm-item-setting="${x.id||''}">
+    <td>${i+1}</td>
+    <td><input class="farm-setting-name" value="${esc(x.name)}"></td>
+    <td><input class="farm-setting-value" type="number" min="0" step="1" value="${farmN(x.unit_value)}"></td>
+    <td><input class="farm-setting-sort" type="number" min="0" step="1" value="${farmN(x.sort_order)||i+1}"></td>
+    <td><input class="farm-setting-active" type="checkbox" ${x.is_active===false?'':'checked'}></td>
+    <td><button class="btn danger" onclick="deleteFarmItemSetting(this)">削除</button></td>
+  </tr>`).join('')||'<tr><td colspan="6">品目を追加してください。</td></tr>';
+}
+function addFarmItemSettingRow(){
+  farmItems.push({id:null,name:'新しい品目',unit_value:0,sort_order:farmItems.length+1,is_active:true});
+  renderFarmItemSettings();setFarmTab('itemsmanage');
+}
+async function deleteFarmItemSetting(button){
+  const row=button.closest('tr'),id=row.dataset.farmItemSetting,name=row.querySelector('.farm-setting-name').value;
+  if(!confirm(`「${name}」を削除しますか？`))return;
+  if(id){const {error}=await sb.from('farm_items').delete().eq('id',id);if(error)return alert('削除できませんでした：'+error.message)}
+  farmItems=farmItems.filter(x=>String(x.id||'')!==String(id||'')||x.name!==name);renderFarmItemSettings();renderFarmEntrySheet();
+}
+async function saveFarmItemSettings(){
+  const rows=[...document.querySelectorAll('#farmItemSettingsBody tr[data-farm-item-setting]')];
+  const payload=rows.map((row,i)=>({
+    id:row.dataset.farmItemSetting?Number(row.dataset.farmItemSetting):undefined,
+    name:row.querySelector('.farm-setting-name').value.trim(),
+    unit_value:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-value').value)||0)),
+    sort_order:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-sort').value)||i+1)),
+    is_active:row.querySelector('.farm-setting-active').checked
+  })).filter(x=>x.name);
+  const {error}=await sb.from('farm_items').upsert(payload);if(error)return alert('品目設定を保存できませんでした：'+error.message);
+  await loadFarmData(false);toast('Farm品目設定を保存しました');
+}
+
+/* Existing rendering hooks */
+const originalLoadInventorySnapshot=loadInventorySnapshot;
+loadInventorySnapshot=async function(show=false){
+  await originalLoadInventorySnapshot(show);
+  inventorySpreadsheetRows=inventorySnapshot.map((x,i)=>({id:x.id||null,name:x.name,stock:x.stock,min_stock:x.min,status:x.status||'',sort_order:x.sort_order??i+1}));
+  renderInventorySpreadsheet();renderEmployeeInventoryCountSheet();
+};
+const originalLoadFarmData=loadFarmData;
+loadFarmData=async function(show=false){
+  await originalLoadFarmData(show);
+  renderFarmEntrySheet();renderFarmItemSettings();
+};
+const originalSetFarmTab=setFarmTab;
+setFarmTab=function(tab){
+  document.querySelectorAll('[data-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.farmTab===tab));
+  document.querySelectorAll('#page-farm .farm-view').forEach(v=>v.classList.remove('active'));
+  $('farmView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');
+  if(tab==='requests')loadFarmRequests(false);
+  if(tab==='itemsmanage')renderFarmItemSettings();
+};
 
 </script>
 
