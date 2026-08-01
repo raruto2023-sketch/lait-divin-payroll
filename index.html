@@ -6367,6 +6367,28 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver18-2-3-farm-staff-management">
+.farm-staff-manage-actions{display:flex;gap:8px;flex-wrap:wrap}
+.farm-manage-list{display:grid;gap:14px}
+.farm-manage-card{
+  padding:17px;border-radius:22px;
+  border:1px solid rgba(229,190,147,.12);
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015))
+}
+.farm-manage-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.farm-staff-name-field{flex:1;margin:0!important}
+.farm-manage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:9px}
+.farm-manage-grid label{display:grid;gap:6px;font-size:10px;color:#bca692}
+.farm-manage-money{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
+.farm-manage-money .field{margin:0!important}
+@media(max-width:700px){
+  .farm-staff-manage-actions{width:100%;display:grid;grid-template-columns:1fr}
+  .farm-manage-head{align-items:stretch;flex-direction:column}
+  .farm-manage-money{grid-template-columns:1fr}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6905,6 +6927,7 @@ body.dark .job-calculation-box{
     <button data-farm-tab="staff" onclick="setFarmTab('staff')">スタッフ別</button>
     <button data-farm-tab="ranking" onclick="setFarmTab('ranking')">ランキング</button>
     <button data-farm-tab="requests" onclick="setFarmTab('requests')">申請承認 <span id="farmRequestTabBadge">0</span></button>
+    <button data-farm-tab="staffmanage" onclick="setFarmTab('staffmanage')">従業員管理</button>
     <button data-farm-tab="itemsmanage" onclick="setFarmTab('itemsmanage')">品目設定</button>
   </div>
 
@@ -6927,6 +6950,24 @@ body.dark .job-calculation-box{
         </div>
       </div>
       <div id="farmAdminRequestList" class="approval-request-list"></div>
+    </div>
+  </div>
+
+
+  <div id="farmViewStaffmanage" class="farm-view">
+    <div class="dashboard-panel">
+      <div class="dashboard-title">
+        <div>
+          <h2>Farm従業員管理</h2>
+          <p>従業員の追加・名前変更・採取数・査定・仕入れ金額を編集できます。</p>
+        </div>
+        <div class="farm-staff-manage-actions">
+          <button class="btn" onclick="addFarmStaffRow()">＋ 従業員を追加</button>
+          <button class="btn primary" onclick="saveFarmManageData()">変更を保存</button>
+        </div>
+      </div>
+      <div id="farmManageRows" class="farm-manage-list"></div>
+      <div class="sheet-note">名前を変更した場合も、保存時に元の記録を整理して新しい名前へ反映します。</div>
     </div>
   </div>
 
@@ -8088,6 +8129,7 @@ async function realtimeRefreshCore(mode,table){
   }
 
   if(['farm_periods','farm_items','farm_entries','farm_staff_totals'].includes(table)){
+    if(farmManageDirty)captureFarmManageDraft();
     await loadFarmData(false);
     renderRanking?.();renderEmployeeRanking?.();
     return;
@@ -9848,12 +9890,177 @@ function renderEmployeeFarm(d){
 function changeFarmPeriod(v){currentFarmPeriod=v;loadFarmData()} function changeEmployeeFarmPeriod(v){currentFarmPeriod=v;loadFarmData()}
 function setFarmTab(tab){document.querySelectorAll('[data-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.farmTab===tab));document.querySelectorAll('#page-farm .farm-view').forEach(v=>v.classList.remove('active'));$('farmView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');if(tab==='manage')renderFarmManage()}
 function setEmployeeFarmTab(tab){document.querySelectorAll('[data-employee-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.employeeFarmTab===tab));document.querySelectorAll('#employee-page-farm .farm-view').forEach(v=>v.classList.remove('active'));$('employeeFarmView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active')}
-function renderFarmManage(){const box=$('farmManageRows');if(!box)return;box.innerHTML=(farmData.staff||[]).map((s,idx)=>farmManageCard(s,idx)).join('')||'<div class="farm-empty">スタッフを追加してください。</div>'}
-function farmManageCard(s,idx){return `<div class="farm-manage-card" data-farm-row="${idx}"><div class="farm-manage-head"><div class="field"><label>スタッフ名</label><input class="fm-name" value="${esc(s.name)}"></div><button class="btn danger" onclick="removeFarmStaffRow(${idx})">削除</button></div><div class="farm-manage-grid">${farmItems.map(it=>`<label>${esc(it.name)}<input class="fm-q" data-item="${it.id}" type="number" min="0" value="${farmN(s.items[it.name])}"></label>`).join('')}</div><div class="farm-manage-money"><div class="field"><label>査定</label><input class="fm-ass" type="number" min="0" step="0.1" value="${farmN(s.assessment)}"></div><div class="field"><label>支給金額</label><input class="fm-pay" type="number" min="0" value="${farmN(s.payment)}"></div></div></div>`}
-function addFarmStaffRow(){farmData.staff.push({name:'',total:0,assessment:0,payment:0,items:{}});renderFarmManage()}
-async function removeFarmStaffRow(i){const s=farmData.staff[i];if(s?.name&&confirm(`${s.name}のデータを削除しますか？`)){await Promise.all([sb.from('farm_entries').delete().eq('period_id',currentFarmPeriod).eq('staff_name',s.name),sb.from('farm_staff_totals').delete().eq('period_id',currentFarmPeriod).eq('staff_name',s.name)])}farmData.staff.splice(i,1);renderFarmManage()}
-async function saveFarmManageData(){if(!currentFarmPeriod)return alert('期間を追加してください。');const cards=[...document.querySelectorAll('[data-farm-row]')],entries=[],totals=[];for(const c of cards){const name=c.querySelector('.fm-name').value.trim();if(!name)continue;totals.push({period_id:currentFarmPeriod,staff_name:name,assessment:farmN(c.querySelector('.fm-ass').value),payment:farmN(c.querySelector('.fm-pay').value)});c.querySelectorAll('.fm-q').forEach(q=>entries.push({period_id:currentFarmPeriod,staff_name:name,item_id:Number(q.dataset.item),quantity:farmN(q.value)}))}const {error:e1}=await sb.from('farm_staff_totals').upsert(totals,{onConflict:'period_id,staff_name'});if(e1)return alert(e1.message);const {error:e2}=await sb.from('farm_entries').upsert(entries,{onConflict:'period_id,staff_name,item_id'});if(e2)return alert(e2.message);await loadFarmData();toast('Farmデータを保存しました')}
+let farmManageDraft=[];
+let farmManageDirty=false;
 
+function captureFarmManageDraft(){
+  const cards=[...document.querySelectorAll('#farmManageRows [data-farm-row]')];
+  if(!cards.length)return;
+  farmManageDraft=cards.map(card=>{
+    const items={};
+    card.querySelectorAll('.fm-q').forEach(input=>{
+      items[String(input.dataset.item)]=Math.max(0,Math.round(Number(input.value)||0));
+    });
+    return {
+      originalName:card.dataset.originalName||'',
+      name:card.querySelector('.fm-name')?.value.trim()||'',
+      assessment:Math.max(0,Number(card.querySelector('.fm-ass')?.value)||0),
+      payment:Math.max(0,Math.round(Number(card.querySelector('.fm-pay')?.value)||0)),
+      items
+    };
+  });
+}
+function markFarmManageDirty(){
+  farmManageDirty=true;
+  captureFarmManageDraft();
+}
+function renderFarmManage(){
+  const box=$('farmManageRows');if(!box)return;
+
+  if(!farmManageDirty){
+    farmManageDraft=(farmData.staff||[]).map(s=>({
+      originalName:s.name,
+      name:s.name,
+      assessment:Number(s.assessment)||0,
+      payment:Number(s.payment)||0,
+      items:Object.fromEntries(
+        farmItems.map(item=>[String(item.id),Number(s.items?.[item.name])||0])
+      )
+    }));
+  }
+
+  box.innerHTML=farmManageDraft.length
+    ?farmManageDraft.map((s,idx)=>farmManageCard(s,idx)).join('')
+    :'<div class="farm-empty">従業員が登録されていません。「従業員を追加」を押してください。</div>';
+}
+function farmManageCard(s,idx){
+  return `<article class="farm-manage-card" data-farm-row="${idx}" data-original-name="${esc(s.originalName||'')}">
+    <div class="farm-manage-head">
+      <div class="field farm-staff-name-field">
+        <label>従業員名</label>
+        <input class="fm-name" value="${esc(s.name||'')}" placeholder="従業員名を入力" oninput="markFarmManageDirty()">
+      </div>
+      <button class="btn danger" onclick="removeFarmStaffRow(${idx})">削除</button>
+    </div>
+    <div class="farm-manage-grid">
+      ${farmItems.filter(it=>it.is_active!==false).map(it=>`
+        <label>${esc(it.name)}
+          <input class="fm-q" data-item="${it.id}" type="number" min="0" step="1"
+            value="${Number(s.items?.[String(it.id)])||0}" oninput="markFarmManageDirty()">
+        </label>`).join('')}
+    </div>
+    <div class="farm-manage-money">
+      <div class="field">
+        <label>査定</label>
+        <input class="fm-ass" type="number" min="0" step="0.01" value="${Number(s.assessment)||0}" oninput="markFarmManageDirty()">
+      </div>
+      <div class="field">
+        <label>仕入れ金額</label>
+        <input class="fm-pay" type="number" min="0" step="1" value="${Number(s.payment)||0}" oninput="markFarmManageDirty()">
+      </div>
+    </div>
+  </article>`;
+}
+function addFarmStaffRow(){
+  captureFarmManageDraft();
+  farmManageDraft.push({
+    originalName:'',
+    name:'',
+    assessment:0,
+    payment:0,
+    items:Object.fromEntries(farmItems.map(item=>[String(item.id),0]))
+  });
+  farmManageDirty=true;
+  renderFarmManage();
+  setTimeout(()=>{
+    const inputs=document.querySelectorAll('#farmManageRows .fm-name');
+    inputs[inputs.length-1]?.focus();
+  },0);
+}
+async function removeFarmStaffRow(i){
+  captureFarmManageDraft();
+  const row=farmManageDraft[i];
+  if(!row)return;
+  const label=row.name||row.originalName||'この従業員';
+  if(!confirm(`「${label}」をFarm従業員一覧から削除しますか？`))return;
+
+  try{
+    if(row.originalName&&currentFarmPeriod){
+      const [entriesResult,totalResult]=await Promise.all([
+        sb.from('farm_entries').delete().eq('period_id',currentFarmPeriod).eq('staff_name',row.originalName),
+        sb.from('farm_staff_totals').delete().eq('period_id',currentFarmPeriod).eq('staff_name',row.originalName)
+      ]);
+      if(entriesResult.error)throw entriesResult.error;
+      if(totalResult.error)throw totalResult.error;
+    }
+    farmManageDraft.splice(i,1);
+    farmManageDirty=true;
+    renderFarmManage();
+    toast('Farm従業員を削除しました');
+  }catch(error){
+    alert('従業員を削除できませんでした：'+(error?.message||error));
+  }
+}
+async function saveFarmManageData(){
+  if(!currentFarmPeriod)return alert('最初にFarm期間を追加・選択してください。');
+  captureFarmManageDraft();
+
+  const rows=farmManageDraft.map(row=>({...row,name:String(row.name||'').trim()})).filter(row=>row.name);
+  if(!rows.length)return alert('従業員名を1人以上入力してください。');
+
+  const normalized=rows.map(row=>farmNorm(row.name));
+  if(normalized.some((name,index)=>normalized.indexOf(name)!==index)){
+    return alert('同じ従業員名が重複しています。');
+  }
+
+  try{
+    for(const row of rows){
+      const oldName=String(row.originalName||'').trim();
+      const newName=row.name;
+
+      if(oldName&&farmNorm(oldName)!==farmNorm(newName)){
+        const [deleteEntries,deleteTotal]=await Promise.all([
+          sb.from('farm_entries').delete().eq('period_id',currentFarmPeriod).eq('staff_name',oldName),
+          sb.from('farm_staff_totals').delete().eq('period_id',currentFarmPeriod).eq('staff_name',oldName)
+        ]);
+        if(deleteEntries.error)throw new Error(`${oldName}の旧採取記録削除：${deleteEntries.error.message}`);
+        if(deleteTotal.error)throw new Error(`${oldName}の旧集計削除：${deleteTotal.error.message}`);
+      }
+
+      const {error:totalError}=await sb.from('farm_staff_totals').upsert({
+        period_id:Number(currentFarmPeriod),
+        staff_name:newName,
+        assessment:Number(row.assessment)||0,
+        payment:Math.max(0,Math.round(Number(row.payment)||0))
+      },{onConflict:'period_id,staff_name'});
+      if(totalError)throw new Error(`${newName}の集計保存：${totalError.message}`);
+
+      const entries=farmItems.filter(item=>item.is_active!==false).map(item=>({
+        period_id:Number(currentFarmPeriod),
+        staff_name:newName,
+        item_id:Number(item.id),
+        quantity:Math.max(0,Math.round(Number(row.items[String(item.id)])||0))
+      }));
+
+      if(entries.length){
+        const {error:entryError}=await sb.from('farm_entries').upsert(entries,{onConflict:'period_id,staff_name,item_id'});
+        if(entryError)throw new Error(`${newName}の採取数保存：${entryError.message}`);
+      }
+    }
+
+    farmManageDirty=false;
+    farmManageDraft=[];
+    await loadFarmData(false);
+    renderFarmManage();
+    await writeAudit('farm','Farm従業員を編集',`${rows.length}名`,'従業員管理');
+    toast('Farm従業員情報を保存しました');
+  }catch(error){
+    farmManageDirty=true;
+    captureFarmManageDraft();
+    console.error('Farm staff save error',error);
+    alert('Farm従業員情報を保存できませんでした。\n'+(error?.message||error)+'\n\nVer.18.2.3の修復SQLを実行してください。');
+  }
+}
 async function deleteFarmPeriod(){
   const period=farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod));
   if(!period)return alert('削除する期間を選択してください。');
@@ -10864,7 +11071,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.2 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.3 Error Fix Build</div>
 
 <script>
 (function(){
@@ -11725,6 +11932,7 @@ setFarmTab=function(tab){
   document.querySelectorAll('#page-farm .farm-view').forEach(v=>v.classList.remove('active'));
   $('farmView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');
   if(tab==='requests')loadFarmRequests(false);
+  if(tab==='staffmanage')renderFarmManage();
   if(tab==='itemsmanage')renderFarmItemSettings();
 };
 
