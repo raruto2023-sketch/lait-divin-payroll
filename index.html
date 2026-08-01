@@ -6305,6 +6305,19 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver18-1-5-farm-purchase-sheet">
+#employeeFarmEntryBody input{min-width:95px}
+#employeeFarmEntryBody td:nth-child(2),
+#employeeFarmEntryBody td:nth-child(3),
+#employeeFarmEntryBody td:nth-child(5),
+#employeeFarmEntryBody td:nth-child(6){white-space:nowrap}
+#employeeFarmEntryBody .employee-farm-entry-assessment{font-weight:900;color:#efc58f}
+#employeeFarmEntryBody .employee-farm-entry-costtotal{font-weight:900;color:#a9dbb8}
+#employeeFarmEntryAssessment{color:#efc58f!important;font-weight:900}
+#employeeFarmEntryPurchaseAmount{color:#a9dbb8!important;font-weight:900}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6832,7 +6845,7 @@ body.dark .job-calculation-box{
     <div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="farmGrandTotal">0</div><div class="metric-sub">承認済み総採取数</div></div>
     <div class="metric-card"><div class="metric-label">TOP FARM</div><div class="metric-value small" id="farmTopStaff">-</div><div class="metric-sub">ランキング1位</div></div>
     <div class="metric-card warning"><div class="metric-label">PENDING</div><div class="metric-value" id="farmPendingRequestCount">0</div><div class="metric-sub">確認待ち申請</div></div>
-    <div class="metric-card"><div class="metric-label">TOTAL PAYMENT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">承認済み支給金額</div></div>
+    <div class="metric-card"><div class="metric-label">TOTAL AMOUNT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">承認済み仕入れ金額</div></div>
     <div class="metric-card hidden"><div class="metric-label">TOTAL ASSESSMENT</div><div class="metric-value small" id="farmTotalAssessment">0</div></div>
   </div>
 
@@ -6869,12 +6882,12 @@ body.dark .job-calculation-box{
   <div id="farmViewItemsmanage" class="farm-view">
     <div class="dashboard-panel">
       <div class="dashboard-title">
-        <div><h2>Farm品目設定</h2><p>従業員が入力する品目と、1個あたりの査定額を設定します。</p></div>
+        <div><h2>在庫仕入れ表・Farm品目設定</h2><p>品目ごとの原価と査定基準を設定します。従業員入力時の金額・査定計算に使用されます。</p></div>
         <button class="btn" onclick="addFarmItemSettingRow()">＋品目追加</button>
       </div>
       <div class="site-spreadsheet-wrap">
         <table class="site-spreadsheet">
-          <thead><tr><th>#</th><th>品目名</th><th>1個あたり査定</th><th>並び順</th><th>有効</th><th>操作</th></tr></thead>
+          <thead><tr><th>#</th><th>品目名</th><th>原価</th><th>査定基準</th><th>並び順</th><th>有効</th><th>操作</th></tr></thead>
           <tbody id="farmItemSettingsBody"></tbody>
         </table>
       </div>
@@ -7261,12 +7274,15 @@ body.dark .job-calculation-box{
 
   <div id="employeeFarmMainViewEntry" class="employee-site-view active">
     <div class="dashboard-panel">
-      <div class="dashboard-title"><div><h2>Farm入力シート</h2><p>各品目の採取数を入力すると、自動で合計と査定額を計算します。</p></div></div>
+      <div class="dashboard-title"><div><h2>在庫仕入れ表・Farm入力</h2><p>個数を入力すると、査定と金額を自動計算します。入力中の内容は画面更新後も保持されます。</p></div></div>
       <div class="site-spreadsheet-wrap">
         <table class="site-spreadsheet">
-          <thead><tr><th>品目</th><th>採取数</th><th>1個あたり査定</th><th>小計</th></tr></thead>
+          <thead><tr><th>品名</th><th>原価</th><th>査定基準</th><th>個数</th><th>査定小計</th><th>金額小計</th></tr></thead>
           <tbody id="employeeFarmEntryBody"></tbody>
-          <tfoot><tr><th>合計</th><th id="employeeFarmEntryTotal">0個</th><th></th><th id="employeeFarmEntryAssessment">¥0</th></tr></tfoot>
+          <tfoot>
+            <tr><th colspan="3">査定</th><th id="employeeFarmEntryTotal">0個</th><th id="employeeFarmEntryAssessment">0</th><th></th></tr>
+            <tr><th colspan="5">金額</th><th id="employeeFarmEntryPurchaseAmount">¥0</th></tr>
+          </tfoot>
         </table>
       </div>
       <div class="field"><label>申請メモ</label><textarea id="employeeFarmRequestNote" maxlength="500" placeholder="例：北Farmで採取しました。"></textarea></div>
@@ -9352,6 +9368,7 @@ let farmPeriods=[],farmItems=[],farmData={period:null,items:[],staff:[]},current
 let inventoryCountRequests=[];
 let farmSubmissionRequests=[];
 let inventorySpreadsheetRows=[];
+let farmEntryDraft={};
 function farmN(v){return Number(v)||0} function farmNorm(v){return String(v||'').replace(/[\s　]/g,'').toLowerCase()}
 async function loadFarmPeriods(){const {data,error}=await sb.from('farm_periods').select('*').order('start_date',{ascending:false});if(error)throw error;farmPeriods=data||[];if((!currentFarmPeriod||!farmPeriods.some(x=>String(x.id)===String(currentFarmPeriod)))&&farmPeriods.length)currentFarmPeriod=(farmPeriods.find(x=>x.is_active)||farmPeriods[0]).id;renderFarmPeriodOptions()}
 function renderFarmPeriodOptions(){const opts=farmPeriods.length?farmPeriods.map(p=>`<option value="${p.id}">${esc(p.label)}${p.is_active?'（最新）':''}</option>`).join(''):'<option value="">期間なし</option>';[$('farmPeriodSelect'),$('employeeFarmPeriodSelect')].forEach(x=>{if(x){x.innerHTML=opts;x.value=currentFarmPeriod||''}});const p=farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod));const label=p?.label||'期間を追加してください';if($('farmPeriodLabel'))$('farmPeriodLabel').textContent=label;if($('employeeFarmPeriodLabel'))$('employeeFarmPeriodLabel').textContent=label;if($('farmSheetLabel'))$('farmSheetLabel').textContent='Site Farm Database';if($('employeeFarmSheetLabel'))$('employeeFarmSheetLabel').textContent='Site Farm Database'}
@@ -10410,7 +10427,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.4 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.5 Error Fix Build</div>
 
 <script>
 (function(){
@@ -10956,49 +10973,98 @@ async function reviewInventoryRequest(id,status){
   }catch(error){alert(`在庫申請を${verb}できませんでした：`+error.message)}
 }
 
+function saveFarmEntryDraftFromDom(){
+  document.querySelectorAll('#employeeFarmEntryBody tr[data-farm-entry-item]').forEach(row=>{
+    const id=String(row.dataset.farmEntryItem||'');
+    const input=row.querySelector('.employee-farm-entry-qty');
+    if(id&&input)farmEntryDraft[id]=input.value;
+  });
+}
+function updateFarmEntryDraft(input){
+  const row=input.closest('tr');
+  if(row)farmEntryDraft[String(row.dataset.farmEntryItem||'')]=input.value;
+  calculateEmployeeFarmEntry();
+}
 function renderFarmEntrySheet(){
   const body=$('employeeFarmEntryBody');if(!body)return;
+  saveFarmEntryDraftFromDom();
   const active=farmItems.filter(x=>x.is_active!==false);
-  body.innerHTML=active.map(x=>`<tr data-farm-entry-item="${x.id}" data-farm-entry-name="${esc(x.name)}" data-farm-entry-rate="${farmN(x.unit_value)}">
-    <td><strong>${esc(x.name)}</strong></td>
-    <td><input class="employee-farm-entry-qty" type="number" min="0" step="1" value="0" oninput="calculateEmployeeFarmEntry()"></td>
-    <td>${yen.format(farmN(x.unit_value))}</td>
-    <td class="employee-farm-entry-subtotal">¥0</td>
-  </tr>`).join('')||'<tr><td colspan="4">管理者がFarm品目を設定してください。</td></tr>';
+  body.innerHTML=active.map(x=>{
+    const id=String(x.id);
+    const quantity=farmEntryDraft[id]??'';
+    const cost=Number(x.cost_price)||0;
+    const rate=Number(x.assessment_rate??x.unit_value)||0;
+    return `<tr data-farm-entry-item="${x.id}" data-farm-entry-name="${esc(x.name)}" data-farm-entry-cost="${cost}" data-farm-entry-rate="${rate}">
+      <td><strong>${esc(x.name)}</strong></td>
+      <td>${yen.format(cost)}</td>
+      <td>${rate.toLocaleString('ja-JP',{maximumFractionDigits:4})}</td>
+      <td><input class="employee-farm-entry-qty" type="number" min="0" step="1" value="${esc(quantity)}" placeholder="0" oninput="updateFarmEntryDraft(this)"></td>
+      <td class="employee-farm-entry-assessment">0</td>
+      <td class="employee-farm-entry-costtotal">¥0</td>
+    </tr>`;
+  }).join('')||'<tr><td colspan="6">管理者がFarm品目を設定してください。</td></tr>';
   calculateEmployeeFarmEntry();
 }
 function calculateEmployeeFarmEntry(){
-  let total=0,assessment=0;
+  let total=0,assessment=0,purchaseAmount=0;
   document.querySelectorAll('#employeeFarmEntryBody tr[data-farm-entry-item]').forEach(row=>{
     const qty=Math.max(0,Math.round(Number(row.querySelector('.employee-farm-entry-qty').value)||0));
-    const rate=Number(row.dataset.farmEntryRate)||0,subtotal=qty*rate;
-    total+=qty;assessment+=subtotal;row.querySelector('.employee-farm-entry-subtotal').textContent=yen.format(subtotal);
+    const rate=Number(row.dataset.farmEntryRate)||0;
+    const cost=Number(row.dataset.farmEntryCost)||0;
+    const assessmentSubtotal=qty*rate;
+    const costSubtotal=qty*cost;
+    total+=qty;
+    assessment+=assessmentSubtotal;
+    purchaseAmount+=costSubtotal;
+    row.querySelector('.employee-farm-entry-assessment').textContent=assessmentSubtotal.toLocaleString('ja-JP',{maximumFractionDigits:4});
+    row.querySelector('.employee-farm-entry-costtotal').textContent=yen.format(costSubtotal);
   });
   if($('employeeFarmEntryTotal'))$('employeeFarmEntryTotal').textContent=`${total.toLocaleString()}個`;
-  if($('employeeFarmEntryAssessment'))$('employeeFarmEntryAssessment').textContent=yen.format(assessment);
-  return {total,assessment};
+  if($('employeeFarmEntryAssessment'))$('employeeFarmEntryAssessment').textContent=assessment.toLocaleString('ja-JP',{maximumFractionDigits:4});
+  if($('employeeFarmEntryPurchaseAmount'))$('employeeFarmEntryPurchaseAmount').textContent=yen.format(purchaseAmount);
+  return {total,assessment,purchaseAmount};
 }
 async function submitFarmRequest(){
   if(!currentEmployee?.uid)return alert('従業員情報を確認できません。');
   if(!currentFarmPeriod)return alert('申請する集計期間を選択してください。');
   const entries=[...document.querySelectorAll('#employeeFarmEntryBody tr[data-farm-entry-item]')].map(row=>{
     const quantity=Math.max(0,Math.round(Number(row.querySelector('.employee-farm-entry-qty').value)||0));
-    return {item_id:Number(row.dataset.farmEntryItem),name:row.dataset.farmEntryName,quantity,unit_value:Number(row.dataset.farmEntryRate)||0,subtotal:quantity*(Number(row.dataset.farmEntryRate)||0)};
+    const assessmentRate=Number(row.dataset.farmEntryRate)||0;
+    const costPrice=Number(row.dataset.farmEntryCost)||0;
+    return {
+      item_id:Number(row.dataset.farmEntryItem),
+      name:row.dataset.farmEntryName,
+      quantity,
+      cost_price:costPrice,
+      assessment_rate:assessmentRate,
+      assessment_subtotal:quantity*assessmentRate,
+      cost_subtotal:quantity*costPrice
+    };
   }).filter(x=>x.quantity>0);
-  if(!entries.length)return alert('採取数を1つ以上入力してください。');
-  const total=entries.reduce((s,x)=>s+x.quantity,0),assessment=entries.reduce((s,x)=>s+x.subtotal,0);
+  if(!entries.length)return alert('個数を1つ以上入力してください。');
+  const total=entries.reduce((s,x)=>s+x.quantity,0);
+  const assessment=entries.reduce((s,x)=>s+x.assessment_subtotal,0);
+  const purchaseAmount=entries.reduce((s,x)=>s+x.cost_subtotal,0);
   const note=$('employeeFarmRequestNote')?.value.trim()||'';
-  if(!confirm(`採取数 ${total.toLocaleString()}個・査定 ${yen.format(assessment)} を申請しますか？`))return;
+  if(!confirm(`合計 ${total.toLocaleString()}個
+査定 ${assessment.toLocaleString('ja-JP',{maximumFractionDigits:4})}
+金額 ${yen.format(purchaseAmount)}
+
+この内容で申請しますか？`))return;
   const payload={
     period_id:Number(currentFarmPeriod),employee_uid:currentEmployee.uid,employee_id:currentEmployee.id,
     employee_name:currentEmployee.name,entries,total_quantity:total,assessment_amount:assessment,
-    note,status:'pending',updated_at:new Date().toISOString()
+    purchase_amount:purchaseAmount,note,status:'pending',updated_at:new Date().toISOString()
   };
   const {error}=await sb.from('farm_submission_requests').insert(payload);
   if(error)return alert('Farm申請を送信できませんでした：'+error.message);
-  document.querySelectorAll('.employee-farm-entry-qty').forEach(x=>x.value='0');
+  farmEntryDraft={};
+  document.querySelectorAll('.employee-farm-entry-qty').forEach(x=>x.value='');
   if($('employeeFarmRequestNote'))$('employeeFarmRequestNote').value='';
-  calculateEmployeeFarmEntry();await loadFarmRequests(false);setEmployeeFarmMainTab('history');toast('Farm実績を申請しました');
+  calculateEmployeeFarmEntry();
+  await loadFarmRequests(false);
+  setEmployeeFarmMainTab('history');
+  toast('在庫仕入れ表を申請しました');
 }
 async function loadFarmRequests(show=false){
   if(!sb||appMode==='login')return;
@@ -11018,12 +11084,12 @@ function updateFarmRequestBadges(){
   if($('employeeFarmPending'))$('employeeFarmPending').textContent=String(farmSubmissionRequests.filter(x=>x.status==='pending').length);
 }
 function farmRequestCard(x,isAdmin){
-  const detail=(x.entries||[]).map(e=>`<div><span>${esc(e.name)}</span><strong>${Number(e.quantity).toLocaleString()}個 / ${yen.format(Number(e.subtotal)||0)}</strong></div>`).join('');
+  const detail=(x.entries||[]).map(e=>`<div><span>${esc(e.name)}</span><strong>${Number(e.quantity).toLocaleString()}個 / 査定 ${Number(e.assessment_subtotal??e.subtotal??0).toLocaleString('ja-JP',{maximumFractionDigits:4})} / 金額 ${yen.format(Number(e.cost_subtotal)||0)}</strong></div>`).join('');
   const review=x.review_note?`<div class="approval-note">管理者コメント：${esc(x.review_note)}</div>`:'';
   const actions=isAdmin&&x.status==='pending'?`<div class="approval-actions"><button class="btn success" onclick="reviewFarmRequest(${x.id},'approved')">✓ 承認して反映</button><button class="btn danger" onclick="reviewFarmRequest(${x.id},'rejected')">却下</button></div>`:'';
   return `<article class="approval-card">
     <div class="approval-card-head"><div><h3>${esc(x.employee_name)} <small>${esc(x.employee_id)}</small></h3><small>${requestDate(x.created_at)}</small></div><span class="approval-status ${x.status}">${requestStatusLabel(x.status)}</span></div>
-    <div class="approval-summary"><span>合計 ${Number(x.total_quantity).toLocaleString()}個</span><span>査定 ${yen.format(Number(x.assessment_amount)||0)}</span><span>申請番号 #${x.id}</span></div>
+    <div class="approval-summary"><span>合計 ${Number(x.total_quantity).toLocaleString()}個</span><span>査定 ${Number(x.assessment_amount||0).toLocaleString('ja-JP',{maximumFractionDigits:4})}</span><span>金額 ${yen.format(Number(x.purchase_amount)||0)}</span><span>申請番号 #${x.id}</span></div>
     <div class="approval-detail-grid">${detail}</div>${x.note?`<div class="approval-note">申請メモ：${esc(x.note)}</div>`:''}${review}${actions}
   </article>`;
 }
@@ -11054,7 +11120,7 @@ async function reviewFarmRequest(id,status){
       const {data:currentTotal,error:totalReadError}=await sb.from('farm_staff_totals').select('assessment,payment').eq('period_id',target.period_id).eq('staff_name',target.employee_name).maybeSingle();
       if(totalReadError)throw totalReadError;
       const assessment=(Number(currentTotal?.assessment)||0)+(Number(target.assessment_amount)||0);
-      const payment=(Number(currentTotal?.payment)||0)+(Number(target.assessment_amount)||0);
+      const payment=(Number(currentTotal?.payment)||0)+(Number(target.purchase_amount)||0);
       const {error:totalError}=await sb.from('farm_staff_totals').upsert({period_id:target.period_id,staff_name:target.employee_name,assessment,payment},{onConflict:'period_id,staff_name'});
       if(totalError)throw totalError;
     }
@@ -11074,14 +11140,15 @@ function renderFarmItemSettings(){
   body.innerHTML=(farmItems||[]).map((x,i)=>`<tr data-farm-item-setting="${x.id||''}">
     <td>${i+1}</td>
     <td><input class="farm-setting-name" value="${esc(x.name)}"></td>
-    <td><input class="farm-setting-value" type="number" min="0" step="1" value="${farmN(x.unit_value)}"></td>
+    <td><input class="farm-setting-cost" type="number" min="0" step="1" value="${Number(x.cost_price)||0}"></td>
+    <td><input class="farm-setting-rate" type="number" min="0" step="0.01" value="${Number(x.assessment_rate??x.unit_value)||0}"></td>
     <td><input class="farm-setting-sort" type="number" min="0" step="1" value="${farmN(x.sort_order)||i+1}"></td>
     <td><input class="farm-setting-active" type="checkbox" ${x.is_active===false?'':'checked'}></td>
     <td><button class="btn danger" onclick="deleteFarmItemSetting(this)">削除</button></td>
-  </tr>`).join('')||'<tr><td colspan="6">品目を追加してください。</td></tr>';
+  </tr>`).join('')||'<tr><td colspan="7">品目を追加してください。</td></tr>';
 }
 function addFarmItemSettingRow(){
-  farmItems.push({id:null,name:'新しい品目',unit_value:0,sort_order:farmItems.length+1,is_active:true});
+  farmItems.push({id:null,name:'新しい品目',cost_price:0,assessment_rate:0,unit_value:0,sort_order:farmItems.length+1,is_active:true});
   renderFarmItemSettings();setFarmTab('itemsmanage');
 }
 async function deleteFarmItemSetting(button){
@@ -11095,7 +11162,9 @@ async function saveFarmItemSettings(){
   const records=rows.map((row,i)=>({
     id:row.dataset.farmItemSetting?Number(row.dataset.farmItemSetting):null,
     name:row.querySelector('.farm-setting-name').value.trim(),
-    unit_value:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-value').value)||0)),
+    cost_price:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-cost').value)||0)),
+    assessment_rate:Math.max(0,Number(row.querySelector('.farm-setting-rate').value)||0),
+    unit_value:Math.max(0,Number(row.querySelector('.farm-setting-rate').value)||0),
     sort_order:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-sort').value)||i+1)),
     is_active:row.querySelector('.farm-setting-active').checked
   })).filter(x=>x.name);
@@ -11108,7 +11177,9 @@ async function saveFarmItemSettings(){
     for(const record of records){
       const payload={
         name:record.name,
-        unit_value:record.unit_value,
+        cost_price:record.cost_price,
+        assessment_rate:record.assessment_rate,
+        unit_value:record.assessment_rate,
         sort_order:record.sort_order,
         is_active:record.is_active
       };
