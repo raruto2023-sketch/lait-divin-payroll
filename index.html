@@ -10539,7 +10539,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.6 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.1.7 Error Fix Build</div>
 
 <script>
 (function(){
@@ -11276,7 +11276,6 @@ async function saveFarmItemSettings(){
     name:row.querySelector('.farm-setting-name').value.trim(),
     cost_price:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-cost').value)||0)),
     assessment_rate:Math.max(0,Number(row.querySelector('.farm-setting-rate').value)||0),
-    unit_value:Math.max(0,Number(row.querySelector('.farm-setting-rate').value)||0),
     sort_order:Math.max(0,Math.round(Number(row.querySelector('.farm-setting-sort').value)||i+1)),
     is_active:row.querySelector('.farm-setting-active').checked
   })).filter(x=>x.name);
@@ -11291,7 +11290,6 @@ async function saveFarmItemSettings(){
         name:record.name,
         cost_price:record.cost_price,
         assessment_rate:record.assessment_rate,
-        unit_value:record.assessment_rate,
         sort_order:record.sort_order,
         is_active:record.is_active
       };
@@ -11309,7 +11307,7 @@ async function saveFarmItemSettings(){
     toast('Farm品目設定を保存しました');
   }catch(error){
     console.error('Farm item save error',error);
-    alert('Farm品目設定を保存できませんでした。\n'+(error?.message||error)+'\n\n修復SQLを実行してください。');
+    alert('Farm品目設定を保存できませんでした。\n'+(error?.message||error)+'\n\nVer.18.1.7の修復SQLを実行してください。');
   }
 }
 
