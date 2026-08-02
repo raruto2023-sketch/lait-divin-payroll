@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#292321">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🐄</text></svg>">
-<title>Lait Divin Portal</title>
+<title>Lait Divin Staff Portal</title>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="./config.js"></script>
@@ -6389,6 +6389,23 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver25-8-delegated-permissions">
+.employee-permission-modal{width:min(720px,100%)!important;max-height:92vh;overflow:auto}
+.permission-editor{margin-top:16px;padding:17px;border-radius:20px;border:1px solid rgba(229,190,147,.12);background:rgba(255,255,255,.025)}
+.permission-editor-head{margin-bottom:12px}.permission-editor-head span{font-size:9px;letter-spacing:.16em;color:#d5a775}.permission-editor-head h3{margin:4px 0}.permission-editor-head p{margin:0;color:var(--muted);font-size:10px}
+.permission-switch{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-top:1px solid rgba(229,190,147,.09);cursor:pointer}
+.permission-switch:first-of-type{border-top:0}
+.permission-switch div{display:grid;gap:4px}.permission-switch strong{font-size:12px}.permission-switch span{font-size:9px;color:var(--muted);line-height:1.5}
+.permission-switch input{position:absolute;opacity:0;pointer-events:none}
+.permission-switch i{position:relative;flex:0 0 auto;width:48px;height:27px;border-radius:999px;background:#5e5149;transition:.2s}
+.permission-switch i::after{content:"";position:absolute;top:4px;left:4px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.2s}
+.permission-switch input:checked+i{background:#d9a268}.permission-switch input:checked+i::after{transform:translateX(21px)}
+.delegated-approval-view{display:none}.delegated-approval-view.active{display:block}
+.delegated-approval-tabs button.hidden{display:none!important}
+@media(max-width:650px){.permission-switch{align-items:flex-start}.permission-switch i{margin-top:4px}}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6465,7 +6482,7 @@ body.dark .job-calculation-box{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17.2</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.8</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -7155,13 +7172,14 @@ body.dark .job-calculation-box{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 17.2</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.8</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
         <button data-employee-page="online" onclick="employeeGoPage('online')"><span>●</span><b>オンライン</b></button>
         <button data-employee-page="notifications" onclick="employeeGoPage('notifications')"><span>🔔</span><b>通知センター</b><i id="employeeNotificationBadge" class="notification-badge hidden">0</i></button>
         <button data-employee-page="expenses" onclick="employeeGoPage('expenses')"><span>🧾</span><b>経費申請</b></button>
+        <button id="employeeApprovalNav" class="hidden" data-employee-page="approvals" onclick="employeeGoPage('approvals')"><span>✓</span><b>承認管理</b><i id="employeeApprovalBadge" class="notification-badge hidden">0</i></button>
         <button data-employee-page="campaigns" onclick="employeeGoPage('campaigns')"><span>🎪</span><b>イベント</b></button>
         <button data-employee-page="community" onclick="employeeGoPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
         <button data-employee-page="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button>
@@ -7458,6 +7476,45 @@ body.dark .job-calculation-box{
   </div>
 </section>
 
+
+<section id="employee-page-approvals" class="employee-page">
+  <div class="page-hero compact inventory-hero">
+    <div>
+      <span class="eyebrow">DELEGATED APPROVAL CONTROL</span>
+      <h1>承認管理</h1>
+      <p>管理者から付与された範囲のみ、申請の確認・承認・却下ができます。</p>
+    </div>
+    <button class="btn" onclick="loadDelegatedApprovals(true)">最新情報</button>
+  </div>
+
+  <div class="employee-site-tabs delegated-approval-tabs">
+    <button id="delegatedExpenseTab" data-delegated-tab="expense" onclick="setDelegatedApprovalTab('expense')">経費申請 <span id="delegatedExpenseBadge">0</span></button>
+    <button id="delegatedInventoryTab" data-delegated-tab="inventory" onclick="setDelegatedApprovalTab('inventory')">在庫申請 <span id="delegatedInventoryBadge">0</span></button>
+    <button id="delegatedFarmTab" data-delegated-tab="farm" onclick="setDelegatedApprovalTab('farm')">Farm申請 <span id="delegatedFarmBadge">0</span></button>
+  </div>
+
+  <div id="delegatedExpenseView" class="delegated-approval-view">
+    <div class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>経費申請</h2><p>承認するとジョブ口座へ経費として反映されます。</p></div></div>
+      <div id="delegatedExpenseList" class="approval-request-list"></div>
+    </div>
+  </div>
+
+  <div id="delegatedInventoryView" class="delegated-approval-view">
+    <div class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>在庫確認申請</h2><p>承認すると申請された現在数が在庫へ反映されます。</p></div></div>
+      <div id="delegatedInventoryList" class="approval-request-list"></div>
+    </div>
+  </div>
+
+  <div id="delegatedFarmView" class="delegated-approval-view">
+    <div class="dashboard-panel">
+      <div class="dashboard-title"><div><h2>Farm申請</h2><p>承認すると採取数・査定・仕入れ金額・ランキングへ反映されます。</p></div></div>
+      <div id="delegatedFarmList" class="approval-request-list"></div>
+    </div>
+  </div>
+</section>
+
 <section id="employee-page-profile" class="employee-page">
           <div class="page-hero compact"><div><span class="eyebrow">MY PROFILE</span><h1>プロフィール編集</h1><p>アイコン・表示名・自己紹介などを自分らしく設定できます。</p></div></div>
           <div class="profile-shell">
@@ -7578,7 +7635,43 @@ body.dark .job-calculation-box{
   </div>
 </div>
 
-<div id="employeeModal" class="modal-back hidden"><div class="modal"><h2 id="employeeModalTitle">従業員を登録</h2><input id="editEmployeeIndex" type="hidden"><div class="field"><label>名前</label><input id="modalName"></div><div class="grid2"><div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option><option>関係者</option></select></div><div class="field"><label>従業員番号</label><input id="modalId"></div></div><div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" type="password" placeholder="本人に伝えるパスワード"></div><div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div><div class="modal-actions"><button class="btn" onclick="closeEmployeeModal()">キャンセル</button><button class="btn primary" onclick="saveEmployee()">保存</button></div></div></div>
+<div id="employeeModal" class="modal-back hidden">
+  <div class="modal employee-permission-modal">
+    <h2 id="employeeModalTitle">従業員を登録</h2>
+    <input id="editEmployeeIndex" type="hidden">
+    <div class="field"><label>名前</label><input id="modalName"></div>
+    <div class="grid2">
+      <div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option><option>関係者</option></select></div>
+      <div class="field"><label>従業員番号</label><input id="modalId"></div>
+    </div>
+    <div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" type="password" placeholder="本人に伝えるパスワード"></div>
+    <div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div>
+
+    <section class="permission-editor">
+      <div class="permission-editor-head">
+        <div><span>DELEGATED ACCESS</span><h3>承認・管理権限</h3></div>
+        <p>必要な権限だけを従業員へ渡せます。いつでもON／OFFできます。</p>
+      </div>
+      <label class="permission-switch">
+        <div><strong>経費申請の承認・却下</strong><span>全従業員の経費申請を確認し、承認または却下できます。</span></div>
+        <input id="permissionExpenseApproval" type="checkbox"><i></i>
+      </label>
+      <label class="permission-switch">
+        <div><strong>在庫管理・在庫申請の承認</strong><span>在庫申請の確認、承認、却下と在庫数の反映ができます。</span></div>
+        <input id="permissionInventoryApproval" type="checkbox"><i></i>
+      </label>
+      <label class="permission-switch">
+        <div><strong>Farm管理・Farm申請の承認</strong><span>Farm申請の確認、承認、却下と実績への反映ができます。</span></div>
+        <input id="permissionFarmApproval" type="checkbox"><i></i>
+      </label>
+    </section>
+
+    <div class="modal-actions">
+      <button class="btn" onclick="closeEmployeeModal()">キャンセル</button>
+      <button class="btn primary" onclick="saveEmployee()">保存</button>
+    </div>
+  </div>
+</div>
 
 <div id="adminProfileEditModal" class="modal-back hidden">
   <div class="modal admin-profile-edit-modal">
@@ -7946,9 +8039,47 @@ async function openEmployee(){
   await Promise.all([loadSettings(),loadEmployees(),loadMyHistory(),loadMyAttendance(),loadAttendanceData(),loadSalesData(),loadFarmData(),loadSalesGoals(),loadExpenseRequests(false)]);
   await hydrateCurrentProfileVisuals();
   if(currentProfile && currentEmployee && !cleanAvatarUrl(currentEmployee.avatarUrl) && cleanAvatarUrl(currentProfile.avatar_url)) currentEmployee.avatarUrl=currentProfile.avatar_url;
-  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');startRealtimeFallback();
+  renderEmployeePortal();renderEmployeeAttendance();renderEmployeeDashboard();renderEmployeeRanking();applyDelegatedPermissionUI();applyProfileEverywhere();syncAllCurrentAvatarElements();renderOnlinePresence();startPresenceTracking();loadEmployeeInventory();subscribeRealtime('employee');startRealtimeFallback();
 }
-function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
+function mapProfile(p){return {uid:p.id,name:p.display_name||p.employee_name,legalName:p.employee_name,role:p.role,id:p.employee_id,accountType:p.account_type,permissions:p.permissions||{},avatarUrl:p.avatar_url||'',bio:p.bio||'',discordName:p.discord_name||'',statusMessage:p.status_message||''}}
+
+function portalPermission(key){
+  if(appMode==='admin'||currentProfile?.account_type==='admin')return true;
+  const permissions=currentProfile?.permissions||currentEmployee?.permissions||{};
+  return permissions?.[key]===true;
+}
+function anyDelegatedPermission(){
+  return portalPermission('expense_approval')||
+    portalPermission('inventory_approval')||
+    portalPermission('farm_approval');
+}
+function permissionPayloadFromModal(){
+  return {
+    expense_approval:!!$('permissionExpenseApproval')?.checked,
+    inventory_approval:!!$('permissionInventoryApproval')?.checked,
+    farm_approval:!!$('permissionFarmApproval')?.checked
+  };
+}
+function applyDelegatedPermissionUI(){
+  const allowed=anyDelegatedPermission();
+  $('employeeApprovalNav')?.classList.toggle('hidden',!allowed);
+  $('delegatedExpenseTab')?.classList.toggle('hidden',!portalPermission('expense_approval'));
+  $('delegatedInventoryTab')?.classList.toggle('hidden',!portalPermission('inventory_approval'));
+  $('delegatedFarmTab')?.classList.toggle('hidden',!portalPermission('farm_approval'));
+
+  if(!allowed&&$('employee-page-approvals')?.classList.contains('active')){
+    employeeGoPage('home');
+  }
+
+  const first=
+    portalPermission('expense_approval')?'expense':
+    portalPermission('inventory_approval')?'inventory':
+    portalPermission('farm_approval')?'farm':null;
+  if(first&&!document.querySelector('.delegated-approval-tabs button.active:not(.hidden)')){
+    setDelegatedApprovalTab(first);
+  }
+}
+
 function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
 function mapAttendance(x){return {dbId:x.id,employeeUid:x.employee_uid,employeeId:x.employee_id,employeeName:x.employee_name,clockIn:x.clock_in,clockOut:x.clock_out,note:x.note||'',createdAt:x.created_at}}
 
@@ -8066,6 +8197,14 @@ async function realtimeRefreshCore(mode,table){
 
   if(table==='profiles'){
     await loadEmployees();
+    if(mode==='employee'&&currentProfile?.id){
+      const refreshed=employees.find(item=>item.uid===currentProfile.id);
+      if(refreshed){
+        currentEmployee=refreshed;
+        currentProfile.permissions=refreshed.permissions||{};
+        applyDelegatedPermissionUI();
+      }
+    }
     if(mode==='admin'){
       refreshEmployeeSelect();refreshSalesEmployeeSelect();
       renderEmployees();renderRanking();renderDashboard();
@@ -8283,6 +8422,7 @@ function employeeGoPage(page){closeMobileMenu();
   document.querySelectorAll('#employeeApp [data-employee-page]').forEach(x=>x.classList.toggle('active',x.dataset.employeePage===page));document.querySelectorAll('[data-mobile-employee]').forEach(x=>x.classList.toggle('active',x.dataset.mobileEmployee===page));
   document.getElementById(`employee-page-${page}`)?.classList.add('active');
   document.getElementById('employeeSidebar')?.classList.remove('open');
+  if(page==='approvals'){if(!anyDelegatedPermission())return employeeGoPage('home');loadDelegatedApprovals(false)}
   if(page==='home')renderEmployeeDashboard();
   if(page==='attendance')renderEmployeeAttendance();
   if(page==='ranking')loadRankingData(false);
@@ -8537,7 +8677,31 @@ async function savePayslip(){
 async function saveImage(){const c=await html2canvas($('sheet'),{scale:2.2,backgroundColor:'#171210',useCORS:true});const a=document.createElement('a');a.download=`${settings.shop}_${slipNo()}_${($('employee').value||'従業員').replace(/[\\/:*?"<>|]/g,'_')}.png`;a.href=c.toDataURL('image/png');a.click()}
 function refreshEmployeeSelect(){const s=$('employeeSelect');s.innerHTML='<option value="">直接入力する</option>';employees.forEach((e,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${e.name}（${e.role}）`;s.appendChild(o)})}
 function applyEmployee(){const i=$('employeeSelect').value;if(i==='')return;const e=employees[Number(i)];$('employee').value=e.name;$('role').value=e.role;$('employeeId').value=e.id;update()}
-function openEmployeeModal(i=''){$('employeeModal').classList.remove('hidden');$('editEmployeeIndex').value=i;if(i===''){$('employeeModalTitle').textContent='従業員を登録';$('modalName').value='';$('modalRole').value='Cast';$('modalId').value='';$('modalPassword').value=''}else{const e=employees[Number(i)];$('employeeModalTitle').textContent='従業員を編集';$('modalName').value=e.name;$('modalRole').value=e.role;$('modalId').value=e.id;$('modalPassword').value=''}}
+function openEmployeeModal(i=''){
+  $('employeeModal').classList.remove('hidden');
+  $('editEmployeeIndex').value=i;
+  const setPermissions=permissions=>{
+    $('permissionExpenseApproval').checked=permissions?.expense_approval===true;
+    $('permissionInventoryApproval').checked=permissions?.inventory_approval===true;
+    $('permissionFarmApproval').checked=permissions?.farm_approval===true;
+  };
+  if(i===''){
+    $('employeeModalTitle').textContent='従業員を登録';
+    $('modalName').value='';
+    $('modalRole').value='Cast';
+    $('modalId').value='';
+    $('modalPassword').value='';
+    setPermissions({});
+  }else{
+    const e=employees[Number(i)];
+    $('employeeModalTitle').textContent='従業員を編集';
+    $('modalName').value=e.name;
+    $('modalRole').value=e.role;
+    $('modalId').value=e.id;
+    $('modalPassword').value='';
+    setPermissions(e.permissions||{});
+  }
+}
 function closeEmployeeModal(){$('employeeModal').classList.add('hidden')}
 async function callEmployeeFunction(body){
   const {data:{session},error:sessionError}=await sb.auth.getSession();
@@ -8571,6 +8735,7 @@ async function saveEmployee(){
   const role=$('modalRole').value;
   const password=$('modalPassword').value;
   const index=$('editEmployeeIndex').value;
+  const permissions=permissionPayloadFromModal();
 
   if(!name||!id){alert('名前と従業員番号を入力してください。');return}
   if(!/^[A-Za-z0-9._-]+$/.test(id)){
@@ -8609,6 +8774,17 @@ async function saveEmployee(){
         password:password||null
       });
     }
+
+    await loadEmployees();
+    const savedEmployee=employees.find(employee=>String(employee.id).toLowerCase()===String(id).toLowerCase());
+    if(!savedEmployee?.uid)throw new Error('保存した従業員プロフィールを確認できませんでした。');
+
+    const {error:permissionError}=await sb
+      .from('profiles')
+      .update({permissions})
+      .eq('id',savedEmployee.uid);
+
+    if(permissionError)throw new Error('権限を保存できませんでした：'+permissionError.message);
 
     await loadEmployees();
     closeEmployeeModal();
@@ -11071,7 +11247,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Portal Ver.18.2.3 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.25.8 Error Fix Build</div>
 
 <script>
 (function(){
@@ -11326,10 +11502,10 @@ async function loadExpenseRequests(showToast=false){
   if(!sb||appMode==='login')return;
   try{
     let query=sb.from('expense_requests').select('*').order('created_at',{ascending:false});
-    if(appMode==='employee'&&currentEmployee?.uid)query=query.eq('employee_uid',currentEmployee.uid);
+    if(appMode==='employee'&&currentEmployee?.uid&&!portalPermission('expense_approval'))query=query.eq('employee_uid',currentEmployee.uid);
     const {data,error}=await query;if(error)throw error;
     expenseRequests=(data||[]).map(x=>({id:x.id,employeeUid:x.employee_uid,employeeId:x.employee_id,employeeName:x.employee_name,amount:Number(x.amount)||0,category:x.category||'その他',description:x.description||'',receiptUrl:x.receipt_url||'',status:x.status||'pending',reviewNote:x.review_note||'',reviewedBy:x.reviewed_by_name||'',reviewedAt:x.reviewed_at||'',createdAt:x.created_at,updatedAt:x.updated_at}));
-    renderAdminExpenses();renderEmployeeExpenses();renderJobAccount();updateExpenseBadge();
+    renderAdminExpenses();renderEmployeeExpenses();renderJobAccount();updateExpenseBadge();renderDelegatedApprovals?.();
     if(showToast)toast('経費申請を更新しました');
   }catch(error){
     console.error('Expense requests load error',error);
@@ -11390,6 +11566,7 @@ async function cancelExpenseRequest(id){
   await loadExpenseRequests(false);toast('申請を取り消しました');
 }
 async function reviewExpenseRequest(id,status){
+  if(!portalPermission('expense_approval'))return alert('経費申請を承認・却下する権限がありません。');
   const target=expenseRequests.find(x=>Number(x.id)===Number(id));if(!target)return;
   const verb=status==='approved'?'承認':'却下';
   const note=prompt(`${target.employeeName}さんの ${yen.format(target.amount)} の申請を${verb}します。\n管理者コメントを入力してください（任意）`,'') ;
@@ -11413,6 +11590,71 @@ async function reviewExpenseRequest(id,status){
 
 
 /* ===== Ver.18.1 Site Inventory & Farm Approval Module ===== */
+
+let delegatedApprovalTab='expense';
+
+function setDelegatedApprovalTab(tab){
+  if(tab==='expense'&&!portalPermission('expense_approval'))return;
+  if(tab==='inventory'&&!portalPermission('inventory_approval'))return;
+  if(tab==='farm'&&!portalPermission('farm_approval'))return;
+
+  delegatedApprovalTab=tab;
+  document.querySelectorAll('[data-delegated-tab]').forEach(button=>{
+    button.classList.toggle('active',button.dataset.delegatedTab===tab);
+  });
+  document.querySelectorAll('.delegated-approval-view').forEach(view=>view.classList.remove('active'));
+  $(`delegated${tab[0].toUpperCase()+tab.slice(1)}View`)?.classList.add('active');
+}
+
+async function loadDelegatedApprovals(show=false){
+  if(!anyDelegatedPermission())return;
+  const jobs=[];
+  if(portalPermission('expense_approval'))jobs.push(loadExpenseRequests(false));
+  if(portalPermission('inventory_approval'))jobs.push(loadInventoryRequests(false));
+  if(portalPermission('farm_approval'))jobs.push(loadFarmRequests(false));
+  await Promise.allSettled(jobs);
+  renderDelegatedApprovals();
+  if(show)toast('承認管理を更新しました');
+}
+
+function renderDelegatedApprovals(){
+  const expensePending=expenseRequests.filter(item=>item.status==='pending');
+  const inventoryPending=inventoryCountRequests.filter(item=>item.status==='pending');
+  const farmPending=farmSubmissionRequests.filter(item=>item.status==='pending');
+
+  if($('delegatedExpenseBadge'))$('delegatedExpenseBadge').textContent=expensePending.length;
+  if($('delegatedInventoryBadge'))$('delegatedInventoryBadge').textContent=inventoryPending.length;
+  if($('delegatedFarmBadge'))$('delegatedFarmBadge').textContent=farmPending.length;
+
+  const total=
+    (portalPermission('expense_approval')?expensePending.length:0)+
+    (portalPermission('inventory_approval')?inventoryPending.length:0)+
+    (portalPermission('farm_approval')?farmPending.length:0);
+
+  if($('employeeApprovalBadge')){
+    $('employeeApprovalBadge').textContent=total;
+    $('employeeApprovalBadge').classList.toggle('hidden',total===0);
+  }
+
+  if($('delegatedExpenseList')){
+    $('delegatedExpenseList').innerHTML=portalPermission('expense_approval')
+      ?(expensePending.length?expensePending.map(item=>expenseCardHtml(item,true)).join(''):'<div class="empty">確認待ちの経費申請はありません。</div>')
+      :'<div class="empty">経費承認権限がありません。</div>';
+  }
+
+  if($('delegatedInventoryList')){
+    $('delegatedInventoryList').innerHTML=portalPermission('inventory_approval')
+      ?(inventoryPending.length?inventoryPending.map(item=>inventoryRequestCard(item,true)).join(''):'<div class="empty">確認待ちの在庫申請はありません。</div>')
+      :'<div class="empty">在庫承認権限がありません。</div>';
+  }
+
+  if($('delegatedFarmList')){
+    $('delegatedFarmList').innerHTML=portalPermission('farm_approval')
+      ?(farmPending.length?farmPending.map(item=>farmRequestCard(item,true)).join(''):'<div class="empty">確認待ちのFarm申請はありません。</div>')
+      :'<div class="empty">Farm承認権限がありません。</div>';
+  }
+}
+
 function requestStatusLabel(status){return ({pending:'確認待ち',approved:'承認済み',rejected:'却下'})[status]||status||'確認待ち'}
 function requestDate(value){return value?new Date(value).toLocaleString('ja-JP'):'-'}
 
@@ -11631,10 +11873,10 @@ async function loadInventoryRequests(show=false){
   if(!sb||appMode==='login')return;
   try{
     let query=sb.from('inventory_count_requests').select('*').order('created_at',{ascending:false});
-    if(appMode==='employee'&&currentEmployee?.uid)query=query.eq('employee_uid',currentEmployee.uid);
+    if(appMode==='employee'&&currentEmployee?.uid&&!portalPermission('inventory_approval'))query=query.eq('employee_uid',currentEmployee.uid);
     const {data,error}=await query;if(error)throw error;
     inventoryCountRequests=(data||[]).map(x=>({...x,counts:Array.isArray(x.counts)?x.counts:[]}));
-    renderInventoryRequestsAdmin();renderInventoryRequestsEmployee();updateInventoryRequestBadges();
+    renderInventoryRequestsAdmin();renderInventoryRequestsEmployee();updateInventoryRequestBadges();renderDelegatedApprovals?.();
     if(show)toast('在庫申請を更新しました');
   }catch(error){console.error('Inventory request load error',error);if(show)alert('在庫申請を取得できませんでした：'+error.message)}
 }
@@ -11666,6 +11908,7 @@ function renderInventoryRequestsEmployee(){
   box.innerHTML=inventoryCountRequests.length?inventoryCountRequests.map(x=>inventoryRequestCard(x,false)).join(''):'<div class="empty">申請履歴はありません。</div>';
 }
 async function reviewInventoryRequest(id,status){
+  if(!portalPermission('inventory_approval'))return alert('在庫申請を承認・却下する権限がありません。');
   const target=inventoryCountRequests.find(x=>Number(x.id)===Number(id));if(!target)return;
   const verb=status==='approved'?'承認':'却下';
   const note=prompt(`この在庫申請を${verb}します。\n管理者コメント（任意）`,'');if(note===null)return;
@@ -11786,10 +12029,10 @@ async function loadFarmRequests(show=false){
   try{
     let query=sb.from('farm_submission_requests').select('*').order('created_at',{ascending:false});
     if(currentFarmPeriod)query=query.eq('period_id',Number(currentFarmPeriod));
-    if(appMode==='employee'&&currentEmployee?.uid)query=query.eq('employee_uid',currentEmployee.uid);
+    if(appMode==='employee'&&currentEmployee?.uid&&!portalPermission('farm_approval'))query=query.eq('employee_uid',currentEmployee.uid);
     const {data,error}=await query;if(error)throw error;
     farmSubmissionRequests=(data||[]).map(x=>({...x,entries:Array.isArray(x.entries)?x.entries:[]}));
-    renderFarmRequestsAdmin();renderFarmRequestsEmployee();updateFarmRequestBadges();
+    renderFarmRequestsAdmin();renderFarmRequestsEmployee();updateFarmRequestBadges();renderDelegatedApprovals?.();
     if(show)toast('Farm申請を更新しました');
   }catch(error){console.error('Farm request load error',error);if(show)alert('Farm申請を取得できませんでした：'+error.message)}
 }
@@ -11819,6 +12062,7 @@ function renderFarmRequestsEmployee(){
   box.innerHTML=farmSubmissionRequests.length?farmSubmissionRequests.map(x=>farmRequestCard(x,false)).join(''):'<div class="empty">申請履歴はありません。</div>';
 }
 async function reviewFarmRequest(id,status){
+  if(!portalPermission('farm_approval'))return alert('Farm申請を承認・却下する権限がありません。');
   const target=farmSubmissionRequests.find(x=>Number(x.id)===Number(id));if(!target)return;
   const verb=status==='approved'?'承認':'却下';
   const note=prompt(`このFarm申請を${verb}します。\n管理者コメント（任意）`,'');if(note===null)return;
