@@ -6406,6 +6406,100 @@ body.dark .job-calculation-box{
 @media(max-width:650px){.permission-switch{align-items:flex-start}.permission-switch i{margin-top:4px}}
 </style>
 
+
+<style id="ver25-9-farm-audit-detail">
+.audit-row-clickable{
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+.audit-row-clickable:hover{
+  transform:translateY(-2px);
+  border-color:rgba(220,162,103,.35)!important;
+  background:rgba(220,162,103,.055)!important;
+}
+.audit-row-clickable:focus-visible{
+  outline:2px solid #dca267;
+  outline-offset:3px;
+}
+.audit-detail-hint{
+  display:block;
+  margin-top:6px;
+  color:#dca267;
+  font-size:9px;
+  font-weight:800;
+}
+.audit-detail-modal{
+  width:min(680px,calc(100vw - 28px))!important;
+  max-height:90vh;
+  overflow:auto;
+}
+.audit-detail-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:16px;
+  margin-bottom:18px;
+}
+.audit-detail-header h2{margin:5px 0 0}
+.audit-detail-close{
+  width:40px;height:40px;border-radius:13px;
+  border:1px solid var(--line);
+  background:var(--panel);
+  color:var(--text);
+  font-size:22px;
+  cursor:pointer;
+}
+.audit-detail-summary{
+  display:flex;align-items:center;gap:14px;
+  padding:15px;border-radius:18px;
+  background:rgba(220,162,103,.07);
+  border:1px solid rgba(220,162,103,.14);
+}
+.audit-detail-main-icon{
+  width:52px;height:52px;border-radius:16px;
+  display:grid;place-items:center;
+  background:rgba(220,162,103,.16);
+  font-size:24px;
+}
+.audit-detail-summary>div:last-child{display:grid;gap:5px}
+.audit-detail-summary strong{font-size:16px}
+.audit-detail-summary span{font-size:10px;color:var(--muted)}
+.audit-detail-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:14px 0;
+}
+.audit-detail-grid>div{
+  padding:13px 14px;
+  border-radius:15px;
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--line);
+  display:grid;gap:5px;
+}
+.audit-detail-grid span,.audit-detail-content>span{
+  font-size:9px;color:var(--muted);letter-spacing:.08em;
+}
+.audit-detail-grid strong{font-size:12px;word-break:break-word}
+.audit-detail-content{
+  padding:16px;
+  border-radius:17px;
+  border:1px solid rgba(220,162,103,.14);
+  background:rgba(0,0,0,.10);
+}
+.audit-detail-content p{
+  margin:9px 0 0;
+  white-space:pre-wrap;
+  word-break:break-word;
+  line-height:1.75;
+  font-size:12px;
+}
+@media(max-width:620px){
+  .audit-detail-grid{grid-template-columns:1fr}
+  .audit-row-clickable .audit-time{display:flex;justify-content:space-between;align-items:center}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6482,7 +6576,7 @@ body.dark .job-calculation-box{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.8</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.9</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -7099,10 +7193,47 @@ body.dark .job-calculation-box{
 <section id="page-audit" class="page">
   <div class="page-hero compact"><div><span class="eyebrow">ADMIN AUDIT LOG</span><h1>管理履歴</h1><p>管理者が行った主要な操作を時系列で確認できます。</p></div><button class="btn" onclick="loadAuditLogs(true)">↻ 更新</button></div>
   <div class="panel" style="padding:20px">
-    <div class="audit-toolbar"><div class="field"><label>種類</label><select id="auditTypeFilter" onchange="renderAuditLogs()"><option value="">すべて</option><option value="sales">売上</option><option value="goal">売上目標</option><option value="notification">通知</option><option value="employee">従業員</option><option value="achievement">実績</option><option value="settings">設定</option></select></div><div class="field"><label>キーワード</label><input id="auditSearch" placeholder="操作内容・対象者" oninput="renderAuditLogs()"></div><button class="btn" onclick="exportAuditCsv()">CSV保存</button></div>
+    <div class="audit-toolbar"><div class="field"><label>種類</label><select id="auditTypeFilter" onchange="renderAuditLogs()"><option value="">すべて</option><option value="sales">売上</option><option value="goal">売上目標</option><option value="notification">通知</option><option value="employee">従業員</option><option value="achievement">実績</option><option value="settings">設定</option><option value="expense">経費</option><option value="inventory">在庫</option><option value="farm">Farm</option><option value="job_account">ジョブ口座</option><option value="profile">プロフィール</option></select></div><div class="field"><label>キーワード</label><input id="auditSearch" placeholder="操作内容・対象者" oninput="renderAuditLogs()"></div><button class="btn" onclick="exportAuditCsv()">CSV保存</button></div>
     <div id="auditLogList" class="audit-list"></div>
   </div>
 </section>
+
+<div id="auditDetailModal" class="modal-back hidden" onclick="closeAuditDetailModal(event)">
+  <div class="modal audit-detail-modal" onclick="event.stopPropagation()">
+    <div class="audit-detail-header">
+      <div>
+        <span class="eyebrow">AUDIT LOG DETAIL</span>
+        <h2 id="auditDetailTitle">管理履歴の詳細</h2>
+      </div>
+      <button class="audit-detail-close" type="button" onclick="closeAuditDetailModal()">×</button>
+    </div>
+
+    <div class="audit-detail-summary">
+      <div class="audit-detail-main-icon" id="auditDetailIcon">▦</div>
+      <div>
+        <strong id="auditDetailAction">操作</strong>
+        <span id="auditDetailDate">-</span>
+      </div>
+    </div>
+
+    <div class="audit-detail-grid">
+      <div><span>操作した人</span><strong id="auditDetailActor">-</strong></div>
+      <div><span>種類</span><strong id="auditDetailType">-</strong></div>
+      <div><span>対象者・対象</span><strong id="auditDetailTarget">-</strong></div>
+      <div><span>履歴ID</span><strong id="auditDetailId">-</strong></div>
+    </div>
+
+    <section class="audit-detail-content">
+      <span>操作内容・コメント・詳細</span>
+      <p id="auditDetailText">詳細はありません。</p>
+    </section>
+
+    <div class="modal-actions">
+      <button class="btn" type="button" onclick="copyAuditDetail()">内容をコピー</button>
+      <button class="btn primary" type="button" onclick="closeAuditDetailModal()">閉じる</button>
+    </div>
+  </div>
+</div>
 
 <section id="page-notifications" class="page">
   <div class="page-hero compact"><div><span class="eyebrow">NOTIFICATION CENTER</span><h1>通知センター</h1><p>サイト内に掲載中の通知を一覧で確認・編集・削除できます。</p></div><button class="btn" onclick="loadNotifications(true)">↻ 更新</button></div>
@@ -7172,7 +7303,7 @@ body.dark .job-calculation-box{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.8</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.9</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -10040,8 +10171,107 @@ async function syncFarmFromGoogleSheet(show=true){
   setFarmSyncStatus('ok','サイト内データベース更新済み');
 }
 
-async function loadFarmData(show=false){try{await loadFarmPeriods();const {data:items,error:ie}=await sb.from('farm_items').select('*').order('sort_order');if(ie)throw ie;farmItems=items||[];if(!currentFarmPeriod){farmData={period:null,items:farmItems.map(x=>({...x,total:0})),staff:[]};renderFarm(farmData);return}const [{data:e,error:ee},{data:t,error:te}]=await Promise.all([sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)]);if(ee)throw ee;if(te)throw te;const map=new Map();(t||[]).forEach(x=>map.set(x.staff_name,{name:x.staff_name,total:0,assessment:farmN(x.assessment),payment:farmN(x.payment),items:{}}));(e||[]).forEach(x=>{if(!map.has(x.staff_name))map.set(x.staff_name,{name:x.staff_name,total:0,assessment:0,payment:0,items:{}});const s=map.get(x.staff_name),it=farmItems.find(i=>String(i.id)===String(x.item_id)),q=farmN(x.quantity);if(it){s.items[it.name]=q;s.total+=q}});farmData={period:farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod)),items:farmItems.map(it=>({...it,total:(e||[]).filter(x=>String(x.item_id)===String(it.id)).reduce((a,b)=>a+farmN(b.quantity),0)})),staff:[...map.values()]};renderFarm(farmData);if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中')setFarmSyncStatus('ok','Supabaseデータ読込済み');renderFarmEntrySheet?.();renderFarmItemSettings?.();if(show)toast('Farmデータを更新しました')}catch(err){console.error('Farm load error',err);if(show)alert('Farmを読み込めません。Ver.13.7完全SQLをSupabaseで実行してください。\n'+err.message)}}
-function renderFarm(d){const grand=d.items.reduce((s,x)=>s+farmN(x.total),0),rank=[...d.staff].sort((a,b)=>b.total-a.total),ass=d.staff.reduce((s,x)=>s+farmN(x.assessment),0),pay=d.staff.reduce((s,x)=>s+farmN(x.payment),0);renderFarmPeriodOptions();if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');if($('farmTopStaff'))$('farmTopStaff').textContent=rank[0]?.name||'-';if($('farmTotalAssessment'))$('farmTotalAssessment').textContent=ass.toLocaleString('ja-JP',{maximumFractionDigits:1});if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(pay);if($('farmItemGrid'))$('farmItemGrid').innerHTML=d.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${farmN(x.total).toLocaleString('ja-JP')}</div><div class="farm-average">期間合計</div></article>`).join('')||'<div class="farm-empty">品目なし</div>';if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=rank.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${farmN(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>記録なし</span>'}</div><div class="sheet-note">査定 ${x.assessment.toLocaleString('ja-JP')} ／ ${yen.format(x.payment)}</div></article>`).join('')||'<div class="farm-empty">スタッフなし</div>';if($('farmRankingList'))$('farmRankingList').innerHTML=rank.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div>${rankingAvatar(x)}<div><strong>${esc(rankingDisplayName(x))}</strong><small>査定 ${x.assessment.toLocaleString('ja-JP')}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('')||'<div class="farm-empty">ランキングなし</div>';renderFarmManage();renderEmployeeFarm(d)}
+async function loadFarmData(show=false){
+  try{
+    await loadFarmPeriods();
+
+    const {data:items,error:itemError}=await sb
+      .from('farm_items')
+      .select('*')
+      .order('sort_order');
+
+    if(itemError)throw itemError;
+    farmItems=items||[];
+
+    if(!currentFarmPeriod){
+      farmData={
+        period:null,
+        items:farmItems.map(item=>({...item,total:0})),
+        staff:[]
+      };
+      renderFarm(farmData);
+      return;
+    }
+
+    const [
+      {data:entries,error:entriesError},
+      {data:totals,error:totalsError}
+    ]=await Promise.all([
+      sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),
+      sb.from('farm_staff_totals').select('*').eq('period_id',currentFarmPeriod)
+    ]);
+
+    if(entriesError)throw entriesError;
+    if(totalsError)throw totalsError;
+
+    const staffMap=new Map();
+
+    // 手動追加された従業員も一覧に残す
+    (totals||[]).forEach(row=>{
+      staffMap.set(row.staff_name,{
+        name:row.staff_name,
+        total:0,
+        assessment:0,
+        payment:0,
+        items:{}
+      });
+    });
+
+    // 保存済みの古い査定値を使わず、
+    // 現在の「査定基準」「原価」と個数から毎回再計算
+    (entries||[]).forEach(row=>{
+      if(!staffMap.has(row.staff_name)){
+        staffMap.set(row.staff_name,{
+          name:row.staff_name,
+          total:0,
+          assessment:0,
+          payment:0,
+          items:{}
+        });
+      }
+
+      const staff=staffMap.get(row.staff_name);
+      const item=farmItems.find(item=>String(item.id)===String(row.item_id));
+      const quantity=farmN(row.quantity);
+
+      if(!item)return;
+
+      const assessmentRate=Number(item.assessment_rate??item.unit_value)||0;
+      const costPrice=Number(item.cost_price)||0;
+
+      staff.items[item.name]=quantity;
+      staff.total+=quantity;
+      staff.assessment+=quantity*assessmentRate;
+      staff.payment+=quantity*costPrice;
+    });
+
+    farmData={
+      period:farmPeriods.find(period=>String(period.id)===String(currentFarmPeriod)),
+      items:farmItems.map(item=>({
+        ...item,
+        total:(entries||[])
+          .filter(row=>String(row.item_id)===String(item.id))
+          .reduce((sum,row)=>sum+farmN(row.quantity),0)
+      })),
+      staff:[...staffMap.values()]
+    };
+
+    renderFarm(farmData);
+
+    if(appMode==='admin'&&$('farmSyncStatus')?.textContent==='同期待機中'){
+      setFarmSyncStatus('ok','Supabaseデータ読込済み');
+    }
+
+    renderFarmEntrySheet?.();
+    renderFarmItemSettings?.();
+
+    if(show)toast('Farmデータを更新しました');
+  }catch(error){
+    console.error('Farm load error',error);
+    if(show)alert('Farmを読み込めません。\n'+(error?.message||error));
+  }
+}
+function renderFarm(d){const grand=d.items.reduce((s,x)=>s+farmN(x.total),0),rank=[...d.staff].sort((a,b)=>b.total-a.total),ass=d.staff.reduce((s,x)=>s+farmN(x.assessment),0),pay=d.staff.reduce((s,x)=>s+farmN(x.payment),0);renderFarmPeriodOptions();if($('farmGrandTotal'))$('farmGrandTotal').textContent=grand.toLocaleString('ja-JP');if($('farmTopStaff'))$('farmTopStaff').textContent=rank[0]?.name||'-';if($('farmTotalAssessment'))$('farmTotalAssessment').textContent=ass.toLocaleString('ja-JP',{maximumFractionDigits:1});if($('farmTotalPayment'))$('farmTotalPayment').textContent=yen.format(pay);if($('farmItemGrid'))$('farmItemGrid').innerHTML=d.items.map(x=>`<article class="farm-item"><h3>${esc(x.name)}</h3><div class="farm-total">${farmN(x.total).toLocaleString('ja-JP')}</div><div class="farm-average">期間合計</div></article>`).join('')||'<div class="farm-empty">品目なし</div>';if($('farmStaffGrid'))$('farmStaffGrid').innerHTML=rank.map(x=>`<article class="farm-staff-card"><div class="farm-staff-head"><strong>${esc(x.name)}</strong><b>${x.total.toLocaleString('ja-JP')}個</b></div><div class="farm-breakdown">${Object.entries(x.items).map(([k,v])=>`<span>${esc(k)}：${farmN(v).toLocaleString('ja-JP')}</span>`).join('')||'<span>記録なし</span>'}</div><div class="sheet-note">査定 ${farmN(x.assessment).toLocaleString('ja-JP',{maximumFractionDigits:4})} ／ ${yen.format(x.payment)}</div></article>`).join('')||'<div class="farm-empty">スタッフなし</div>';if($('farmRankingList'))$('farmRankingList').innerHTML=rank.map((x,i)=>`<div class="farm-ranking-row"><div class="farm-rank-no">${i+1}</div>${rankingAvatar(x)}<div><strong>${esc(rankingDisplayName(x))}</strong><small>査定 ${farmN(x.assessment).toLocaleString('ja-JP',{maximumFractionDigits:4})}</small></div><div class="farm-number">${x.total.toLocaleString('ja-JP')}個</div><div class="farm-number farm-money">${yen.format(x.payment)}</div></div>`).join('')||'<div class="farm-empty">ランキングなし</div>';renderFarmManage();renderEmployeeFarm(d)}
 function renderEmployeeFarm(d){
   const grand=d.items.reduce((s,x)=>s+farmN(x.total),0);
   const rank=[...d.staff].sort((a,b)=>b.total-a.total);
@@ -10943,10 +11173,101 @@ async function loadAuditLogs(show=false){
   if(!sb||appMode!=='admin')return;
   try{const {data,error}=await sb.from('audit_logs').select('*').order('created_at',{ascending:false}).limit(500);if(error)throw error;auditRows=data||[];renderAuditLogs();if(show)toast('管理履歴を更新しました')}catch(error){console.error(error);if(show)alert('管理履歴を取得できませんでした：'+error.message)}
 }
+function auditTypeLabel(type){
+  return ({
+    sales:'売上',
+    goal:'売上目標',
+    notification:'通知',
+    employee:'従業員',
+    profile:'プロフィール',
+    achievement:'実績',
+    settings:'設定',
+    inventory:'在庫',
+    farm:'Farm',
+    expense:'経費',
+    job_account:'ジョブ口座'
+  })[type]||type||'その他';
+}
+
 function renderAuditLogs(){
-  const box=$('auditLogList');if(!box)return;const type=$('auditTypeFilter')?.value||'',q=($('auditSearch')?.value||'').trim().toLowerCase();
-  const rows=auditRows.filter(r=>(!type||r.action_type===type)&&(!q||`${r.actor_name} ${r.action} ${r.detail||''} ${r.target_name||''}`.toLowerCase().includes(q)));
-  box.innerHTML=rows.length?rows.map(r=>`<article class="audit-row"><div class="audit-icon">${auditIcon(r.action_type)}</div><div><h3>${esc(r.action||'操作')} <small>— ${esc(r.actor_name||'管理者')}</small></h3><p>${esc(r.detail||r.target_name||'')}</p></div><div class="audit-time">${new Date(r.created_at).toLocaleString('ja-JP')}</div></article>`).join(''):'<div class="audit-empty">管理履歴はありません。</div>';
+  const box=$('auditLogList');
+  if(!box)return;
+
+  const type=$('auditTypeFilter')?.value||'';
+  const query=($('auditSearch')?.value||'').trim().toLowerCase();
+
+  const rows=auditRows.filter(row=>
+    (!type||row.action_type===type)&&
+    (!query||`${row.actor_name} ${row.action} ${row.detail||''} ${row.target_name||''}`.toLowerCase().includes(query))
+  );
+
+  box.innerHTML=rows.length
+    ?rows.map(row=>`
+      <article class="audit-row audit-row-clickable"
+        tabindex="0"
+        role="button"
+        onclick="openAuditDetail('${String(row.id).replace(/'/g,"\\'")}')"
+        onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAuditDetail('${String(row.id).replace(/'/g,"\\'")}')}">
+        <div class="audit-icon">${auditIcon(row.action_type)}</div>
+        <div>
+          <h3>${esc(row.action||'操作')} <small>— ${esc(row.actor_name||'管理者')}</small></h3>
+          <p>${esc(row.detail||row.target_name||'詳細を見るにはタップしてください')}</p>
+        </div>
+        <div class="audit-time">
+          ${new Date(row.created_at).toLocaleString('ja-JP')}
+          <span class="audit-detail-hint">詳細を見る ›</span>
+        </div>
+      </article>`).join('')
+    :'<div class="audit-empty">管理履歴はありません。</div>';
+}
+
+function openAuditDetail(id){
+  const row=auditRows.find(item=>String(item.id)===String(id));
+  if(!row)return;
+
+  window.currentAuditDetail=row;
+
+  $('auditDetailIcon').textContent=auditIcon(row.action_type);
+  $('auditDetailTitle').textContent='管理履歴の詳細';
+  $('auditDetailAction').textContent=row.action||'操作';
+  $('auditDetailDate').textContent=row.created_at
+    ?new Date(row.created_at).toLocaleString('ja-JP')
+    :'-';
+  $('auditDetailActor').textContent=row.actor_name||'管理者';
+  $('auditDetailType').textContent=auditTypeLabel(row.action_type);
+  $('auditDetailTarget').textContent=row.target_name||'指定なし';
+  $('auditDetailId').textContent=String(row.id??'-');
+  $('auditDetailText').textContent=row.detail||'コメント・詳細は登録されていません。';
+
+  $('auditDetailModal').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+
+function closeAuditDetailModal(event){
+  if(event&&event.target!==$('auditDetailModal'))return;
+  $('auditDetailModal')?.classList.add('hidden');
+  document.body.style.overflow='';
+}
+
+async function copyAuditDetail(){
+  const row=window.currentAuditDetail;
+  if(!row)return;
+
+  const copyText=[
+    `日時：${row.created_at?new Date(row.created_at).toLocaleString('ja-JP'):'-'}`,
+    `操作した人：${row.actor_name||'管理者'}`,
+    `種類：${auditTypeLabel(row.action_type)}`,
+    `操作：${row.action||'操作'}`,
+    `対象：${row.target_name||'指定なし'}`,
+    `詳細・コメント：${row.detail||'なし'}`
+  ].join('\n');
+
+  try{
+    await navigator.clipboard.writeText(copyText);
+    toast('管理履歴の詳細をコピーしました');
+  }catch(error){
+    alert(copyText);
+  }
 }
 function exportAuditCsv(){const rows=auditRows.map(r=>[new Date(r.created_at).toLocaleString('ja-JP'),r.actor_name,r.action_type,r.action,r.target_name||'',r.detail||'']);const table=[['日時','操作した人','種類','操作','対象','詳細'],...rows];const csv='\ufeff'+table.map(row=>row.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Lait_Divin_管理履歴_${dateInputLocal(new Date())}.csv`;a.click();URL.revokeObjectURL(a.href)}
 
@@ -11247,7 +11568,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.25.8 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.25.9 Error Fix Build</div>
 
 <script>
 (function(){
@@ -12116,6 +12437,68 @@ async function deleteFarmItemSetting(button){
   if(id){const {error}=await sb.from('farm_items').delete().eq('id',id);if(error)return alert('削除できませんでした：'+error.message)}
   farmItems=farmItems.filter(x=>String(x.id||'')!==String(id||'')||x.name!==name);renderFarmItemSettings();renderFarmEntrySheet();
 }
+
+async function recalculateCurrentFarmTotals(){
+  if(!currentFarmPeriod)return;
+
+  const [
+    {data:entries,error:entriesError},
+    {data:items,error:itemsError},
+    {data:existing,error:existingError}
+  ]=await Promise.all([
+    sb.from('farm_entries').select('*').eq('period_id',currentFarmPeriod),
+    sb.from('farm_items').select('*'),
+    sb.from('farm_staff_totals').select('staff_name').eq('period_id',currentFarmPeriod)
+  ]);
+
+  if(entriesError)throw entriesError;
+  if(itemsError)throw itemsError;
+  if(existingError)throw existingError;
+
+  const itemMap=new Map((items||[]).map(item=>[String(item.id),item]));
+  const staffMap=new Map();
+
+  (existing||[]).forEach(row=>{
+    staffMap.set(row.staff_name,{
+      period_id:Number(currentFarmPeriod),
+      staff_name:row.staff_name,
+      assessment:0,
+      payment:0
+    });
+  });
+
+  (entries||[]).forEach(row=>{
+    const item=itemMap.get(String(row.item_id));
+    if(!item)return;
+
+    if(!staffMap.has(row.staff_name)){
+      staffMap.set(row.staff_name,{
+        period_id:Number(currentFarmPeriod),
+        staff_name:row.staff_name,
+        assessment:0,
+        payment:0
+      });
+    }
+
+    const staff=staffMap.get(row.staff_name);
+    const quantity=Number(row.quantity)||0;
+    const assessmentRate=Number(item.assessment_rate??item.unit_value)||0;
+    const costPrice=Number(item.cost_price)||0;
+
+    staff.assessment+=quantity*assessmentRate;
+    staff.payment+=quantity*costPrice;
+  });
+
+  const payload=[...staffMap.values()];
+  if(!payload.length)return;
+
+  const {error}=await sb
+    .from('farm_staff_totals')
+    .upsert(payload,{onConflict:'period_id,staff_name'});
+
+  if(error)throw error;
+}
+
 async function saveFarmItemSettings(){
   const rows=[...document.querySelectorAll('#farmItemSettingsBody tr[data-farm-item-setting]')];
   const records=rows.map((row,i)=>({
@@ -12148,10 +12531,13 @@ async function saveFarmItemSettings(){
       }
       if(result.error)throw new Error(`${record.name}：${result.error.message}`);
     }
+    await recalculateCurrentFarmTotals();
     await loadFarmData(false);
     renderFarmItemSettings();
     renderFarmEntrySheet();
-    toast('Farm品目設定を保存しました');
+    renderRanking?.();
+    renderEmployeeRanking?.();
+    toast('品目設定を保存し、全員の査定・仕入れ金額を再計算しました');
   }catch(error){
     console.error('Farm item save error',error);
     alert('Farm品目設定を保存できませんでした。\n'+(error?.message||error)+'\n\nVer.18.1.7の修復SQLを実行してください。');
