@@ -6531,6 +6531,31 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver25-12-payslip-breakdown">
+.payslip-breakdown-summary{
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+}
+.payslip-breakdown-summary .sum.commission{
+  background:linear-gradient(145deg,rgba(80,131,177,.13),rgba(80,131,177,.04));
+  border-color:rgba(113,167,213,.20);
+}
+.payslip-breakdown-summary .sum.bonus{
+  background:linear-gradient(145deg,rgba(213,158,77,.15),rgba(213,158,77,.04));
+  border-color:rgba(226,177,100,.22);
+}
+.payslip-breakdown-summary .sum.commission .v{color:#9bc8eb}
+.payslip-breakdown-summary .sum.bonus .v{color:#efc58f}
+@media(max-width:980px){
+  .payslip-breakdown-summary{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .payslip-breakdown-summary .sum.net{grid-column:1/-1}
+}
+@media(max-width:560px){
+  .payslip-breakdown-summary{grid-template-columns:1fr!important}
+  .payslip-breakdown-summary .sum.net{grid-column:auto}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6607,7 +6632,7 @@ body.dark .job-calculation-box{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.11</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.12</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -7241,7 +7266,13 @@ body.dark .job-calculation-box{
 
 <main><div class="preview-bar"><h2>明細プレビュー</h2><span>入力内容はリアルタイム反映</span></div><div class="sheet-scroll"><section class="sheet" id="sheet">
 <div class="sheet-head"><div class="sheet-brand"><div><div class="sheet-name" id="sheetShop">Lait Divin</div><div class="sheet-city" id="sheetCity">Luz City ・ Divine Milk Café</div></div><div class="sheet-logo" id="sheetLogo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div></div><div class="sheet-title"><strong>給料明細書</strong><div class="issue">明細番号<br><span id="vSlipNo">LD-0001</span><br><br>発行日<br><span id="vIssue">-</span></div></div></div>
-<div class="sheet-body"><div class="person"><div><div class="meta-k">従業員名</div><div class="meta-v" id="vEmployee">未入力</div></div><div><div class="meta-k">役職</div><div class="meta-v" id="vRole">Cast</div></div><div><div class="meta-k">従業員番号</div><div class="meta-v" id="vEmployeeId">-</div></div><div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v" id="vPeriod">-</div></div></div><div class="summary"><div class="sum"><div class="k">支給合計</div><div class="v" id="vGross">¥0</div></div><div class="sum"><div class="k">控除合計</div><div class="v" id="vDeduction">¥0</div></div><div class="sum net"><div class="k">差引支給額</div><div class="v" id="vNet">¥0</div></div></div><div class="table-title">支給内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vEarnings"></tbody></table><div class="table-title">控除内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vDeductions"></tbody></table><div class="note" id="vNote"></div><div class="sheet-foot"><div id="sheetFooter">Lait Divin<br>Luz City<br>この明細書は店舗発行の記録です。</div><div class="stamp" id="sheetStamp">Lait<br>Divin</div></div></div>
+<div class="sheet-body"><div class="person"><div><div class="meta-k">従業員名</div><div class="meta-v" id="vEmployee">未入力</div></div><div><div class="meta-k">役職</div><div class="meta-v" id="vRole">Cast</div></div><div><div class="meta-k">従業員番号</div><div class="meta-v" id="vEmployeeId">-</div></div><div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v" id="vPeriod">-</div></div></div><div class="summary payslip-breakdown-summary">
+  <div class="sum commission"><div class="k">売上歩合支給額</div><div class="v" id="vCommission">¥0</div></div>
+  <div class="sum bonus"><div class="k">ボーナス支給額</div><div class="v" id="vBonus">¥0</div></div>
+  <div class="sum"><div class="k">その他支給額</div><div class="v" id="vOtherEarnings">¥0</div></div>
+  <div class="sum"><div class="k">控除合計</div><div class="v" id="vDeduction">¥0</div></div>
+  <div class="sum net"><div class="k">差引支給額</div><div class="v" id="vNet">¥0</div></div>
+</div><div class="table-title">支給内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vEarnings"></tbody></table><div class="table-title">控除内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vDeductions"></tbody></table><div class="note" id="vNote"></div><div class="sheet-foot"><div id="sheetFooter">Lait Divin<br>Luz City<br>この明細書は店舗発行の記録です。</div><div class="stamp" id="sheetStamp">Lait<br>Divin</div></div></div>
 </section></div></main></div></section>
 
 <section id="page-employees" class="page">
@@ -7409,7 +7440,7 @@ body.dark .job-calculation-box{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.11</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.12</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -8318,7 +8349,38 @@ function applyDelegatedPermissionUI(){
   }
 }
 
-function mapSlip(x){return {dbId:x.id,slipNo:x.slip_number,employee:x.employee_name,role:x.employee_role,employeeId:x.employee_id,employeeUid:x.employee_uid,issueDate:x.issue_date,periodStart:x.period_start,periodEnd:x.period_end,salesAmount:Number(x.sales_amount)||0,salesRate:Number(x.sales_rate)||0,earnings:x.earnings||[],deductions:x.deductions||[],note:x.note||'',gross:Number(x.gross_amount)||0,deduction:Number(x.deduction_amount)||0,net:Number(x.net_amount)||0,createdAt:x.created_at}}
+function mapSlip(x){
+  const earnings=x.earnings||[];
+  const commissionAmount=Number(x.commission_amount)||earnings
+    .filter(item=>String(item.name||'').startsWith('売上歩合'))
+    .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+  const bonusAmount=Number(x.bonus_amount)||earnings
+    .filter(item=>String(item.name||'').includes('ボーナス'))
+    .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+
+  return {
+    dbId:x.id,
+    slipNo:x.slip_number,
+    employee:x.employee_name,
+    role:x.employee_role,
+    employeeId:x.employee_id,
+    employeeUid:x.employee_uid,
+    issueDate:x.issue_date,
+    periodStart:x.period_start,
+    periodEnd:x.period_end,
+    salesAmount:Number(x.sales_amount)||0,
+    salesRate:Number(x.sales_rate)||0,
+    commissionAmount,
+    bonusAmount,
+    earnings,
+    deductions:x.deductions||[],
+    note:x.note||'',
+    gross:Number(x.gross_amount)||0,
+    deduction:Number(x.deduction_amount)||0,
+    net:Number(x.net_amount)||0,
+    createdAt:x.created_at
+  };
+}
 function mapAttendance(x){return {dbId:x.id,employeeUid:x.employee_uid,employeeId:x.employee_id,employeeName:x.employee_name,clockIn:x.clock_in,clockOut:x.clock_out,note:x.note||'',createdAt:x.created_at}}
 
 async function loadSalesData(){
@@ -8894,12 +8956,55 @@ function addMoneyRow(c,n='',a=0){const r=document.createElement('div');r.classNa
 function quickAdd(c,n){addMoneyRow(c,n,0)}
 function rows(id){return [...$(id).querySelectorAll('.money-row')].map(r=>({name:r.querySelector('.item-name').value.trim()||'未設定',amount:Number(r.querySelector('.item-amount').value)||0}))}
 function commission(){return Math.round((Number($('salesAmount').value)||0)*(Number($('salesRate').value)||0)/100)}
-function allEarnings(){const a=rows('earnings');const c=commission();if(c>0)a.unshift({name:`売上歩合（${$('salesRate').value}%）`,amount:c});return a}
+function allEarnings(){
+  const a=rows('earnings');
+  const c=commission();
+  if(c>0)a.unshift({name:`売上歩合（${$('salesRate').value}%）`,amount:c});
+  return a;
+}
+function bonusAmountFromEarnings(earnings=allEarnings()){
+  return earnings
+    .filter(item=>String(item.name||'').includes('ボーナス'))
+    .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+}
+function otherEarningsAmount(earnings=allEarnings()){
+  const commissionAmount=earnings
+    .filter(item=>String(item.name||'').startsWith('売上歩合'))
+    .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+  const bonusAmount=bonusAmountFromEarnings(earnings);
+  const gross=earnings.reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+  return Math.max(0,gross-commissionAmount-bonusAmount);
+}
 function renderRows(t,d){$(t).innerHTML='';const v=d.filter(x=>x.name!=='未設定'||x.amount);if(!v.length){$(t).innerHTML='<tr><td colspan="2" style="text-align:center;color:#aaa;font-size:11px">項目はありません</td></tr>';return}v.forEach(x=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${esc(x.name)}</td><td>${yen.format(x.amount)}</td>`;$(t).appendChild(tr)})}
 function slipNo(){if(!currentSlipNo) currentSlipNo=newSlipNo();return currentSlipNo}
 function update(){if(!$('vEmployee'))return;$('vEmployee').textContent=$('employee').value.trim()||'未入力';$('vRole').textContent=$('role').value;$('vEmployeeId').textContent=$('employeeId').value.trim()||'-';$('vIssue').textContent=jp($('issueDate').value);$('vPeriod').textContent=$('periodStart').value&&$('periodEnd').value?`${jp($('periodStart').value)} ～ ${jp($('periodEnd').value)}`:'-';$('vSlipNo').textContent=slipNo();const e=allEarnings(),d=rows('deductions'),g=e.reduce((s,x)=>s+x.amount,0),dd=d.reduce((s,x)=>s+x.amount,0);$('salesCommissionPreview').textContent=yen.format(commission());$('vGross').textContent=yen.format(g);$('vDeduction').textContent=yen.format(dd);$('vNet').textContent=yen.format(g-dd);$('miniGross').textContent=yen.format(g);$('miniNet').textContent=yen.format(g-dd);renderRows('vEarnings',e);renderRows('vDeductions',d);$('vNote').textContent=$('note').value.trim()||'備考なし';applySettings();saveDraft()}
 function applySettings(){if(!$('sheetShop'))return;$('sheetShop').textContent=settings.shop;$('sheetCity').textContent=settings.city;$('sheetLogo').innerHTML='<img src="lait-divin-logo.png" alt="Lait Divin logo">';$('sheetFooter').textContent=settings.footer;$('sheetStamp').innerHTML=esc(settings.shop).replace(/\s+/g,'<br>')}
-function formData(){const e=allEarnings(),d=rows('deductions'),g=e.reduce((s,x)=>s+x.amount,0),dd=d.reduce((s,x)=>s+x.amount,0);return {slipNo:slipNo(),employee:$('employee').value.trim(),role:$('role').value,employeeId:$('employeeId').value.trim(),issueDate:$('issueDate').value,periodStart:$('periodStart').value,periodEnd:$('periodEnd').value,salesAmount:Number($('salesAmount').value)||0,salesRate:Number($('salesRate').value)||0,earnings:e,deductions:d,note:$('note').value,gross:g,deduction:dd,net:g-dd}}
+function formData(){
+  const e=allEarnings();
+  const d=rows('deductions');
+  const g=e.reduce((s,x)=>s+x.amount,0);
+  const dd=d.reduce((s,x)=>s+x.amount,0);
+  return {
+    slipNo:slipNo(),
+    employee:$('employee').value.trim(),
+    role:$('role').value,
+    employeeId:$('employeeId').value.trim(),
+    issueDate:$('issueDate').value,
+    periodStart:$('periodStart').value,
+    periodEnd:$('periodEnd').value,
+    salesAmount:Number($('salesAmount').value)||0,
+    salesRate:Number($('salesRate').value)||0,
+    commissionAmount:commission(),
+    bonusAmount:bonusAmountFromEarnings(e),
+    otherEarnings:otherEarningsAmount(e),
+    earnings:e,
+    deductions:d,
+    note:$('note').value,
+    gross:g,
+    deduction:dd,
+    net:g-dd
+  };
+}
 function saveDraft(){if($('employee'))localStorage.setItem(DRAFT_KEY,JSON.stringify(formData()))}
 function loadDraft(){try{const d=JSON.parse(localStorage.getItem(DRAFT_KEY));if(!d)return false;$('employee').value=d.employee||'';$('role').value=d.role||'Cast';$('employeeId').value=d.employeeId||'';$('issueDate').value=d.issueDate||iso(new Date());$('periodStart').value=d.periodStart||'';$('periodEnd').value=d.periodEnd||'';$('salesAmount').value=d.salesAmount||0;$('salesRate').value=String(d.salesRate||0);$('note').value=d.note||'';$('earnings').innerHTML='';$('deductions').innerHTML='';(d.earnings||[]).filter(x=>!x.name.startsWith('売上歩合')).forEach(x=>addMoneyRow('earnings',x.name,x.amount));(d.deductions||[]).forEach(x=>addMoneyRow('deductions',x.name,x.amount));return true}catch{return false}}
 function clearForm(){if(!confirm('入力内容をリセットしますか？'))return;localStorage.removeItem(DRAFT_KEY);$('employeeSelect').value='';$('employee').value='';$('employeeId').value='';$('role').value='Cast';$('issueDate').value=iso(new Date());setThisMonth();$('salesAmount').value=0;$('salesRate').value='0';$('earnings').innerHTML='';$('deductions').innerHTML='';addMoneyRow('deductions','その他控除',0);$('note').value='今月もお疲れさまでした。\nご不明な点は店舗管理者までお問い合わせください。';currentSlipNo=newSlipNo();update()}
@@ -8908,7 +9013,26 @@ async function savePayslip(){
   if(!d.employee||!d.employeeId){alert('登録済み従業員を選択してください。');return}
   const emp=employees.find(x=>x.id===d.employeeId);if(!emp){alert('従業員管理に登録されていません。');return}
   if(!d.periodStart||!d.periodEnd){alert('支給対象期間を選択してください。');return}
-  const payload={employee_uid:emp.uid,employee_id:d.employeeId,employee_name:d.employee,employee_role:d.role,slip_number:d.slipNo,issue_date:d.issueDate,period_start:d.periodStart,period_end:d.periodEnd,sales_amount:d.salesAmount,sales_rate:d.salesRate,commission_amount:commission(),earnings:d.earnings,deductions:d.deductions,gross_amount:d.gross,deduction_amount:d.deduction,net_amount:d.net,note:d.note};
+  const payload={
+    employee_uid:emp.uid,
+    employee_id:d.employeeId,
+    employee_name:d.employee,
+    employee_role:d.role,
+    slip_number:d.slipNo,
+    issue_date:d.issueDate,
+    period_start:d.periodStart,
+    period_end:d.periodEnd,
+    sales_amount:d.salesAmount,
+    sales_rate:d.salesRate,
+    commission_amount:d.commissionAmount,
+    bonus_amount:d.bonusAmount,
+    earnings:d.earnings,
+    deductions:d.deductions,
+    gross_amount:d.gross,
+    deduction_amount:d.deduction,
+    net_amount:d.net,
+    note:d.note
+  };
   const {error}=await sb.from('payslips').insert(payload);if(error){console.error(error);alert('サーバー保存に失敗しました：'+error.message);return}
   currentSlipNo=newSlipNo();localStorage.removeItem(DRAFT_KEY);await loadHistoryData();update();toast('サーバーへ保存しました')
 }
@@ -9053,7 +9177,59 @@ function renderEmployeePortal(){$('portalEmployeeName').textContent=`${currentEm
   const ms=startOfMonthISO(),month=myAttendance.filter(a=>dateKey(a.clockIn)>=ms),mins=month.reduce((s,a)=>s+attendanceDuration(a),0);
   if($('portalMonthHours')){$('portalMonthHours').textContent=formatDuration(mins);$('portalMonthShifts').textContent=`${month.length}回`;$('portalLatestPay').textContent=historyData.length?yen.format(historyData[0].net):'¥0'}
   const g=$('employeeSlipGrid');g.innerHTML='';if(!historyData.length){g.innerHTML='<div class="empty">まだ給料明細はありません。</div>';return}historyData.forEach(x=>{const i=historyData.indexOf(x),c=document.createElement('div');c.className='card';c.innerHTML=`<h3>${jp(x.periodStart)}〜${jp(x.periodEnd)}</h3><p>${esc(x.slipNo)}<br>差引支給額：${yen.format(x.net)}</p><div class="card-actions"><button class="btn primary" onclick="openEmployeeSlip(${i})">明細を見る</button></div>`;g.appendChild(c)})}
-function slipHTML(x){const er=(x.earnings||[]).map(a=>`<tr><td>${esc(a.name)}</td><td>${yen.format(a.amount)}</td></tr>`).join('')||'<tr><td colspan="2">項目なし</td></tr>';const dr=(x.deductions||[]).map(a=>`<tr><td>${esc(a.name)}</td><td>${yen.format(a.amount)}</td></tr>`).join('')||'<tr><td colspan="2">項目なし</td></tr>';return `<section class="sheet" id="viewedSheet" style="width:100%;min-height:auto"><div class="sheet-head"><div class="sheet-brand"><div><div class="sheet-name">${esc(settings.shop)}</div><div class="sheet-city">${esc(settings.city)}</div></div><div class="sheet-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div></div><div class="sheet-title"><strong>給料明細書</strong><div class="issue">明細番号<br>${esc(x.slipNo)}<br><br>発行日<br>${jp(x.issueDate)}</div></div></div><div class="sheet-body"><div class="person"><div><div class="meta-k">従業員名</div><div class="meta-v">${esc(x.employee)}</div></div><div><div class="meta-k">役職</div><div class="meta-v">${esc(x.role)}</div></div><div><div class="meta-k">従業員番号</div><div class="meta-v">${esc(x.employeeId)}</div></div><div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v">${jp(x.periodStart)} ～ ${jp(x.periodEnd)}</div></div></div><div class="summary"><div class="sum"><div class="k">支給合計</div><div class="v">${yen.format(x.gross)}</div></div><div class="sum"><div class="k">控除合計</div><div class="v">${yen.format(x.deduction)}</div></div><div class="sum net"><div class="k">差引支給額</div><div class="v">${yen.format(x.net)}</div></div></div><div class="table-title">支給内訳</div><table><tbody>${er}</tbody></table><div class="table-title">控除内訳</div><table><tbody>${dr}</tbody></table><div class="note">${esc(x.note)}</div></div></section>`}
+function slipHTML(x){
+  const earnings=x.earnings||[];
+  const commissionAmount=Number(x.commissionAmount)||earnings
+    .filter(item=>String(item.name||'').startsWith('売上歩合'))
+    .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+  const bonusAmount=Number(x.bonusAmount)||earnings
+    .filter(item=>String(item.name||'').includes('ボーナス'))
+    .reduce((sum,item)=>sum+(Number(item.amount)||0),0);
+  const otherEarnings=Math.max(0,(Number(x.gross)||0)-commissionAmount-bonusAmount);
+
+  const er=earnings.map(item=>`<tr><td>${esc(item.name)}</td><td>${yen.format(item.amount)}</td></tr>`).join('')
+    ||'<tr><td colspan="2">項目なし</td></tr>';
+  const dr=(x.deductions||[]).map(item=>`<tr><td>${esc(item.name)}</td><td>${yen.format(item.amount)}</td></tr>`).join('')
+    ||'<tr><td colspan="2">項目なし</td></tr>';
+
+  return `<section class="sheet" id="viewedSheet" style="width:100%;min-height:auto">
+    <div class="sheet-head">
+      <div class="sheet-brand">
+        <div>
+          <div class="sheet-name">${esc(settings.shop)}</div>
+          <div class="sheet-city">${esc(settings.city)}</div>
+        </div>
+        <div class="sheet-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
+      </div>
+      <div class="sheet-title">
+        <strong>給料明細書</strong>
+        <div class="issue">明細番号<br>${esc(x.slipNo)}<br><br>発行日<br>${jp(x.issueDate)}</div>
+      </div>
+    </div>
+    <div class="sheet-body">
+      <div class="person">
+        <div><div class="meta-k">従業員名</div><div class="meta-v">${esc(x.employee)}</div></div>
+        <div><div class="meta-k">役職</div><div class="meta-v">${esc(x.role)}</div></div>
+        <div><div class="meta-k">従業員番号</div><div class="meta-v">${esc(x.employeeId)}</div></div>
+        <div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v">${jp(x.periodStart)} ～ ${jp(x.periodEnd)}</div></div>
+      </div>
+
+      <div class="summary payslip-breakdown-summary">
+        <div class="sum commission"><div class="k">売上歩合支給額</div><div class="v">${yen.format(commissionAmount)}</div></div>
+        <div class="sum bonus"><div class="k">ボーナス支給額</div><div class="v">${yen.format(bonusAmount)}</div></div>
+        <div class="sum"><div class="k">その他支給額</div><div class="v">${yen.format(otherEarnings)}</div></div>
+        <div class="sum"><div class="k">控除合計</div><div class="v">${yen.format(x.deduction)}</div></div>
+        <div class="sum net"><div class="k">差引支給額</div><div class="v">${yen.format(x.net)}</div></div>
+      </div>
+
+      <div class="table-title">支給内訳</div>
+      <table><tbody>${er}</tbody></table>
+      <div class="table-title">控除内訳</div>
+      <table><tbody>${dr}</tbody></table>
+      <div class="note">${esc(x.note)}</div>
+    </div>
+  </section>`;
+}
 function openEmployeeSlip(i){const x=historyData[i];if(!currentEmployee||x.employeeId.toLowerCase()!==currentEmployee.id.toLowerCase())return;currentViewedSlip=x;$('viewedSlipContainer').innerHTML=slipHTML(x);$('slipModal').classList.remove('hidden')}
 function closeSlipModal(){$('slipModal').classList.add('hidden')}
 function attendanceDuration(a,endDate=new Date()){
@@ -11707,7 +11883,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.25.11 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.25.12 Error Fix Build</div>
 
 <script>
 (function(){
