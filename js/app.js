@@ -40,6 +40,42 @@ let realtimeHealthy=false;
 let attendanceDetailEmployee=null;
 let selectedAttendanceIds=new Set();
 
+// ===== Ver.26.0.2 Early Global Feature State =====
+let realtimeFallbackTimer=null;
+let realtimeReconnectTimer=null;
+let realtimeSubscribeTimeout=null;
+let realtimeLastSuccessAt=0;
+let realtimeHealthTimer=null;
+let inventorySnapshot=[];
+let attendanceControlMode='working';
+let inventoryDiscordMessageId='';
+let inventorySiteNoticeId='';
+let farmPeriods=[];
+let farmItems=[];
+let farmData={period:null,items:[],staff:[]};
+let currentFarmPeriod=null;
+let inventoryCountRequests=[];
+let farmSubmissionRequests=[];
+let inventorySpreadsheetRows=[];
+let farmEntryDraft={};
+let inventoryCountDraft={};
+let inventoryCountNoteDraft='';
+let farmManageDraft=[];
+let farmManageDirty=false;
+let farmAutoSyncBusy=false;
+let inventoryAutoSyncBusy=false;
+let pendingProfileAvatar='';
+let adminEditingProfile=null;
+let adminEditingAvatar='';
+let achievementCatalog=[];
+let profileAchievements=[];
+let achievementRealtimeChannel=null;
+let notificationRows=[];
+let notificationReadIds=new Set();
+let campaignData=[];
+let adminApprovalTab='expense';
+let delegatedApprovalTab='expense';
+
 
 
 function markRealtimeStatus(state='connecting'){
@@ -483,11 +519,11 @@ function stopRealtime(){
 }
 
 const realtimeRefreshTimers=new Map();
-let realtimeFallbackTimer=null;
-let realtimeReconnectTimer=null;
-let realtimeSubscribeTimeout=null;
-let realtimeLastSuccessAt=0;
-let realtimeHealthTimer=null;
+realtimeFallbackTimer=null;
+realtimeReconnectTimer=null;
+realtimeSubscribeTimeout=null;
+realtimeLastSuccessAt=0;
+realtimeHealthTimer=null;
 
 function queueRealtimeRefresh(key,callback,delay=220){
   clearTimeout(realtimeRefreshTimers.get(key));
@@ -899,7 +935,7 @@ function renderBusinessDashboard(prefix='biz'){
 
 // Latest inventory data loaded from Supabase/Google Sheets.
 // Define it before the dashboard renders so early refreshes never crash.
-let inventorySnapshot=[];
+inventorySnapshot=[];
 
 function renderEmployeeDashboard(){
   if(!$('employeeDashWorking')||!currentEmployee)return;
@@ -1645,7 +1681,7 @@ async function manualDiscordSync(){
 }
 
 
-let attendanceControlMode='working';
+attendanceControlMode='working';
 
 function localDateTimeValue(date=new Date()){
   const shifted=new Date(date.getTime()-date.getTimezoneOffset()*60000);
@@ -2281,8 +2317,8 @@ async function loadInventorySnapshot(show=false){
 
 const INVENTORY_DISCORD_MESSAGE_KEY='lait_divin_inventory_discord_message';
 const INVENTORY_SITE_NOTICE_KEY='lait_divin_inventory_site_notice';
-let inventoryDiscordMessageId=localStorage.getItem(INVENTORY_DISCORD_MESSAGE_KEY)||'';
-let inventorySiteNoticeId=localStorage.getItem(INVENTORY_SITE_NOTICE_KEY)||'';
+inventoryDiscordMessageId=localStorage.getItem(INVENTORY_DISCORD_MESSAGE_KEY)||'';
+inventorySiteNoticeId=localStorage.getItem(INVENTORY_SITE_NOTICE_KEY)||'';
 
 function getInventoryDiscordLowItems(){
   return (inventorySnapshot||[]).filter(x=>{
@@ -2532,13 +2568,13 @@ window.addEventListener('online',()=>{
 window.addEventListener('offline',()=>markRealtimeStatus('offline'));
 // Boot moved to js/bootstrap.js so every feature is initialized first.
 /* ===== Ver.6 Supabase Farm Module ===== */
-let farmPeriods=[],farmItems=[],farmData={period:null,items:[],staff:[]},currentFarmPeriod=null;
-let inventoryCountRequests=[];
-let farmSubmissionRequests=[];
-let inventorySpreadsheetRows=[];
-let farmEntryDraft={};
-let inventoryCountDraft={};
-let inventoryCountNoteDraft='';
+farmPeriods=[];farmItems=[];farmData={period:null,items:[],staff:[]};currentFarmPeriod=null;
+inventoryCountRequests=[];
+farmSubmissionRequests=[];
+inventorySpreadsheetRows=[];
+farmEntryDraft={};
+inventoryCountDraft={};
+inventoryCountNoteDraft='';
 function farmN(v){return Number(v)||0} function farmNorm(v){return String(v||'').replace(/[\s　]/g,'').toLowerCase()}
 async function loadFarmPeriods(){const {data,error}=await sb.from('farm_periods').select('*').order('start_date',{ascending:false});if(error)throw error;farmPeriods=data||[];if((!currentFarmPeriod||!farmPeriods.some(x=>String(x.id)===String(currentFarmPeriod)))&&farmPeriods.length)currentFarmPeriod=(farmPeriods.find(x=>x.is_active)||farmPeriods[0]).id;renderFarmPeriodOptions()}
 function renderFarmPeriodOptions(){const opts=farmPeriods.length?farmPeriods.map(p=>`<option value="${p.id}">${esc(p.label)}${p.is_active?'（最新）':''}</option>`).join(''):'<option value="">期間なし</option>';[$('farmPeriodSelect'),$('employeeFarmPeriodSelect')].forEach(x=>{if(x){x.innerHTML=opts;x.value=currentFarmPeriod||''}});const p=farmPeriods.find(x=>String(x.id)===String(currentFarmPeriod));const label=p?.label||'期間を追加してください';if($('farmPeriodLabel'))$('farmPeriodLabel').textContent=label;if($('employeeFarmPeriodLabel'))$('employeeFarmPeriodLabel').textContent=label;if($('farmSheetLabel'))$('farmSheetLabel').textContent='Site Farm Database';if($('employeeFarmSheetLabel'))$('employeeFarmSheetLabel').textContent='Site Farm Database'}
@@ -2694,8 +2730,8 @@ function renderEmployeeFarm(d){
 function changeFarmPeriod(v){currentFarmPeriod=v;loadFarmData()} function changeEmployeeFarmPeriod(v){currentFarmPeriod=v;loadFarmData()}
 function setFarmTab(tab){document.querySelectorAll('[data-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.farmTab===tab));document.querySelectorAll('#page-farm .farm-view').forEach(v=>v.classList.remove('active'));$('farmView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active');if(tab==='manage')renderFarmManage()}
 function setEmployeeFarmTab(tab){document.querySelectorAll('[data-employee-farm-tab]').forEach(b=>b.classList.toggle('active',b.dataset.employeeFarmTab===tab));document.querySelectorAll('#employee-page-farm .farm-view').forEach(v=>v.classList.remove('active'));$('employeeFarmView'+tab[0].toUpperCase()+tab.slice(1))?.classList.add('active')}
-let farmManageDraft=[];
-let farmManageDirty=false;
+farmManageDraft=[];
+farmManageDirty=false;
 
 function captureFarmManageDraft(){
   const cards=[...document.querySelectorAll('#farmManageRows [data-farm-row]')];
@@ -2912,7 +2948,7 @@ async function createFarmPeriod(){
 }
 
 
-let farmAutoSyncBusy=false;
+farmAutoSyncBusy=false;
 window.__farmSyncEnabled=false;
 setInterval(async()=>{
   try{
@@ -2933,7 +2969,7 @@ setInterval(async()=>{
 
 
 
-let inventoryAutoSyncBusy=false;
+inventoryAutoSyncBusy=false;
 window.__inventorySyncEnabled=false;
 setInterval(async()=>{
   try{
@@ -3057,7 +3093,7 @@ window.addEventListener('beforeunload',()=>{if(appMode!=='login')sendPresenceHea
 setInterval(()=>{if(appMode!=='login')renderOnlinePresence()},60000);
 
 // ===== Premium 1.1 Profile =====
-let pendingProfileAvatar='';
+pendingProfileAvatar='';
 function cleanAvatarUrl(url){
   const value=String(url||'').trim();
   if(!value||value==='null'||value==='undefined')return '';
@@ -3273,8 +3309,8 @@ async function saveMyProfile(){
 
 
 
-let adminEditingProfile=null;
-let adminEditingAvatar='';
+adminEditingProfile=null;
+adminEditingAvatar='';
 
 function openAdminProfileEditor(profileId){
   if(appMode!=='admin'){alert('管理者のみ編集できます。');return}
@@ -3346,8 +3382,8 @@ async function saveAdminEditedProfile(){
 document.addEventListener('input',event=>{if(event.target?.id==='adminEditDisplayName')previewAdminProfileAvatar()});
 
 // ===== Premium 1.5: Community profiles, achievements and Discord daily report =====
-let achievementCatalog=[];
-let profileAchievements=[];
+achievementCatalog=[];
+profileAchievements=[];
 
 async function loadCommunityProfiles(showToast=false){
   try{
@@ -3394,7 +3430,7 @@ function profileNameForAction(profileId){
   const employee=employees.find(e=>e.uid===profileId);
   return employee?.name||employee?.legalName||'スタッフ';
 }
-let achievementRealtimeChannel=null;
+achievementRealtimeChannel=null;
 function achievementNoticeStorageKey(){return `lait-divin-achievement-notices-${currentProfile?.id||'guest'}`}
 function loadLocalAchievementNotices(){
   if(!currentProfile?.id)return [];
@@ -3702,8 +3738,8 @@ async function copyAuditDetail(){
 function exportAuditCsv(){const rows=auditRows.map(r=>[new Date(r.created_at).toLocaleString('ja-JP'),r.actor_name,r.action_type,r.action,r.target_name||'',r.detail||'']);const table=[['日時','操作した人','種類','操作','対象','詳細'],...rows];const csv='\ufeff'+table.map(row=>row.map(v=>`"${String(v??'').replace(/"/g,'""')}"`).join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Lait_Divin_管理履歴_${dateInputLocal(new Date())}.csv`;a.click();URL.revokeObjectURL(a.href)}
 
 // ===== Ver.13.7 Notification Center =====
-let notificationRows=[];
-let notificationReadIds=new Set();
+notificationRows=[];
+notificationReadIds=new Set();
 function notificationTypeLabel(type){return type==='update'?'アップデート':type==='important'?'重要':type==='success'?'完了・報告':'一般通知'}
 function notificationIcon(type){return type==='update'?'📢':type==='important'?'⚠️':type==='success'?'✅':'🔔'}
 function formatNotificationDate(v){return v?new Date(v).toLocaleString('ja-JP',{year:'numeric',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}):'-'}
@@ -4061,7 +4097,7 @@ async function sendSiteAndDiscordNotification(){
 
 
 /* ===== Ver.17.2 Campaign Manager ===== */
-let campaignData=[];
+campaignData=[];
 function campaignStatus(item){
   const today=new Date();today.setHours(0,0,0,0);
   const start=item.start_date?new Date(item.start_date+'T00:00:00'):null;
@@ -4354,7 +4390,7 @@ async function reviewExpenseRequest(id,status){
 /* ===== Ver.18.1 Site Inventory & Farm Approval Module ===== */
 
 
-let adminApprovalTab='expense';
+adminApprovalTab='expense';
 
 function setAdminApprovalTab(tab){
   adminApprovalTab=tab;
@@ -4423,7 +4459,7 @@ function renderAdminApprovalCenter(){
   }
 }
 
-let delegatedApprovalTab='expense';
+delegatedApprovalTab='expense';
 
 function setDelegatedApprovalTab(tab){
   if(tab==='expense'&&!portalPermission('expense_approval'))return;
@@ -5116,7 +5152,7 @@ setFarmTab=function(tab){
       if (typeof restoreSession === 'function') {
         await restoreSession();
       }
-      console.info('Lait Divin Staff Portal Ver.26.0 initialized');
+      console.info('Lait Divin Staff Portal Ver.26.0.2 initialized');
     } catch (error) {
       console.error('Portal initialization failed:', error);
       const statusNodes = document.querySelectorAll('[data-realtime-status]');
