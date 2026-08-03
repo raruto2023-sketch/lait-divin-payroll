@@ -6556,6 +6556,31 @@ body.dark .job-calculation-box{
 }
 </style>
 
+
+<style id="ver25-13-realtime-connection-fix">
+[data-realtime-status][data-sync-state="live"]::before{
+  background:#68b47a!important;
+  box-shadow:0 0 0 4px rgba(104,180,122,.12)!important;
+}
+[data-realtime-status][data-sync-state="fallback"]::before{
+  background:#d8a45f!important;
+  box-shadow:0 0 0 4px rgba(216,164,95,.12)!important;
+}
+[data-realtime-status][data-sync-state="connecting"]::before,
+[data-realtime-status][data-sync-state="reconnecting"]::before{
+  background:#d8a45f!important;
+  animation:ld-sync-pulse 1.2s infinite;
+}
+[data-realtime-status][data-sync-state="offline"]::before{
+  background:#a55c52!important;
+  box-shadow:0 0 0 4px rgba(165,92,82,.12)!important;
+}
+@keyframes ld-sync-pulse{
+  0%,100%{opacity:.45;transform:scale(.85)}
+  50%{opacity:1;transform:scale(1)}
+}
+</style>
+
 </head>
 <body class="login-active">
 <div id="loginScreen" class="login-screen v41-login clear-cow-login">
@@ -6632,7 +6657,7 @@ body.dark .job-calculation-box{
   <aside class="v4-sidebar" id="v4Sidebar">
     <div class="v4-brand">
       <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.12</small></div>
+      <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.13</small></div>
     </div>
     <nav class="nav v4-nav">
       <button data-page="dashboard" class="active" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -6672,7 +6697,7 @@ body.dark .job-calculation-box{
       </div>
       <div class="v4-top-status">
         <div id="v4OpenStatus" class="v4-open-pill">● OPEN</div>
-        <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="v4TopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 接続中</div>
+        <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="v4TopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 同期準備中</div>
         <button class="v4-icon-btn notification-top-btn" onclick="goPage('notifications')" title="通知センター">🔔<i id="adminTopNotificationBadge" class="notification-badge hidden">0</i></button>
         <button class="v4-icon-btn" onclick="manualDiscordSync()" title="Discord同期">↻</button>
         <div class="v4-profile">
@@ -7045,7 +7070,7 @@ body.dark .job-calculation-box{
       <span class="eyebrow">SITE INVENTORY DATABASE</span>
       <h1>在庫管理</h1>
       <p>材料の現在数をサイト上で直接管理します。Googleスプレッドシートは使用しません。</p>
-      <div class="inventory-live-status"><i id="inventorySyncDot" class="ok"></i><span id="inventorySyncStatus">サイト内データベース接続中</span></div>
+      <div class="inventory-live-status"><i id="inventorySyncDot" class="ok"></i><span id="inventorySyncStatus">サイト内データベース同期中</span></div>
     </div>
     <div class="inventory-actions">
       <button class="btn primary" onclick="saveInventorySpreadsheet()">変更を一括保存</button>
@@ -7139,7 +7164,7 @@ body.dark .job-calculation-box{
       <span class="eyebrow">SITE FARM DATABASE</span>
       <h1>Farm管理</h1>
       <p>従業員が入力した採取数を確認・承認し、サイト内で集計します。</p>
-      <div class="farm-live-status"><i id="farmSyncDot" class="ok"></i><span id="farmSyncStatus">サイト内データベース接続中</span></div>
+      <div class="farm-live-status"><i id="farmSyncDot" class="ok"></i><span id="farmSyncStatus">サイト内データベース同期中</span></div>
     </div>
     <div class="inventory-actions">
       <button class="btn" onclick="loadFarmData(true)">最新情報</button>
@@ -7440,7 +7465,7 @@ body.dark .job-calculation-box{
     <aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
       <div class="v4-brand">
         <div class="v4-brand-logo"><img src="lait-divin-logo.png" alt="Lait Divin logo"></div>
-        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.12</small></div>
+        <div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 25.13</small></div>
       </div>
       <nav class="nav v4-nav v41-employee-nav">
         <button data-employee-page="home" class="active" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
@@ -7470,7 +7495,7 @@ body.dark .job-calculation-box{
         <div class="v4-greeting"><strong id="employeeGreeting">おはようございます</strong><span>今日も素敵な一日を始めましょう。</span></div>
         <div class="v4-top-status">
           <div id="employeeOpenStatus" class="v4-open-pill">● CLOSED</div>
-          <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="employeeTopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 接続中</div>
+          <div class="v4-top-stat"><small>現在の出勤人数</small><strong id="employeeTopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status>● 同期準備中</div>
           <button class="v4-icon-btn notification-top-btn" onclick="employeeGoPage('notifications')" title="通知センター">🔔<i id="employeeTopNotificationBadge" class="notification-badge hidden">0</i></button>
           <div class="v4-profile">
             <div class="v4-profile-avatar" id="employeeProfileAvatar">従</div>
@@ -7570,7 +7595,7 @@ body.dark .job-calculation-box{
       <span class="eyebrow">INVENTORY COUNT</span>
       <h1>在庫確認・申請</h1>
       <p>材料の現在数を入力して管理者へ申請します。承認後に在庫表へ反映されます。</p>
-      <div class="inventory-live-status"><i id="employeeInventorySyncDot" class="ok"></i><span id="employeeInventorySyncStatus">サイト内データベース接続中</span></div>
+      <div class="inventory-live-status"><i id="employeeInventorySyncDot" class="ok"></i><span id="employeeInventorySyncStatus">サイト内データベース同期中</span></div>
     </div>
     <div class="inventory-actions">
       <button class="btn" onclick="loadInventorySnapshot(true)">最新情報</button>
@@ -7627,7 +7652,7 @@ body.dark .job-calculation-box{
       <span class="eyebrow">FARM ENTRY REQUEST</span>
       <h1>Farm入力・申請</h1>
       <p>自分の採取数を入力すると合計と査定額を自動計算します。管理者承認後に反映されます。</p>
-      <div class="farm-live-status"><i id="employeeFarmSyncDot" class="ok"></i><span id="employeeFarmSyncStatus">サイト内データベース接続中</span></div>
+      <div class="farm-live-status"><i id="employeeFarmSyncDot" class="ok"></i><span id="employeeFarmSyncStatus">サイト内データベース同期中</span></div>
     </div>
     <div class="inventory-actions"><button class="btn" onclick="loadFarmData(true)">最新情報</button><button class="btn primary" onclick="submitFarmRequest()">入力内容を申請</button></div>
   </div>
@@ -8021,12 +8046,23 @@ let selectedAttendanceIds=new Set();
 
 
 
-function markRealtimeStatus(ok){
-  realtimeHealthy=ok;
+function markRealtimeStatus(state='connecting'){
+  const normalized=state===true?'live':state===false?'reconnecting':state;
+  realtimeHealthy=normalized==='live';
+
+  const labels={
+    live:'● 同期中',
+    fallback:'● 自動同期中',
+    connecting:'● 同期準備中',
+    reconnecting:'● 再接続中',
+    offline:'● オフライン'
+  };
+
   document.querySelectorAll('[data-realtime-status]').forEach(el=>{
-    el.textContent=ok?'● 同期中':'● 再接続中';
-    el.classList.toggle('sync-ok',ok);
-    el.classList.toggle('sync-warn',!ok);
+    el.textContent=labels[normalized]||labels.connecting;
+    el.classList.toggle('sync-ok',normalized==='live'||normalized==='fallback');
+    el.classList.toggle('sync-warn',!['live','fallback'].includes(normalized));
+    el.dataset.syncState=normalized;
   });
 }
 function startSyncTimer(){
@@ -8439,14 +8475,23 @@ async function loadHistoryData(){const {data,error}=await sb.from('payslips').se
 async function loadMyHistory(){const {data,error}=await sb.from('payslips').select('*').order('created_at',{ascending:false});if(error) throw error;historyData=(data||[]).map(mapSlip)}
 async function loadSettings(){const {data,error}=await sb.from('app_settings').select('*').eq('id',1).maybeSingle();if(error) throw error;if(data) settings={shop:data.shop_name,city:data.city_subtitle,logo:data.logo_text,prefix:data.slip_prefix,footer:data.footer_text}}
 function stopRealtime(){
-  if(realtimeChannel&&sb){try{sb.removeChannel(realtimeChannel)}catch{}}
+  clearTimeout(realtimeSubscribeTimeout);
+  clearTimeout(realtimeReconnectTimer);
+  if(realtimeChannel&&sb){
+    try{sb.removeChannel(realtimeChannel)}catch(error){
+      console.warn('Realtime channel remove failed',error);
+    }
+  }
   realtimeChannel=null;
-  markRealtimeStatus(false);
+  markRealtimeStatus(navigator.onLine?'connecting':'offline');
 }
 
 const realtimeRefreshTimers=new Map();
 let realtimeFallbackTimer=null;
 let realtimeReconnectTimer=null;
+let realtimeSubscribeTimeout=null;
+let realtimeLastSuccessAt=0;
+let realtimeHealthTimer=null;
 
 function queueRealtimeRefresh(key,callback,delay=220){
   clearTimeout(realtimeRefreshTimers.get(key));
@@ -8592,7 +8637,9 @@ async function realtimeRefreshCore(mode,table){
 
 function subscribeRealtime(mode){
   stopRealtime();
-  if(!sb)return;
+  if(!sb||appMode==='login')return;
+
+  markRealtimeStatus(navigator.onLine?'connecting':'offline');
 
   const tables=[
     'profiles',
@@ -8620,36 +8667,98 @@ function subscribeRealtime(mode){
     'profile_achievements'
   ];
 
-  let channel=sb.channel(`ld-full-live-${mode}-${Date.now()}`);
+  let channel=sb.channel(`ld-live-${mode}-${Date.now()}`,{
+    config:{
+      broadcast:{self:false},
+      presence:{key:currentProfile?.id||mode}
+    }
+  });
 
   tables.forEach(table=>{
     channel=channel.on(
       'postgres_changes',
       {event:'*',schema:'public',table},
       payload=>{
+        realtimeLastSuccessAt=Date.now();
+        markRealtimeStatus('live');
         queueRealtimeRefresh(table,()=>realtimeRefreshCore(mode,table));
       }
     );
   });
 
   realtimeChannel=channel.subscribe(status=>{
-    const connected=status==='SUBSCRIBED';
-    markRealtimeStatus(connected);
+    console.log('Realtime status:',status);
 
-    if(connected){
+    if(status==='SUBSCRIBED'){
+      clearTimeout(realtimeSubscribeTimeout);
       clearTimeout(realtimeReconnectTimer);
-      realtimeReconnectTimer=null;
+      realtimeLastSuccessAt=Date.now();
+      markRealtimeStatus('live');
+      return;
     }
 
-    if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(status)){
+    if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'||status==='CLOSED'){
+      clearTimeout(realtimeSubscribeTimeout);
+      markRealtimeStatus(navigator.onLine?'reconnecting':'offline');
+
       clearTimeout(realtimeReconnectTimer);
       realtimeReconnectTimer=setTimeout(()=>{
         if(appMode===mode&&navigator.onLine)subscribeRealtime(mode);
-      },2200);
+      },3500);
     }
   });
+
+  // Realtimeの応答が遅い場合でも、15秒補助同期へ切り替えて止まって見えないようにする
+  realtimeSubscribeTimeout=setTimeout(async()=>{
+    if(appMode!==mode||realtimeHealthy)return;
+    const success=await refreshVisibleSiteData(false);
+    if(success){
+      realtimeLastSuccessAt=Date.now();
+      markRealtimeStatus('fallback');
+    }else{
+      markRealtimeStatus(navigator.onLine?'reconnecting':'offline');
+    }
+  },8000);
 }
 
+function startRealtimeHealthCheck(){
+  clearInterval(realtimeHealthTimer);
+  realtimeHealthTimer=setInterval(async()=>{
+    if(appMode==='login'||document.visibilityState!=='visible')return;
+
+    if(!navigator.onLine){
+      markRealtimeStatus('offline');
+      return;
+    }
+
+    // 45秒以上Realtimeイベントがなくても、DB疎通が成功していれば自動同期中として扱う
+    if(!realtimeHealthy||Date.now()-realtimeLastSuccessAt>45000){
+      const success=await probeRealtimeDatabase();
+      if(success){
+        if(!realtimeHealthy)markRealtimeStatus('fallback');
+      }else{
+        markRealtimeStatus('reconnecting');
+        if(appMode==='admin')subscribeRealtime('admin');
+        if(appMode==='employee')subscribeRealtime('employee');
+      }
+    }
+  },20000);
+}
+
+async function probeRealtimeDatabase(){
+  if(!sb||!currentProfile?.id)return false;
+  try{
+    const {error}=await sb
+      .from('profiles')
+      .select('id')
+      .eq('id',currentProfile.id)
+      .limit(1);
+    return !error;
+  }catch(error){
+    console.warn('Realtime health probe failed',error);
+    return false;
+  }
+}
 async function refreshVisibleSiteData(showToast=false){
   if(!sb||appMode==='login'||!currentProfile?.id)return;
   try{
@@ -8701,19 +8810,32 @@ async function refreshVisibleSiteData(showToast=false){
       renderEmployeeRanking();renderOnlinePresence();
       renderEmployeeInventoryCountSheet?.();renderFarmEntrySheet?.();
     }
+    realtimeLastSuccessAt=Date.now();
     if(showToast)toast('サイト全体を最新状態へ更新しました');
+    return true;
   }catch(error){
     console.error('サイト全体更新エラー:',error);
+    return false;
   }
 }
 
 function startRealtimeFallback(){
   clearInterval(realtimeFallbackTimer);
-  realtimeFallbackTimer=setInterval(()=>{
-    if(document.visibilityState!=='visible'||appMode==='login'||!navigator.onLine)return;
-    // Realtime取りこぼし対策。入力下書きはlocalStorageで保持されます。
-    refreshVisibleSiteData(false);
+  realtimeFallbackTimer=setInterval(async()=>{
+    if(document.visibilityState!=='visible'||appMode==='login')return;
+
+    if(!navigator.onLine){
+      markRealtimeStatus('offline');
+      return;
+    }
+
+    const success=await refreshVisibleSiteData(false);
+    if(success&&!realtimeHealthy){
+      markRealtimeStatus('fallback');
+    }
   },15000);
+
+  startRealtimeHealthCheck();
 }
 
 function toggleEmployeeSidebar(){if(window.matchMedia('(max-width:760px)').matches){openMobileMenu('employee');return}document.getElementById('employeeSidebar')?.classList.toggle('open')}
@@ -10411,7 +10533,7 @@ window.addEventListener('online',()=>{
   if(appMode==='employee')subscribeRealtime('employee');
   refreshVisibleSiteData(true);
 });
-window.addEventListener('offline',()=>markRealtimeStatus(false));
+window.addEventListener('offline',()=>markRealtimeStatus('offline'));
 startRealtimeFallback();
 restoreSession();
 
@@ -11883,7 +12005,7 @@ async function sendSiteAndDiscordNotification(){
 }
 
 </script>
-<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.25.12 Error Fix Build</div>
+<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.25.13 Error Fix Build</div>
 
 <script>
 (function(){
