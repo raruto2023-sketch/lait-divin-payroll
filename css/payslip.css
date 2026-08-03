@@ -1,0 +1,111 @@
+/* =========================================================
+   Lait Divin Staff Portal Ver.26.0.4
+   給料明細書の視認性改善
+========================================================= */
+
+.sheet .payslip-breakdown-summary{
+  display:grid !important;
+  grid-template-columns:repeat(6,minmax(0,1fr)) !important;
+  gap:12px !important;
+  align-items:stretch;
+}
+
+.sheet .payslip-breakdown-summary .sum{
+  min-width:0;
+  min-height:82px;
+  padding:14px 15px !important;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  overflow:hidden;
+}
+
+.sheet .payslip-breakdown-summary .sum:nth-child(1),
+.sheet .payslip-breakdown-summary .sum:nth-child(2),
+.sheet .payslip-breakdown-summary .sum:nth-child(3){
+  grid-column:span 2;
+}
+
+.sheet .payslip-breakdown-summary .sum:nth-child(4){
+  grid-column:span 2;
+}
+
+.sheet .payslip-breakdown-summary .sum.net{
+  grid-column:span 4;
+}
+
+.sheet .payslip-breakdown-summary .sum .k{
+  font-size:10px !important;
+  line-height:1.45;
+  letter-spacing:.04em;
+  white-space:normal;
+}
+
+.sheet .payslip-breakdown-summary .sum .v{
+  width:100%;
+  margin-top:8px !important;
+  font-size:18px !important;
+  line-height:1.15;
+  letter-spacing:-.035em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  font-variant-numeric:tabular-nums;
+}
+
+.sheet .payslip-breakdown-summary .sum.net .v{
+  font-size:24px !important;
+  letter-spacing:-.025em;
+}
+
+.sheet .payslip-breakdown-summary .sum.commission{
+  box-shadow:inset 0 3px 0 rgba(120,185,231,.55);
+}
+
+.sheet .payslip-breakdown-summary .sum.bonus{
+  box-shadow:inset 0 3px 0 rgba(239,197,143,.62);
+}
+
+.sheet .table-title{
+  margin-top:30px !important;
+  font-size:15px !important;
+  letter-spacing:.08em;
+}
+
+.sheet table td:first-child{
+  font-weight:700;
+}
+
+.sheet table td:last-child{
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+
+body.dark .sheet .payslip-breakdown-summary .sum{
+  background:linear-gradient(145deg,#261b17,#1d1512) !important;
+  border-color:rgba(224,177,132,.18) !important;
+}
+
+body.dark .sheet .payslip-breakdown-summary .sum.net{
+  background:linear-gradient(135deg,#6a412f,#3b251d) !important;
+  border:1px solid rgba(238,190,145,.25) !important;
+}
+
+@media(max-width:620px){
+  .sheet .payslip-breakdown-summary{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+
+  .sheet .payslip-breakdown-summary .sum:nth-child(1),
+  .sheet .payslip-breakdown-summary .sum:nth-child(2),
+  .sheet .payslip-breakdown-summary .sum:nth-child(3),
+  .sheet .payslip-breakdown-summary .sum:nth-child(4),
+  .sheet .payslip-breakdown-summary .sum.net{
+    grid-column:span 1;
+  }
+
+  .sheet .payslip-breakdown-summary .sum.net{
+    grid-column:1/-1;
+  }
+}
