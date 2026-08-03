@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#292321" name="theme-color"/>
+<link href="data:image/svg+xml,&lt;svg xmlns=%22http://www.w3.org/2000/svg%22&gt;&lt;text y=%22.9em%22 font-size=%2290%22&gt;🐄&lt;/text&gt;&lt;/svg&gt;" rel="icon"/>
+<title>Lait Divin Staff Portal</title>
+<link href="css/base.css?v=26.0.1" rel="stylesheet"/><link href="css/theme.css?v=26.0.1" rel="stylesheet"/><link href="css/admin.css?v=26.0.1" rel="stylesheet"/><link href="css/employee.css?v=26.0.1" rel="stylesheet"/><link href="css/features.css?v=26.0.1" rel="stylesheet"/><link href="css/mobile.css?v=26.0.1" rel="stylesheet"/><script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./config.js"></script>
+</head>
+<body class="login-active">
+<div class="login-screen v41-login clear-cow-login" id="loginScreen">
+<button class="v41-login-theme" onclick="toggleTheme()" title="テーマ切替">◐</button>
+<main class="clear-login-wrap">
+<div class="clear-cow">
+<img alt="Lait Divinの牛マスコット" src="assets/login-cow-mascot.jpg"/>
+</div>
+<section class="clear-login-card">
+<header class="clear-login-brand">
+<img alt="Lait Divin" src="assets/lait-divin-logo.png"/>
+<div>
+<span>LAIT DIVIN STAFF PORTAL</span>
+<h1>Lait Divin Portal</h1>
+<p>ログインするアカウントを選択してください</p>
+</div>
+</header>
+<div class="clear-login-tabs" role="tablist">
+<button class="active" id="tabEmployee" onclick="switchLogin('employee')" type="button">
+<span>♟</span><b>従業員</b><small>STAFF</small>
+</button>
+<button id="tabAdmin" onclick="switchLogin('admin')" type="button">
+<span>♛</span><b>管理者</b><small>MANAGER</small>
+</button>
+</div>
+<div class="clear-login-form" id="employeeLogin">
+<div class="clear-form-title">
+<span>STAFF LOGIN</span>
+<h2>従業員ログイン</h2>
+<p>従業員番号と登録済みパスワードを入力してください。</p>
+</div>
+<div class="field">
+<label for="loginEmployeeId">従業員番号</label>
+<div class="v41-input-wrap"><span>♟</span><input autocomplete="username" id="loginEmployeeId" name="employee_id" placeholder="例：LD1"/></div>
+</div>
+<div class="field">
+<label for="loginEmployeePassword">パスワード</label>
+<div class="v41-input-wrap"><span>●</span><input autocomplete="current-password" id="loginEmployeePassword" name="employee_password" placeholder="登録されたパスワード" type="password"/></div>
+</div>
+<button class="clear-login-submit employee-submit" onclick="employeeLogin()">従業員ポータルへ <b>→</b></button>
+<p class="clear-login-guide">出退勤・給与明細・在庫・イベントを確認できます。</p>
+</div>
+<div class="clear-login-form hidden" id="adminLogin">
+<div class="clear-form-title">
+<span>MANAGER LOGIN</span>
+<h2>管理者ログイン</h2>
+<p>管理者専用パスワードを入力してください。</p>
+</div>
+<div class="field">
+<label for="loginAdminPassword">管理者パスワード</label>
+<div class="v41-input-wrap"><span>♛</span><input autocomplete="current-password" id="loginAdminPassword" name="admin_password" placeholder="管理者パスワード" type="password"/></div>
+</div>
+<div class="clear-admin-note"><strong>管理者専用</strong><span>従業員管理・給与・売上・在庫・イベントなど、店舗全体を管理します。</span></div>
+<button class="clear-login-submit admin-submit" onclick="adminLogin()">管理画面へ <b>→</b></button>
+<p class="clear-login-guide">管理権限をお持ちの方のみご利用ください。</p>
+</div>
+<div class="error clear-login-error" id="loginError"></div>
+<footer class="clear-login-footer">
+<span>ログイン情報が分からない場合は店舗管理者へお問い合わせください。</span>
+<small>© 2026 Lait Divin Portal</small>
+</footer>
+</section>
+</main>
+</div>
+<div class="hidden" id="adminApp">
+<div class="v4-admin-layout">
+<aside class="v4-sidebar" id="v4Sidebar">
+<div class="v4-brand">
+<div class="v4-brand-logo"><img alt="Lait Divin logo" src="assets/lait-divin-logo.png"/></div>
+<div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 26.0.1</small></div>
+</div>
+<nav class="nav v4-nav">
+<button class="active" data-page="dashboard" onclick="goPage('dashboard')"><span>⌂</span><b>ダッシュボード</b></button>
+<button data-page="attendance" onclick="goPage('attendance')"><span>◷</span><b>出退勤管理</b></button>
+<button data-page="employees" onclick="goPage('employees')"><span>♟</span><b>従業員管理</b></button>
+<button data-page="online" onclick="goPage('online')"><span>●</span><b>オンライン</b></button>
+<button data-page="notifications" onclick="goPage('notifications')"><span>🔔</span><b>通知センター</b><i class="notification-badge hidden" id="adminNotificationBadge">0</i></button>
+<button data-page="campaigns" onclick="goPage('campaigns')"><span>🎪</span><b>イベント管理</b></button>
+<button data-page="community" onclick="goPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
+<button data-page="discord-report" onclick="goPage('discord-report')"><span>◈</span><b>Discordレポート</b></button>
+<button data-page="create" onclick="goPage('create')"><span>¥</span><b>給与・ボーナス</b></button>
+<button data-page="history" onclick="goPage('history')"><span>▤</span><b>明細履歴</b></button>
+<button data-page="inventory" onclick="goPage('inventory')"><span>◇</span><b>在庫管理</b></button>
+<button data-page="farm" onclick="goPage('farm')"><span>🌾</span><b>Farm管理</b></button>
+<button data-page="sales" onclick="goPage('sales')"><span>▥</span><b>売上入力</b></button>
+<button data-page="job-account" onclick="goPage('job-account')"><span>🏦</span><b>ジョブ口座</b></button>
+<button data-page="expenses" onclick="goPage('expenses')"><span>🧾</span><b>経費申請</b><i class="notification-badge hidden" id="adminExpenseBadge">0</i></button>
+<button data-page="approvals" onclick="goPage('approvals')"><span>✓</span><b>承認管理</b><i class="notification-badge hidden" id="adminApprovalBadge">0</i></button>
+<button data-page="ranking" onclick="goPage('ranking')"><span>♛</span><b>ランキング</b></button>
+<button data-page="audit" onclick="goPage('audit')"><span>▦</span><b>管理履歴</b></button>
+<button data-page="settings" onclick="goPage('settings')"><span>⚙</span><b>設定</b></button>
+</nav>
+<div class="v4-sidebar-bottom">
+<button onclick="toggleTheme()">◐ テーマ切替</button>
+<button onclick="exportBackup()">⇩ バックアップ</button>
+<button onclick="logout()">↪ ログアウト</button>
+<div class="v4-copyright"><img alt="Lait Divin" src="assets/lait-divin-logo.png"/><br/><span>© 2026 Lait Divin Portal</span></div>
+</div>
+</aside>
+<div class="v4-main">
+<header class="v4-topbar">
+<button class="v4-menu-btn" onclick="toggleV4Sidebar()">☰</button>
+<div class="v4-greeting">
+<strong id="v4Greeting">おはようございます</strong>
+<span>今日も素敵な一日を始めましょう。</span>
+</div>
+<div class="v4-top-status">
+<div class="v4-open-pill" id="v4OpenStatus">● OPEN</div>
+<div class="v4-top-stat"><small>現在の出勤人数</small><strong id="v4TopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status="">● 同期準備中</div>
+<button class="v4-icon-btn notification-top-btn" onclick="goPage('notifications')" title="通知センター">🔔<i class="notification-badge hidden" id="adminTopNotificationBadge">0</i></button>
+<button class="v4-icon-btn" onclick="manualDiscordSync()" title="Discord同期">↻</button>
+<div class="v4-profile">
+<div class="v4-profile-avatar" id="adminProfileAvatar">管</div>
+<div><strong id="adminTopName">管理者</strong><span id="adminTopRole">Owner</span></div>
+</div>
+</div>
+</header>
+<div class="shell v4-content">
+<section class="page active" id="page-dashboard">
+<div class="v4-mobile-brand"><strong><img alt="" src="assets/lait-divin-logo.png"/> Lait Divin Portal</strong><button onclick="toggleV4Sidebar()">☰</button></div>
+<div class="v4-kpi-grid">
+<article class="v4-kpi"><div class="v4-kpi-icon">◉</div><div><span>現在の出勤人数</span><strong id="dashWorking">0名</strong><small id="v4AttendanceRate">登録スタッフ 0名</small></div></article>
+<article class="v4-kpi"><div class="v4-kpi-icon">♟</div><div><span>本日の出勤人数</span><strong id="dashTodayStaff">0名</strong><small>本日のユニーク人数</small></div></article>
+<article class="v4-kpi"><div class="v4-kpi-icon">◷</div><div><span>本日の勤務時間</span><strong id="dashTodayHours">0時間</strong><small>全スタッフ合計</small></div></article>
+<article class="v4-kpi"><div class="v4-kpi-icon">¥</div><div><span>今月の給与総額</span><strong id="dashMonthlyPayroll">¥0</strong><small>発行済み明細</small></div></article>
+</div>
+<section aria-label="売上目標" class="sales-goal-section">
+<div class="sales-goal-grid">
+<article class="sales-goal-card"><div class="sales-goal-head"><div><span>WEEKLY SALES GOAL</span><strong>今週の売上目標</strong></div><b id="weeklyGoalPercent">0%</b></div><div class="goal-numbers"><b id="weeklyGoalCurrent">¥0</b><small>目標 <span id="weeklyGoalTarget">¥0</span></small></div><div class="goal-track"><div class="goal-fill" id="weeklyGoalFill"></div></div><div class="goal-meta"><span id="weeklyGoalRemain">残り ¥0</span><span id="weeklyGoalPeriod">--</span></div><div class="goal-editor"><input id="weeklyGoalInput" min="0" placeholder="今週の目標金額" step="10000" type="number"/><button class="btn primary" onclick="saveSalesGoals()">目標を保存</button></div></article>
+<article class="sales-goal-card"><div class="sales-goal-head"><div><span>MONTHLY SALES GOAL</span><strong>今月の売上目標</strong></div><b id="monthlyGoalPercent">0%</b></div><div class="goal-numbers"><b id="monthlyGoalCurrent">¥0</b><small>目標 <span id="monthlyGoalTarget">¥0</span></small></div><div class="goal-track"><div class="goal-fill" id="monthlyGoalFill"></div></div><div class="goal-meta"><span id="monthlyGoalRemain">残り ¥0</span><span id="monthlyGoalPeriod">--</span></div><div class="goal-editor"><input id="monthlyGoalInput" min="0" placeholder="今月の目標金額" step="10000" type="number"/><button class="btn primary" onclick="saveSalesGoals()">目標を保存</button></div></article>
+</div>
+</section>
+<section aria-label="売上・利益ダッシュボード" class="business-dashboard">
+<div class="business-period-grid">
+<article class="business-period-card"><div class="period-label">TODAY / 本日</div><div class="sales-value" id="bizTodaySales">¥0</div><div class="profit-row"><span>概算利益</span><strong id="bizTodayProfit">¥0</strong></div><div class="compare" id="bizTodayCompare">前日比 --</div></article>
+<article class="business-period-card"><div class="period-label">THIS WEEK / 今週</div><div class="sales-value" id="bizWeekSales">¥0</div><div class="profit-row"><span>概算利益</span><strong id="bizWeekProfit">¥0</strong></div><div class="compare" id="bizWeekCompare">前週比 --</div></article>
+<article class="business-period-card"><div class="period-label">THIS MONTH / 今月</div><div class="sales-value" id="bizMonthSales">¥0</div><div class="profit-row"><span>概算利益</span><strong id="bizMonthProfit">¥0</strong></div><div class="compare" id="bizMonthCompare">前月比 --</div></article>
+</div>
+<div class="business-layout">
+<section class="v4-panel"><div class="v4-panel-head"><div><span>SALES TREND</span><h2>売上推移</h2></div><span class="v4-chip">直近14日</span></div><div class="sales-trend-chart" id="bizSalesChart"></div></section>
+<section class="v4-panel"><div class="v4-panel-head"><div><span>STAFF PERFORMANCE</span><h2>スタッフ別売上</h2></div><button onclick="setRankingMode('sales');goPage('ranking')">すべて見る ›</button></div><div class="staff-sales-mini" id="bizStaffSales"></div><div class="profit-note">概算利益は「売上 − 同期間に発行された給与明細」で算出しています。</div></section>
+</div>
+</section>
+<div class="v4-dashboard-main">
+<div class="v4-dashboard-left">
+<section class="v4-panel v4-chart-panel">
+<div class="v4-panel-head"><div><span>ATTENDANCE TREND</span><h2>勤務時間推移</h2></div><span class="v4-chip">直近14日</span></div>
+<div class="month-chart v4-month-chart" id="dashMonthChart"></div>
+</section>
+<section class="v4-panel">
+<div class="v4-panel-head"><div><span>MONTHLY RANKING</span><h2>勤務時間ランキング</h2></div><button onclick="goPage('ranking')">すべて見る ›</button></div>
+<div class="v4-ranking-preview" id="v4RankingPreview"></div>
+</section>
+</div>
+<div class="v4-dashboard-right">
+<section class="v4-panel">
+<div class="v4-panel-head"><div><span>LIVE STATUS</span><h2>現在出勤中</h2></div><button onclick="goPage('attendance')">すべて見る ›</button></div>
+<div class="working-board v4-working-board" id="dashWorkingList"></div>
+</section>
+<section class="v4-panel">
+<div class="v4-panel-head"><div><span>MONTHLY SALES</span><h2>今月の売上ランキング</h2></div><button onclick="setRankingMode('sales');goPage('ranking')">すべて見る ›</button></div>
+<div class="v4-working-board" id="v43SalesPreview"></div>
+</section>
+<section class="v4-panel">
+<div class="v4-panel-head"><div><span>INVENTORY</span><h2>在庫状況</h2></div><div class="dashboard-head-actions"><button class="dashboard-sync-btn" onclick="syncInventoryFromGoogleSheet(true)" title="Google Sheetsから在庫を同期">↻ 同期</button><button onclick="goPage('inventory')">すべて見る ›</button></div></div>
+<div class="v4-inventory-preview" id="v4InventoryPreview"></div>
+</section>
+<section class="v4-panel">
+<div class="v4-panel-head"><div><span>LATEST PAYSLIPS</span><h2>最新の給与明細</h2></div><button onclick="goPage('history')">履歴を見る ›</button></div>
+<div class="working-board v4-working-board" id="dashLatestPayslips"></div>
+</section>
+</div>
+</div>
+<div class="v4-quick-actions">
+<button onclick="goPage('attendance')"><span>◷</span><b>出退勤を確認</b><small>勤務状況を見る</small></button>
+<button onclick="openEmployeeModal()"><span>♟</span><b>従業員を追加</b><small>スタッフ登録</small></button>
+<button onclick="goPage('create')"><span>¥</span><b>給与明細を作成</b><small>新しい明細</small></button>
+<button onclick="goPage('inventory')"><span>◇</span><b>在庫を確認</b><small>Google Sheets</small></button>
+<button onclick="goPage('farm')"><span>🌾</span><b>Farmを確認</b><small>採取・ランキング</small></button>
+<button onclick="manualDiscordSync()"><span>↻</span><b>Discord同期</b><small>Status Board</small></button>
+</div>
+<footer class="v4-dashboard-footer">
+<div><span>店舗ステータス</span><strong id="v4FooterStatus">● OPEN</strong></div>
+<div><span>Discord連携</span><strong>● 連携中</strong></div>
+<div><span>最終更新</span><strong id="v4LastUpdated">--</strong></div>
+<button onclick="renderDashboard()">↻ 更新する</button>
+</footer>
+</section>
+<section class="page" id="page-job-account">
+<div class="page-hero compact job-account-hero">
+<div>
+<span class="eyebrow">JOB ACCOUNT</span>
+<h1>ジョブ口座</h1>
+<p>店舗資金を手入力・売上連動・履歴で安全に管理します。管理者のみ閲覧できます。</p>
+</div>
+<button class="btn" onclick="loadJobAccountData(true)">↻ 最新情報</button>
+</div>
+<div class="job-account-summary">
+<article class="metric-card job-balance-card">
+<div class="metric-label">CURRENT BALANCE</div>
+<div class="metric-value" id="jobAccountBalance">¥0</div>
+<div class="metric-sub">現在のジョブ口座残高</div>
+</article>
+<article class="metric-card">
+<div class="metric-label">SELECTED SALES</div>
+<div class="metric-value" id="jobTodaySales">¥0</div>
+<div class="metric-sub" id="jobSelectedSalesLabel">選択日の売上履歴と連携</div>
+</article>
+<article class="metric-card">
+<div class="metric-label">AUTO TRANSFER</div>
+<div class="metric-value" id="jobTodayAutoAmount">¥0</div>
+<div class="metric-sub" id="jobAutoRateSummary">売上の10割</div>
+</article>
+<article class="metric-card warning">
+<div class="metric-label">PENDING EXPENSES</div>
+<div class="metric-value" id="jobPendingExpenseTotal">¥0</div>
+<div class="metric-sub" id="jobPendingExpenseCount">申請 0件</div>
+</article>
+</div>
+<div class="job-account-layout">
+<section class="dashboard-panel job-auto-panel">
+<div class="dashboard-title">
+<div><h2>選択日の売上から自動計算</h2><p>売上入力ページの売上履歴から、選択した日付の売上を1〜10割でジョブ口座へ反映します。</p></div>
+<span class="badge" id="jobAutoStatusBadge">未反映</span>
+</div>
+<div class="job-auto-filters">
+<div class="job-rate-picker">
+<label for="jobAutoRate">反映割合</label>
+<div class="job-rate-control">
+<input id="jobAutoRate" max="10" min="1" oninput="previewJobAutoTransfer()" step="1" type="range" value="10"/>
+<strong id="jobAutoRateValue">10割（100%）</strong>
+</div>
+</div>
+<div class="field job-date-field">
+<label for="jobAutoSourceDate">対象日</label>
+<input id="jobAutoSourceDate" onchange="previewJobAutoTransfer()" type="date"/>
+</div>
+</div>
+<div class="job-calculation-box">
+<div><span id="jobCalcDateLabel">選択日の売上</span><strong id="jobCalcSales">¥0</strong></div>
+<span>×</span>
+<div><span>反映割合</span><strong id="jobCalcRate">100%</strong></div>
+<span>=</span>
+<div class="result"><span>口座へ反映</span><strong id="jobCalcResult">¥0</strong></div>
+</div>
+<div class="job-auto-actions">
+<button class="btn" onclick="saveJobAutoRate()">割合だけ保存</button>
+<button class="btn primary" onclick="applyTodaySalesToJobAccount()">割合を保存して選択日分を反映</button>
+</div>
+<p class="job-help">対象日を切り替えると、前日や過去日の売上も反映できます。売上入力ページで追加・編集・削除した金額にあわせて、同じ日付の自動反映金額も更新できます。</p>
+</section>
+<section class="dashboard-panel">
+<div class="dashboard-title"><div><h2>残高を手入力で設定</h2><p>現在残高を指定した金額へ調整します。</p></div></div>
+<div class="field"><label>設定後の残高</label><input id="jobManualBalance" min="0" placeholder="例：10000000" step="10000" type="number"/></div>
+<div class="field"><label>変更理由</label><textarea id="jobManualBalanceNote" maxlength="300" placeholder="例：ゲーム内ジョブ口座の残高に合わせて調整"></textarea></div>
+<button class="btn primary full" onclick="setJobAccountBalance()">この残高に設定</button>
+</section>
+<section class="dashboard-panel">
+<div class="dashboard-title"><div><h2>手動入出金・ボーナス</h2><p>ボーナス支給やその他の入出金を履歴に残します。</p></div></div>
+<div class="grid2">
+<div class="field"><label>種類</label><select id="jobManualType"><option value="bonus">ボーナス・支給</option><option value="deposit">入金</option><option value="withdrawal">出金</option><option value="adjustment">その他調整</option></select></div>
+<div class="field"><label>金額</label><input id="jobManualAmount" min="1" placeholder="例：500000" step="1000" type="number"/></div>
+</div>
+<div class="field"><label>内容・対象者</label><textarea id="jobManualDescription" maxlength="300" placeholder="例：今月MVPボーナス／○○さんへ支給"></textarea></div>
+<button class="btn primary full" onclick="addManualJobTransaction()">履歴へ登録</button>
+</section>
+</div>
+<section class="dashboard-panel job-history-panel">
+<div class="dashboard-title">
+<div><h2>ジョブ口座履歴</h2><p>自動反映・手入力・ボーナス・承認済み経費を記録します。</p></div>
+<div class="job-history-tools">
+<input id="jobHistoryMonth" onchange="renderJobAccount()" type="month"/>
+<select id="jobHistoryType" onchange="renderJobAccount()"><option value="">すべての種類</option><option value="auto_sales">売上自動反映</option><option value="manual_balance">残高調整</option><option value="bonus">ボーナス</option><option value="deposit">入金</option><option value="withdrawal">出金</option><option value="expense">経費</option><option value="adjustment">その他調整</option></select>
+</div>
+</div>
+<div class="job-history-list" id="jobAccountHistory"></div>
+</section>
+</section>
+<section class="page" id="page-expenses">
+<div class="page-hero compact">
+<div><span class="eyebrow">EXPENSE APPROVAL</span><h1>経費申請管理</h1><p>従業員から届いた経費申請を確認し、承認または却下します。</p></div>
+<button class="btn" onclick="loadExpenseRequests(true)">↻ 更新</button>
+</div>
+<div class="expense-summary">
+<article class="metric-card warning"><div class="metric-label">PENDING</div><div class="metric-value" id="expensePendingCount">0件</div><div class="metric-sub" id="expensePendingTotal">合計 ¥0</div></article>
+<article class="metric-card"><div class="metric-label">APPROVED</div><div class="metric-value" id="expenseApprovedCount">0件</div><div class="metric-sub" id="expenseApprovedTotal">合計 ¥0</div></article>
+<article class="metric-card"><div class="metric-label">REJECTED</div><div class="metric-value" id="expenseRejectedCount">0件</div><div class="metric-sub">却下済み</div></article>
+</div>
+<section class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>申請一覧</h2><p>承認するとジョブ口座から自動で差し引き、履歴へ記録します。</p></div>
+<div class="expense-filters">
+<select id="expenseAdminStatus" onchange="renderAdminExpenses()"><option value="">すべて</option><option value="pending">申請中</option><option value="approved">承認済み</option><option value="rejected">却下</option></select>
+<input id="expenseAdminSearch" oninput="renderAdminExpenses()" placeholder="名前・内容・カテゴリで検索"/>
+</div>
+</div>
+<div class="expense-card-list" id="adminExpenseList"></div>
+</section>
+</section>
+<section class="page" id="page-approvals">
+<div class="page-hero compact inventory-hero">
+<div>
+<span class="eyebrow">APPROVAL CONTROL CENTER</span>
+<h1>承認管理</h1>
+<p>経費・在庫・Farmの申請を一つの画面で確認し、承認または却下できます。</p>
+</div>
+<button class="btn" onclick="loadAdminApprovalCenter(true)">↻ 最新情報</button>
+</div>
+<div class="approval-center-summary">
+<article class="metric-card warning">
+<div class="metric-label">TOTAL PENDING</div>
+<div class="metric-value" id="adminApprovalTotalCount">0件</div>
+<div class="metric-sub">すべての確認待ち</div>
+</article>
+<article class="metric-card">
+<div class="metric-label">EXPENSE</div>
+<div class="metric-value" id="adminApprovalExpenseCount">0件</div>
+<div class="metric-sub">経費申請</div>
+</article>
+<article class="metric-card">
+<div class="metric-label">INVENTORY</div>
+<div class="metric-value" id="adminApprovalInventoryCount">0件</div>
+<div class="metric-sub">在庫確認申請</div>
+</article>
+<article class="metric-card">
+<div class="metric-label">FARM</div>
+<div class="metric-value" id="adminApprovalFarmCount">0件</div>
+<div class="metric-sub">Farm申請</div>
+</article>
+</div>
+<div class="site-db-tabs admin-approval-tabs">
+<button class="active" data-admin-approval-tab="expense" onclick="setAdminApprovalTab('expense')">
+      経費申請 <span id="adminApprovalExpenseTabBadge">0</span>
+</button>
+<button data-admin-approval-tab="inventory" onclick="setAdminApprovalTab('inventory')">
+      在庫申請 <span id="adminApprovalInventoryTabBadge">0</span>
+</button>
+<button data-admin-approval-tab="farm" onclick="setAdminApprovalTab('farm')">
+      Farm申請 <span id="adminApprovalFarmTabBadge">0</span>
+</button>
+</div>
+<div class="admin-approval-view active" id="adminApprovalExpenseView">
+<section class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>経費申請</h2><p>承認するとジョブ口座へ経費として反映されます。</p></div>
+</div>
+<div class="approval-request-list" id="adminApprovalExpenseList"></div>
+</section>
+</div>
+<div class="admin-approval-view" id="adminApprovalInventoryView">
+<section class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>在庫確認申請</h2><p>承認すると申請された現在数が在庫へ反映されます。</p></div>
+</div>
+<div class="approval-request-list" id="adminApprovalInventoryList"></div>
+</section>
+</div>
+<div class="admin-approval-view" id="adminApprovalFarmView">
+<section class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>Farm申請</h2><p>承認すると採取数・査定・仕入れ金額・ランキングへ反映されます。</p></div>
+</div>
+<div class="approval-request-list" id="adminApprovalFarmList"></div>
+</section>
+</div>
+</section>
+<section class="page" id="page-sales">
+<div class="page-hero compact">
+<div>
+<span class="eyebrow">SALES ENTRY</span>
+<h1>売上入力・履歴</h1>
+<p>スタッフごとの売上を毎回登録し、月間ランキングへ自動反映します。</p>
+</div>
+<button class="btn primary" onclick="openSalesModal()">＋ 売上を入力</button>
+</div>
+<div class="ranking-summary">
+<div class="metric-card">
+<div class="metric-label">MONTHLY SALES</div>
+<div class="metric-value" id="salesMonthTotal">¥0</div>
+<div class="metric-sub">選択月の売上合計</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">ENTRIES</div>
+<div class="metric-value" id="salesMonthEntries">0件</div>
+<div class="metric-sub">売上入力件数</div>
+</div>
+<div class="metric-card">
+<div class="metric-label">TOP STAFF</div>
+<div class="metric-value small" id="salesTopStaff">-</div>
+<div class="metric-sub">売上ランキング1位</div>
+</div>
+</div>
+<div class="dashboard-panel">
+<div class="dashboard-title sales-toolbar-title">
+<div>
+<h2>売上履歴</h2>
+<p>入力した売上を確認・編集・削除できます。</p>
+</div>
+<div class="sales-filter-tools">
+<input id="salesFilterMonth" onchange="renderSalesPage()" type="month"/>
+<input id="salesSearch" oninput="renderSalesPage()" placeholder="スタッフ名・従業員番号・メモ"/>
+<button class="btn" onclick="exportSalesCsv()">CSV保存</button>
+<button class="btn primary" onclick="openSalesModal()">売上を追加</button>
+</div>
+</div>
+<div class="attendance-table" id="salesHistoryTable"></div>
+</div>
+</section>
+<section class="page" id="page-ranking">
+<div class="page-hero compact">
+<div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1 id="rankingPageTitle">勤務時間ランキング</h1><p id="rankingPageDescription">月ごとの勤務時間と出勤回数を自動集計します。</p></div>
+<div class="month-picker" id="rankingMonthPicker"><label>対象月</label><input id="rankingMonth" onchange="renderRanking()" type="month"/></div>
+<div class="month-picker hidden" id="rankingFarmPeriodPicker"><label>Farm期間</label><select id="rankingFarmPeriod" onchange="changeRankingFarmPeriod(this.value)"><option>読込中</option></select></div>
+</div>
+<div class="ranking-mode-tabs">
+<button class="active" id="rankingModeHours" onclick="setRankingMode('hours')">◷ 勤務時間</button>
+<button id="rankingModeSales" onclick="setRankingMode('sales')">¥ 売上</button>
+<button id="rankingModeFarm" onclick="setRankingMode('farm')">🌾 Farm</button>
+</div>
+<div class="ranking-summary">
+<div class="metric-card"><div class="metric-label">TOTAL HOURS</div><div class="metric-value" id="rankTotalHours">0時間</div><div class="metric-sub">全スタッフ合計</div></div>
+<div class="metric-card"><div class="metric-label">TOTAL SHIFTS</div><div class="metric-value" id="rankTotalShifts">0回</div><div class="metric-sub">出勤回数</div></div>
+<div class="metric-card"><div class="metric-label">TOP STAFF</div><div class="metric-value small" id="rankTopStaff">-</div><div class="metric-sub">今月の1位</div></div>
+</div>
+<div class="ranking-layout">
+<div class="dashboard-panel podium-panel">
+<div class="dashboard-title"><h2>🏆 Top 3</h2><span class="badge">勤務時間</span></div>
+<div class="podium" id="rankingPodium"></div>
+</div>
+<div class="dashboard-panel">
+<div class="dashboard-title"><h2>全スタッフ</h2><button class="btn" onclick="exportRankingCsv()">CSV保存</button></div>
+<div class="ranking-list" id="rankingList"></div>
+</div>
+</div>
+</section>
+<section class="page inventory-redesign" id="page-inventory">
+<div class="page-hero compact inventory-hero">
+<div>
+<span class="eyebrow">SITE INVENTORY DATABASE</span>
+<h1>在庫管理</h1>
+<p>材料の現在数をサイト上で直接管理します。Googleスプレッドシートは使用しません。</p>
+<div class="inventory-live-status"><i class="ok" id="inventorySyncDot"></i><span id="inventorySyncStatus">サイト内データベース同期中</span></div>
+</div>
+<div class="inventory-actions">
+<button class="btn primary" onclick="saveInventorySpreadsheet()">変更を一括保存</button>
+<button class="btn" onclick="loadInventorySnapshot(true)">最新情報</button>
+<button class="btn" onclick="addInventoryItemRow()">＋材料を追加</button>
+</div>
+</div>
+<div class="inventory-overview">
+<div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="inventoryItems">0</div><div class="metric-sub">管理材料数</div></div>
+<div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="inventoryLow">0</div><div class="metric-sub">最低在庫未満</div></div>
+<div class="metric-card"><div class="metric-label">PENDING</div><div class="metric-value" id="inventoryRequestCount">0</div><div class="metric-sub">確認待ち申請</div></div>
+<div class="metric-card"><div class="metric-label">LAST SAVE</div><div class="metric-value small" id="inventoryUpdated">読込前</div><div class="metric-sub">最終更新時刻</div></div>
+</div>
+<div class="site-db-tabs">
+<button class="active" data-inventory-admin-tab="sheet" onclick="setInventoryAdminTab('sheet')">在庫表</button>
+<button data-inventory-admin-tab="requests" onclick="setInventoryAdminTab('requests')">従業員申請 <span id="inventoryRequestTabBadge">0</span></button>
+<button data-inventory-admin-tab="alerts" onclick="setInventoryAdminTab('alerts')">在庫アラート・Discord</button>
+</div>
+<div class="site-db-view active" id="inventoryAdminViewSheet">
+<div class="dashboard-panel inventory-sheet-panel">
+<div class="dashboard-title">
+<div><h2>材料在庫表</h2><p>表の入力欄を変更し、「変更を一括保存」を押してください。</p></div>
+<div class="inventory-sheet-tools">
+<input id="inventoryTableSearch" oninput="renderInventorySpreadsheet()" placeholder="材料名で検索"/>
+<select id="inventoryTableFilter" onchange="renderInventorySpreadsheet()">
+<option value="">すべて</option>
+<option value="low">在庫注意のみ</option>
+</select>
+</div>
+</div>
+<div class="site-spreadsheet-wrap">
+<table class="site-spreadsheet inventory-spreadsheet">
+<thead><tr><th>#</th><th>材料名</th><th>現在数</th><th>最低在庫</th><th>状態</th><th>並び順</th><th>操作</th></tr></thead>
+<tbody id="inventorySpreadsheetBody"></tbody>
+</table>
+</div>
+<div class="sheet-note">すべての単位は「個」です。管理者はこの表から直接在庫数を変更できます。</div>
+</div>
+<div class="dashboard-panel inventory-material-panel">
+<div class="dashboard-title"><h2><span class="inventory-section-icon">▣</span> 在庫カード</h2><span class="badge">リアルタイム表示</span></div>
+<div class="inventory-grid" id="inventoryGrid"></div>
+</div>
+</div>
+<div class="site-db-view" id="inventoryAdminViewRequests">
+<div class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>従業員からの在庫確認申請</h2><p>従業員が数えた現在数を確認し、承認すると在庫表へ反映します。</p></div>
+<div class="request-filter-tools">
+<select id="inventoryRequestStatusFilter" onchange="renderInventoryRequestsAdmin()">
+<option value="pending">確認待ち</option>
+<option value="">すべて</option>
+<option value="approved">承認済み</option>
+<option value="rejected">却下</option>
+</select>
+<input id="inventoryRequestSearch" oninput="renderInventoryRequestsAdmin()" placeholder="従業員名・材料名で検索"/>
+</div>
+</div>
+<div class="approval-request-list" id="inventoryAdminRequestList"></div>
+</div>
+</div>
+<div class="site-db-view" id="inventoryAdminViewAlerts">
+<div class="inventory-alert-panel" id="inventoryAlertPanel">
+<div class="inventory-alert-head"><h3>⚠ 在庫アラート</h3><span class="inventory-alert-count" id="inventoryAlertCount">0</span></div>
+<div class="inventory-alert-empty" id="inventoryAlertList">在庫データを読み込んでいます。</div>
+<div class="inventory-discord-manager">
+<div class="inventory-discord-manager-head">
+<div><span>DISCORD MESSAGE</span><h4>在庫アラート送信管理</h4></div>
+<span class="inventory-message-state" id="inventoryDiscordMessageState">未送信</span>
+</div>
+<label for="inventoryDiscordComment">管理者コメント</label>
+<textarea id="inventoryDiscordComment" maxlength="900" placeholder="例：牛乳といちごを優先して補充してください。" rows="3"></textarea>
+<div class="inventory-comment-meta"><span>Discordとサイト内通知へ送信します。</span><button onclick="clearInventoryDiscordComment()" type="button">入力を消去</button></div>
+<div class="inventory-discord-controls"><button class="btn inventory-discord-button" id="inventoryDiscordButton" onclick="sendInventoryAlertToDiscord()">⚠ 新規送信</button></div>
+<div class="inventory-discord-result" id="inventoryDiscordResult">管理者が内容を確認してから送信します。</div>
+<div class="inventory-site-notice-preview hidden" id="inventorySiteNoticePreview"><span>SITE NOTICE</span><strong>サイト掲載中</strong><p id="inventorySiteNoticeText"></p></div>
+</div>
+</div>
+</div>
+</section>
+<section class="page" id="page-farm">
+<div class="page-hero compact inventory-hero">
+<div>
+<span class="eyebrow">SITE FARM DATABASE</span>
+<h1>Farm管理</h1>
+<p>従業員が入力した採取数を確認・承認し、サイト内で集計します。</p>
+<div class="farm-live-status"><i class="ok" id="farmSyncDot"></i><span id="farmSyncStatus">サイト内データベース同期中</span></div>
+</div>
+<div class="inventory-actions">
+<button class="btn" onclick="loadFarmData(true)">最新情報</button>
+<button class="btn primary" onclick="setFarmTab('requests')">申請を確認</button>
+</div>
+</div>
+<div class="farm-period-card">
+<div><span>集計期間</span><strong id="farmPeriodLabel">期間を読み込み中</strong><span id="farmSheetLabel">Site Farm Database</span></div>
+<div class="period-actions">
+<select id="farmPeriodSelect" onchange="changeFarmPeriod(this.value)"><option>読込中</option></select>
+<button class="btn" onclick="createFarmPeriod()">＋期間追加</button>
+<button class="btn danger" id="deleteFarmPeriodButton" onclick="deleteFarmPeriod()">期間削除</button>
+</div>
+</div>
+<div class="farm-summary">
+<div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="farmGrandTotal">0</div><div class="metric-sub">承認済み総採取数</div></div>
+<div class="metric-card"><div class="metric-label">TOP FARM</div><div class="metric-value small" id="farmTopStaff">-</div><div class="metric-sub">ランキング1位</div></div>
+<div class="metric-card warning"><div class="metric-label">PENDING</div><div class="metric-value" id="farmPendingRequestCount">0</div><div class="metric-sub">確認待ち申請</div></div>
+<div class="metric-card"><div class="metric-label">TOTAL AMOUNT</div><div class="metric-value small" id="farmTotalPayment">¥0</div><div class="metric-sub">承認済み仕入れ金額</div></div>
+<div class="metric-card hidden"><div class="metric-label">TOTAL ASSESSMENT</div><div class="metric-value small" id="farmTotalAssessment">0</div></div>
+</div>
+<div class="farm-tabs">
+<button class="active" data-farm-tab="items" onclick="setFarmTab('items')">品目別</button>
+<button data-farm-tab="staff" onclick="setFarmTab('staff')">スタッフ別</button>
+<button data-farm-tab="ranking" onclick="setFarmTab('ranking')">ランキング</button>
+<button data-farm-tab="requests" onclick="setFarmTab('requests')">申請承認 <span id="farmRequestTabBadge">0</span></button>
+<button data-farm-tab="staffmanage" onclick="setFarmTab('staffmanage')">従業員管理</button>
+<button data-farm-tab="itemsmanage" onclick="setFarmTab('itemsmanage')">品目設定</button>
+</div>
+<div class="farm-view active" id="farmViewItems"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取量</h2><span class="badge">承認済み合計</span></div><div class="farm-grid" id="farmItemGrid"></div></div></div>
+<div class="farm-view" id="farmViewStaff"><div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別Farm実績</h2><span class="badge">承認済み</span></div><div class="farm-staff-grid" id="farmStaffGrid"></div></div></div>
+<div class="farm-view" id="farmViewRanking"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">承認済み採取数</span></div><div id="farmRankingList"></div></div></div>
+<div class="farm-view" id="farmViewRequests">
+<div class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>従業員からのFarm申請</h2><p>採取内容を確認して承認・却下します。承認後にランキングへ反映されます。</p></div>
+<div class="request-filter-tools">
+<select id="farmRequestStatusFilter" onchange="renderFarmRequestsAdmin()">
+<option value="pending">確認待ち</option>
+<option value="">すべて</option>
+<option value="approved">承認済み</option>
+<option value="rejected">却下</option>
+</select>
+<input id="farmRequestSearch" oninput="renderFarmRequestsAdmin()" placeholder="従業員名・品目で検索"/>
+</div>
+</div>
+<div class="approval-request-list" id="farmAdminRequestList"></div>
+</div>
+</div>
+<div class="farm-view" id="farmViewStaffmanage">
+<div class="dashboard-panel">
+<div class="dashboard-title">
+<div>
+<h2>Farm従業員管理</h2>
+<p>従業員の追加・名前変更・採取数・査定・仕入れ金額を編集できます。</p>
+</div>
+<div class="farm-staff-manage-actions">
+<button class="btn" onclick="addFarmStaffRow()">＋ 従業員を追加</button>
+<button class="btn primary" onclick="saveFarmManageData()">変更を保存</button>
+</div>
+</div>
+<div class="farm-manage-list" id="farmManageRows"></div>
+<div class="sheet-note">名前を変更した場合も、保存時に元の記録を整理して新しい名前へ反映します。</div>
+</div>
+</div>
+<div class="farm-view" id="farmViewItemsmanage">
+<div class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>在庫仕入れ表・Farm品目設定</h2><p>品目ごとの原価と査定基準を設定します。従業員入力時の金額・査定計算に使用されます。</p></div>
+<button class="btn" onclick="addFarmItemSettingRow()">＋品目追加</button>
+</div>
+<div class="site-spreadsheet-wrap">
+<table class="site-spreadsheet">
+<thead><tr><th>#</th><th>品目名</th><th>原価</th><th>査定基準</th><th>並び順</th><th>有効</th><th>操作</th></tr></thead>
+<tbody id="farmItemSettingsBody"></tbody>
+</table>
+</div>
+<div class="modal-actions"><button class="btn primary" onclick="saveFarmItemSettings()">品目設定を保存</button></div>
+</div>
+</div>
+</section>
+<section class="page" id="page-create"><div class="grid">
+<aside class="panel editor">
+<div class="hero"><h1>給料明細を作成</h1><p>売上金と割合から支給額を自動計算できます。保存後は、対象の従業員だけが自分の明細を確認できます。</p></div>
+<div class="section"><div class="section-head"><div class="section-title">基本情報</div><span class="badge">STEP 1</span></div>
+<div class="field"><label>登録済み従業員</label><select id="employeeSelect" onchange="applyEmployee()"><option value="">直接入力する</option></select></div>
+<div class="field"><label>従業員名</label><input id="employee" placeholder="例：神崎 結城"/></div>
+<div class="grid2"><div class="field"><label>役職</label><select id="role"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option selected="">Cast</option><option>Trainee</option><option>関係者</option></select></div><div class="field"><label>従業員番号</label><input id="employeeId" placeholder="例：LD-001"/></div></div>
+<div class="field"><label>発行日</label><input id="issueDate" type="date"/></div></div>
+<div class="section"><div class="section-head"><div class="section-title">支給対象期間</div><span class="badge">STEP 2</span></div><div class="quick"><button class="chip" onclick="setThisMonth()">今月</button><button class="chip" onclick="setLastMonth()">先月</button></div><div class="grid2"><div class="field"><label>開始日</label><input id="periodStart" type="date"/></div><div class="field"><label>終了日</label><input id="periodEnd" type="date"/></div></div></div>
+<div class="section"><div class="section-head"><div class="section-title">売上歩合</div><span class="badge">自動計算</span></div>
+<div class="percent-box"><div class="grid2"><div class="field"><label>売上金</label><input id="salesAmount" inputmode="numeric" min="0" placeholder="例：500000" type="number"/></div><div class="field"><label>支給割合</label><select id="salesRate"><option value="0">使用しない</option><option value="5">5%</option><option value="10">10%</option><option value="15">15%</option><option value="20">20%</option><option value="25">25%</option><option value="30">30%</option><option value="40">40%</option><option value="50">50%</option></select></div></div><div class="percent-result"><span>売上歩合の支給額</span><strong id="salesCommissionPreview">¥0</strong></div></div>
+<div class="info">売上金 × 選択した割合で計算し、「売上歩合」として支給内訳へ自動追加されます。</div></div>
+<div class="section"><div class="section-head"><div class="section-title">勤務時間から給与計算</div><span class="badge">便利機能</span></div>
+<div class="payroll-import">
+<div class="grid2">
+<div class="field"><label>時給</label><input id="hourlyRate" min="0" placeholder="例：80000" type="number"/></div>
+<div class="field"><label>計算方法</label><select id="payRounding"><option value="minute">1分単位</option><option value="30">30分単位（切り捨て）</option><option value="60">1時間単位（切り捨て）</option></select></div>
+</div>
+<button class="btn primary full" onclick="importAttendancePayroll()">選択期間の勤務時間を読み込む</button>
+<div class="result"><div>勤務時間<strong id="importHours">0時間</strong></div><div>勤務回数<strong id="importShifts">0回</strong></div><div>基本給与<strong id="importSalary">¥0</strong></div></div>
+</div>
+<div class="info">登録済み従業員・開始日・終了日・時給を設定すると、出退勤記録から「勤務基本給」を自動追加します。</div></div>
+<div class="section"><div class="section-head"><div class="section-title">その他の支給内容</div><span class="badge">STEP 3</span></div><div class="quick"><button class="chip" onclick="quickAdd('earnings','役職手当')">＋役職手当</button><button class="chip" onclick="quickAdd('earnings','ボーナス')">＋ボーナス</button><button class="chip" onclick="quickAdd('earnings','その他支給')">＋その他</button></div><div class="rowlist" id="earnings"></div><button class="add" onclick="addMoneyRow('earnings','',0)">＋ 支給項目を追加</button><div class="inline-total"><span>支給合計</span><strong id="miniGross">¥0</strong></div></div>
+<div class="section"><div class="section-head"><div class="section-title">控除内容</div><span class="badge">STEP 4</span></div><div class="quick"><button class="chip" onclick="quickAdd('deductions','欠勤控除')">＋欠勤</button><button class="chip" onclick="quickAdd('deductions','遅刻控除')">＋遅刻</button><button class="chip" onclick="quickAdd('deductions','その他控除')">＋その他</button></div><div class="rowlist" id="deductions"></div><button class="add" onclick="addMoneyRow('deductions','',0)">＋ 控除項目を追加</button><div class="inline-total"><span>差引支給額</span><strong id="miniNet">¥0</strong></div></div>
+<div class="section"><div class="section-head"><div class="section-title">備考</div><span class="badge">STEP 5</span></div><textarea id="note">今月もお疲れさまでした。
+ご不明な点は店舗管理者までお問い合わせください。</textarea></div>
+<div class="sticky-actions"><button class="btn primary" onclick="savePayslip()">従業員用に保存</button><button class="btn" onclick="saveImage()">PNG保存</button><button class="btn soft" onclick="window.print()">印刷 / PDF</button><button class="btn danger" onclick="clearForm()">入力リセット</button></div>
+</aside>
+<main><div class="preview-bar"><h2>明細プレビュー</h2><span>入力内容はリアルタイム反映</span></div><div class="sheet-scroll"><section class="sheet" id="sheet">
+<div class="sheet-head"><div class="sheet-brand"><div><div class="sheet-name" id="sheetShop">Lait Divin</div><div class="sheet-city" id="sheetCity">Luz City ・ Divine Milk Café</div></div><div class="sheet-logo" id="sheetLogo"><img alt="Lait Divin logo" src="assets/lait-divin-logo.png"/></div></div><div class="sheet-title"><strong>給料明細書</strong><div class="issue">明細番号<br/><span id="vSlipNo">LD-0001</span><br/><br/>発行日<br/><span id="vIssue">-</span></div></div></div>
+<div class="sheet-body"><div class="person"><div><div class="meta-k">従業員名</div><div class="meta-v" id="vEmployee">未入力</div></div><div><div class="meta-k">役職</div><div class="meta-v" id="vRole">Cast</div></div><div><div class="meta-k">従業員番号</div><div class="meta-v" id="vEmployeeId">-</div></div><div class="all"><div class="meta-k">支給対象期間</div><div class="meta-v" id="vPeriod">-</div></div></div><div class="summary payslip-breakdown-summary">
+<div class="sum commission"><div class="k">売上歩合支給額</div><div class="v" id="vCommission">¥0</div></div>
+<div class="sum bonus"><div class="k">ボーナス支給額</div><div class="v" id="vBonus">¥0</div></div>
+<div class="sum"><div class="k">その他支給額</div><div class="v" id="vOtherEarnings">¥0</div></div>
+<div class="sum"><div class="k">控除合計</div><div class="v" id="vDeduction">¥0</div></div>
+<div class="sum net"><div class="k">差引支給額</div><div class="v" id="vNet">¥0</div></div>
+</div><div class="table-title">支給内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vEarnings"></tbody></table><div class="table-title">控除内訳</div><table><thead><tr><th>項目</th><th>金額</th></tr></thead><tbody id="vDeductions"></tbody></table><div class="note" id="vNote"></div><div class="sheet-foot"><div id="sheetFooter">Lait Divin<br/>Luz City<br/>この明細書は店舗発行の記録です。</div><div class="stamp" id="sheetStamp">Lait<br/>Divin</div></div></div>
+</section></div></main></div></section>
+<section class="page" id="page-employees">
+<div class="employee-tools"><button class="btn primary" onclick="openEmployeeModal()">＋ 従業員を登録</button><input id="employeeSearch" oninput="renderEmployees()" placeholder="名前・番号で検索"/><select id="employeeRoleFilter" onchange="renderEmployees()"><option value="">すべての役職</option><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option><option>関係者</option></select><button class="btn" onclick="exportEmployeesCsv()">従業員CSV</button></div>
+<div class="cards" id="employeeCards"></div></section>
+<section class="page" id="page-attendance">
+<div class="attendance-hero">
+<div class="attendance-status"><h2>出退勤管理</h2><p>従業員の勤務状況をリアルタイムで確認できます。</p><div class="attendance-clock" id="adminNowClock">--:--:--</div><span class="status-pill off" id="workingCountPill">勤務中 0名</span></div>
+<div class="attendance-summary"><div class="card"><p>本日の出勤</p><strong id="todayAttendanceCount">0名</strong></div><div class="card"><p>勤務中</p><strong id="workingAttendanceCount">0名</strong></div><div class="card"><p>本日の合計</p><strong id="todayAttendanceHours">0時間</strong></div></div>
+</div>
+<div class="attendance-control-panel">
+<div class="dashboard-title">
+<div>
+<span class="eyebrow">ADMIN SHIFT CONTROL</span>
+<h2>管理者 出退勤操作</h2>
+<p>従業員を管理者側から出勤・退勤させられます。操作は履歴に保存されます。</p>
+</div>
+<button class="btn primary" onclick="openAdminAttendanceModal()">時刻を指定して操作</button>
+</div>
+<div class="attendance-control-tabs">
+<button class="active" id="attendanceControlWorkingTab" onclick="setAttendanceControlMode('working')">勤務中 <span id="attendanceControlWorkingCount">0</span></button>
+<button id="attendanceControlOffTab" onclick="setAttendanceControlMode('off')">退勤中 <span id="attendanceControlOffCount">0</span></button>
+</div>
+<div class="attendance-control-list" id="attendanceControlList"></div>
+</div>
+<div class="toolbar attendance-admin-toolbar">
+<input id="attendanceDate" onchange="clearAttendanceSelection();renderAttendance()" style="max-width:190px" type="date"/>
+<input id="attendanceSearch" oninput="clearAttendanceSelection();renderAttendance()" placeholder="名前・従業員番号で検索" style="max-width:280px"/>
+<button class="btn" onclick="setAttendanceToday()">今日</button>
+<button class="btn" onclick="exportAttendanceCsv()">CSV保存</button>
+<button class="btn primary" onclick="manualDiscordSync()">Discordボード更新</button>
+<button class="btn danger" disabled="" id="deleteSelectedAttendanceBtn" onclick="deleteSelectedAttendance()">選択した勤務を削除（0件）</button>
+<button class="btn danger-outline" onclick="deleteFilteredAttendance()">表示中を一括削除</button>
+</div>
+<div class="attendance-table" id="attendanceTable"></div>
+</section>
+<section class="page" id="page-online">
+<div class="page-hero compact"><div><span class="eyebrow">LIVE PRESENCE</span><h1>オンライン状況</h1><p>現在サイトを閲覧しているスタッフと最終アクセスを確認できます。</p></div><button class="btn" onclick="loadOnlinePresence(true)">再読込</button></div>
+<div class="online-summary"><div class="metric-card"><div class="metric-label">ONLINE</div><div class="metric-value" id="adminOnlineCount">0</div><div class="metric-sub">オンライン</div></div><div class="metric-card warning"><div class="metric-label">AWAY</div><div class="metric-value" id="adminAwayCount">0</div><div class="metric-sub">離席中</div></div><div class="metric-card"><div class="metric-label">TOTAL</div><div class="metric-value" id="adminPresenceTotal">0</div><div class="metric-sub">登録スタッフ</div></div></div>
+<div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ状況</h2><span class="online-updated" id="adminPresenceUpdated">未更新</span></div><div class="online-grid" id="adminOnlineGrid"></div></div>
+</section>
+<section class="page" id="page-history"><div class="toolbar"><input id="historySearch" oninput="renderHistory()" placeholder="名前・役職・期間で検索" style="max-width:330px"/><button class="btn danger" onclick="clearHistory()">履歴をすべて削除</button></div><div class="list" id="historyList"></div></section>
+<section class="page" id="page-community">
+<div class="page-hero compact"><div><span class="eyebrow">STAFF COMMUNITY</span><h1>みんなのプロフィール</h1><p>スタッフの自己紹介・実績・プロフィールを一覧で確認できます。</p></div><button class="btn" onclick="loadCommunityProfiles(true)">再読込</button></div>
+<div class="community-grid" id="adminCommunityGrid"></div>
+</section>
+<section class="page" id="page-audit">
+<div class="page-hero compact"><div><span class="eyebrow">ADMIN AUDIT LOG</span><h1>管理履歴</h1><p>管理者が行った主要な操作を時系列で確認できます。</p></div><button class="btn" onclick="loadAuditLogs(true)">↻ 更新</button></div>
+<div class="panel" style="padding:20px">
+<div class="audit-toolbar"><div class="field"><label>種類</label><select id="auditTypeFilter" onchange="renderAuditLogs()"><option value="">すべて</option><option value="sales">売上</option><option value="goal">売上目標</option><option value="notification">通知</option><option value="employee">従業員</option><option value="achievement">実績</option><option value="settings">設定</option><option value="expense">経費</option><option value="inventory">在庫</option><option value="farm">Farm</option><option value="job_account">ジョブ口座</option><option value="profile">プロフィール</option></select></div><div class="field"><label>キーワード</label><input id="auditSearch" oninput="renderAuditLogs()" placeholder="操作内容・対象者"/></div><button class="btn" onclick="exportAuditCsv()">CSV保存</button></div>
+<div class="audit-list" id="auditLogList"></div>
+</div>
+</section>
+<div class="modal-back hidden" id="auditDetailModal" onclick="closeAuditDetailModal(event)">
+<div class="modal audit-detail-modal" onclick="event.stopPropagation()">
+<div class="audit-detail-header">
+<div>
+<span class="eyebrow">AUDIT LOG DETAIL</span>
+<h2 id="auditDetailTitle">管理履歴の詳細</h2>
+</div>
+<button class="audit-detail-close" onclick="closeAuditDetailModal()" type="button">×</button>
+</div>
+<div class="audit-detail-summary">
+<div class="audit-detail-main-icon" id="auditDetailIcon">▦</div>
+<div>
+<strong id="auditDetailAction">操作</strong>
+<span id="auditDetailDate">-</span>
+</div>
+</div>
+<div class="audit-detail-grid">
+<div><span>操作した人</span><strong id="auditDetailActor">-</strong></div>
+<div><span>種類</span><strong id="auditDetailType">-</strong></div>
+<div><span>対象者・対象</span><strong id="auditDetailTarget">-</strong></div>
+<div><span>履歴ID</span><strong id="auditDetailId">-</strong></div>
+</div>
+<section class="audit-detail-content">
+<span>操作内容・コメント・詳細</span>
+<p id="auditDetailText">詳細はありません。</p>
+</section>
+<div class="modal-actions">
+<button class="btn" onclick="copyAuditDetail()" type="button">内容をコピー</button>
+<button class="btn primary" onclick="closeAuditDetailModal()" type="button">閉じる</button>
+</div>
+</div>
+</div>
+<section class="page" id="page-notifications">
+<div class="page-hero compact"><div><span class="eyebrow">NOTIFICATION CENTER</span><h1>通知センター</h1><p>サイト内に掲載中の通知を一覧で確認・編集・削除できます。</p></div><button class="btn" onclick="loadNotifications(true)">↻ 更新</button></div>
+<div class="notification-layout notification-admin-layout">
+<div class="panel notification-list-panel" style="padding:20px">
+<div class="notification-toolbar">
+<div><span class="eyebrow">PUBLISHED NOTICES</span><h2>掲載中の通知一覧 <small id="adminNotificationCount">0件</small></h2></div>
+<button class="btn" onclick="markAllNotificationsRead()">すべて既読</button>
+</div>
+<div class="notification-list-controls">
+<div class="field"><label>キーワード検索</label><input id="notificationSearch" oninput="renderNotifications()" placeholder="タイトル・本文・投稿者で検索"/></div>
+<div class="field"><label>種類</label><select id="notificationFilterType" onchange="renderNotifications()"><option value="">すべて</option><option value="general">一般通知</option><option value="update">アップデート</option><option value="important">重要</option><option value="success">完了・報告</option></select></div>
+<label class="notification-pinned-filter"><input id="notificationPinnedOnly" onchange="renderNotifications()" type="checkbox"/> 固定中のみ</label>
+</div>
+<div class="notification-list" id="adminNotificationList"></div>
+</div>
+<div class="panel notification-composer" style="padding:20px">
+<div class="notification-editor-head">
+<div><span id="notificationEditorEyebrow">NEW NOTICE</span><div class="section-title" id="notificationEditorTitle">新しい通知を送信</div></div>
+<button class="btn hidden" id="notificationCancelEditButton" onclick="cancelNotificationEdit()">編集をやめる</button>
+</div>
+<input id="notificationEditId" type="hidden"/>
+<div class="field"><label>通知種類</label><select id="notificationType"><option value="general">🔔 一般通知</option><option value="update">📢 アップデート</option><option value="important">⚠️ 重要</option><option value="success">✅ 完了・報告</option></select></div>
+<div class="field"><label>タイトル</label><input id="notificationTitle" maxlength="80" placeholder="例：在庫管理からのお知らせ"/></div>
+<div class="field"><label>本文</label><textarea id="notificationBody" maxlength="2000" placeholder="サイト内に掲載する内容を入力してください"></textarea></div>
+<label class="notification-pin-check"><input id="notificationPinned" type="checkbox"/> サイト内で上部に固定する</label>
+<button class="btn primary full" id="notificationSendButton" onclick="saveNotificationFromEditor()">サイト内＋Discordへ新規送信</button>
+<div class="notification-discord-note" id="notificationEditorNote">新規・編集・削除は、サイト内通知と送信先Discordチャンネルへ同時反映されます。</div>
+</div>
+</div>
+</section>
+<section class="page" id="page-discord-report">
+<div class="page-hero compact"><div><span class="eyebrow">SALES REPORT</span><h1>Discord 売上レポート</h1><p>送信したい日付を選び、売上レポート専用チャンネルへ投稿できます。</p></div><button class="btn" onclick="renderDiscordReportPreview()">再集計</button></div>
+<div class="discord-report-layout">
+<div class="discord-preview"><small>LAIT DIVIN SALES REPORT</small><div class="field" style="margin:14px 0 18px"><label>レポート対象日</label><input id="discordReportDateInput" onchange="renderDiscordReportPreview()" type="date"/></div><h3 id="discordReportDate">売上レポート</h3><div class="discord-report-values"><div><span>売上</span><strong id="discordPreviewSales">¥0</strong></div><div><span>概算利益</span><strong id="discordPreviewProfit">¥0</strong></div><div><span>出勤人数</span><strong id="discordPreviewStaff">0名</strong></div><div><span>販売登録</span><strong id="discordPreviewEntries">0件</strong></div></div><div class="discord-actions"><button class="btn primary" id="discordSendButton" onclick="sendDiscordDailyReport()">選択日のレポートを送信</button></div></div>
+<div class="panel" style="padding:20px"><div class="section-title">自動投稿の状態</div><div class="discord-status-box"><b>毎日の自動投稿</b><br/>Supabase Edge Functionを毎日指定時刻に実行します。<br/><br/><b>安全な構成</b><br/>Discord Webhook URLはサイト内に保存せず、Supabase Secretへ保存します。<br/><br/><span id="discordLastResult">まだ送信していません。</span></div></div>
+</div>
+</section>
+<section class="page" id="page-campaigns">
+<div class="page-hero compact"><div><span class="eyebrow">EVENT &amp; CAMPAIGN</span><h1>イベント・キャンペーン管理</h1><p>期間限定商品や店舗イベントの開催期間・売上目標・進捗を管理できます。</p></div><button class="btn" onclick="loadCampaigns(true)">↻ 更新</button></div>
+<div class="campaign-layout">
+<div><div class="campaign-list" id="campaignAdminList"><div class="campaign-empty">イベントを読み込んでいます。</div></div></div>
+<div class="panel campaign-form" style="padding:20px">
+<div class="section-title">イベントを登録</div>
+<input id="campaignId" type="hidden"/>
+<div class="field"><label>イベント名</label><input id="campaignTitle" maxlength="80" placeholder="例：夏限定フェア"/></div>
+<div class="grid2"><div class="field"><label>開始日</label><input id="campaignStart" type="date"/></div><div class="field"><label>終了日</label><input id="campaignEnd" type="date"/></div></div>
+<div class="field"><label>対象商品・内容</label><input id="campaignProducts" maxlength="160" placeholder="例：トロピカル・フォックス／限定パフェ"/></div>
+<div class="grid2"><div class="field"><label>目標売上</label><input id="campaignGoal" min="0" placeholder="0" step="10000" type="number"/></div><div class="field"><label>現在売上</label><input id="campaignCurrent" min="0" placeholder="0" step="10000" type="number"/></div></div>
+<div class="field"><label>説明</label><textarea id="campaignDescription" maxlength="1000" placeholder="スタッフへ共有する内容"></textarea></div>
+<label style="display:flex;gap:8px;align-items:center;margin:10px 0 16px"><input checked="" id="campaignPublished" type="checkbox"/> 従業員画面に公開する</label>
+<div class="toolbar"><button class="btn primary" onclick="saveCampaign()">保存</button><button class="btn" onclick="resetCampaignForm()">入力をクリア</button></div>
+<div class="info" id="campaignDbNotice" style="margin-top:14px">初回のみ付属SQLの実行が必要です。SQL未実行でも既存機能には影響しません。</div>
+</div>
+</div>
+</section>
+<section class="page" id="page-settings"><div class="panel" style="padding:20px;max-width:760px"><div class="section-title" style="font-size:18px;margin-bottom:15px">店舗設定</div><div class="grid2"><div class="field"><label>店舗名</label><input id="settingShop"/></div><div class="field"><label>街・サブタイトル</label><input id="settingCity"/></div></div><div class="grid2"><div class="field"><label>ロゴ文字 / 絵文字</label><input id="settingLogo"/></div><div class="field"><label>明細番号の接頭辞</label><input id="settingPrefix"/></div></div><div class="field"><label>フッター文章</label><textarea id="settingFooter"></textarea></div><div class="toolbar"><button class="btn primary" onclick="saveSettings()">設定を保存</button><button class="btn" onclick="exportBackup()">バックアップ</button></div><div class="info">設定・従業員・給料明細はSupabaseへ保存され、ログインすればどの端末からでも同じデータを確認できます。</div></div></section>
+</div></div>
+</div></div>
+<div class="hidden" id="employeeApp">
+<div class="v4-admin-layout v41-employee-layout">
+<aside class="v4-sidebar v41-employee-sidebar" id="employeeSidebar">
+<div class="v4-brand">
+<div class="v4-brand-logo"><img alt="Lait Divin logo" src="assets/lait-divin-logo.png"/></div>
+<div><strong>Lait Divin Portal</strong><span>MANAGEMENT SYSTEM</span><small>Version 26.0.1</small></div>
+</div>
+<nav class="nav v4-nav v41-employee-nav">
+<button class="active" data-employee-page="home" onclick="employeeGoPage('home')"><span>⌂</span><b>ダッシュボード</b></button>
+<button data-employee-page="online" onclick="employeeGoPage('online')"><span>●</span><b>オンライン</b></button>
+<button data-employee-page="notifications" onclick="employeeGoPage('notifications')"><span>🔔</span><b>通知センター</b><i class="notification-badge hidden" id="employeeNotificationBadge">0</i></button>
+<button data-employee-page="expenses" onclick="employeeGoPage('expenses')"><span>🧾</span><b>経費申請</b></button>
+<button class="hidden" data-employee-page="approvals" id="employeeApprovalNav" onclick="employeeGoPage('approvals')"><span>✓</span><b>承認管理</b><i class="notification-badge hidden" id="employeeApprovalBadge">0</i></button>
+<button data-employee-page="campaigns" onclick="employeeGoPage('campaigns')"><span>🎪</span><b>イベント</b></button>
+<button data-employee-page="community" onclick="employeeGoPage('community')"><span>♙</span><b>みんなのプロフィール</b></button>
+<button data-employee-page="attendance" onclick="employeeGoPage('attendance')"><span>◷</span><b>出退勤</b></button>
+<button data-employee-page="ranking" onclick="employeeGoPage('ranking')"><span>♛</span><b>ランキング</b></button>
+<button data-employee-page="inventory" onclick="employeeGoPage('inventory')"><span>◇</span><b>在庫表</b></button>
+<button data-employee-page="farm" onclick="employeeGoPage('farm')"><span>🌾</span><b>Farm</b></button>
+<button data-employee-page="payslips" onclick="employeeGoPage('payslips')"><span>¥</span><b>給料明細</b></button>
+<button data-employee-page="profile" onclick="employeeGoPage('profile')"><span>♙</span><b>プロフィール</b><i class="profile-nav-badge">NEW</i></button>
+</nav>
+<div class="v4-sidebar-bottom">
+<button onclick="toggleTheme()">◐ テーマ切替</button>
+<button onclick="logout()">↪ ログアウト</button>
+<div class="v4-copyright"><img alt="Lait Divin" src="assets/lait-divin-logo.png"/><br/><span>Lait Divin Portal</span></div>
+</div>
+</aside>
+<div class="v4-main">
+<header class="v4-topbar v41-employee-topbar">
+<button class="v4-menu-btn" onclick="toggleEmployeeSidebar()">☰</button>
+<div class="v4-greeting"><strong id="employeeGreeting">おはようございます</strong><span>今日も素敵な一日を始めましょう。</span></div>
+<div class="v4-top-status">
+<div class="v4-open-pill" id="employeeOpenStatus">● CLOSED</div>
+<div class="v4-top-stat"><small>現在の出勤人数</small><strong id="employeeTopWorking">0名</strong></div><div class="v4-live-indicator sync-warn" data-realtime-status="">● 同期準備中</div>
+<button class="v4-icon-btn notification-top-btn" onclick="employeeGoPage('notifications')" title="通知センター">🔔<i class="notification-badge hidden" id="employeeTopNotificationBadge">0</i></button>
+<div class="v4-profile">
+<div class="v4-profile-avatar" id="employeeProfileAvatar">従</div>
+<div><strong id="employeeTopName">スタッフ</strong><span id="employeeTopRole">Cast</span></div>
+</div>
+</div>
+</header>
+<main class="shell v4-content">
+<section class="employee-page active" id="employee-page-home">
+<div class="v4-mobile-brand"><strong><img alt="" src="assets/lait-divin-logo.png"/> Lait Divin Portal</strong><button onclick="toggleEmployeeSidebar()">☰</button></div>
+<div class="v41-employee-welcome">
+<div><span>STAFF DASHBOARD</span><h1 id="portalEmployeeName">マイページ</h1><p id="portalEmployeeMeta"></p></div>
+<div class="v41-shift-state" id="employeeStatusPillHome">退勤中</div>
+</div>
+<div class="v4-kpi-grid">
+<article class="v4-kpi"><div class="v4-kpi-icon">◉</div><div><span>現在の出勤人数</span><strong id="employeeDashWorking">0名</strong><small>店舗のリアルタイム状況</small></div></article>
+<article class="v4-kpi"><div class="v4-kpi-icon">♟</div><div><span>本日の出勤人数</span><strong id="employeeDashTodayStaff">0名</strong><small>本日のユニーク人数</small></div></article>
+<article class="v4-kpi"><div class="v4-kpi-icon">◷</div><div><span>本日の勤務時間</span><strong id="employeeDashTodayHours">0時間</strong><small>全スタッフ合計</small></div></article>
+<article class="v4-kpi"><div class="v4-kpi-icon">¥</div><div><span>今月の給与総額</span><strong id="employeeDashMonthlyPay">¥0</strong><small>あなたの発行済み明細</small></div></article>
+</div>
+<section aria-label="売上目標" class="sales-goal-section">
+<div class="sales-goal-grid">
+<article class="sales-goal-card"><div class="sales-goal-head"><div><span>WEEKLY SALES GOAL</span><strong>今週の売上目標</strong></div><b id="empWeeklyGoalPercent">0%</b></div><div class="goal-numbers"><b id="empWeeklyGoalCurrent">¥0</b><small>目標 <span id="empWeeklyGoalTarget">¥0</span></small></div><div class="goal-track"><div class="goal-fill" id="empWeeklyGoalFill"></div></div><div class="goal-meta"><span id="empWeeklyGoalRemain">残り ¥0</span><span id="empWeeklyGoalPeriod">--</span></div></article>
+<article class="sales-goal-card"><div class="sales-goal-head"><div><span>MONTHLY SALES GOAL</span><strong>今月の売上目標</strong></div><b id="empMonthlyGoalPercent">0%</b></div><div class="goal-numbers"><b id="empMonthlyGoalCurrent">¥0</b><small>目標 <span id="empMonthlyGoalTarget">¥0</span></small></div><div class="goal-track"><div class="goal-fill" id="empMonthlyGoalFill"></div></div><div class="goal-meta"><span id="empMonthlyGoalRemain">残り ¥0</span><span id="empMonthlyGoalPeriod">--</span></div></article>
+</div>
+</section>
+<section aria-label="売上・利益ダッシュボード" class="business-dashboard">
+<div class="business-period-grid">
+<article class="business-period-card"><div class="period-label">TODAY / 本日</div><div class="sales-value" id="empBizTodaySales">¥0</div><div class="profit-row"><span>概算利益</span><strong id="empBizTodayProfit">¥0</strong></div><div class="compare" id="empBizTodayCompare">前日比 --</div></article>
+<article class="business-period-card"><div class="period-label">THIS WEEK / 今週</div><div class="sales-value" id="empBizWeekSales">¥0</div><div class="profit-row"><span>概算利益</span><strong id="empBizWeekProfit">¥0</strong></div><div class="compare" id="empBizWeekCompare">前週比 --</div></article>
+<article class="business-period-card"><div class="period-label">THIS MONTH / 今月</div><div class="sales-value" id="empBizMonthSales">¥0</div><div class="profit-row"><span>概算利益</span><strong id="empBizMonthProfit">¥0</strong></div><div class="compare" id="empBizMonthCompare">前月比 --</div></article>
+</div>
+<div class="business-layout">
+<section class="v4-panel"><div class="v4-panel-head"><div><span>SALES TREND</span><h2>売上推移</h2></div><span class="v4-chip">直近14日</span></div><div class="sales-trend-chart" id="empBizSalesChart"></div></section>
+<section class="v4-panel"><div class="v4-panel-head"><div><span>STAFF PERFORMANCE</span><h2>スタッフ別売上</h2></div><button onclick="setEmployeeRankingMode('sales');employeeGoPage('ranking')">すべて見る ›</button></div><div class="staff-sales-mini" id="empBizStaffSales"></div><div class="profit-note">人気商品ランキングは表示せず、店舗全体の売上とスタッフ実績に絞っています。</div></section>
+</div>
+</section>
+<div class="v41-employee-grid">
+<section class="v4-panel v41-clock-panel">
+<div class="v4-panel-head"><div><span>MY SHIFT</span><h2>出勤・退勤</h2></div><span class="status-pill off" id="employeeStatusPill">退勤中</span></div>
+<p id="employeeAttendanceMessage">現在の勤務状況</p>
+<div class="attendance-clock" id="employeeNowClock">--:--:--</div>
+<div class="attendance-actions"><button class="btn clock-in" id="clockInBtn" onclick="clockIn()">出勤する</button><button class="btn clock-out" disabled="" id="clockOutBtn" onclick="clockOut()">退勤する</button></div>
+</section>
+<section class="v4-panel">
+<div class="v4-panel-head"><div><span>LIVE STATUS</span><h2>現在出勤中のスタッフ</h2></div><button onclick="employeeGoPage('attendance')">勤務履歴 ›</button></div>
+<div class="working-board v4-working-board" id="employeeWorkingList"></div>
+</section>
+<section class="v4-panel">
+<div class="v4-panel-head"><div><span>INVENTORY</span><h2>在庫状況プレビュー</h2></div><div class="dashboard-head-actions"><button class="dashboard-sync-btn" onclick="syncEmployeeInventoryFromGoogleSheet(true)" title="Google Sheetsから在庫を同期">↻ 同期</button><button onclick="employeeGoPage('inventory')">在庫表を見る ›</button></div></div>
+<div class="v4-inventory-preview" id="employeeInventoryPreview"></div>
+</section>
+</div>
+</section>
+<section class="employee-page" id="employee-page-online">
+<div class="page-hero compact"><div><span class="eyebrow">WHO IS HERE</span><h1>オンラインスタッフ</h1><p>今サイトを見ているスタッフを確認できます。</p></div><button class="btn" onclick="loadOnlinePresence(true)">再読込</button></div>
+<div class="online-summary"><div class="metric-card"><div class="metric-label">ONLINE</div><div class="metric-value" id="employeeOnlineCount">0</div><div class="metric-sub">オンライン</div></div><div class="metric-card warning"><div class="metric-label">AWAY</div><div class="metric-value" id="employeeAwayCount">0</div><div class="metric-sub">離席中</div></div><div class="metric-card"><div class="metric-label">TOTAL</div><div class="metric-value" id="employeePresenceTotal">0</div><div class="metric-sub">登録スタッフ</div></div></div>
+<div class="v4-panel"><div class="v4-panel-head"><div><span>LIVE PRESENCE</span><h2>スタッフ状況</h2></div><span class="online-updated" id="employeePresenceUpdated">未更新</span></div><div class="online-grid" id="employeeOnlineGrid"></div></div>
+</section>
+<section class="employee-page" id="employee-page-attendance">
+<div class="page-hero compact"><div><span class="eyebrow">MY ATTENDANCE</span><h1>出退勤・勤務履歴</h1><p>あなたの勤務状況と最近の出退勤履歴です。</p></div></div>
+<div class="employee-attendance"><div class="panel"><div class="employee-attendance-grid">
+<div class="attendance-status"><h2>現在の勤務状況</h2><p id="employeeAttendanceMessage2">現在の勤務状況</p><div class="attendance-clock" id="employeeNowClock2">--:--:--</div><span class="status-pill off" id="employeeStatusPill2">退勤中</span><div class="attendance-actions"><button class="btn clock-in" id="clockInBtn2" onclick="clockIn()">出勤する</button><button class="btn clock-out" disabled="" id="clockOutBtn2" onclick="clockOut()">退勤する</button></div></div>
+<div><div class="section-title" style="margin-bottom:10px">最近の勤務履歴</div><div class="employee-history-list" id="employeeAttendanceHistory"></div></div>
+</div></div></div>
+</section>
+<section class="employee-page" id="employee-page-ranking">
+<div class="page-hero compact"><div><span class="eyebrow">MONTHLY PERFORMANCE</span><h1 id="employeeRankingPageTitle">勤務時間ランキング</h1><p id="employeeRankingPageDescription">スタッフ全体の月間勤務時間と出勤回数です。</p></div><div class="month-picker" id="employeeRankingMonthPicker"><label>対象月</label><input id="employeeRankingMonth" onchange="renderEmployeeRanking()" type="month"/></div><div class="month-picker hidden" id="employeeRankingFarmPeriodPicker"><label>Farm期間</label><select id="employeeRankingFarmPeriod" onchange="changeEmployeeRankingFarmPeriod(this.value)"><option>読込中</option></select></div></div>
+<div class="ranking-mode-tabs employee-ranking-tabs">
+<button class="active" id="employeeRankingModeHours" onclick="setEmployeeRankingMode('hours')">◷ 勤務時間</button>
+<button id="employeeRankingModeSales" onclick="setEmployeeRankingMode('sales')">¥ 売上</button>
+<button id="employeeRankingModeFarm" onclick="setEmployeeRankingMode('farm')">🌾 Farm</button>
+</div>
+<div class="ranking-summary">
+<div class="metric-card"><div class="metric-label">TOTAL HOURS</div><div class="metric-value" id="employeeRankTotalHours">0時間</div><div class="metric-sub">全スタッフ合計</div></div>
+<div class="metric-card"><div class="metric-label">MY RANK</div><div class="metric-value" id="employeeMyRank">-</div><div class="metric-sub">あなたの順位</div></div>
+<div class="metric-card"><div class="metric-label">MY HOURS</div><div class="metric-value" id="employeeMyHours">0時間</div><div class="metric-sub">あなたの勤務時間</div></div>
+</div>
+<div class="ranking-layout"><div class="dashboard-panel podium-panel"><div class="dashboard-title"><h2>🏆 Top 3</h2><span class="badge">勤務時間</span></div><div class="podium" id="employeeRankingPodium"></div></div><div class="dashboard-panel"><div class="dashboard-title"><h2>全スタッフ</h2></div><div class="ranking-list" id="employeeRankingList"></div></div></div>
+</section>
+<section class="employee-page" id="employee-page-inventory">
+<div class="page-hero compact inventory-hero">
+<div>
+<span class="eyebrow">INVENTORY COUNT</span>
+<h1>在庫確認・申請</h1>
+<p>材料の現在数を入力して管理者へ申請します。承認後に在庫表へ反映されます。</p>
+<div class="inventory-live-status"><i class="ok" id="employeeInventorySyncDot"></i><span id="employeeInventorySyncStatus">サイト内データベース同期中</span></div>
+</div>
+<div class="inventory-actions">
+<button class="btn" onclick="loadInventorySnapshot(true)">最新情報</button>
+<button class="btn primary" onclick="submitInventoryCountRequest()">入力内容を申請</button>
+</div>
+</div>
+<div class="inventory-overview">
+<div class="metric-card"><div class="metric-label">ITEMS</div><div class="metric-value" id="employeeInventoryItems">0</div><div class="metric-sub">管理材料数</div></div>
+<div class="metric-card warning"><div class="metric-label">LOW STOCK</div><div class="metric-value" id="employeeInventoryLow">0</div><div class="metric-sub">在庫注意</div></div>
+<div class="metric-card"><div class="metric-label">MY PENDING</div><div class="metric-value" id="employeeInventoryPending">0</div><div class="metric-sub">確認待ち申請</div></div>
+<div class="metric-card"><div class="metric-label">LAST CHECK</div><div class="metric-value small" id="employeeInventoryUpdated">未読込</div><div class="metric-sub">表示更新時刻</div></div>
+</div>
+<div class="employee-site-tabs">
+<button class="active" data-employee-inventory-tab="view" onclick="setEmployeeInventoryTab('view')">現在の在庫</button>
+<button data-employee-inventory-tab="count" onclick="setEmployeeInventoryTab('count')">在庫確認を申請</button>
+<button data-employee-inventory-tab="history" onclick="setEmployeeInventoryTab('history')">申請履歴</button>
+</div>
+<div class="employee-site-view" id="employeeInventoryViewCount">
+<div class="dashboard-panel">
+<div class="dashboard-title"><div><h2>在庫確認シート</h2><p>確認した材料だけ入力してください。入力内容は端末内へ自動保存され、時間が経っても消えません。</p></div><button class="btn danger" onclick="clearInventoryCountDraft(true)">入力をすべて消す</button></div>
+<div class="site-spreadsheet-wrap">
+<table class="site-spreadsheet">
+<thead><tr><th>材料</th><th>現在の登録数</th><th>確認した現在数</th><th>差</th></tr></thead>
+<tbody id="employeeInventoryCountBody"></tbody>
+</table>
+</div>
+<div class="field"><label>申請メモ</label><textarea id="employeeInventoryRequestNote" maxlength="500" oninput="saveInventoryCountNoteDraft(this.value)" placeholder="例：閉店後に倉庫を確認しました。"></textarea></div>
+<button class="btn primary full" onclick="submitInventoryCountRequest()">管理者へ申請する</button>
+</div>
+</div>
+<div class="employee-site-view active" id="employeeInventoryViewView">
+<div class="dashboard-panel">
+<div class="dashboard-title">
+<div><h2>現在の材料在庫</h2><p>管理者が承認した最新の在庫数です。</p></div>
+<button class="btn primary" onclick="setEmployeeInventoryTab('count')">＋ 在庫確認を申請</button>
+</div>
+<div class="inventory-grid" id="employeeInventoryGrid"></div>
+</div>
+</div>
+<div class="employee-site-view" id="employeeInventoryViewHistory">
+<div class="dashboard-panel"><div class="dashboard-title"><h2>自分の在庫申請履歴</h2><button class="btn" onclick="loadInventoryRequests(true)">更新</button></div><div class="approval-request-list" id="employeeInventoryRequestHistory"></div></div>
+</div>
+</section>
+<section class="employee-page" id="employee-page-farm">
+<div class="page-hero compact inventory-hero">
+<div>
+<span class="eyebrow">FARM ENTRY REQUEST</span>
+<h1>Farm入力・申請</h1>
+<p>自分の採取数を入力すると合計と査定額を自動計算します。管理者承認後に反映されます。</p>
+<div class="farm-live-status"><i class="ok" id="employeeFarmSyncDot"></i><span id="employeeFarmSyncStatus">サイト内データベース同期中</span></div>
+</div>
+<div class="inventory-actions"><button class="btn" onclick="loadFarmData(true)">最新情報</button><button class="btn primary" onclick="submitFarmRequest()">入力内容を申請</button></div>
+</div>
+<div class="farm-period-card">
+<div><span>申請する集計期間</span><strong id="employeeFarmPeriodLabel">期間を読み込み中</strong><span id="employeeFarmSheetLabel">Site Farm Database</span></div>
+<select id="employeeFarmPeriodSelect" onchange="changeEmployeeFarmPeriod(this.value)"><option>読込中</option></select>
+</div>
+<div class="farm-summary">
+<div class="metric-card"><div class="metric-label">MY APPROVED</div><div class="metric-value" id="employeeMyFarm">0</div><div class="metric-sub">承認済み採取数</div></div>
+<div class="metric-card"><div class="metric-label">MY RANK</div><div class="metric-value" id="employeeMyFarmRank">-</div><div class="metric-sub">承認済み順位</div></div>
+<div class="metric-card warning"><div class="metric-label">MY PENDING</div><div class="metric-value" id="employeeFarmPending">0</div><div class="metric-sub">確認待ち申請</div></div>
+<div class="metric-card"><div class="metric-label">PERIOD TOTAL</div><div class="metric-value" id="employeeFarmGrandTotal">0</div><div class="metric-sub">全員の承認済み合計</div></div>
+<div class="metric-card hidden"><div id="employeeFarmTopStaff"></div><div id="employeeFarmTotalAssessment"></div><div id="employeeFarmTotalPayment"></div></div>
+</div>
+<div class="employee-site-tabs">
+<button class="active" data-employee-farm-main-tab="entry" onclick="setEmployeeFarmMainTab('entry')">採取数を入力</button>
+<button data-employee-farm-main-tab="results" onclick="setEmployeeFarmMainTab('results')">承認済み実績</button>
+<button data-employee-farm-main-tab="history" onclick="setEmployeeFarmMainTab('history')">申請履歴</button>
+</div>
+<div class="employee-site-view active" id="employeeFarmMainViewEntry">
+<div class="dashboard-panel">
+<div class="dashboard-title"><div><h2>在庫仕入れ表・Farm入力</h2><p>個数を入力すると、査定と金額を自動計算します。入力中の内容は画面更新後も保持されます。</p></div></div>
+<div class="site-spreadsheet-wrap">
+<table class="site-spreadsheet">
+<thead><tr><th>品名</th><th>原価</th><th>査定基準</th><th>個数</th><th>査定小計</th><th>金額小計</th></tr></thead>
+<tbody id="employeeFarmEntryBody"></tbody>
+<tfoot>
+<tr><th colspan="3">査定</th><th id="employeeFarmEntryTotal">0個</th><th id="employeeFarmEntryAssessment">0</th><th></th></tr>
+<tr><th colspan="5">金額</th><th id="employeeFarmEntryPurchaseAmount">¥0</th></tr>
+</tfoot>
+</table>
+</div>
+<div class="field"><label>申請メモ</label><textarea id="employeeFarmRequestNote" maxlength="500" placeholder="例：北Farmで採取しました。"></textarea></div>
+<button class="btn primary full" onclick="submitFarmRequest()">管理者へ申請する</button>
+</div>
+</div>
+<div class="employee-site-view" id="employeeFarmMainViewResults">
+<div class="farm-tabs compact-tabs">
+<button class="active" data-employee-farm-tab="items" onclick="setEmployeeFarmTab('items')">品目別</button>
+<button data-employee-farm-tab="staff" onclick="setEmployeeFarmTab('staff')">スタッフ別</button>
+<button data-employee-farm-tab="ranking" onclick="setEmployeeFarmTab('ranking')">ランキング</button>
+</div>
+<div class="farm-view active" id="employeeFarmViewItems"><div class="dashboard-panel"><div class="dashboard-title"><h2>品目別採取数</h2><span class="badge">承認済み</span></div><div class="farm-grid" id="employeeFarmItemGrid"></div></div></div>
+<div class="farm-view" id="employeeFarmViewStaff"><div class="dashboard-panel"><div class="dashboard-title"><h2>スタッフ別採取数</h2><span class="badge">承認済み</span></div><div class="farm-staff-grid" id="employeeFarmStaffGrid"></div></div></div>
+<div class="farm-view" id="employeeFarmViewRanking"><div class="dashboard-panel"><div class="dashboard-title"><h2>Farmランキング</h2><span class="badge">選択期間</span></div><div id="employeeFarmRankingList"></div></div></div>
+</div>
+<div class="employee-site-view" id="employeeFarmMainViewHistory">
+<div class="dashboard-panel"><div class="dashboard-title"><h2>自分のFarm申請履歴</h2><button class="btn" onclick="loadFarmRequests(true)">更新</button></div><div class="approval-request-list" id="employeeFarmRequestHistory"></div></div>
+</div>
+</section>
+<section class="employee-page" id="employee-page-campaigns">
+<div class="page-hero compact"><div><span class="eyebrow">EVENT &amp; CAMPAIGN</span><h1>開催中のイベント</h1><p>Lait Divinの期間限定商品やキャンペーン情報を確認できます。</p></div><button class="btn" onclick="loadCampaigns(true)">↻ 更新</button></div>
+<div class="campaign-employee-grid" id="campaignEmployeeList"><div class="campaign-empty">イベントを読み込んでいます。</div></div>
+</section>
+<section class="employee-page" id="employee-page-payslips">
+<div class="page-hero compact"><div><span class="eyebrow">MY PAYSLIPS</span><h1>給料明細</h1><p>あなたに発行された明細を確認・保存できます。</p></div></div>
+<div class="employee-slip-grid" id="employeeSlipGrid"></div>
+</section>
+<section class="employee-page" id="employee-page-community">
+<div class="page-hero compact"><div><span class="eyebrow">STAFF COMMUNITY</span><h1>みんなのプロフィール</h1><p>一緒に働くスタッフの自己紹介と実績を確認できます。</p></div><button class="btn" onclick="loadCommunityProfiles(true)">再読込</button></div>
+<div class="community-grid" id="employeeCommunityGrid"></div>
+</section>
+<section class="employee-page" id="employee-page-notifications">
+<div class="page-hero compact"><div><span class="eyebrow">NOTIFICATION CENTER</span><h1>通知センター</h1><p>Lait Divin Portalからの最新のお知らせを確認できます。</p></div><button class="btn" onclick="loadNotifications(true)">↻ 更新</button></div>
+<div class="panel employee-notification-panel" style="padding:20px">
+<div class="notification-toolbar">
+<div><span class="eyebrow">PUBLISHED NOTICES</span><h2>掲載中の通知一覧 <small id="employeeNotificationCount">0件</small></h2></div>
+<button class="btn" onclick="markAllNotificationsRead()">すべて既読</button>
+</div>
+<div class="notification-list-controls employee-notification-controls">
+<div class="field"><label>キーワード検索</label><input id="employeeNotificationSearch" oninput="renderNotifications()" placeholder="タイトル・本文・投稿者で検索"/></div>
+<div class="field"><label>種類</label><select id="employeeNotificationFilterType" onchange="renderNotifications()"><option value="">すべて</option><option value="general">一般通知</option><option value="update">アップデート</option><option value="important">重要</option><option value="success">完了・報告</option></select></div>
+<label class="notification-pinned-filter"><input id="employeeNotificationPinnedOnly" onchange="renderNotifications()" type="checkbox"/> 固定中のみ</label>
+</div>
+<div class="notification-list" id="employeeNotificationList"></div>
+</div>
+</section>
+<section class="employee-page" id="employee-page-expenses">
+<div class="page-hero compact">
+<div><span class="eyebrow">EXPENSE REQUEST</span><h1>経費申請</h1><p>業務で使用した費用を申請し、管理者の確認状況を確認できます。</p></div>
+<button class="btn" onclick="loadExpenseRequests(true)">↻ 更新</button>
+</div>
+<div class="employee-expense-layout">
+<section class="dashboard-panel expense-submit-panel">
+<div class="dashboard-title"><div><h2>新しい経費申請</h2><p>内容が分かるように詳しく入力してください。</p></div></div>
+<div class="grid2">
+<div class="field"><label>カテゴリー</label><input id="expenseCategory" maxlength="60" placeholder="例：燃料費・仕入れ・備品・イベント費"/></div>
+<div class="field"><label>申請金額</label><input id="expenseAmount" min="1" placeholder="例：500000" step="1000" type="number"/></div>
+</div>
+<div class="field"><label>申請内容</label><textarea id="expenseDescription" maxlength="500" placeholder="何に使用した経費か、管理者が判断できるように入力してください。"></textarea></div>
+<div class="field"><label>証拠・レシートURL（任意）</label><input id="expenseReceiptUrl" placeholder="Discord画像URL、Google Driveなど" type="url"/></div>
+<button class="btn primary full" onclick="submitExpenseRequest()">経費を申請する</button>
+</section>
+<section class="dashboard-panel">
+<div class="dashboard-title"><div><h2>自分の申請履歴</h2><p>申請中・承認済み・却下を確認できます。</p></div><select id="employeeExpenseStatus" onchange="renderEmployeeExpenses()"><option value="">すべて</option><option value="pending">申請中</option><option value="approved">承認済み</option><option value="rejected">却下</option></select></div>
+<div class="expense-card-list" id="employeeExpenseList"></div>
+</section>
+</div>
+</section>
+<section class="employee-page" id="employee-page-approvals">
+<div class="page-hero compact inventory-hero">
+<div>
+<span class="eyebrow">DELEGATED APPROVAL CONTROL</span>
+<h1>承認管理</h1>
+<p>管理者から付与された範囲のみ、申請の確認・承認・却下ができます。</p>
+</div>
+<button class="btn" onclick="loadDelegatedApprovals(true)">最新情報</button>
+</div>
+<div class="employee-site-tabs delegated-approval-tabs">
+<button data-delegated-tab="expense" id="delegatedExpenseTab" onclick="setDelegatedApprovalTab('expense')">経費申請 <span id="delegatedExpenseBadge">0</span></button>
+<button data-delegated-tab="inventory" id="delegatedInventoryTab" onclick="setDelegatedApprovalTab('inventory')">在庫申請 <span id="delegatedInventoryBadge">0</span></button>
+<button data-delegated-tab="farm" id="delegatedFarmTab" onclick="setDelegatedApprovalTab('farm')">Farm申請 <span id="delegatedFarmBadge">0</span></button>
+</div>
+<div class="delegated-approval-view" id="delegatedExpenseView">
+<div class="dashboard-panel">
+<div class="dashboard-title"><div><h2>経費申請</h2><p>承認するとジョブ口座へ経費として反映されます。</p></div></div>
+<div class="approval-request-list" id="delegatedExpenseList"></div>
+</div>
+</div>
+<div class="delegated-approval-view" id="delegatedInventoryView">
+<div class="dashboard-panel">
+<div class="dashboard-title"><div><h2>在庫確認申請</h2><p>承認すると申請された現在数が在庫へ反映されます。</p></div></div>
+<div class="approval-request-list" id="delegatedInventoryList"></div>
+</div>
+</div>
+<div class="delegated-approval-view" id="delegatedFarmView">
+<div class="dashboard-panel">
+<div class="dashboard-title"><div><h2>Farm申請</h2><p>承認すると採取数・査定・仕入れ金額・ランキングへ反映されます。</p></div></div>
+<div class="approval-request-list" id="delegatedFarmList"></div>
+</div>
+</div>
+</section>
+<section class="employee-page" id="employee-page-profile">
+<div class="page-hero compact"><div><span class="eyebrow">MY PROFILE</span><h1>プロフィール編集</h1><p>アイコン・表示名・自己紹介などを自分らしく設定できます。</p></div></div>
+<div class="profile-shell">
+<article class="profile-card-premium">
+<div class="profile-avatar-wrap"><div class="profile-avatar-large" id="profileCardAvatar">従</div><i class="profile-online-dot"></i></div>
+<h2 id="profileCardName">スタッフ</h2>
+<div class="profile-role-line" id="profileCardRole">Cast ・ LD-000</div>
+<div class="profile-status-chip" id="profileCardStatus">● オンライン</div>
+<p class="profile-bio-preview" id="profileCardBio">自己紹介はまだ設定されていません。</p>
+<div class="profile-meta-list">
+<div class="profile-meta-item"><span>Discord</span><strong id="profileCardDiscord">未設定</strong></div>
+<div class="profile-meta-item"><span>ひとこと</span><strong id="profileCardMessage">今日もよろしくお願いします！</strong></div>
+</div>
+</article>
+<section class="panel profile-editor-premium">
+<div class="section-title">プロフィール情報</div>
+<div class="avatar-upload-row">
+<div class="avatar-upload-preview" id="profileAvatarPreview">従</div>
+<div><div class="avatar-upload-actions"><label class="btn primary" for="profileAvatarFile">画像を選択</label><input accept="image/*" hidden="" id="profileAvatarFile" onchange="handleProfileAvatar(event)" type="file"/><button class="btn" onclick="removeProfileAvatar()" type="button">画像を外す</button></div><small>正方形の画像がおすすめです。自動で軽量化します。</small></div>
+</div>
+<div class="field"><label>表示名</label><input id="profileDisplayName" maxlength="40" placeholder="サイト内で表示する名前"/></div>
+<div class="grid2"><div class="field"><label>Discord名</label><input id="profileDiscordName" maxlength="60" placeholder="例：raruto"/></div><div class="field"><label>ひとこと</label><input id="profileStatusMessage" maxlength="80" placeholder="例：本日もよろしくお願いします！"/></div></div>
+<div class="field"><label>自己紹介</label><textarea id="profileBio" maxlength="300" oninput="updateProfileCharCount();previewProfileForm()" placeholder="好きなことや担当などを書けます" rows="6"></textarea><div class="profile-char-count" id="profileBioCount">0 / 300</div></div>
+<div class="info">役職と従業員番号は管理者のみ変更できます。プロフィールを保存すると、ヘッダーにもすぐ反映されます。</div>
+<div class="toolbar"><button class="btn primary" id="saveProfileButton" onclick="saveMyProfile()">プロフィールを保存</button><button class="btn" onclick="loadMyProfileForm()">元に戻す</button><span class="profile-save-status" id="profileSaveStatus"></span></div>
+</section>
+</div>
+</section>
+</main>
+</div>
+</div>
+</div>
+<div class="modal-back hidden" id="salesModal">
+<div class="modal sales-entry-modal">
+<div class="attendance-detail-head">
+<div>
+<span>SALES ENTRY</span>
+<h2 id="salesModalTitle">売上を入力</h2>
+<p>スタッフと金額を選択して登録してください。</p>
+</div>
+<button class="btn" onclick="closeSalesModal()">閉じる</button>
+</div>
+<div class="sales-entry-form">
+<input id="salesEditId" type="hidden"/>
+<div class="field">
+<label>スタッフ</label>
+<select id="salesEmployee"></select>
+</div>
+<div class="field">
+<label>売上日</label>
+<input id="salesDate" type="date"/>
+</div>
+<div class="field">
+<label>売上金額</label>
+<input id="salesAmountInput" min="0" placeholder="例：500000" step="1" type="number"/>
+</div>
+<div class="field">
+<label>メモ</label>
+<textarea id="salesNote" placeholder="販売内容や補足など" rows="3"></textarea>
+</div>
+<button class="btn primary full" onclick="saveSalesEntry()">売上を保存</button>
+</div>
+</div>
+</div>
+<div class="modal-back hidden" id="adminAttendanceModal">
+<div class="modal admin-attendance-modal">
+<h2>管理者 出退勤操作</h2>
+<div class="field">
+<label>従業員</label>
+<select id="adminAttendanceEmployee"></select>
+</div>
+<div class="grid2">
+<div class="field">
+<label>操作</label>
+<select id="adminAttendanceAction" onchange="updateAdminAttendanceModalState()">
+<option value="clock_in">出勤させる</option>
+<option value="clock_out">退勤させる</option>
+</select>
+</div>
+<div class="field">
+<label>操作時刻</label>
+<input id="adminAttendanceTime" type="datetime-local"/>
+</div>
+</div>
+<div class="field">
+<label>理由・メモ</label>
+<textarea id="adminAttendanceReason" placeholder="例：本人の端末不具合のため管理者が代理操作"></textarea>
+</div>
+<div class="info" id="adminAttendanceModalInfo"></div>
+<div class="modal-actions">
+<button class="btn" onclick="closeAdminAttendanceModal()">キャンセル</button>
+<button class="btn primary" id="adminAttendanceExecuteBtn" onclick="executeAdminAttendanceModal()">実行</button>
+</div>
+</div>
+</div>
+<div class="modal-back hidden" id="attendanceDetailModal">
+<div class="modal attendance-detail-modal">
+<div class="attendance-detail-head">
+<div><span>EMPLOYEE ATTENDANCE</span><h2 id="attendanceDetailTitle">勤務日一覧</h2><p id="attendanceDetailMeta"></p></div>
+<button class="btn" onclick="closeAttendanceDetail()">閉じる</button>
+</div>
+<div class="attendance-detail-summary">
+<div><span>出勤日数</span><strong id="attendanceDetailDays">0日</strong></div>
+<div><span>勤務回数</span><strong id="attendanceDetailShifts">0回</strong></div>
+<div><span>合計勤務時間</span><strong id="attendanceDetailHours">0時間</strong></div>
+</div>
+<div class="attendance-detail-filter">
+<label>対象月</label>
+<input id="attendanceDetailMonth" onchange="renderAttendanceDetail()" type="month"/>
+<button class="btn danger" onclick="deleteEmployeeMonthAttendance()">この月の勤務を一括削除</button>
+</div>
+<div class="attendance-detail-list" id="attendanceDetailList"></div>
+</div>
+</div>
+<div class="modal-back hidden" id="employeeModal">
+<div class="modal employee-permission-modal">
+<h2 id="employeeModalTitle">従業員を登録</h2>
+<input id="editEmployeeIndex" type="hidden"/>
+<div class="field"><label>名前</label><input id="modalName"/></div>
+<div class="grid2">
+<div class="field"><label>役職</label><select id="modalRole"><option>Owner</option><option>Store Manager</option><option>Supervisor</option><option>Cast</option><option>Trainee</option><option>関係者</option></select></div>
+<div class="field"><label>従業員番号</label><input id="modalId"/></div>
+</div>
+<div class="field"><label>従業員ログイン用パスワード</label><input id="modalPassword" placeholder="本人に伝えるパスワード" type="password"/></div>
+<div class="info">パスワードを空欄のまま編集保存すると、現在のパスワードを維持します。</div>
+<section class="permission-editor">
+<div class="permission-editor-head">
+<div><span>DELEGATED ACCESS</span><h3>承認・管理権限</h3></div>
+<p>必要な権限だけを従業員へ渡せます。いつでもON／OFFできます。</p>
+</div>
+<label class="permission-switch">
+<div><strong>経費申請の承認・却下</strong><span>全従業員の経費申請を確認し、承認または却下できます。</span></div>
+<input id="permissionExpenseApproval" type="checkbox"/><i></i>
+</label>
+<label class="permission-switch">
+<div><strong>在庫管理・在庫申請の承認</strong><span>在庫申請の確認、承認、却下と在庫数の反映ができます。</span></div>
+<input id="permissionInventoryApproval" type="checkbox"/><i></i>
+</label>
+<label class="permission-switch">
+<div><strong>Farm管理・Farm申請の承認</strong><span>Farm申請の確認、承認、却下と実績への反映ができます。</span></div>
+<input id="permissionFarmApproval" type="checkbox"/><i></i>
+</label>
+</section>
+<div class="modal-actions">
+<button class="btn" onclick="closeEmployeeModal()">キャンセル</button>
+<button class="btn primary" onclick="saveEmployee()">保存</button>
+</div>
+</div>
+</div>
+<div class="modal-back hidden" id="adminProfileEditModal">
+<div class="modal admin-profile-edit-modal">
+<div class="admin-profile-edit-head">
+<div>
+<span>ADMIN PROFILE CONTROL</span>
+<h2>従業員プロフィールを編集</h2>
+<p>管理者権限で、選択した従業員の公開プロフィールを変更できます。</p>
+</div>
+<button class="btn" onclick="closeAdminProfileEditor()">閉じる</button>
+</div>
+<input id="adminEditProfileId" type="hidden"/>
+<div class="admin-profile-edit-layout">
+<div class="admin-profile-avatar-editor">
+<div class="admin-edit-avatar-preview" id="adminEditAvatarPreview">従</div>
+<input accept="image/*" hidden="" id="adminEditAvatarInput" onchange="handleAdminProfileAvatar(event)" type="file"/>
+<button class="btn" onclick="$('adminEditAvatarInput').click()">画像を選択</button>
+<button class="btn danger" onclick="removeAdminProfileAvatar()">画像を削除</button>
+</div>
+<div class="admin-profile-edit-fields">
+<div class="field"><label for="adminEditDisplayName">表示名</label><input id="adminEditDisplayName" maxlength="60"/></div>
+<div class="grid2">
+<div class="field"><label for="adminEditDiscordName">Discord名</label><input id="adminEditDiscordName" maxlength="100" placeholder="未設定"/></div>
+<div class="field"><label for="adminEditStatusMessage">ひとこと</label><input id="adminEditStatusMessage" maxlength="100" placeholder="今日もよろしくお願いします！"/></div>
+</div>
+<div class="field"><label for="adminEditBio">自己紹介</label><textarea id="adminEditBio" maxlength="300" oninput="updateAdminProfileCharCount()" rows="5"></textarea><div class="profile-char-count" id="adminEditBioCount">0 / 300</div></div>
+</div>
+</div>
+<div class="modal-actions">
+<span class="profile-save-status" id="adminProfileEditStatus"></span>
+<button class="btn" onclick="closeAdminProfileEditor()">キャンセル</button>
+<button class="btn primary" id="adminProfileSaveButton" onclick="saveAdminEditedProfile()">変更を保存</button>
+</div>
+</div>
+</div>
+<div class="modal-back hidden" id="slipModal"><div class="modal" style="width:min(850px,100%);max-height:92vh;overflow:auto"><div class="modal-actions" style="margin:0 0 12px"><button class="btn" onclick="closeSlipModal()">閉じる</button><button class="btn primary" onclick="downloadViewedSlip()">PNG保存</button></div><div id="viewedSlipContainer"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<div id="v5BuildMarker" style="display:none">Lait Divin Staff Portal Ver.26.0.1 Error Fix Build</div>
+
+<!-- Ver.14.0: SQL不要・実績Realtime Broadcast + 管理履歴安定化 -->
+
+<script src="js/app.js?v=26.0.1"></script></body></html>
