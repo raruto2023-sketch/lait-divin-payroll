@@ -1104,8 +1104,22 @@ function exportEmployeesCsv(){
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`LaitDivin_Employees_${iso(new Date())}.csv`;a.click();URL.revokeObjectURL(a.href);
 }
 
-function setThisMonth(){const d=new Date();$('periodStart').value=iso(new Date(d.getFullYear(),d.getMonth(),1));$('periodEnd').value=iso(new Date(d.getFullYear(),d.getMonth()+1,0));update()}
-function setLastMonth(){const d=new Date();$('periodStart').value=iso(new Date(d.getFullYear(),d.getMonth()-1,1));$('periodEnd').value=iso(new Date(d.getFullYear(),d.getMonth(),0));update()}
+function setThisMonth(){
+  const start=$('periodStart'),end=$('periodEnd');
+  if(!start||!end)return;
+  const d=new Date();
+  start.value=iso(new Date(d.getFullYear(),d.getMonth(),1));
+  end.value=iso(new Date(d.getFullYear(),d.getMonth()+1,0));
+  update();
+}
+function setLastMonth(){
+  const start=$('periodStart'),end=$('periodEnd');
+  if(!start||!end)return;
+  const d=new Date();
+  start.value=iso(new Date(d.getFullYear(),d.getMonth()-1,1));
+  end.value=iso(new Date(d.getFullYear(),d.getMonth(),0));
+  update();
+}
 function addMoneyRow(c,n='',a=0){const r=document.createElement('div');r.className='money-row';r.innerHTML=`<input class="item-name" placeholder="項目名" value="${esc(n)}"><input class="item-amount" type="number" min="0" value="${Number(a)||0}" placeholder="金額"><button class="remove">×</button>`;r.querySelectorAll('input').forEach(x=>x.addEventListener('input',update));r.querySelector('button').onclick=()=>{r.remove();update()};$(c).appendChild(r);update()}
 function quickAdd(c,n){addMoneyRow(c,n,0)}
 function rows(id){return [...$(id).querySelectorAll('.money-row')].map(r=>({name:r.querySelector('.item-name').value.trim()||'未設定',amount:Number(r.querySelector('.item-amount').value)||0}))}
@@ -1131,7 +1145,54 @@ function otherEarningsAmount(earnings=allEarnings()){
 }
 function renderRows(t,d){$(t).innerHTML='';const v=d.filter(x=>x.name!=='未設定'||x.amount);if(!v.length){$(t).innerHTML='<tr><td colspan="2" style="text-align:center;color:#aaa;font-size:11px">項目はありません</td></tr>';return}v.forEach(x=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${esc(x.name)}</td><td>${yen.format(x.amount)}</td>`;$(t).appendChild(tr)})}
 function slipNo(){if(!currentSlipNo) currentSlipNo=newSlipNo();return currentSlipNo}
-function update(){if(!$('vEmployee'))return;$('vEmployee').textContent=$('employee').value.trim()||'未入力';$('vRole').textContent=$('role').value;$('vEmployeeId').textContent=$('employeeId').value.trim()||'-';$('vIssue').textContent=jp($('issueDate').value);$('vPeriod').textContent=$('periodStart').value&&$('periodEnd').value?`${jp($('periodStart').value)} ～ ${jp($('periodEnd').value)}`:'-';$('vSlipNo').textContent=slipNo();const e=allEarnings(),d=rows('deductions'),g=e.reduce((s,x)=>s+x.amount,0),dd=d.reduce((s,x)=>s+x.amount,0);$('salesCommissionPreview').textContent=yen.format(commission());$('vGross').textContent=yen.format(g);$('vDeduction').textContent=yen.format(dd);$('vNet').textContent=yen.format(g-dd);$('miniGross').textContent=yen.format(g);$('miniNet').textContent=yen.format(g-dd);renderRows('vEarnings',e);renderRows('vDeductions',d);$('vNote').textContent=$('note').value.trim()||'備考なし';applySettings();saveDraft()}
+function update(){
+  if(!$('vEmployee'))return;
+
+  const employeeInput=$('employee');
+  const roleInput=$('role');
+  const employeeIdInput=$('employeeId');
+  const issueDateInput=$('issueDate');
+  const periodStartInput=$('periodStart');
+  const periodEndInput=$('periodEnd');
+  const noteInput=$('note');
+
+  if($('vEmployee'))$('vEmployee').textContent=employeeInput?.value.trim()||'未入力';
+  if($('vRole'))$('vRole').textContent=roleInput?.value||'-';
+  if($('vEmployeeId'))$('vEmployeeId').textContent=employeeIdInput?.value.trim()||'-';
+  if($('vIssue'))$('vIssue').textContent=jp(issueDateInput?.value||'');
+  if($('vPeriod')){
+    $('vPeriod').textContent=periodStartInput?.value&&periodEndInput?.value
+      ?`${jp(periodStartInput.value)} ～ ${jp(periodEndInput.value)}`
+      :'-';
+  }
+  if($('vSlipNo'))$('vSlipNo').textContent=slipNo();
+
+  const earnings=allEarnings();
+  const deductions=rows('deductions');
+  const gross=earnings.reduce((sum,item)=>sum+item.amount,0);
+  const deductionTotal=deductions.reduce((sum,item)=>sum+item.amount,0);
+  const commissionAmount=commission();
+  const bonusAmount=bonusAmountFromEarnings(earnings);
+  const otherAmount=Math.max(0,gross-commissionAmount-bonusAmount);
+  const net=gross-deductionTotal;
+
+  if($('salesCommissionPreview'))$('salesCommissionPreview').textContent=yen.format(commissionAmount);
+  if($('vCommission'))$('vCommission').textContent=yen.format(commissionAmount);
+  if($('vBonus'))$('vBonus').textContent=yen.format(bonusAmount);
+  if($('vOtherEarnings'))$('vOtherEarnings').textContent=yen.format(otherAmount);
+  if($('vGross'))$('vGross').textContent=yen.format(gross);
+  if($('vDeduction'))$('vDeduction').textContent=yen.format(deductionTotal);
+  if($('vNet'))$('vNet').textContent=yen.format(net);
+  if($('miniGross'))$('miniGross').textContent=yen.format(gross);
+  if($('miniNet'))$('miniNet').textContent=yen.format(net);
+
+  if($('vEarnings'))renderRows('vEarnings',earnings);
+  if($('vDeductions'))renderRows('vDeductions',deductions);
+  if($('vNote'))$('vNote').textContent=noteInput?.value.trim()||'備考なし';
+
+  applySettings();
+  saveDraft();
+}
 function applySettings(){if(!$('sheetShop'))return;$('sheetShop').textContent=settings.shop;$('sheetCity').textContent=settings.city;$('sheetLogo').innerHTML='<img src="assets/lait-divin-logo.png" alt="Lait Divin logo">';$('sheetFooter').textContent=settings.footer;$('sheetStamp').innerHTML=esc(settings.shop).replace(/\s+/g,'<br>')}
 function formData(){
   const e=allEarnings();
@@ -5152,7 +5213,7 @@ setFarmTab=function(tab){
       if (typeof restoreSession === 'function') {
         await restoreSession();
       }
-      console.info('Lait Divin Staff Portal Ver.26.0.2 initialized');
+      console.info('Lait Divin Staff Portal Ver.26.0.3 initialized');
     } catch (error) {
       console.error('Portal initialization failed:', error);
       const statusNodes = document.querySelectorAll('[data-realtime-status]');
